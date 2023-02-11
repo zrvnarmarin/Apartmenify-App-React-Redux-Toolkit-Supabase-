@@ -1,21 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const FilterSortSection = () => {
+const FilterSortSection = ({ filter, filterQuery, sort, sortOrder, onFilterChange, onFilterQueryChange, onSortChange, onSortOrderChange }) => {
+  
+  const filterOptions = [
+    { label: 'All', value: 'All'},
+    { label: 'City', value: 'City'},
+    { label: 'Address', value: 'Address'},
+    { label: 'Title', value: 'Title'},
+  ]
+
+  const sortOptions = [
+    { label: 'Id', value: 'id'},
+    { label: 'Price', value: 'price'},
+    { label: 'Rooms', value: 'rooms'}
+  ]
+
   return (
     <div style={{ padding: '5px', border: '1px solid red'}}>
       <label htmlFor="filter">Filter by: </label>
-      <select id='filter'>
-        <option>All</option>
-        <option>City</option>
-        <option>Address</option>
-        <option>Title</option>
+      <select value={filter} onChange={onFilterChange} id='filter'>
+        {filterOptions.map(option =>
+          <option key={option.label}>{option.label}</option>  
+        )}
       </select>
-      <input type="text" placeholder='Enter filter value...' /> 
-      
+      <input 
+        value={filterQuery} 
+        onChange={onFilterQueryChange}
+        type="text" 
+        placeholder='Enter filter value...' 
+      /> 
+        
       <br />
 
       <label htmlFor="sort">Sort by: </label>
-      <input type="text" id='filter' />
+      <select value={sort} onChange={onSortChange} id='filter'>
+        {sortOptions.map(option =>
+          <option key={option.label}>{option.label}</option>  
+        )}
+      </select>
       <label htmlFor="sortAscending">Ascending</label>
       <input type="radio" name="sort" />
       <label htmlFor="sortDescending">Descending</label>
