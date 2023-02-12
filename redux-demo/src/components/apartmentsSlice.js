@@ -23,6 +23,15 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async (n
     }
 })
 
+export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async (id) => {
+    try {
+        const response = await axios.delete(`https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments/${id}.json`)  
+        
+    } catch (error) {
+        return error.message
+    }
+})
+
 const initialState = {
     apartments: [],
     status: 'idle',
