@@ -26,6 +26,16 @@ const Apartments = () => {
         dispatch(fetchApartments())
     }
   }, [apartmentsStatus, dispatch])
+
+  let content;
+  if (apartmentsStatus === 'loading') {
+    content = <p>Loading...</p>
+  } else if (apartmentsStatus === 'successed') {
+    content = JSON.stringify(apartments)
+  } else if (apartmentsStatus === 'failed') {
+    content = <p>{apartmentsError}</p>
+  }
+
   
 
 
@@ -58,6 +68,7 @@ console.log(apartments)
             onSortOrderChange={sortOrderChangeHandler}
         />
         <ApartmentTable />
+        {content}
     </div>
   )
 }

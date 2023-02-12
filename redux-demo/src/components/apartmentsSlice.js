@@ -2,12 +2,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { sub } from 'date-fns';
 
-const APARTMENTS_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
+const APARTMENTS_FETCH_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
+const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
 
 export const fetchApartments = createAsyncThunk('apartments/fetchApartments', async () => {
     try {
-        const response = await axios.get(APARTMENTS_URL)
+        const response = await axios.get(APARTMENTS_FETCH_URL)
         return  response.data
+    } catch (error) {
+        return error.message
+    }
+})
+
+export const addApartment = createAsyncThunk('apartments/addApartment', async (newApartment) => {
+    try {
+        const response = await axios.post(APARTMENTS_POST_URL, newApartment)
+        return response.data
     } catch (error) {
         return error.message
     }
@@ -60,6 +70,9 @@ const apartmentsSlice = createSlice({
             state.status = 'failed'
             state.error = action.error.message
         })
+        .addCase(addApartment.fulfilled, (state, action) => {
+            // hendlaj ovo sutra
+        } )
     }
 })
 
