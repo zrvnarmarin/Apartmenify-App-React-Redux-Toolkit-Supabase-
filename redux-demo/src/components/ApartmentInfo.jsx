@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 const ApartmentInfo = () => {
-  const [isOpenMoreDetailsSection, setISOpenMoreDetailsSection] = useState(false)
-  const toggleMoreDetailsSection = () => setISOpenMoreDetailsSection(prev => !prev)
+  const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
+  const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
   
   
   return (

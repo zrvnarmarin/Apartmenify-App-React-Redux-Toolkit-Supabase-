@@ -8,6 +8,7 @@ import Apartments from './components/Apartments'
 import Facilities from './components/Facilities';
 import LoginPage from './components/LoginPage';
 import RegisteredUsers from './components/RegisteredUsers';
+import AddNewApartment from './components/AddNewApartment'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path='apartments' element={<Apartments />} />
           <Route path='facilities' element={<Facilities />} />
           <Route path='registeredUsers' element={<RegisteredUsers />} />
+          <Route path='addNewApartment' element={<AddNewApartment />} />
         </Route>
 
       </Routes>
