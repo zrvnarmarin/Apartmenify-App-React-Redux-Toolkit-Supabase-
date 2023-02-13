@@ -28,7 +28,7 @@ const Apartments = () => {
   }, [apartmentsStatus, dispatch])
 
   let allApartments
-  
+
   if (apartmentsStatus === 'loading') {
     allApartments = <p>Loading...</p>
   } else if (apartmentsStatus === 'successed') {
@@ -48,7 +48,7 @@ const Apartments = () => {
 //     { id: 3, address: 'Tičarnica 12a', city: 'Zadar', description: 'Zadar je jako lijep grad', distanceFromtheSea: 5.5, doubleBeds: 1, singleBeds: 2, price: 19.99, rooms: 3, title: 'Cloudy apartment', facilities: ['Wi-Fi', 'Refrigerator', 'Pool'] },
 //   ]
 
-console.log(apartments)
+// console.log(apartments)
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>

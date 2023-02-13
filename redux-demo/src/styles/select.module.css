@@ -1,0 +1,140 @@
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    padding: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 6px;
+    outline: none;
+    background-color: #19193f;
+    color: #949cab;
+  }
+  
+  .container:focus {
+    border-color: hsl(200, 100%, 50%);
+  }
+  
+  ::-webkit-scrollbar-button {
+    scrollbar-color: red;
+  }
+  
+  .value {
+    flex-grow: 1;
+    display: flex;
+    gap: .5em;
+    flex-wrap: wrap;
+    padding-left: 4px;
+  }
+  
+  .clear-btn {
+    background: none;
+    color: #777;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.25em;
+  }
+  
+  .clear-btn:focus,
+  .clear-btn:hover {
+    color: #333;
+  }
+  
+  .divider-container {
+      background-color: red;
+  }
+  
+  .divider {
+    background-color: #777;
+    align-self: stretch;
+    width: .05em;
+    display: flex;
+    height: 25px;
+  }
+  
+  .caret {
+    translate: 0 25%;
+    border: .25em solid transparent;
+    border-top-color: #777;
+  }
+  
+  .options {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: none;
+    max-height: 15em;
+    overflow-y: auto;
+    border-radius: .25em;
+    width: 100%;
+    left: 0;
+    top: calc(100% + .25em);
+    background-color: #19193f;
+    z-index: 100;
+  }
+  
+  .options::-webkit-scrollbar {
+    width: 6px;
+    scrollbar-width: thin;
+  }
+  
+  .options::-webkit-scrollbar-thumb {
+    background: #080c24;
+    width: 100px;
+    scrollbar-width: thin;
+    border-radius: 6px;
+  }
+  
+  .options.show {
+    display: block;
+  }
+  
+  .option {
+    padding: .25em .5em;
+    cursor: pointer;
+    color: white;
+  }
+  
+  /* .option.selected {
+    background-color: hsl(200, 100%, 70%);
+  } */
+  
+  .option.highlighted {
+    background-color: #68106d;
+    color: white
+  }
+  
+  .option-badge {
+    display: flex;
+    align-items: center;
+    border-radius: .25em;
+    padding: .15em .25em;
+    gap: .25em;
+    cursor: pointer;
+    background: none;
+    outline: none;
+    background-color: #68106d;
+    color: white;
+  }
+  
+  .option-badge:hover,
+  .option-badge:focus {
+    background-color: hsl(0, 100%, 90%);
+    border-color: hsl(0, 100%, 50%);
+  }
+  
+  .option-badge:hover > .remove-btn,
+  .option-badge:focus > .remove-btn{
+    color: hsl(0, 100%, 50%);
+  }
+  
+  .option-badge > .remove-btn {
+    font-size: 1.25em;
+    color: #777;
+  }

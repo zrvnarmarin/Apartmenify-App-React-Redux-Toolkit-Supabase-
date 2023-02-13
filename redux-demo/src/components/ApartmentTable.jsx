@@ -1,28 +1,17 @@
 import React from 'react'
 import ApartmentInfo from './ApartmentInfo.jsx'
-import Facilities from './Facilities';
+import ApartmentTableHeader from './ApartmentTableHeader.jsx'
 
 const ApartmentTable = ({ apartments }) => {
-  
-
-  const tableHeaderData = [
-    { id: '1', value: '#'}, { id: '2', value: 'Title'}, { id: '3', value: 'Status'}, { id: '4', value: 'City'}, { id: '5', value: 'Rooms'}, { id: '6', value: 'Price'}, { id: 7, value: ''}
-  ]
 
   return (
     <>
-      <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
-        {tableHeaderData.map(headerData =>
-          <div key={headerData.id}>{headerData.value}</div>
-        )}
-      
-        
-      </div>
+      <ApartmentTableHeader />
 
-      {apartments.map((apartment, index) =>
+      {apartments.map((apartment, tableIndex) =>
         <ApartmentInfo
           key={apartment.id}
-          tableIndex={index} 
+          tableIndex={tableIndex} 
           title={apartment.title}
           status={apartment.status}
           city={apartment.city}
@@ -35,6 +24,7 @@ const ApartmentTable = ({ apartments }) => {
           distanceFromTheSea={apartment.distanceFromTheSea}
           facilities={apartment.facilities}
         />
+        
       )}
     </>
   )

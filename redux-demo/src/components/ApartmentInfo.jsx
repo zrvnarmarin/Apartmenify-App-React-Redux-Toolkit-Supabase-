@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 
-const ApartmentInfo = ({ index, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
+const ApartmentInfo = ({ tableIndex, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
+  
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
-  
+
   return (
     <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
-      <span>{index}</span>
+      <span>{tableIndex}</span>
       <div>{title}</div>
       <div>{status}</div>
       <div>{city}</div>
       <div>{rooms}</div>
       <div>{price} e</div>
       <div>
-        <button onClick={toggleMoreDetailsSection} className="p-2 bg-blue-50 border-[1px] border-black">Toggle</button>
+        <button 
+          onClick={toggleMoreDetailsSection} 
+          className="p-2 bg-blue-50 border-[1px] border-black"
+        >
+          More Info
+        </button>
       </div>
 
       { isOpenMoreDetailsSection && 
