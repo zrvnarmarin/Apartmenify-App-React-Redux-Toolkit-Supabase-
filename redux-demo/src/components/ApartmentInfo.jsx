@@ -1,53 +1,54 @@
 import React, { useState } from 'react'
 
-const ApartmentInfo = () => {
+const ApartmentInfo = ({ index, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
   
-  
   return (
-    <>
-      <div>1</div>
-      <div>Sunny Apartment</div>
-      <div>Free</div>
-      <div>Zagreb</div>
-      <div>3</div>
-      <div>23.99 e</div>
+    <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
+      <span>{index}</span>
+      <div>{title}</div>
+      <div>{status}</div>
+      <div>{city}</div>
+      <div>{rooms}</div>
+      <div>{price} e</div>
       <div>
-        <button onClick={toggleMoreDetailsSection}>Toggle</button>
+        <button onClick={toggleMoreDetailsSection} className="p-2 bg-blue-50 border-[1px] border-black">Toggle</button>
       </div>
-      { isOpenMoreDetailsSection && <div className='col-span-full'>
-        <div className='flex items-center justify-between'>
-          <p>Description:</p>
-          <p>Neka deskripcija tamo</p>
-        </div>
-        <div className='flex items-center justify-between'>
-          <p>Address:</p>
-          <p>Neka adresa tamo</p>
-        </div>
-        <div className='flex items-center justify-between'>
-          <p>Double beds:</p>
-          <p>3</p>
-        </div>
-        <div className='flex items-center justify-between'>
-          <p>Single beds:</p>
-          <p>4</p>
-        </div>
-        <div className='flex items-center justify-between'>
-          <p>Distance from the sea:</p>
-          <p>2.5 km</p>
-        </div>
-        <div className='flex items-center justify-between'>
-          <p>Facilities:</p>
-          <div className='flex items-center justify-between gap-2'>
-            <p>Wi-fi</p>
-            <p>Refrigerator</p>
-            <p>Pool</p>
-            <p>Free Parking</p>
+
+      { isOpenMoreDetailsSection && 
+        <div className='col-span-full'>
+          <div className='flex items-center justify-between'>
+            <p>Description:</p>
+            <p>{description}</p>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p>Address:</p>
+            <p>{address}</p>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p>Double beds:</p>
+            <p>{doubleBeds}</p>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p>Single beds:</p>
+            <p>{singleBeds}</p>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p>Distance from the sea:</p>
+            <p>{distanceFromTheSea} km</p>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p>Facilities:</p>
+            {facilities.map(facility => 
+              <div key={facility.label} className='flex items-center justify-between gap-2'>
+                <p>{facility.label}</p>
+              </div>  
+            )}
           </div>
         </div>
-      </div>}
-    </>
+      }
+    </div>
   )
 }
 

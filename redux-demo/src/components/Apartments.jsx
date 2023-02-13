@@ -23,18 +23,21 @@ const Apartments = () => {
 
   useEffect(() => {
     if (apartmentsStatus === 'idle') {
-        dispatch(fetchApartments())
+      dispatch(fetchApartments())
     }
   }, [apartmentsStatus, dispatch])
 
-  let content;
+  let allApartments
+  
   if (apartmentsStatus === 'loading') {
-    content = <p>Loading...</p>
+    allApartments = <p>Loading...</p>
   } else if (apartmentsStatus === 'successed') {
-    content = JSON.stringify(apartments)
+    // allApartments = JSON.stringify(apartments)
+    allApartments = <ApartmentTable apartments={apartments} />
   } else if (apartmentsStatus === 'failed') {
-    content = <p>{apartmentsError}</p>
+    allApartments = <p>{apartmentsError}</p>
   }
+
 
   
 
@@ -49,26 +52,25 @@ console.log(apartments)
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
-        <div className='flex flex-row flex-wrap justify-between'>
-            <h1>Apartments</h1>
-            <button>
-                <Link to="/main/addNewApartment">
-                    +Add New Apartment
-                </Link>
-            </button>
-        </div>
-        <FilterSortSection
-            filter={filter}
-            filterQuery={filterQuery}
-            sort={sort}
-            sortOrder={sortOrder}
-            onFilterChange={filterChangeHandler}
-            onFilterQueryChange={filterQueryChangeHandler}
-            onSortChange={sortChangeHandler}
-            onSortOrderChange={sortOrderChangeHandler}
-        />
-        <ApartmentTable />
-        {content}
+      <div className='flex flex-row flex-wrap justify-between'>
+        <h1>Apartments</h1>
+        <button>
+          <Link to="/main/addNewApartment">
+            +Add New Apartment
+          </Link>
+        </button>
+      </div>
+      <FilterSortSection
+        filter={filter}
+        filterQuery={filterQuery}
+        sort={sort}
+        sortOrder={sortOrder}
+        onFilterChange={filterChangeHandler}
+        onFilterQueryChange={filterQueryChangeHandler}
+        onSortChange={sortChangeHandler}
+        onSortOrderChange={sortOrderChangeHandler}
+      />
+      {allApartments}
     </div>
   )
 }

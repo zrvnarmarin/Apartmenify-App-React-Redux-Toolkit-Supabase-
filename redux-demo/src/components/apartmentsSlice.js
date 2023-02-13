@@ -26,6 +26,7 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async (n
 export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async (id) => {
     try {
         const response = await axios.delete(`https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments/${id}.json`)  
+        return response
         
     } catch (error) {
         return error.message
@@ -42,7 +43,7 @@ const apartmentsSlice = createSlice({
     name: 'apartments',
     initialState,
     reducers: {
-
+        
     },
     extraReducers(builder) {
         builder
@@ -80,7 +81,9 @@ const apartmentsSlice = createSlice({
             state.error = action.error.message
         })
         .addCase(addApartment.fulfilled, (state, action) => {
-            // hendlaj ovo sutra
+            state.apartments.push(action.payload)
+            state.status = 'idle'
+            state.error = null
         } )
     }
 })
@@ -88,6 +91,8 @@ const apartmentsSlice = createSlice({
 export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
+
+export const { addNewApartment } = apartmentsSlice.actions
 
 
 export default apartmentsSlice.reducer
