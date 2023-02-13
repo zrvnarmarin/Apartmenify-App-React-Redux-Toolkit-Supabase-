@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { facilities } from './../data/facilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllApartments, fetchApartments } from './apartmentsSlice';
+import { Link, Outlet } from 'react-router-dom';
+import FacilityGroup from './FacilityGroup';
 
 const Facilities = () => {
   const [newTag, setNewTag] = useState('')
@@ -30,6 +32,27 @@ const Facilities = () => {
     })
   }
 
+
+  const groupFacilities = apartments => {
+    let facilities = [];
+    
+    apartments.map(apartment => {
+      apartment.facilities.forEach(facility => {
+        let existingFacility = facilities.find(f => f.value === facility.value);
+        if (existingFacility) {
+          existingFacility.apartments.push(apartment);
+        } else {
+          facilities.push({ value: facility.value, apartments: [apartment] });
+        }
+      });
+    });
+    
+    return facilities;
+  }
+  console.log(groupFacilities(apartments))
+
+  
+
   useEffect(() => {
     dispatch(fetchApartments())
   }, [])
@@ -37,11 +60,13 @@ const Facilities = () => {
   return (
     <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>
       <h1 className='text-2xl'>Facilities</h1>
-      {arrayOfFacilitiesAndNumberOfEachOccurences.map(facility =>
-        <div key={facility.facility}>
-          <span>{facility.facility}</span>
-          <span> ({facility.occurredTimes})</span>
-        </div>  
+      {arrayOfFacilitiesAndNumberOfEachOccurences.map((facility, i) =>
+          <div key={facility.facility}>
+            <Link to={`/main/facilities/${facility.facility}`}>
+              <span>{facility.facility}</span>
+              <span> ({facility.occurredTimes})</span>
+            </Link>
+          </div>
       )}
       { isAddNewTagButtonPressed &&
         <input value={newTag} onChange={newTagChangeHandler} type="text" placeholder='Add new tag' className="p-2 border-[1px] border-black" />
