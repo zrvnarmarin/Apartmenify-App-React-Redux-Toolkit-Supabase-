@@ -32,12 +32,13 @@ const Apartments = () => {
   if (apartmentsStatus === 'loading') { allApartments = <p>Loading...</p> }
   else if (apartmentsStatus === 'successed') { allApartments = <ApartmentTable apartments={apartments} /> }
   else if (apartmentsStatus === 'failed') { allApartments = <p>{apartmentsError}</p> }
+  // console.log(apartments)
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
       <div className='flex flex-row flex-wrap justify-between'>
         <h1>Apartments</h1>
-        <button>
+        <button className="p-2 bg-blue-50 border-[1px] border-black">
           <Link to="/main/addNewApartment">
             +Add New Apartment
           </Link>

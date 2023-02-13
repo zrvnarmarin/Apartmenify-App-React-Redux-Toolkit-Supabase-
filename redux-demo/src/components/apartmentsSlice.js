@@ -2,12 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { sub } from 'date-fns';
 
-const APARTMENTS_FETCH_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
+const APARTMENTS_GET_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
 const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
 
 export const fetchApartments = createAsyncThunk('apartments/fetchApartments', async () => {
     try {
-        const response = await axios.get(APARTMENTS_FETCH_URL)
+        const response = await axios.get(APARTMENTS_GET_URL)
         return response.data
     } catch (error) {
         return error.message
