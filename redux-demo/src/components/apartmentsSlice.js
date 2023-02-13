@@ -8,7 +8,7 @@ const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebasei
 export const fetchApartments = createAsyncThunk('apartments/fetchApartments', async () => {
     try {
         const response = await axios.get(APARTMENTS_FETCH_URL)
-        return  response.data
+        return response.data
     } catch (error) {
         return error.message
     }
@@ -26,7 +26,7 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async (n
 export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async (id) => {
     try {
         const response = await axios.delete(`https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments/${id}.json`)  
-        return response
+        return id
         
     } catch (error) {
         return error.message
@@ -75,7 +75,7 @@ const apartmentsSlice = createSlice({
             }
 
             state.apartments = loadedApartments;
-          })
+        })
         .addCase(fetchApartments.rejected, (state, action) => {
             state.status = 'failed'
             state.error = action.error.message
@@ -84,15 +84,18 @@ const apartmentsSlice = createSlice({
             state.apartments.push(action.payload)
             state.status = 'idle'
             state.error = null
-        } )
+        })
+        .addCase(deleteApartment.fulfilled, (state, action) => {
+            state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+            
+            console.log(action.payload)
+            console.log(state.apartments.length)
+        })
     }
 })
 
 export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
-
-export const { addNewApartment } = apartmentsSlice.actions
-
 
 export default apartmentsSlice.reducer

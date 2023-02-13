@@ -11,6 +11,7 @@ const ApartmentTable = ({ apartments }) => {
       {apartments.map((apartment, tableIndex) =>
         <ApartmentInfo
           key={apartment.id}
+          id={apartment.id}
           tableIndex={tableIndex} 
           title={apartment.title}
           status={apartment.status}

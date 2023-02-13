@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
+import { deleteApartment } from './apartmentsSlice'
+import { useDispatch } from 'react-redux'
 
-const ApartmentInfo = ({ tableIndex, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
+const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
   
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
 
+  const dispatch = useDispatch()
+  const deleteSelectedApartment = () => dispatch(deleteApartment(id))
+  
   return (
     <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
       <span>{tableIndex}</span>
@@ -51,6 +56,14 @@ const ApartmentInfo = ({ tableIndex, title, status, city, rooms, price, descript
                 <p>{facility.label}</p>
               </div>  
             )}
+          </div>
+          <div className='flex items-center justify-end'>
+            <div className='flex flex-row gap-2'>
+              <button className="p-2 bg-blue-50 border-[1px] border-black">Change Details</button>
+              <button 
+                onClick={deleteSelectedApartment}
+                className="p-2 bg-blue-50 border-[1px] border-black">Delete</button>
+            </div>
           </div>
         </div>
       }

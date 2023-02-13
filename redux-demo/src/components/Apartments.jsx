@@ -29,26 +29,9 @@ const Apartments = () => {
 
   let allApartments
 
-  if (apartmentsStatus === 'loading') {
-    allApartments = <p>Loading...</p>
-  } else if (apartmentsStatus === 'successed') {
-    // allApartments = JSON.stringify(apartments)
-    allApartments = <ApartmentTable apartments={apartments} />
-  } else if (apartmentsStatus === 'failed') {
-    allApartments = <p>{apartmentsError}</p>
-  }
-
-
-  
-
-
-//   const apartments = [
-//     { id: 1, address: 'Ulica Mateja gorana Kovacica 5', city: 'Split', description: 'Ovo je neka random deskripcija', distanceFromtheSea: 2.5, doubleBeds: 3, singleBeds: 4, price: 45.99, rooms: 2, title: 'Sunny apartment', facilities: ['Wi-Fi', 'Refrigerator', 'Pool'] },
-//     { id: 2, address: 'Ulica Mislava Tuđmana 12', city: 'Vodice', description: 'Deskripcija sam ja', distanceFromtheSea: 2.5, doubleBeds: 5, singleBeds: 7, price: 12.00, rooms: 4, title: 'Rainy apartment', facilities: ['Wi-Fi', 'Refrigerator', 'Pool'] },
-//     { id: 3, address: 'Tičarnica 12a', city: 'Zadar', description: 'Zadar je jako lijep grad', distanceFromtheSea: 5.5, doubleBeds: 1, singleBeds: 2, price: 19.99, rooms: 3, title: 'Cloudy apartment', facilities: ['Wi-Fi', 'Refrigerator', 'Pool'] },
-//   ]
-
-// console.log(apartments)
+  if (apartmentsStatus === 'loading') { allApartments = <p>Loading...</p> }
+  else if (apartmentsStatus === 'successed') { allApartments = <ApartmentTable apartments={apartments} /> }
+  else if (apartmentsStatus === 'failed') { allApartments = <p>{apartmentsError}</p> }
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
