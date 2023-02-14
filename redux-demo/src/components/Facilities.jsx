@@ -3,7 +3,6 @@ import { facilities } from './../data/facilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllApartments, fetchApartments } from './apartmentsSlice';
 import { Link, Outlet } from 'react-router-dom';
-import FacilityGroup from './FacilityGroup';
 
 const Facilities = () => {
   const [newTag, setNewTag] = useState('')
@@ -49,7 +48,7 @@ const Facilities = () => {
     
     return facilities;
   }
-  console.log(groupFacilities(apartments))
+  // console.log(groupFacilities(apartments))
 
   
 
@@ -59,8 +58,11 @@ const Facilities = () => {
 
   return (
     <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>
-      <h1 className='text-2xl'>Facilities</h1>
-      {arrayOfFacilitiesAndNumberOfEachOccurences.map((facility, i) =>
+      <h1 className='text-2xl'>
+        <Link to={`/main/facilities`}>Facilities</Link>
+      </h1>
+
+      {arrayOfFacilitiesAndNumberOfEachOccurences.map(facility =>
           <div key={facility.facility}>
             <Link to={`/main/facilities/${facility.facility}`}>
               <span>{facility.facility}</span>
@@ -72,6 +74,7 @@ const Facilities = () => {
         <input value={newTag} onChange={newTagChangeHandler} type="text" placeholder='Add new tag' className="p-2 border-[1px] border-black" />
       }
       <button onClick={isAddNewTagButtonPressedClickHandler} className="p-2 bg-blue-50 border-[1px] border-black">+Add New Tag</button>
+      <Outlet />
     </div>
   )
 }

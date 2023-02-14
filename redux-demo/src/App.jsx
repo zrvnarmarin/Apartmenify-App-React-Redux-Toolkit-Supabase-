@@ -9,7 +9,7 @@ import Facilities from './components/Facilities';
 import LoginPage from './components/LoginPage';
 import RegisteredUsers from './components/RegisteredUsers';
 import AddNewApartment from './components/AddNewApartment'
-import FacilityGroup from './components/FacilityGroup'
+import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
         <Route path='/main' element={<MainPage />}>
           <Route path='apartments' element={<Apartments />} />
           <Route path='facilities' element={<Facilities />} >
-            <Route path=':facility' element={<FacilityGroup />} />
+            <Route path=':facility' element={<FacilityGroupedApartments />} />
           </Route>
           <Route path='registeredUsers' element={<RegisteredUsers />} />
           <Route path='addNewApartment' element={<AddNewApartment />} />
