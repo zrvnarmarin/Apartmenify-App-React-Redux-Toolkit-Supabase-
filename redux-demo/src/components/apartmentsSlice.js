@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { sub } from 'date-fns';
 
@@ -94,8 +94,38 @@ const apartmentsSlice = createSlice({
     }
 })
 
+// Calculated derived values
+export const selectFacilityOccurences = createSelector(
+    (state) => state.apartments.apartments,
+    (apartments) => {
+        // return apartments.length
+         const test = apartments.map(app => {
+            return app.facilities
+        }).reduce((acc, curr) => acc.concat(curr), [])
+        .reduce((acc, curr) => {
+            acc[curr.value] = (acc[curr.value] || 0) + 1;
+            return acc;
+          }, {})
+
+        let arrayOfFacilitiesAndNumberOfEachOccurences = []
+
+        for (let key in test) {
+            arrayOfFacilitiesAndNumberOfEachOccurences.push({
+              facility: key,
+              occurredTimes: test[key]
+            })
+        }
+
+        return arrayOfFacilitiesAndNumberOfEachOccurences
+    }
+  );
+
+// Exports 
 export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
+
+
+  
 
 export default apartmentsSlice.reducer

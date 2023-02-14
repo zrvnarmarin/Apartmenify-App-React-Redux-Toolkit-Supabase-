@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { facilities } from './../data/facilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllApartments, fetchApartments } from './apartmentsSlice';
 import { Link, Outlet } from 'react-router-dom';
+import { selectFacilityOccurences } from './apartmentsSlice';
 
 const Facilities = () => {
-  const [newTag, setNewTag] = useState('')
-  const [isAddNewTagButtonPressed, setIsAddNewTagButtonPressed] = useState(false)
-  
-  const newTagChangeHandler = e => setNewTag(e.target.value)
-  const isAddNewTagButtonPressedClickHandler = e => setIsAddNewTagButtonPressed(true)
+  const [facility, setFacility] = useState('')
+  const facilityInputHandler = e => setFacility(e.target.value)
 
   const apartments = useSelector(selectAllApartments)
+  const facilityOccurences = useSelector(selectFacilityOccurences);
   const dispatch = useDispatch()
 
   const facilityAndNumberOfOccurrencesObject = apartments
@@ -22,6 +20,7 @@ const Facilities = () => {
     return acc;
   }, {});
 
+console.log(facilityOccurences)
   let arrayOfFacilitiesAndNumberOfEachOccurences = []
 
   for (let key in facilityAndNumberOfOccurrencesObject) {
@@ -32,25 +31,11 @@ const Facilities = () => {
   }
 
 
-  const groupFacilities = apartments => {
-    let facilities = [];
-    
-    apartments.map(apartment => {
-      apartment.facilities.forEach(facility => {
-        let existingFacility = facilities.find(f => f.value === facility.value);
-        if (existingFacility) {
-          existingFacility.apartments.push(apartment);
-        } else {
-          facilities.push({ value: facility.value, apartments: [apartment] });
-        }
-      });
-    });
-    
-    return facilities;
-  }
-  // console.log(groupFacilities(apartments))
+  const formSubmitHandler = e => {
+    e.preventDefault()
 
-  
+    // console.log(arrayOfFacilitiesAndNumberOfEachOccurences)
+  }
 
   useEffect(() => {
     dispatch(fetchApartments())
@@ -58,6 +43,7 @@ const Facilities = () => {
 
   return (
     <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>
+      
       <h1 className='text-2xl'>
         <Link to={`/main/facilities`}>Facilities</Link>
       </h1>
@@ -70,10 +56,27 @@ const Facilities = () => {
             </Link>
           </div>
       )}
-      { isAddNewTagButtonPressed &&
-        <input value={newTag} onChange={newTagChangeHandler} type="text" placeholder='Add new tag' className="p-2 border-[1px] border-black" />
-      }
-      <button onClick={isAddNewTagButtonPressedClickHandler} className="p-2 bg-blue-50 border-[1px] border-black">+Add New Tag</button>
+
+      <form onSubmit={formSubmitHandler} className='flex flex-row gap-2 p-2 border-2 border-black'>
+       
+        <input
+          type="text"
+          placeholder="Add new facility.."
+          className='border-[1px] border-black p-1'
+          value={facility}
+          onChange={facilityInputHandler}
+        />
+
+        <button
+          className="p-2 bg-blue-50 border-[1px] border-black"
+        >
+          {/* { isButtonEnabled ? 'Cancel' : '+Add New Facility' } */}
+          +Add New Facility
+        </button>
+
+      </form>
+
+      
       <Outlet />
     </div>
   )
