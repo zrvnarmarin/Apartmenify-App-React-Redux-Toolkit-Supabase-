@@ -94,36 +94,37 @@ const apartmentsSlice = createSlice({
     }
 })
 
+
 // Calculated derived values
 export const selectFacilityOccurences = createSelector(
-    (state) => state.apartments.apartments,
+    (state => state.apartments.apartments),
     (apartments) => {
-        // return apartments.length
-         const test = apartments.map(app => {
-            return app.facilities
-        }).reduce((acc, curr) => acc.concat(curr), [])
+        const facilityGroupsObject = apartments
+        .map(apartment => apartment.facilities)
+        .reduce((acc, curr) => acc.concat(curr), [])
         .reduce((acc, curr) => {
             acc[curr.value] = (acc[curr.value] || 0) + 1;
             return acc;
-          }, {})
+        }, {})
 
-        let arrayOfFacilitiesAndNumberOfEachOccurences = []
+        let facilityGroups = []
 
-        for (let key in test) {
-            arrayOfFacilitiesAndNumberOfEachOccurences.push({
-              facility: key,
-              occurredTimes: test[key]
+        for (let key in facilityGroupsObject) {
+            facilityGroups.push({
+                facility: key,
+                occurredTimes: facilityGroupsObject[key]
             })
         }
 
-        return arrayOfFacilitiesAndNumberOfEachOccurences
+        return facilityGroups;
     }
-  );
+);
 
 // Exports 
 export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
+
 
 
   
