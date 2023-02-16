@@ -15,6 +15,8 @@ const FilterSortSection = ({ sortOrder, onSortOrderChange }) => {
   const filterChangeHandler = e => dispatch(setFilter(e.target.value))
   const filterQueryChangeHandler = e => dispatch(setFilterQuery(e.target.value))
 
+  console.log(sort)
+
 
   return (
     <div style={{ padding: '5px', border: '1px solid red'}}>

@@ -45,6 +45,7 @@ const Apartments = () => {
     });
   }, [apartments, filter, filterQuery]);
 
+  
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
       
