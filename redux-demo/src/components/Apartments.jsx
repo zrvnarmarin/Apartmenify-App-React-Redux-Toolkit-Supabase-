@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
-import { selectAllApartments, getApartmentsError, getApartmentsStatus, fetchApartments } from './apartmentsSlice'
+import { getFilter, getFilterQuery, selectAllApartments, getApartmentsError, getApartmentsStatus, fetchApartments } from './apartmentsSlice'
 
 const Apartments = () => {
-  const [filter, setFilter] = useState('')
-  const [filterQuery, setFilterQuery] = useState('')
-  const [sort, setOrder] = useState('')
   const [sortOrder, setSortOrder] = useState('')
 
-  const filterChangeHandler = e => setFilter(e.target.value)
-  const filterQueryChangeHandler = e => setFilterQuery(e.target.value)
-  const sortChangeHandler = e => setOrder(e.target.value)
   const sortOrderChangeHandler = e => setSortOrder(e.target.value)
 
   const dispatch = useDispatch()
@@ -21,21 +15,39 @@ const Apartments = () => {
   const apartmentsStatus = useSelector(getApartmentsStatus)
   const apartmentsError = useSelector(getApartmentsError)
 
+  const filter = useSelector(getFilter)
+  const filterQuery = useSelector(getFilterQuery)
+
   useEffect(() => {
     if (apartmentsStatus === 'idle') {
       dispatch(fetchApartments())
     }
   }, [apartmentsStatus, dispatch])
 
-  let allApartments
 
-  if (apartmentsStatus === 'loading') { allApartments = <p>Loading...</p> }
-  else if (apartmentsStatus === 'successed') { allApartments = <ApartmentTable apartments={apartments} /> }
-  else if (apartmentsStatus === 'failed') { allApartments = <p>{apartmentsError}</p> }
-  // console.log(apartments)
+  const filteredApartments = useMemo(() => {
+    return apartments.filter(apartment => {
+      if (filter === 'All') {
+        return apartments;
+      }
+      else if (filter === 'Title') {
+        return apartment.title.toLowerCase().includes(filterQuery.toLowerCase());
+      }
+      else if (filter === 'Address') {
+        return apartment.address.toLowerCase().includes(filterQuery.toLowerCase());
+      } 
+      else if (filter === 'City') {
+        return apartment.city.toLowerCase().includes(filterQuery.toLowerCase());
+      } 
+      else {
+        return apartments;
+      }
+    });
+  }, [apartments, filter, filterQuery]);
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
+      
       <div className='flex flex-row flex-wrap justify-between'>
         <h1>Apartments</h1>
         <button className="p-2 bg-blue-50 border-[1px] border-black">
@@ -44,17 +56,20 @@ const Apartments = () => {
           </Link>
         </button>
       </div>
+
       <FilterSortSection
-        filter={filter}
-        filterQuery={filterQuery}
-        sort={sort}
         sortOrder={sortOrder}
-        onFilterChange={filterChangeHandler}
-        onFilterQueryChange={filterQueryChangeHandler}
-        onSortChange={sortChangeHandler}
         onSortOrderChange={sortOrderChangeHandler}
       />
-      {allApartments}
+
+      {apartmentsStatus === 'loading' ? (
+        <p>Loading...</p>
+      ) : apartmentsStatus === 'failed' ? (
+        <p>{apartmentsError}</p>
+      ) : (
+        <ApartmentTable apartments={filteredApartments} />
+      )}
+
     </div>
   )
 }

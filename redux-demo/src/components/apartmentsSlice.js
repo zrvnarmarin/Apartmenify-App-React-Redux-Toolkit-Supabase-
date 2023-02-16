@@ -36,14 +36,40 @@ export const deleteApartment = createAsyncThunk('apartments/deleteApartment', as
 const initialState = {
     apartments: [],
     status: 'idle',
-    error: null
+    error: null,
+    sort: '',
+    sortOrder: '',
+    sortOptions: [
+        { label: 'Id', value: 'id'},
+        { label: 'Price', value: 'price'},
+        { label: 'Rooms', value: 'rooms'}
+    ],
+    filter: '',
+    filterQuery: '',
+    filterOptions: [
+        { label: 'All', value: 'all'},
+        { label: 'City', value: 'city'},
+        { label: 'Address', value: 'address'},
+        { label: 'Title', value: 'title'},
+    ]
 }
 
 const apartmentsSlice = createSlice({
     name: 'apartments',
     initialState,
     reducers: {
-        
+        setSort: (state, action) => {
+            state.sort = action.payload
+        },
+        setSortOrder: (state, action) => {
+            state.sortOrder = action.payload
+        },
+        setFilter: (state, action) => {
+            state.filter = action.payload
+        },
+        setFilterQuery: (state, action) => {
+            state.filterQuery = action.payload
+        }
     },
     extraReducers(builder) {
         builder
@@ -125,7 +151,15 @@ export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
 
+export const getSort = (state) => state.apartments.sort
+export const getSortOptions = (state) => state.apartments.sortOptions
+export const getSortOrder = (state) => state.apartments.sortOrder
 
+export const getFilter = (state) => state.apartments.filter
+export const getFilterOptions = (state) => state.apartments.filterOptions
+export const getFilterQuery = (state) => state.apartments.filterQuery
+
+export const { setSort, setSortOrder, setFilter, setFilterQuery } = apartmentsSlice.actions
 
   
 
