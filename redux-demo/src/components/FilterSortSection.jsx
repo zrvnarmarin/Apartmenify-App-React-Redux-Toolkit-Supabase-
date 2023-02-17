@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setSort, getSort, setSortOrder, getSortOrder, getSortOptions, setFilter, getFilter, getFilterOptions, getFilterQuery, setFilterQuery } from './apartmentsSlice'
 
-const FilterSortSection = ({ sortOrder, onSortOrderChange }) => {
+const FilterSortSection = () => {
   const dispatch = useDispatch()
 
-  const sort = useSelector(getSort)
   const sortOptions = useSelector(getSortOptions)
+  const sort = useSelector(getSort)
+  const sortOrder = useSelector(getSortOrder)
   const sortChangeHandler = e => dispatch(setSort(e.target.value))
+  const sortOrderChangeHandler = e => dispatch(setSortOrder(e.target.value))
 
   const filterOptions = useSelector(getFilterOptions)
   const filter = useSelector(getFilter)
@@ -15,7 +17,7 @@ const FilterSortSection = ({ sortOrder, onSortOrderChange }) => {
   const filterChangeHandler = e => dispatch(setFilter(e.target.value))
   const filterQueryChangeHandler = e => dispatch(setFilterQuery(e.target.value))
 
-  console.log(sort)
+  console.log(sortOrder)
 
 
   return (
@@ -43,9 +45,9 @@ const FilterSortSection = ({ sortOrder, onSortOrderChange }) => {
         )}
       </select>
       <label htmlFor="sortAscending">Ascending</label>
-      <input type="radio" name="sortOrder" />
+      <input type="radio" name="sortOrder" value='ascending' onChange={sortOrderChangeHandler} />
       <label htmlFor="sortDescending">Descending</label>
-      <input type="radio" name="sortOrder" />
+      <input type="radio" name="sortOrder" value='descending' onChange={sortOrderChangeHandler} />
     </div>
   )
 }

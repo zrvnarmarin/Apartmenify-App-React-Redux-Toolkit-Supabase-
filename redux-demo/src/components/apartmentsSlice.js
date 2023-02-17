@@ -38,7 +38,7 @@ const initialState = {
     status: 'idle',
     error: null,
     sort: '',
-    sortOrder: '',
+    sortOrder: 'ascending',
     sortOptions: [
         { label: 'Id', value: 'id'},
         { label: 'Price', value: 'price'},

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
-import { getFilter, getFilterQuery, selectAllApartments, getApartmentsError, getApartmentsStatus, fetchApartments } from './apartmentsSlice'
+import { getFilter, getFilterQuery, selectAllApartments, getApartmentsError, getApartmentsStatus, fetchApartments, getSort, getSortOptions, getSortOrder } from './apartmentsSlice'
 
 const Apartments = () => {
   const [sortOrder, setSortOrder] = useState('')
@@ -17,6 +17,7 @@ const Apartments = () => {
 
   const filter = useSelector(getFilter)
   const filterQuery = useSelector(getFilterQuery)
+  
 
   useEffect(() => {
     if (apartmentsStatus === 'idle') {
@@ -45,7 +46,7 @@ const Apartments = () => {
     });
   }, [apartments, filter, filterQuery]);
 
-  
+
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
       
