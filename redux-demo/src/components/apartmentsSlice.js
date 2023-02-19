@@ -51,7 +51,9 @@ const initialState = {
         { label: 'City', value: 'city'},
         { label: 'Address', value: 'address'},
         { label: 'Title', value: 'title'},
-    ]
+    ],
+    newFacility: '',
+    facilityGroups: []
 }
 
 const apartmentsSlice = createSlice({
@@ -69,7 +71,42 @@ const apartmentsSlice = createSlice({
         },
         setFilterQuery: (state, action) => {
             state.filterQuery = action.payload
-        }
+        },
+        setNewFacility: (state, action) => {
+            state.newFacility = action.payload
+        },
+        setFacilityGroups: (state, action) => {
+            const newFacility = action.payload;
+            
+            // Calculate the facility groups from the existing apartments
+            const facilityGroupsObject = state.apartments
+              .map(apartment => apartment.facilities)
+              .reduce((acc, curr) => acc.concat(curr), [])
+              .reduce((acc, curr) => {
+                acc[curr.value] = (acc[curr.value] || 0) + 1;
+                return acc;
+              }, {});
+            const facilityGroups = Object.keys(facilityGroupsObject).map(key => {
+              return {
+                name: key,
+                count: facilityGroupsObject[key]
+              };
+            });
+          
+            // Add the new facility to the existing facility groups
+            const existingFacility = state.facilityGroups.find(facility => facility.name === newFacility);
+            if (existingFacility) {
+              existingFacility.count++;
+            } else {
+              facilityGroups.push({
+                name: newFacility,
+                count: 1
+              });
+            }
+          
+            state.facilityGroups = facilityGroups;
+          }
+          
     },
     extraReducers(builder) {
         builder
@@ -159,7 +196,11 @@ export const getFilter = (state) => state.apartments.filter
 export const getFilterOptions = (state) => state.apartments.filterOptions
 export const getFilterQuery = (state) => state.apartments.filterQuery
 
-export const { setSort, setSortOrder, setFilter, setFilterQuery } = apartmentsSlice.actions
+export const getNewFacility = (state) => state.apartments.newFacility
+export const getFacilityGroups = (state) => state.apartments.facilityGroups
+
+
+export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setFacilityGroups } = apartmentsSlice.actions
 
   
 
