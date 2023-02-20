@@ -76,6 +76,7 @@ const apartmentsSlice = createSlice({
             state.newFacility = action.payload
         },
         setFacilityGroups: (state, action) => {
+            const previousFacilityGroups = state.facilityGroups
             const newFacility = action.payload;
             
             // Calculate the facility groups from the existing apartments
@@ -86,25 +87,20 @@ const apartmentsSlice = createSlice({
                 acc[curr.value] = (acc[curr.value] || 0) + 1;
                 return acc;
               }, {});
+
             const facilityGroups = Object.keys(facilityGroupsObject).map(key => {
               return {
                 name: key,
                 count: facilityGroupsObject[key]
               };
             });
+
+            state.facilityGroups.push(newFacility)
+            facilityGroups.push(newFacility)
+            state.facilityGroups.concat(facilityGroups).concat(newFacility)
+            console.log(state.facilityGroups.concat(facilityGroups))
           
-            // Add the new facility to the existing facility groups
-            const existingFacility = state.facilityGroups.find(facility => facility.name === newFacility);
-            if (existingFacility) {
-              existingFacility.count++;
-            } else {
-              facilityGroups.push({
-                name: newFacility,
-                count: 1
-              });
-            }
-          
-            state.facilityGroups = facilityGroups;
+            // state.facilityGroups = [...facilityGroups, newFacility]
           }
           
     },

@@ -56,8 +56,6 @@ const Facilities = () => {
 
       </form>
 
-      {JSON.stringify(facilityGroups)}
-
       <Outlet />
     </div>
   )
