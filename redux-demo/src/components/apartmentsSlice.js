@@ -76,7 +76,6 @@ const apartmentsSlice = createSlice({
             state.newFacility = action.payload
         },
         setFacilityGroups: (state, action) => {
-            const previousFacilityGroups = state.facilityGroups
             const newFacility = action.payload;
             
             // Calculate the facility groups from the existing apartments
@@ -95,12 +94,9 @@ const apartmentsSlice = createSlice({
               };
             });
 
-            state.facilityGroups.push(newFacility)
-            facilityGroups.push(newFacility)
-            state.facilityGroups.concat(facilityGroups).concat(newFacility)
-            console.log(state.facilityGroups.concat(facilityGroups))
-          
-            // state.facilityGroups = [...facilityGroups, newFacility]
+            console.log(facilityGroups)
+
+            state.facilityGroups = facilityGroups.concat(state.newFacility)
           }
           
     },
