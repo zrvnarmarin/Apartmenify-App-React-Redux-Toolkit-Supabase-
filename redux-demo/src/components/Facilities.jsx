@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchApartments, selectFacilityOccurences, setNewFacility, getFacilityGroups, setFacilityGroups } from './apartmentsSlice';
+import { v4 } from 'uuid';
+import { fetchApartments, setNewFacility, getFacilityGroups, setFacilityGroups, deleteFacilityGroup } from './apartmentsSlice';
 
 const Facilities = () => {
   const [facility, setFacility] = useState('')
-  const facilityOccurences = useSelector(selectFacilityOccurences);
+  const [newFacilities, setNewFacilities] = useState([])
   const facilityGroups = useSelector(getFacilityGroups)
 
   const dispatch = useDispatch()
@@ -15,7 +16,14 @@ const Facilities = () => {
     e.preventDefault()
 
     dispatch(setNewFacility(facility))
-    dispatch(setFacilityGroups({ name: facility, count: 0 }))
+    setNewFacilities(prev => [...prev, { id: v4(), name: facility, count: 0}])
+    setFacility('')
+    dispatch(setFacilityGroups(newFacilities))
+  }
+
+  const deleteNewFacility = (id) => {
+    setNewFacilities(newFacilities.filter(newFacility => newFacility.id !== id))
+
   }
 
   useEffect(() => {
@@ -28,11 +36,21 @@ const Facilities = () => {
         <Link to={`/main/facilities`}>Facilities</Link>
       </h1>
 
-      {facilityOccurences.map(facility =>
-        <div key={facility.facility}>
-          <Link to={`/main/facilities/${facility.facility}`}>
-            <span>{facility.facility}</span>
-            <span> ({facility.occurredTimes})</span>
+      {facilityGroups.map((facility, i) =>
+        <div key={facility.id}>
+          <Link to={`/main/facilities/${facility.name}`}>
+            <span>{facility.name}</span>
+            <span> ({facility.count})</span>
+            { 
+              facility.count === 0 
+              ? <button 
+                className='p-2 bg-blue-50 border-[1px] border-black'
+                onClick={() => {
+                deleteNewFacility(facility.id)
+                dispatch(deleteFacilityGroup(facility.id))
+              }}>Delete</button> 
+              : ''
+            }
           </Link>
         </div>
       )}

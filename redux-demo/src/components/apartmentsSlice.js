@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { sub } from 'date-fns';
+import { v4 } from 'uuid';
 
 const APARTMENTS_GET_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
 const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
@@ -76,8 +77,8 @@ const apartmentsSlice = createSlice({
             state.newFacility = action.payload
         },
         setFacilityGroups: (state, action) => {
-            const newFacility = action.payload;
-            
+            const newFacilities = action.payload
+
             // Calculate the facility groups from the existing apartments
             const facilityGroupsObject = state.apartments
               .map(apartment => apartment.facilities)
@@ -87,17 +88,24 @@ const apartmentsSlice = createSlice({
                 return acc;
               }, {});
 
+            // Set up existing facilities object as an array
             const facilityGroups = Object.keys(facilityGroupsObject).map(key => {
               return {
+                id: v4(),
                 name: key,
                 count: facilityGroupsObject[key]
               };
             });
 
-            console.log(facilityGroups)
-
-            state.facilityGroups = facilityGroups.concat(state.newFacility)
-          }
+            // Concatinating new facilities to an existing ones
+            state.facilityGroups = facilityGroups.concat(newFacilities)
+            console.log(state.facilityGroups)
+        },
+        deleteFacilityGroup: (state, action) => {
+            const filteredFacilityGroups = state.facilityGroups.filter(group => group.id !== action.payload)
+            state.facilityGroups = filteredFacilityGroups
+            console.log(state.facilityGroups)
+        }
           
     },
     extraReducers(builder) {
@@ -150,31 +158,6 @@ const apartmentsSlice = createSlice({
 })
 
 
-// Calculated derived values
-export const selectFacilityOccurences = createSelector(
-    (state => state.apartments.apartments),
-    (apartments) => {
-        const facilityGroupsObject = apartments
-        .map(apartment => apartment.facilities)
-        .reduce((acc, curr) => acc.concat(curr), [])
-        .reduce((acc, curr) => {
-            acc[curr.value] = (acc[curr.value] || 0) + 1;
-            return acc;
-        }, {})
-
-        let facilityGroups = []
-
-        for (let key in facilityGroupsObject) {
-            facilityGroups.push({
-                facility: key,
-                occurredTimes: facilityGroupsObject[key]
-            })
-        }
-
-        return facilityGroups;
-    }
-);
-
 // Exports 
 export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
@@ -192,7 +175,7 @@ export const getNewFacility = (state) => state.apartments.newFacility
 export const getFacilityGroups = (state) => state.apartments.facilityGroups
 
 
-export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setFacilityGroups } = apartmentsSlice.actions
+export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setFacilityGroups, deleteFacilityGroup } = apartmentsSlice.actions
 
   
 
