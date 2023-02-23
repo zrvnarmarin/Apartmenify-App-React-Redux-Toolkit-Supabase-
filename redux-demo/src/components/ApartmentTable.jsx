@@ -12,7 +12,7 @@ const ApartmentTable = ({ apartments }) => {
         <ApartmentInfo
           key={apartment.id}
           id={apartment.id}
-          tableIndex={tableIndex} 
+          tableIndex={tableIndex + 1} 
           title={apartment.title}
           status={apartment.status}
           city={apartment.city}

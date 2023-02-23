@@ -13,7 +13,7 @@ const LoginPage = () => {
         Log In Page
       </div>
       <Link to='/signup' className='underline text-blu-300'>Dont have an account yet? Sign up!</Link> <br /><br />
-      <Link to='/main' className='underline text-blu-300'>enter app</Link>
+      <Link to='/main/apartments' className='underline text-blu-300'>enter app</Link>
 
     </div>
   )

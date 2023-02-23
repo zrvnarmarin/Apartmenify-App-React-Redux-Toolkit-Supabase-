@@ -1,31 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
-import { getFilter, getFilterQuery, selectAllApartments, getApartmentsError, getApartmentsStatus, fetchApartments, getSort, getSortOptions, getSortOrder } from './apartmentsSlice'
+import { getFilter, getFilterQuery, getApartmentsError, getApartmentsStatus, getSort, getSortOptions, getSortOrder } from './apartmentsSlice'
 
 const Apartments = () => {
   const [sortOrder, setSortOrder] = useState('')
-
   const sortOrderChangeHandler = e => setSortOrder(e.target.value)
 
-  const dispatch = useDispatch()
-  const apartments = useSelector(selectAllApartments)
+  const { apartments } = useOutletContext()
+
   const apartmentsStatus = useSelector(getApartmentsStatus)
   const apartmentsError = useSelector(getApartmentsError)
 
   const filter = useSelector(getFilter)
   const filterQuery = useSelector(getFilterQuery)
   
-
-  useEffect(() => {
-    if (apartmentsStatus === 'idle') {
-      dispatch(fetchApartments())
-    }
-  }, [apartmentsStatus, dispatch])
-
-
   const filteredApartments = useMemo(() => {
     return apartments.filter(apartment => {
       if (filter === 'All') {
@@ -45,7 +36,6 @@ const Apartments = () => {
       }
     });
   }, [apartments, filter, filterQuery]);
-
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
