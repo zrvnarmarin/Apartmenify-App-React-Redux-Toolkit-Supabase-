@@ -14,7 +14,7 @@ const MainPage = () => {
 
   useEffect(() => {
     if (apartmentsStatus === 'idle') {
-      dispatch(fetchApartments()).then(() => dispatch(setExistingFacilityGroups()))
+      dispatch(fetchApartments()).then(() => dispatch(setExistingFacilityGroups('')))
       
     }
   }, [apartmentsStatus, dispatch])

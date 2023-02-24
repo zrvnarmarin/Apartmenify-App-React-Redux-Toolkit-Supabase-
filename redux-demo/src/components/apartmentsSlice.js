@@ -44,16 +44,6 @@ export const addFacilityGroups = createAsyncThunk('apartments/addFacilityGroups'
     }
 })
 
-export const removeFacilityGroups = createAsyncThunk('apartments/removeFacilityGroups', async (id) => {
-    try {
-        const response = await axios.delete(`https://apartments-app-6a66f-default-rtdb.firebaseio.com/facilitygroups/${id}.json`)  
-        return id
-        
-    } catch (error) {
-        return error.message
-    }
-})
-
 const initialState = {
     apartments: [],
     status: 'idle',
@@ -74,8 +64,8 @@ const initialState = {
         { label: 'Title', value: 'title'},
     ],
     newFacility: '',
-    // facilityGroups: [],
-    existingFacilitygroups: []
+    existingFacilityGroups: [],
+    testFacilities: [{ id: 233, name: 'nesto', count: 2}, { id: 788, name: 'hej name', count: 24}]
 }
 
 const apartmentsSlice = createSlice({
@@ -122,7 +112,7 @@ const apartmentsSlice = createSlice({
         //     state.facilityGroups = facilityGroups.concat(newFacilities)
         //     // console.log(state.facilityGroups)
         // },
-        setExistingFacilityGroups: (state) => {
+        setExistingFacilityGroups: (state, action) => {
             const facilityGroupsObject = state.apartments
               .map(apartment => apartment.facilities)
               .reduce((acc, curr) => acc.concat(curr), [])
@@ -140,15 +130,14 @@ const apartmentsSlice = createSlice({
               };
             });
 
-            state.existingFacilitygroups = facilityGroups
-            console.log('ovo su existing facility groups', state.existingFacilitygroups)
+            state.existingFacilityGroups = facilityGroups
         },
-        deleteFacilityGroup: (state, action) => {
-            const filteredFacilityGroups = state.facilityGroups.filter(group => group.id !== action.payload)
-            state.facilityGroups = filteredFacilityGroups
-            console.log(state.facilityGroups)
-            // BUG: vrača proxy kad stisnem delete nekog facility-a
-        },
+        updateExistingFacilitygroups: (state, action) => {
+            const newFacilities = action.payload
+
+            state.existingFacilityGroups = state.existingFacilityGroups.concat(newFacilities)
+            console.log(state.existingFacilityGroups)
+        }
     },
     extraReducers(builder) {
         builder
@@ -200,11 +189,6 @@ const apartmentsSlice = createSlice({
             // console.log(state, 'state')
             // console.log('action', action)
         })
-        .addCase(removeFacilityGroups.fulfilled, (state, action) => {
-            state.facilityGroups = state.facilityGroups.filter(facilityGroup => facilityGroup.id !== action.payload)
-            
-            console.log(action.payload)
-        })
     }
 })
 
@@ -223,11 +207,10 @@ export const getFilterOptions = (state) => state.apartments.filterOptions
 export const getFilterQuery = (state) => state.apartments.filterQuery
 
 export const getNewFacility = (state) => state.apartments.newFacility
-export const getFacilityGroups = (state) => state.apartments.facilityGroups
 
-export const getExistingFacilityGroups = (state) => state.apartments.existingFacilitygroups
+export const getExistingFacilityGroups = (state) => state.apartments.existingFacilityGroups
 
-export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, deleteFacilityGroup, setExistingFacilityGroups } = apartmentsSlice.actions
+export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setExistingFacilityGroups, updateExistingFacilitygroups } = apartmentsSlice.actions
 
   
 

@@ -41,7 +41,7 @@ const Apartments = () => {
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
       
       <div className='flex flex-row flex-wrap justify-between'>
-        <h1>Apartments</h1>
+      <h1 className='text-2xl'>Apartments</h1>
         <button className="p-2 bg-blue-50 border-[1px] border-black">
           <Link to="/main/addNewApartment">
             +Add New Apartment

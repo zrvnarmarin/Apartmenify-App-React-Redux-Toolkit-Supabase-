@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
-import { setNewFacility, getFacilityGroups, /*setFacilityGroups*/ deleteFacilityGroup, addFacilityGroups, removeFacilityGroups, getExistingFacilityGroups } from './apartmentsSlice';
+import { setNewFacility, setExistingFacilityGroups, /*setFacilityGroups*/ addFacilityGroups, updateExistingFacilitygroups } from './apartmentsSlice';
 
 const Facilities = () => {
   const { existingFacilityGroups } = useOutletContext()
@@ -19,7 +19,9 @@ const Facilities = () => {
     setNewFacilities(prev => [...prev, { id: v4(), name: facility, count: 0}])
     setFacility('')
     // dispatch(setFacilityGroups(newFacilities))
+    // dispatch(setExistingFacilityGroups({ id: v4(), name: facility, count: 0}))
     dispatch(addFacilityGroups({ name: facility, count: 0}))
+    dispatch(updateExistingFacilitygroups({ id: v4(), name: facility, count: 0 }))
   }
 
   // const deleteNewFacility = (id) => {
@@ -37,7 +39,6 @@ const Facilities = () => {
   // }, [dispatch, facility])
   
   // console.log(facilityGroups)
-
 
   return (
     <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>
