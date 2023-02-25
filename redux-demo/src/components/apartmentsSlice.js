@@ -212,6 +212,4 @@ export const getExistingFacilityGroups = (state) => state.apartments.existingFac
 
 export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setExistingFacilityGroups, updateExistingFacilitygroups } = apartmentsSlice.actions
 
-  
-
 export default apartmentsSlice.reducer
