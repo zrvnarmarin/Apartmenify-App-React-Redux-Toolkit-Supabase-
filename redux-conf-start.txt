@@ -1,1 +1,7 @@
 https://codesandbox.io/s/sleepy-curran-l8bii4?file=/src/App.js
+
+lozinka supabase za projekt : ncxCQ2YQdyiTfB4Y
+
+Project URL - https://cdxsdwnftgeqyydfqpoa.supabase.co
+Project API Key - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkeHNkd25mdGdlcXl5ZGZxcG9hIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzc0NTY1MjIsImV4cCI6MTk5MzAzMjUyMn0.Up-JO2gFWKymxNBb9MP-pzMfYpXSbjndOa2Md6YLI04
+

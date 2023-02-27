@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
-import { setNewFacility, setExistingFacilityGroups, /*setFacilityGroups*/ addFacilityGroups, updateExistingFacilitygroups } from './apartmentsSlice';
+import { setNewFacility, getExistingFacilityGroups, addFacilityGroups, updateExistingFacilitygroups, selectAllApartments } from './apartmentsSlice';
 
 const Facilities = () => {
-  const { existingFacilityGroups } = useOutletContext()
+  const existingFacilityGroups = useSelector(getExistingFacilityGroups)
   const [facility, setFacility] = useState('')
   const [newFacilities, setNewFacilities] = useState([])
+  const apartments = useSelector(selectAllApartments)
 
   const dispatch = useDispatch()
   const facilityInputHandler = e => setFacility(e.target.value)
@@ -18,27 +19,16 @@ const Facilities = () => {
     dispatch(setNewFacility(facility))
     setNewFacilities(prev => [...prev, { id: v4(), name: facility, count: 0}])
     setFacility('')
-    // dispatch(setFacilityGroups(newFacilities))
-    // dispatch(setExistingFacilityGroups({ id: v4(), name: facility, count: 0}))
+
     dispatch(addFacilityGroups({ name: facility, count: 0}))
     dispatch(updateExistingFacilitygroups({ id: v4(), name: facility, count: 0 }))
   }
 
-  // const deleteNewFacility = (id) => {
-  //   setNewFacilities(newFacilities.filter(newFacility => newFacility.id !== id))
-  //   dispatch(removeFacilityGroups(id))
-  // }
+  useEffect(() => {
+    console.log('apartments changed')
+  }, [apartments])
 
-  // useEffect(() => {
-  //   // dispatch(setFacilityGroups(newFacilities))
-  //   if (facility === '') {return}
-  // }, [])
-
-  // useEffect(() => {
-  //   // dispatch(setFacilityGroups(newFacilities))
-  // }, [dispatch, facility])
-  
-  // console.log(facilityGroups)
+  console.log(apartments)
 
   return (
     <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>
@@ -57,7 +47,6 @@ const Facilities = () => {
               ? <button 
                 className='p-2 bg-blue-50 border-[1px] border-black'
                 onClick={() => {
-                deleteNewFacility(facility.id)
                 dispatch(deleteFacilityGroup(facility.id))
               }}>Delete</button> 
               : ''
@@ -78,7 +67,6 @@ const Facilities = () => {
         <button
           className="p-2 bg-blue-50 border-[1px] border-black"
         >
-          {/* { isButtonEnabled ? 'Cancel' : '+Add New Facility' } */}
           +Add New Facility
         </button>
 

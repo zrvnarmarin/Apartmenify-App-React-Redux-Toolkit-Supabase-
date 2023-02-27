@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { storage } from './firebase'
-import { ref, uploadBytes, listAll, getDownloadURL, deleteObject } from 'firebase/storage'
-import { v4 } from 'uuid'
 import PostsList from './features/posts/PostsList'
 import AddNewPostForm from './features/posts/AddNewPostForm'
 import Counter from './features/counter/Counter'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import MainPage from './components/MainPage'
 import Apartments from './components/Apartments'
 import Facilities from './components/Facilities';
@@ -15,9 +12,77 @@ import AddNewApartment from './components/AddNewApartment'
 import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
 import SignupPage from './components/SignupPage';
 import CartShop from './features/cart/CartShop'
+import supabase from './supabaseClient'
 
+const Form = () => {
+  const navigate = useNavigate()
+
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [rooms, setRooms] = useState(0)
+  const [error, setError] = useState(null)
+
+  const titleChangeHandler = e => setTitle(e.target.value)
+  const descriptionChangeHandler = e => setDescription(e.target.value)
+  const roomsChangeHandler = e => setRooms(e.target.value)
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if (!title && !description && !rooms) {
+      setError('Please fill the fields')
+      return
+    }
+
+    const { data, error } = await supabase
+    .from('apartments')
+    .insert([{ title, description, rooms }])
+    
+    if (error) {
+      console.log(error)
+      setError('Please fill the fields')
+    } 
+    if (data) {
+      console.log(data)
+      setError(null)
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className='border-2 border-black p-2 flex flex-col gap-2'>
+      <input value={title} onChange={titleChangeHandler} type="text" placeholder='title' />
+      <input value={description} onChange={descriptionChangeHandler} type="text" placeholder='description' />
+      <input value={rooms} onChange={roomsChangeHandler} type="text" placeholder='rooms' />
+      <button>Submit</button>
+    </form>
+  )
+}
 
 function App() {
+  const [apartments, setApartments] = useState([])
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } =  await supabase
+      .from('apartments')
+      .select()
+
+      if (error) {
+        setError('Could not fetch the apartments!')
+        setApartments(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setApartments(data)
+        setError(null)
+      }
+    }
+  
+    fetchData()
+  }, [])
+  
 
   return (
     <div>
@@ -40,6 +105,19 @@ function App() {
           <Route path='addNewApartment' element={<AddNewApartment />} />
         </Route>
       </Routes>
+
+      <Form />
+
+      <div className='flex flex-col gap-4 bg-red-100'>
+        {error && <p>{error}</p>}
+        {apartments.map(apartment => 
+          <div key={apartment.id} className='border-2 border-black p-2'>
+            <p>{apartment.title}</p>
+            <p>{apartment.description}</p>
+            <p>{apartment.rooms}</p>
+          </div>  
+        )}
+      </div>
 
     </div>
   )

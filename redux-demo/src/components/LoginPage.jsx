@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import SignupPage from './SignupPage';
 
 const LoginPage = () => {
+ 
   return (
     <div style={{ border: '1px solid black', padding: '5px'}}>
       <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
@@ -14,7 +14,6 @@ const LoginPage = () => {
       </div>
       <Link to='/signup' className='underline text-blu-300'>Dont have an account yet? Sign up!</Link> <br /><br />
       <Link to='/main/apartments' className='underline text-blu-300'>enter app</Link>
-
     </div>
   )
 }

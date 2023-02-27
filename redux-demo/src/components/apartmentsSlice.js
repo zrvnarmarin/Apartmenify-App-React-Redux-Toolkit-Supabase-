@@ -87,31 +87,6 @@ const apartmentsSlice = createSlice({
         setNewFacility: (state, action) => {
             state.newFacility = action.payload
         },
-        // setFacilityGroups: (state, action) => {
-        //     const newFacilities = action.payload
-
-        //     // Calculate the facility groups from the existing apartments
-        //     const facilityGroupsObject = state.apartments
-        //       .map(apartment => apartment.facilities)
-        //       .reduce((acc, curr) => acc.concat(curr), [])
-        //       .reduce((acc, curr) => {
-        //         acc[curr.value] = (acc[curr.value] || 0) + 1;
-        //         return acc;
-        //       }, {});
-
-        //     // Set up existing facilities object as an array
-        //     const facilityGroups = Object.keys(facilityGroupsObject).map(key => {
-        //       return {
-        //         id: v4(),
-        //         name: key,
-        //         count: facilityGroupsObject[key]
-        //       };
-        //     });
-
-        //     // Concatinating new facilities to an existing ones
-        //     state.facilityGroups = facilityGroups.concat(newFacilities)
-        //     // console.log(state.facilityGroups)
-        // },
         setExistingFacilityGroups: (state, action) => {
             const facilityGroupsObject = state.apartments
               .map(apartment => apartment.facilities)
@@ -211,5 +186,7 @@ export const getNewFacility = (state) => state.apartments.newFacility
 export const getExistingFacilityGroups = (state) => state.apartments.existingFacilityGroups
 
 export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setExistingFacilityGroups, updateExistingFacilitygroups } = apartmentsSlice.actions
+
+
 
 export default apartmentsSlice.reducer
