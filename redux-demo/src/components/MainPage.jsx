@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllApartments, getApartmentsStatus, fetchApartments, getExistingFacilityGroups, setExistingFacilityGroups } from './apartmentsSlice';
+import { selectAllApartments, getApartmentsStatus, fetchApartments, getExistingFacilityGroups, setExistingFacilityGroups, getAllApartments } from './apartmentsSlice';
 
 const MainPage = () => {
   const dispatch = useDispatch()
@@ -13,11 +13,14 @@ const MainPage = () => {
   const existingFacilityGroups = useSelector(getExistingFacilityGroups)
 
   useEffect(() => {
-    if (apartmentsStatus === 'idle') {
-      dispatch(fetchApartments()).then(() => dispatch(setExistingFacilityGroups('')))
+    dispatch(getAllApartments())
+    // if (apartmentsStatus === 'idle') {
+    //   dispatch(fetchApartments()).then(() => dispatch(setExistingFacilityGroups('')))
       
-    }
+    // }
   }, [apartmentsStatus, dispatch])
+
+  console.log(apartments)
 
   return (
     <div style={{ padding: '5px', border: '1px solid black'}}>

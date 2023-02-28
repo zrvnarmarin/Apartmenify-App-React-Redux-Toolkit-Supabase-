@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { sub } from 'date-fns';
 import { v4 } from 'uuid';
 import supabase from '../supabaseClient';
 
@@ -81,7 +80,13 @@ export const addTestApartment = createAsyncThunk('apartments/addTestApartment', 
                 title: newApartment.title, 
                 description: newApartment.description, 
                 rooms: newApartment.rooms, 
-                facilities: newApartment.facilities
+                facilities: newApartment.facilities,
+                city: newApartment.city,
+                address: newApartment.address,
+                singleBeds: newApartment.singleBeds,
+                doubleBeds: newApartment.doubleBeds,
+                distanceFromTheSea: newApartment.distanceFromTheSea,
+                price: newApartment.price
                 }
             ])
             .single()
@@ -187,58 +192,61 @@ const apartmentsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-        .addCase(fetchApartments.pending, (state, action) => {
-            state.status = 'loading'
-        })
-        .addCase(fetchApartments.fulfilled, (state, action) => {
-            state.status = 'successed';
+        // .addCase(fetchApartments.pending, (state, action) => {
+        //     state.status = 'loading'
+        // })
+        // .addCase(fetchApartments.fulfilled, (state, action) => {
+        //     state.status = 'successed';
 
-            let min = 1;
-            let loadedApartments = []
+        //     let min = 1;
+        //     let loadedApartments = []
 
-            for (let key in action.payload) {
-                loadedApartments.push({
-                    address: action.payload[key].address,
-                    description: action.payload[key].description,
-                    distanceFromTheSea: action.payload[key].distanceFromTheSea,
-                    doubleBeds: action.payload[key].doubleBeds,
-                    singleBeds: action.payload[key].singleBeds,
-                    id: key,
-                    status: action.payload[key].status,
-                    title: action.payload[key].title,
-                    city: action.payload[key].city,
-                    rooms: action.payload[key].rooms,
-                    price: action.payload[key].price,
-                    facilities: action.payload[key].facilities,
-                    date: sub(new Date(), { minutes: min++ }).toISOString()
-                })
-            }
+        //     for (let key in action.payload) {
+        //         loadedApartments.push({
+        //             address: action.payload[key].address,
+        //             description: action.payload[key].description,
+        //             distanceFromTheSea: action.payload[key].distanceFromTheSea,
+        //             doubleBeds: action.payload[key].doubleBeds,
+        //             singleBeds: action.payload[key].singleBeds,
+        //             id: key,
+        //             status: action.payload[key].status,
+        //             title: action.payload[key].title,
+        //             city: action.payload[key].city,
+        //             rooms: action.payload[key].rooms,
+        //             price: action.payload[key].price,
+        //             facilities: action.payload[key].facilities,
+        //             date: sub(new Date(), { minutes: min++ }).toISOString()
+        //         })
+        //     }
 
-            state.apartments = loadedApartments;
-        })
-        .addCase(fetchApartments.rejected, (state, action) => {
-            state.status = 'failed'
-            state.error = action.error.message
-        })
-        .addCase(addApartment.fulfilled, (state, action) => {
-            state.apartments.push(action.payload)
-            state.status = 'idle'
-            state.error = null
-        })
+        //     state.apartments = loadedApartments;
+        // })
+        // .addCase(fetchApartments.rejected, (state, action) => {
+        //     state.status = 'failed'
+        //     state.error = action.error.message
+        // })
+        // .addCase(addApartment.fulfilled, (state, action) => {
+        //     state.apartments.push(action.payload)
+        //     state.status = 'idle'
+        //     state.error = null
+        // })
         // .addCase(deleteApartment.fulfilled, (state, action) => {
         //     state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
             
         //     console.log(action.payload)
         //     console.log(state.apartments.length)
         // })
-        .addCase(addFacilityGroups.fulfilled, (state, action) => {
-            // console.log(state, 'state')
-            // console.log('action', action)
-        })
+        // .addCase(addFacilityGroups.fulfilled, (state, action) => {
+        //     console.log(state, 'state')
+        //     console.log('action', action)
+        // })
 
-        //supabase: 
+        // SUPABASE: 
         .addCase(getAllApartments.fulfilled, (state, action) => {
-            // console.log(action.payload)
+            // console.log(action.payload, 'ovo su apartmani sa supabase-a')
+            
+            state.apartments = action.payload;
+            state.status = 'successed';
         })
         .addCase(getApartment.fulfilled, (state, action) => {
             // console.log(action.payload)
@@ -269,7 +277,7 @@ export const getFilter = (state) => state.apartments.filter
 export const getFilterOptions = (state) => state.apartments.filterOptions
 export const getFilterQuery = (state) => state.apartments.filterQuery
 
-export const getFacilities = (state) => state.apartments.facilities
+export const selectFacilities = (state) => state.apartments.facilities // povlači sa supabse-a
 
 export const getNewFacility = (state) => state.apartments.newFacility
 

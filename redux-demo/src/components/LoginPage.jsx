@@ -18,8 +18,6 @@ const LoginPage = () => {
   const roomsChangeHandler = e => setRooms(e.target.value)
   const descriptionChangeHandler = e => setDescription(e.target.value)
 
-  console.log(facilities, selectedFacilities)
-
   const dispatch = useDispatch()
 
   const clearForm = () => {

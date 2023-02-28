@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addApartment, getAllFacilities, getFacilities } from './apartmentsSlice'
+import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSlice'
 import Select from '../UI/Select'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -20,7 +20,7 @@ const AddNewApartment = () => {
   const [doubleBeds, setDoubleBeds] = useState('')
   
   const [selectedFacilities, setSelectedFacilities] = useState([{ label: "Wi-Fi", value: 'Wi-Fi' }])
-  const facilities = useSelector(getFacilities)
+  const facilities = useSelector(selectFacilities)
 
   const titleChangeHandler = e => setTitle(e.target.value)
   const cityChangeHandler = e => setCity(e.target.value)

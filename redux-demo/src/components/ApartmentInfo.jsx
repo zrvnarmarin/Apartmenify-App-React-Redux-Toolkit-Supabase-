@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { deleteApartment } from './apartmentsSlice'
+import { deleteApartment, deleteTestApartment } from './apartmentsSlice'
 import { useDispatch } from 'react-redux'
 
 const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
@@ -8,7 +8,7 @@ const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, desc
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
 
   const dispatch = useDispatch()
-  const deleteSelectedApartment = () => dispatch(deleteApartment(id))
+  const deleteSelectedApartment = () => dispatch(deleteTestApartment(id))
   
   return (
     <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
