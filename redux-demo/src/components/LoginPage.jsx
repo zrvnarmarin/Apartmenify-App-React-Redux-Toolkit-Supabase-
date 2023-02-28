@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import supabase from '../supabaseClient'
 import Select from '../UI/Select'
-import { getAllApartments, getApartment, addTestApartment, deleteTestApartment } from './apartmentsSlice'
+import { getAllApartments, getApartment, addTestApartment, deleteTestApartment, getAllFacilities } from './apartmentsSlice'
 import { useDispatch } from 'react-redux'
 
 const LoginPage = () => {
@@ -17,6 +17,8 @@ const LoginPage = () => {
   const titleChangeHandler = e => setTitle(e.target.value)
   const roomsChangeHandler = e => setRooms(e.target.value)
   const descriptionChangeHandler = e => setDescription(e.target.value)
+
+  console.log(facilities, selectedFacilities)
 
   const dispatch = useDispatch()
 
@@ -62,7 +64,7 @@ const LoginPage = () => {
       .single()
 
     dispatch(addTestApartment({ title: 'marin', description: 'marinov apartman', rooms: 2, facilities: facilities.map(facility => facility.value) }))
-
+    dispatch(getAllFacilities())
   
     if (error) {
       console.log(error)

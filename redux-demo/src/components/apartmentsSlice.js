@@ -101,6 +101,20 @@ export const deleteTestApartment = createAsyncThunk('apartments/deleteApartment'
     catch (error) { return error.message }
 })
 
+export const getAllFacilities = createAsyncThunk('apartments/getAllFacilities', async () => {
+    try {
+        const { data, error } = await supabase
+        .from('facilities')
+        .select()
+
+        const allFacilities = data.map(facility => ({ value: facility.name, label: facility.name }))
+    
+        return allFacilities
+    } catch (error) {
+        return error.message
+    }
+})
+
 const initialState = {
     apartments: [],
     status: 'idle',
@@ -122,7 +136,7 @@ const initialState = {
     ],
     newFacility: '',
     existingFacilityGroups: [],
-    testFacilities: [{ id: 233, name: 'nesto', count: 2}, { id: 788, name: 'hej name', count: 24}]
+    facilities: []
 }
 
 const apartmentsSlice = createSlice({
@@ -221,6 +235,7 @@ const apartmentsSlice = createSlice({
             // console.log(state, 'state')
             // console.log('action', action)
         })
+
         //supabase: 
         .addCase(getAllApartments.fulfilled, (state, action) => {
             // console.log(action.payload)
@@ -232,8 +247,10 @@ const apartmentsSlice = createSlice({
             // console.log(action.payload)
         })
         .addCase(deleteTestApartment.fulfilled, (state, action) => {
-            // console.log(action.payload)
             state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+        })
+        .addCase(getAllFacilities.fulfilled, (state, action) => {
+            state.facilities = action.payload
         })
     }
 })
@@ -251,6 +268,8 @@ export const getSortOrder = (state) => state.apartments.sortOrder
 export const getFilter = (state) => state.apartments.filter
 export const getFilterOptions = (state) => state.apartments.filterOptions
 export const getFilterQuery = (state) => state.apartments.filterQuery
+
+export const getFacilities = (state) => state.apartments.facilities
 
 export const getNewFacility = (state) => state.apartments.newFacility
 

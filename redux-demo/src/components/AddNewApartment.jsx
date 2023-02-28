@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addApartment } from './apartmentsSlice'
-import { apartmentFacilities } from '../data/facilities'
+import { useDispatch, useSelector } from 'react-redux'
+import { addApartment, getAllFacilities, getFacilities } from './apartmentsSlice'
 import Select from '../UI/Select'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
-
+  const dispatch = useDispatch()
+  
   const [title, setTitle] = useState('')
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
@@ -17,8 +18,9 @@ const AddNewApartment = () => {
   const [rooms, setRooms] = useState('')
   const [singleBeds, setSingleBeds] = useState('')
   const [doubleBeds, setDoubleBeds] = useState('')
-
-  const [facility, setFacility] = useState([apartmentFacilities[0]])
+  
+  const [selectedFacilities, setSelectedFacilities] = useState([{ label: "Wi-Fi", value: 'Wi-Fi' }])
+  const facilities = useSelector(getFacilities)
 
   const titleChangeHandler = e => setTitle(e.target.value)
   const cityChangeHandler = e => setCity(e.target.value)
@@ -29,8 +31,6 @@ const AddNewApartment = () => {
   const roomsChangeHandler = e => setRooms(e.target.value)
   const singleBedsChangeHandler = e => setSingleBeds(e.target.value)
   const doubleBedsChangeHandler = e => setDoubleBeds(e.target.value)
-
-  const dispatch = useDispatch()
 
   const formSubmitHandler = e => {
     e.preventDefault()
@@ -45,11 +45,15 @@ const AddNewApartment = () => {
       address: address,
       singleBeds: singleBeds,
       doubleBeds: doubleBeds,
-      facilities: facility
+      facilities: selectedFacilities
     }))
 
     navigate('/main/apartments')
   }
+
+  useEffect(() => {
+    dispatch(getAllFacilities())
+  }, [])
 
 
   return (
@@ -68,9 +72,9 @@ const AddNewApartment = () => {
         <Select
           multiple
           name={'Facilities'}
-          options={apartmentFacilities}
-          value={facility}
-          onChange={facility => setFacility(facility)}
+          options={facilities}
+          value={selectedFacilities}
+          onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
           />
         <button className='border-[1px] border-black p-1 bg-blue-50'>Submit</button>
       </form>
