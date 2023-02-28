@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addApartment } from './apartmentsSlice'
-import { facilities } from '../data/facilities'
+import { apartmentFacilities } from '../data/facilities'
 import Select from '../UI/Select'
+import { useNavigate } from 'react-router-dom';
 
 const AddNewApartment = () => {
+  const navigate = useNavigate() 
+
   const [title, setTitle] = useState('')
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
@@ -15,7 +18,7 @@ const AddNewApartment = () => {
   const [singleBeds, setSingleBeds] = useState('')
   const [doubleBeds, setDoubleBeds] = useState('')
 
-  const [facility, setFacility] = useState([facilities[0]])
+  const [facility, setFacility] = useState([apartmentFacilities[0]])
 
   const titleChangeHandler = e => setTitle(e.target.value)
   const cityChangeHandler = e => setCity(e.target.value)
@@ -44,6 +47,8 @@ const AddNewApartment = () => {
       doubleBeds: doubleBeds,
       facilities: facility
     }))
+
+    navigate('/main/apartments')
   }
 
 
@@ -63,7 +68,7 @@ const AddNewApartment = () => {
         <Select
           multiple
           name={'Facilities'}
-          options={facilities}
+          options={apartmentFacilities}
           value={facility}
           onChange={facility => setFacility(facility)}
           />

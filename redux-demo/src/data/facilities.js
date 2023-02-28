@@ -1,4 +1,4 @@
-export const facilities = [
+export const apartmentFacilities = [
     { label: "Wi-Fi", value: 'Wi-Fi' },
     { label: "Free Parking", value: 'Free Parking' },
     { label: "TV", value: 'TV' },

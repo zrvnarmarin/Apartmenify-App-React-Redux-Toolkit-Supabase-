@@ -44,7 +44,7 @@ const Form = () => {
     } 
     if (data) {
       console.log(data)
-      setError(null)
+      
     }
   }
 
@@ -59,31 +59,6 @@ const Form = () => {
 }
 
 function App() {
-  const [apartments, setApartments] = useState([])
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } =  await supabase
-      .from('apartments')
-      .select()
-
-      if (error) {
-        setError('Could not fetch the apartments!')
-        setApartments(null)
-        console.log(error)
-      }
-
-      if (data) {
-        setApartments(data)
-        setError(null)
-      }
-    }
-  
-    fetchData()
-  }, [])
-  
-
   return (
     <div>
       {/* <Counter />
@@ -105,19 +80,6 @@ function App() {
           <Route path='addNewApartment' element={<AddNewApartment />} />
         </Route>
       </Routes>
-
-      <Form />
-
-      <div className='flex flex-col gap-4 bg-red-100'>
-        {error && <p>{error}</p>}
-        {apartments.map(apartment => 
-          <div key={apartment.id} className='border-2 border-black p-2'>
-            <p>{apartment.title}</p>
-            <p>{apartment.description}</p>
-            <p>{apartment.rooms}</p>
-          </div>  
-        )}
-      </div>
 
     </div>
   )

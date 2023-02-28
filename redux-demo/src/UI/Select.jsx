@@ -77,19 +77,18 @@ export function Select({ multiple, value, onChange, options, name }) {
     <span className={styles.value}>
         {multiple
         ? value.map(v => (
-            <button
-            
-                key={v.value}
-                onClick={e => {
-                e.stopPropagation()
-                selectOption(v)
-                }}
-                className={styles["option-badge"]}
-            >
-                {v.label}
-                <span className={styles["remove-btn"]}>&times;</span>
-            </button>
-            ))
+          <button
+            key={v.value}
+            onClick={e => {
+            e.stopPropagation()
+            selectOption(v)
+            }}
+            className={styles["option-badge"]}
+          >
+            {v.label}
+            <span className={styles["remove-btn"]}>&times;</span>
+          </button>
+        ))
         : value?.label}
       </span>
       <button

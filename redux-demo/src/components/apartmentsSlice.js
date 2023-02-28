@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import axios from 'axios';
 import { sub } from 'date-fns';
 import { v4 } from 'uuid';
+import supabase from '../supabaseClient';
 
 const APARTMENTS_GET_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
 const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
@@ -42,6 +43,62 @@ export const addFacilityGroups = createAsyncThunk('apartments/addFacilityGroups'
     } catch (error) {
         return error.message
     }
+})
+
+//Supabase 
+
+export const getAllApartments = createAsyncThunk('apartments/getAllApartments', async () => {
+    try {
+    const { data, error } = await supabase
+    .from('apartments')
+    .select()
+
+    return data
+    } catch (error) {
+        return error.message
+    }
+})
+
+export const getApartment = createAsyncThunk('apartments/getApartment', async id => {
+    try {
+        const { data, error } = await supabase
+        .from('apartments')
+        .select()
+        .eq('id', id)
+
+        return data
+
+    } 
+    catch (error) { return error.message }
+})
+
+export const addTestApartment = createAsyncThunk('apartments/addTestApartment', async newApartment => {
+    try {
+        const { data, error } = await supabase
+            .from('apartments')
+            .insert([
+                { 
+                title: newApartment.title, 
+                description: newApartment.description, 
+                rooms: newApartment.rooms, 
+                facilities: newApartment.facilities
+                }
+            ])
+            .single()
+    } 
+    catch (error) { return error.message }
+})
+
+export const deleteTestApartment = createAsyncThunk('apartments/deleteApartment', async id => {
+    try {
+        const { data, error } = await supabase
+        .from('apartments')
+        .delete()
+        .eq('id', id)
+
+        return id
+    } 
+    catch (error) { return error.message }
 })
 
 const initialState = {
@@ -154,15 +211,29 @@ const apartmentsSlice = createSlice({
             state.status = 'idle'
             state.error = null
         })
-        .addCase(deleteApartment.fulfilled, (state, action) => {
-            state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+        // .addCase(deleteApartment.fulfilled, (state, action) => {
+        //     state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
             
-            console.log(action.payload)
-            console.log(state.apartments.length)
-        })
+        //     console.log(action.payload)
+        //     console.log(state.apartments.length)
+        // })
         .addCase(addFacilityGroups.fulfilled, (state, action) => {
             // console.log(state, 'state')
             // console.log('action', action)
+        })
+        //supabase: 
+        .addCase(getAllApartments.fulfilled, (state, action) => {
+            // console.log(action.payload)
+        })
+        .addCase(getApartment.fulfilled, (state, action) => {
+            // console.log(action.payload)
+        })
+        .addCase(addTestApartment.fulfilled, (state, action) => {
+            // console.log(action.payload)
+        })
+        .addCase(deleteTestApartment.fulfilled, (state, action) => {
+            // console.log(action.payload)
+            state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
         })
     }
 })
@@ -186,7 +257,6 @@ export const getNewFacility = (state) => state.apartments.newFacility
 export const getExistingFacilityGroups = (state) => state.apartments.existingFacilityGroups
 
 export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setExistingFacilityGroups, updateExistingFacilitygroups } = apartmentsSlice.actions
-
 
 
 export default apartmentsSlice.reducer
