@@ -73,23 +73,26 @@ export const getApartment = createAsyncThunk('apartments/getApartment', async id
 
 export const addTestApartment = createAsyncThunk('apartments/addTestApartment', async newApartment => {
     try {
+        console.log(newApartment, 'ovo je payload iz add new apartmana')
         const { data, error } = await supabase
             .from('apartments')
             .insert([
                 { 
-                title: newApartment.title, 
-                description: newApartment.description, 
-                rooms: newApartment.rooms, 
-                facilities: newApartment.facilities,
-                city: newApartment.city,
-                address: newApartment.address,
-                singleBeds: newApartment.singleBeds,
-                doubleBeds: newApartment.doubleBeds,
-                distanceFromTheSea: newApartment.distanceFromTheSea,
-                price: newApartment.price
+                    title: newApartment.title, 
+                    description: newApartment.description, 
+                    rooms: newApartment.rooms, 
+                    facilities: newApartment.facilities,
+                    city: newApartment.city,
+                    address: newApartment.address,
+                    singleBeds: newApartment.singleBeds,
+                    doubleBeds: newApartment.doubleBeds,
+                    distanceFromTheSea: newApartment.distanceFromTheSea,
+                    price: newApartment.price
                 }
             ])
             .single()
+
+            return newApartment
     } 
     catch (error) { return error.message }
 })
@@ -252,7 +255,10 @@ const apartmentsSlice = createSlice({
             // console.log(action.payload)
         })
         .addCase(addTestApartment.fulfilled, (state, action) => {
-            // console.log(action.payload)
+            console.log(action.payload)
+            state.apartments.push(action.payload)
+            state.status = 'idle'
+            state.error = null
         })
         .addCase(deleteTestApartment.fulfilled, (state, action) => {
             state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)

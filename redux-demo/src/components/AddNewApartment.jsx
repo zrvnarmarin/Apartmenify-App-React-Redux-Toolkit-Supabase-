@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSlice'
+import { addApartment, getAllFacilities, selectFacilities, addTestApartment } from './apartmentsSlice'
 import Select from '../UI/Select'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -35,7 +35,9 @@ const AddNewApartment = () => {
   const formSubmitHandler = e => {
     e.preventDefault()
 
-    dispatch(addApartment({
+    console.log(selectedFacilities, 'ovo su selektirani fasilitiji ')
+
+    dispatch(addTestApartment({
       title: title,
       city: city,
       price: price,
@@ -45,7 +47,7 @@ const AddNewApartment = () => {
       address: address,
       singleBeds: singleBeds,
       doubleBeds: doubleBeds,
-      facilities: selectedFacilities
+      facilities: selectedFacilities.map(selectedFacility => selectedFacility.value)
     }))
 
     navigate('/main/apartments')
