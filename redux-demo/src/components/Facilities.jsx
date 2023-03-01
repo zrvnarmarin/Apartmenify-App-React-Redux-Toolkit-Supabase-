@@ -25,10 +25,10 @@ const Facilities = () => {
   }
 
   useEffect(() => {
-    console.log('apartments changed')
+    // console.log('apartments changed')
   }, [apartments])
 
-  console.log(apartments)
+  // console.log(apartments)
 
   return (
     <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>

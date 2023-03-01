@@ -51,9 +51,9 @@ const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, desc
           </div>
           <div className='flex items-center justify-between'>
             <p>Facilities:</p>
-            {facilities.map(facility => 
-              <div key={facility.label} className='flex items-center justify-between gap-2'>
-                <p>{facility.label}</p>
+            {facilities.map((facility, i) => 
+              <div key={i} className='flex items-center justify-between gap-2'>
+                <p>{facility}</p>
               </div>  
             )}
           </div>

@@ -3,14 +3,15 @@ import { Link, useOutletContext } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
-import { getFilter, getFilterQuery, getApartmentsError, getApartmentsStatus, getSort, getSortOptions, getSortOrder } from './apartmentsSlice'
+import { getApartmentsError, getApartmentsStatus, getFilter, getFilterQuery } from './apartmentsSlice'
 
 const Apartments = () => {
-  const [sortOrder, setSortOrder] = useState('')
+  const [sortOrder, setSortOrder] = useState('asc')
+  const [sortOption, setSortOption] = useState('id')
   const sortOrderChangeHandler = e => setSortOrder(e.target.value)
+  const sortOptionChangeHandler = e => setSortOption(e.target.value)
 
   const { apartments } = useOutletContext()
-
   const apartmentsStatus = useSelector(getApartmentsStatus)
   const apartmentsError = useSelector(getApartmentsError)
 
@@ -37,6 +38,21 @@ const Apartments = () => {
     });
   }, [apartments, filter, filterQuery]);
 
+  const sortedApartments = useMemo(() => {
+    const sorted = [...filteredApartments].sort((a, b) => {
+      if (sortOption === 'id') {
+        return sortOrder === 'asc' ? a.id - b.id : b.id - a.id;
+      } else if (sortOption === 'price') {
+        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      } else if (sortOption === 'rooms') {
+        return sortOrder === 'asc' ? a.rooms - b.rooms : b.rooms - a.rooms;
+      } else if (sortOption === 'city') {
+        return sortOrder === 'asc' ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city);
+      }
+    });
+    return sorted;
+  }, [filteredApartments, sortOption, sortOrder]); 
+
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
       
@@ -59,8 +75,10 @@ const Apartments = () => {
       ) : apartmentsStatus === 'failed' ? (
         <p>{apartmentsError}</p>
       ) : (
-        <ApartmentTable apartments={filteredApartments} />
+        <ApartmentTable apartments={sortedApartments} />
       )}
+
+      <button onClick={() => console.log(sortedApartments)}>Display sorted apartment</button>
 
     </div>
   )

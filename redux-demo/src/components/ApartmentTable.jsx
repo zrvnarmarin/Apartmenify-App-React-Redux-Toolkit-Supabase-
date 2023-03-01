@@ -25,7 +25,6 @@ const ApartmentTable = ({ apartments }) => {
           distanceFromTheSea={apartment.distanceFromTheSea}
           facilities={apartment.facilities}
         />
-        
       )}
     </>
   )

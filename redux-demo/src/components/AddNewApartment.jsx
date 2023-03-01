@@ -35,8 +35,6 @@ const AddNewApartment = () => {
   const formSubmitHandler = e => {
     e.preventDefault()
 
-    console.log(selectedFacilities, 'ovo su selektirani fasilitiji ')
-
     dispatch(addApartment({
       title: title,
       city: city,
@@ -56,7 +54,6 @@ const AddNewApartment = () => {
   useEffect(() => {
     dispatch(getAllFacilities())
   }, [])
-
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
