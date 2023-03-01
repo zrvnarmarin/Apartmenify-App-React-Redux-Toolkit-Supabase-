@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useOutletContext } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
 import { getFilter, getFilterQuery, getApartmentsError, getApartmentsStatus, getSort, getSortOptions, getSortOrder } from './apartmentsSlice'

@@ -3,26 +3,26 @@ import axios from 'axios';
 import { v4 } from 'uuid';
 import supabase from '../supabaseClient';
 
-const APARTMENTS_GET_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
-const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
+// const APARTMENTS_GET_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
+// const APARTMENTS_POST_URL = 'https://apartments-app-6a66f-default-rtdb.firebaseio.com/apartments.json'
 
-export const fetchApartments = createAsyncThunk('apartments/fetchApartments', async () => {
-    try {
-        const response = await axios.get(APARTMENTS_GET_URL)
-        return response.data
-    } catch (error) {
-        return error.message
-    }
-})
+// export const fetchApartments = createAsyncThunk('apartments/fetchApartments', async () => {
+//     try {
+//         const response = await axios.get(APARTMENTS_GET_URL)
+//         return response.data
+//     } catch (error) {
+//         return error.message
+//     }
+// })
 
-export const addApartment = createAsyncThunk('apartments/addApartment', async (newApartment) => {
-    try {
-        const response = await axios.post(APARTMENTS_POST_URL, newApartment)
-        return response.data
-    } catch (error) {
-        return error.message
-    }
-})
+// export const addApartment = createAsyncThunk('apartments/addApartment', async (newApartment) => {
+//     try {
+//         const response = await axios.post(APARTMENTS_POST_URL, newApartment)
+//         return response.data
+//     } catch (error) {
+//         return error.message
+//     }
+// })
 
 export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async (id) => {
     try {
@@ -71,7 +71,7 @@ export const getApartment = createAsyncThunk('apartments/getApartment', async id
     catch (error) { return error.message }
 })
 
-export const addTestApartment = createAsyncThunk('apartments/addTestApartment', async newApartment => {
+export const addApartment = createAsyncThunk('apartments/addApartment', async newApartment => {
     try {
         console.log(newApartment, 'ovo je payload iz add new apartmana')
         const { data, error } = await supabase
@@ -246,15 +246,13 @@ const apartmentsSlice = createSlice({
 
         // SUPABASE: 
         .addCase(getAllApartments.fulfilled, (state, action) => {
-            // console.log(action.payload, 'ovo su apartmani sa supabase-a')
-            
             state.apartments = action.payload;
             state.status = 'successed';
         })
         .addCase(getApartment.fulfilled, (state, action) => {
-            // console.log(action.payload)
+            console.log(action.payload)
         })
-        .addCase(addTestApartment.fulfilled, (state, action) => {
+        .addCase(addApartment.fulfilled, (state, action) => {
             console.log(action.payload)
             state.apartments.push(action.payload)
             state.status = 'idle'

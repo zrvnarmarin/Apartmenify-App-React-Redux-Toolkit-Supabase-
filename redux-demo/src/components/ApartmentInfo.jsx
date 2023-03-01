@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { deleteApartment, deleteTestApartment } from './apartmentsSlice'
+import { deleteTestApartment } from './apartmentsSlice'
 import { useDispatch } from 'react-redux'
 
 const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {

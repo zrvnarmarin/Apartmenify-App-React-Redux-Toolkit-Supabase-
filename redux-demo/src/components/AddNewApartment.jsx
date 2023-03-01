@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addApartment, getAllFacilities, selectFacilities, addTestApartment } from './apartmentsSlice'
+import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSlice'
 import Select from '../UI/Select'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -37,7 +37,7 @@ const AddNewApartment = () => {
 
     console.log(selectedFacilities, 'ovo su selektirani fasilitiji ')
 
-    dispatch(addTestApartment({
+    dispatch(addApartment({
       title: title,
       city: city,
       price: price,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import supabase from '../supabaseClient'
 import Select from '../UI/Select'
-import { getAllApartments, getApartment, addTestApartment, deleteTestApartment, getAllFacilities } from './apartmentsSlice'
+import { getAllApartments, getApartment, addApartment, deleteTestApartment, getAllFacilities } from './apartmentsSlice'
 import { useDispatch } from 'react-redux'
 
 const LoginPage = () => {
@@ -46,7 +46,7 @@ const LoginPage = () => {
     }
   }
   
-  const addApartment = async e => {
+  const submitFormHandler = async e => {
     e.preventDefault()
   
     const { data, error } = await supabase
@@ -61,7 +61,7 @@ const LoginPage = () => {
       ])
       .single()
 
-    dispatch(addTestApartment({ title: 'marin', description: 'marinov apartman', rooms: 2, facilities: facilities.map(facility => facility.value) }))
+    dispatch(addApartment({ title: 'marin', description: 'marinov apartman', rooms: 2, facilities: facilities.map(facility => facility.value) }))
     dispatch(getAllFacilities())
   
     if (error) {
@@ -103,7 +103,7 @@ const LoginPage = () => {
       <Link to='/main/apartments' className='underline text-blu-300'>enter app</Link>
 
 
-      <form onSubmit={addApartment} className='border-2 border-black flex flex-col gap-4 bg-indigo-200'>
+      <form onSubmit={submitFormHandler} className='border-2 border-black flex flex-col gap-4 bg-indigo-200'>
         <input value={title} onChange={titleChangeHandler} type="text" placeholder='title' />
         <input value={rooms} onChange={roomsChangeHandler} type="text" placeholder='rooms' />
         <input value={description} onChange={descriptionChangeHandler} type="text" placeholder='description' />

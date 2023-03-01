@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAllApartments, fetchApartments } from './apartmentsSlice';
+import { useSelector } from 'react-redux';
+import { selectAllApartments } from './apartmentsSlice';
 import ApartmentInfo from './ApartmentInfo';
 
 const FacilityGroupedApartments = () => {
