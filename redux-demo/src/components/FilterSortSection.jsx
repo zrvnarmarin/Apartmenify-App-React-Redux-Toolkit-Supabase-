@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setSort, getSort, setSortOrder, getSortOrder, setFilter, getFilter, getFilterOptions, getFilterQuery, setFilterQuery } from './apartmentsSlice'
+import { setFilter, getFilter, getFilterOptions, getFilterQuery, setFilterQuery } from './apartmentsSlice'
 
 const FilterSortSection = () => {
   const dispatch = useDispatch()

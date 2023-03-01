@@ -3,16 +3,6 @@ import axios from 'axios';
 import { v4 } from 'uuid';
 import supabase from '../supabaseClient';
 
-export const addFacilityGroups = createAsyncThunk('apartments/addFacilityGroups', async (facilityGroups) => {
-    try {
-        const response = await axios.post('https://apartments-app-6a66f-default-rtdb.firebaseio.com/facilityGroups.json', facilityGroups)
-        console.log(response.data, 'add facility thunk')
-        return response.data
-    } catch (error) {
-        return error.message
-    }
-})
-
 //Supabase 
 export const getAllApartments = createAsyncThunk('apartments/getAllApartments', async () => {
     try {
@@ -41,7 +31,7 @@ export const getApartment = createAsyncThunk('apartments/getApartment', async id
 
 export const addApartment = createAsyncThunk('apartments/addApartment', async newApartment => {
     try {
-        console.log(newApartment, 'ovo je payload iz add new apartmana')
+        // console.log(newApartment, 'ovo je payload iz add new apartmana')
         const { data, error } = await supabase
             .from('apartments')
             .insert([
@@ -95,8 +85,6 @@ const initialState = {
     apartments: [],
     status: 'idle',
     error: null,
-    sort: '',
-    sortOrder: 'ascending',
     filter: '',
     filterQuery: '',
     filterOptions: [
@@ -106,7 +94,6 @@ const initialState = {
         { label: 'Title', value: 'title'},
     ],
     newFacility: '',
-    existingFacilityGroups: [],
     facilities: []
 }
 
@@ -114,12 +101,6 @@ const apartmentsSlice = createSlice({
     name: 'apartments',
     initialState,
     reducers: {
-        setSort: (state, action) => {
-            state.sort = action.payload
-        },
-        setSortOrder: (state, action) => {
-            state.sortOrder = action.payload
-        },
         setFilter: (state, action) => {
             state.filter = action.payload
         },
@@ -129,32 +110,6 @@ const apartmentsSlice = createSlice({
         setNewFacility: (state, action) => {
             state.newFacility = action.payload
         },
-        setExistingFacilityGroups: (state, action) => {
-            const facilityGroupsObject = state.apartments
-              .map(apartment => apartment.facilities)
-              .reduce((acc, curr) => acc.concat(curr), [])
-              .reduce((acc, curr) => {
-                acc[curr.value] = (acc[curr.value] || 0) + 1;
-                return acc;
-              }, {});
-
-            // Set up existing facilities object as an array
-            const facilityGroups = Object.keys(facilityGroupsObject).map(key => {
-              return {
-                id: v4(),
-                name: key,
-                count: facilityGroupsObject[key]
-              };
-            });
-
-            state.existingFacilityGroups = facilityGroups
-        },
-        updateExistingFacilitygroups: (state, action) => {
-            const newFacilities = action.payload
-
-            state.existingFacilityGroups = state.existingFacilityGroups.concat(newFacilities)
-            console.log(state.existingFacilityGroups)
-        }
     },
     extraReducers(builder) {
         builder
@@ -167,7 +122,7 @@ const apartmentsSlice = createSlice({
             console.log(action.payload)
         })
         .addCase(addApartment.fulfilled, (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.apartments.push(action.payload)
             state.status = 'idle'
             state.error = null
@@ -187,9 +142,6 @@ export const selectAllApartments = (state) => state.apartments.apartments
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
 
-export const getSort = (state) => state.apartments.sort
-export const getSortOrder = (state) => state.apartments.sortOrder
-
 export const getFilter = (state) => state.apartments.filter
 export const getFilterOptions = (state) => state.apartments.filterOptions
 export const getFilterQuery = (state) => state.apartments.filterQuery
@@ -198,9 +150,7 @@ export const selectFacilities = (state) => state.apartments.facilities // povlaÄ
 
 export const getNewFacility = (state) => state.apartments.newFacility
 
-export const getExistingFacilityGroups = (state) => state.apartments.existingFacilityGroups
-
-export const { setSort, setSortOrder, setFilter, setFilterQuery, setNewFacility, setExistingFacilityGroups, updateExistingFacilitygroups } = apartmentsSlice.actions
+export const { setFilter, setFilterQuery, setNewFacility } = apartmentsSlice.actions
 
 
 export default apartmentsSlice.reducer

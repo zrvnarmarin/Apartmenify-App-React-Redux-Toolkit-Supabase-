@@ -25,7 +25,6 @@ const FacilityGroupedApartments = () => {
     return facilities;
   }
 
-  
   const getApartmentsWithSelectedFacility = () => {
     let apartmentsToShow = []
 
