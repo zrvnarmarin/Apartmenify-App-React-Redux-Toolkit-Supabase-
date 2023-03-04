@@ -11,7 +11,6 @@ const Success = () => {
       console.log(supabase.auth.getSession().then(value => console.log(value.data.session.access_token)))
       const getUserData = async () => {
         await supabase.auth.getUser().then((value) => {
-          // value.data.user
           if (value.data?.user) {
             console.log(value.data.user)
             setUser(value.data.user)
