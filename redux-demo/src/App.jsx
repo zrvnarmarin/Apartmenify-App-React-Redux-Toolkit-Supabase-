@@ -13,50 +13,64 @@ import FacilityGroupedApartments from './components/FacilityGroupedApartments.js
 import SignupPage from './components/SignupPage';
 import CartShop from './features/cart/CartShop'
 import supabase from './supabaseClient'
+import Success from './components/auth/Success.jsx'
 
-const Form = () => {
-  const navigate = useNavigate()
+// const Success = () => {
+//   const [user, setUser] = useState({})
+//   const navigate = useNavigate()
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [rooms, setRooms] = useState(0)
-  const [error, setError] = useState(null)
+//   useEffect(() => {
+//     const getUserData = async () => {
+//       await supabase.auth.getUser().then((value) => {
+//         // value.data.user
+//         if (value.data?.user) {
+//           console.log(value.data.user)
+//           setUser(value.data.user)
+//         }
+//       })
+//     }
 
-  const titleChangeHandler = e => setTitle(e.target.value)
-  const descriptionChangeHandler = e => setDescription(e.target.value)
-  const roomsChangeHandler = e => setRooms(e.target.value)
+//     getUserData()
+//   }, [])
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+//   // useEffect(() => {
+//   //   const timeout = setTimeout(() => {
+//   //     navigate('/main/apartments')
+//   //   }, 2500)
 
-    if (!title && !description && !rooms) {
-      setError('Please fill the fields')
-      return
-    }
+//   //   // Clean up the timeout on unmount
+//   //   return () => clearTimeout(timeout)
+//   // }, [navigate])
 
-    const { data, error } = await supabase
-    .from('apartments')
-    .insert([{ title, description, rooms }])
-    
-    if (error) {
-      console.log(error)
-      setError('Please fill the fields')
-    } 
-    if (data) {
-      console.log(data)
+//   const signOutUser = async () => {
+//     const { error } = await supabase.auth.signOut()
+//     navigate('/')
+//   }
+
+//   return (
+//     <div>
+//       {Object.keys(user).length !== 0 
+//         ? 
+//           <>
+//             <p className='text-4xl font-bold'>Success</p>
+//             <button 
+//               onClick={signOutUser} 
+//               className='border-2 border-black p-2 bg-red-100'
+//             >
+//               Sign Out
+//             </button>
+//           </>
+//         : 
+//         <>
+//           <h1>User is not logged in!</h1>
+//           <button onClick={() => navigate('/')}>Go back home!</button>
+//         </>
+//       }
       
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className='border-2 border-black p-2 flex flex-col gap-2'>
-      <input value={title} onChange={titleChangeHandler} type="text" placeholder='title' />
-      <input value={description} onChange={descriptionChangeHandler} type="text" placeholder='description' />
-      <input value={rooms} onChange={roomsChangeHandler} type="text" placeholder='rooms' />
-      <button>Submit</button>
-    </form>
-  )
-}
+//       Redirecting to main page...
+//     </div>
+//   )
+// }
 
 function App() {
   return (
@@ -69,6 +83,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<LoginPage />} />
+        <Route path='/success' element={<Success />} />
         {/* <Route path='/cart' element={<CartShop /> } /> */}
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/main' element={<MainPage />}>

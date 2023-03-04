@@ -52,7 +52,10 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async ne
 
             return newApartment
     } 
-    catch (error) { return error.message }
+    catch (error) { 
+        console.log(error.message)
+        return error.message 
+    }
 })
 
 export const deleteTestApartment = createAsyncThunk('apartments/deleteApartment', async id => {
@@ -81,6 +84,35 @@ export const getAllFacilities = createAsyncThunk('apartments/getAllFacilities', 
     }
 })
 
+export const addFacility = createAsyncThunk('apartments/addFacility', async facility => {
+    try {
+        const { data, error } = await supabase
+            .from('facilities')
+            .insert({name: facility})
+            .single()
+
+            console.log(facility)
+
+    return facility
+
+    } catch (error) {
+        return error.message
+    }
+})
+
+export const deleteFacility = createAsyncThunk('apartments/deleteFacility', async id => {
+    try {
+        const { data, error } = await supabase
+            .from('facilities')
+            .delete()
+            .eq('id', id)
+
+            return id
+    } catch (error) {
+        return error.message
+    }
+})
+
 const initialState = {
     apartments: [],
     status: 'idle',
@@ -93,7 +125,7 @@ const initialState = {
         { label: 'Address', value: 'address'},
         { label: 'Title', value: 'title'},
     ],
-    newFacility: '',
+    facility: '',
     facilities: []
 }
 
@@ -108,7 +140,7 @@ const apartmentsSlice = createSlice({
             state.filterQuery = action.payload
         },
         setNewFacility: (state, action) => {
-            state.newFacility = action.payload
+            state.facility = action.payload
         },
     },
     extraReducers(builder) {
@@ -133,6 +165,10 @@ const apartmentsSlice = createSlice({
         .addCase(getAllFacilities.fulfilled, (state, action) => {
             state.facilities = action.payload
         })
+        .addCase(addFacility.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.facility = action.payload
+        })
     }
 })
 
@@ -148,7 +184,7 @@ export const getFilterQuery = (state) => state.apartments.filterQuery
 
 export const selectFacilities = (state) => state.apartments.facilities // povlači sa supabse-a
 
-export const getNewFacility = (state) => state.apartments.newFacility
+export const getFacility = (state) => state.apartments.facility
 
 export const { setFilter, setFilterQuery, setNewFacility } = apartmentsSlice.actions
 
