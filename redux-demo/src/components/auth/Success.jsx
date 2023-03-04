@@ -26,7 +26,6 @@ const Success = () => {
         navigate('/main/apartments')
       }, 65000)
   
-      // Clean up the timeout on unmount
       return () => clearTimeout(timeout)
     }, [navigate])
   
