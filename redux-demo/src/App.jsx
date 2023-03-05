@@ -10,9 +10,7 @@ import LoginPage from './components/LoginPage';
 import RegisteredUsers from './components/RegisteredUsers';
 import AddNewApartment from './components/AddNewApartment'
 import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
-import SignupPage from './components/SignupPage';
 import CartShop from './features/cart/CartShop'
-import supabase from './supabaseClient'
 import Success from './components/auth/Success.jsx'
 
 // const Success = () => {
@@ -85,7 +83,6 @@ function App() {
         <Route path='/' element={<LoginPage />} />
         <Route path='/success' element={<Success />} />
         {/* <Route path='/cart' element={<CartShop /> } /> */}
-        <Route path='/signup' element={<SignupPage />} />
         <Route path='/main' element={<MainPage />}>
           <Route path='apartments' element={<Apartments />} />
           <Route path='facilities' element={<Facilities />} >

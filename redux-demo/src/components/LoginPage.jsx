@@ -8,20 +8,33 @@ const LoginPage = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
+    
+    
+
+    
     supabase.auth.onAuthStateChange(async (event) => {
-      if (event !== 'SIGNED_OUT') { navigate('/success') } 
+      if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
       else { navigate('/') }
     })
+
+    // return () => {
+    //   data.unsubscribe();
+    // };
   }, [])
 
   return (
-    <div style={{ border: '1px solid black', padding: '5px', background: '#93adfe'}}>
-      <Auth 
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        theme="dark"
-        providers={['discord', 'google']}
-      />
+    <div className='border-2 border-black p-4'>
+      <h1 className='text-6xl font-semibold text-center'>Apartmenify</h1>
+      <div className='mt-32'>
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          theme="dark"
+          providers={['discord', 'google']}
+        />
+      </div>
+      
+      <hr />
     </div>
   )
 }

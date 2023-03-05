@@ -8,7 +8,7 @@ const Success = () => {
     const navigate = useNavigate()
   
     useEffect(() => {
-      console.log(supabase.auth.getSession().then(value => console.log(value.data.session.access_token)))
+    //   console.log(supabase.auth.getSession().then(value => console.log(value.data.session.access_token)))
       const getUserData = async () => {
         await supabase.auth.getUser().then((value) => {
           if (value.data?.user) {
@@ -17,7 +17,7 @@ const Success = () => {
           }
         })
       }
-  
+
       getUserData()
     }, [])
   
@@ -26,6 +26,7 @@ const Success = () => {
         navigate('/main/apartments')
       }, 65000)
   
+      // Clean up the timeout on unmount
       return () => clearTimeout(timeout)
     }, [navigate])
   
