@@ -8,26 +8,17 @@ const LoginPage = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    
-      const getUsers = async () => {
-        let { data, error } = await supabase
-        .rpc('get_users')
-    
-        if (error) console.error(error)
-        else console.log(data)
-      }
-      getUsers()
-
-
-    
     supabase.auth.onAuthStateChange(async (event) => {
       if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
       else { navigate('/') }
     })
 
-    // return () => {
-    //   data.unsubscribe();
-    // };
+    supabase.auth.getUser().then(value => {
+      if (value.data.user.email === '76marin76@gmail.com') {
+        console.log('marin is here')
+      } else { console.log('its not admin')}
+    })
+
   }, [])
 
   return (
