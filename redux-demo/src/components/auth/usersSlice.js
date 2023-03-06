@@ -26,12 +26,12 @@ const usersSlice = createSlice({
     initialState,
     extraReducers(builder) {
         builder
-        .addCase(getAllUsers.fulfilled), (state, action) => {
+        .addCase(getAllUsers.fulfilled, (state, action) => {
             console.log(action.payload)
             state.users = action.payload;
             state.status = 'successed';
         }
-    } 
+    )} 
 })
 
 export const selectAllUsers = (state) => state.users.users

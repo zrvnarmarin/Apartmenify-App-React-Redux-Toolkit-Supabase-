@@ -12,63 +12,7 @@ import AddNewApartment from './components/AddNewApartment'
 import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
 import CartShop from './features/cart/CartShop'
 import Success from './components/auth/Success.jsx'
-
-// const Success = () => {
-//   const [user, setUser] = useState({})
-//   const navigate = useNavigate()
-
-//   useEffect(() => {
-//     const getUserData = async () => {
-//       await supabase.auth.getUser().then((value) => {
-//         // value.data.user
-//         if (value.data?.user) {
-//           console.log(value.data.user)
-//           setUser(value.data.user)
-//         }
-//       })
-//     }
-
-//     getUserData()
-//   }, [])
-
-//   // useEffect(() => {
-//   //   const timeout = setTimeout(() => {
-//   //     navigate('/main/apartments')
-//   //   }, 2500)
-
-//   //   // Clean up the timeout on unmount
-//   //   return () => clearTimeout(timeout)
-//   // }, [navigate])
-
-//   const signOutUser = async () => {
-//     const { error } = await supabase.auth.signOut()
-//     navigate('/')
-//   }
-
-//   return (
-//     <div>
-//       {Object.keys(user).length !== 0 
-//         ? 
-//           <>
-//             <p className='text-4xl font-bold'>Success</p>
-//             <button 
-//               onClick={signOutUser} 
-//               className='border-2 border-black p-2 bg-red-100'
-//             >
-//               Sign Out
-//             </button>
-//           </>
-//         : 
-//         <>
-//           <h1>User is not logged in!</h1>
-//           <button onClick={() => navigate('/')}>Go back home!</button>
-//         </>
-//       }
-      
-//       Redirecting to main page...
-//     </div>
-//   )
-// }
+{/* <Route path='/cart' element={<CartShop /> } /> */} //ovo uvedi u outer da bi prikazao cart shop
 
 function App() {
   return (
@@ -82,7 +26,6 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/success' element={<Success />} />
-        {/* <Route path='/cart' element={<CartShop /> } /> */}
         <Route path='/main' element={<MainPage />}>
           <Route path='apartments' element={<Apartments />} />
           <Route path='facilities' element={<Facilities />} >
