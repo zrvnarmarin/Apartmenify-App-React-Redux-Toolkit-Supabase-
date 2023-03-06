@@ -1,6 +1,4 @@
-import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { v4 } from 'uuid';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import supabase from '../supabaseClient';
 
 //Supabase 

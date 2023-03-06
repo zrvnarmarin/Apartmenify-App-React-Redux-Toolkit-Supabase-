@@ -9,7 +9,15 @@ const LoginPage = () => {
   
   useEffect(() => {
     
+      const getUsers = async () => {
+        let { data, error } = await supabase
+        .rpc('get_users')
     
+        if (error) console.error(error)
+        else console.log(data)
+      }
+      getUsers()
+
 
     
     supabase.auth.onAuthStateChange(async (event) => {
