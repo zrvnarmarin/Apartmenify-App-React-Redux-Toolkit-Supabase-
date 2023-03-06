@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className='border-[1px] border-black p-3 mb-3'>
       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
         <li>
-          <Link to="searchApartments">Search Apartments</Link>
+          <Link to="searchApartments">Apartments</Link>
         </li>
         <li>
           <Link to="contact">Contact</Link>
@@ -16,7 +16,13 @@ const Navbar = () => {
           <LanguageSelect />
         </li>
         <li>
-          Welcome back, Marin
+          <span className='flex items-center justify-center gap-2'>
+            <img
+              src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg"
+              className='w-12 h-12 rounded-full border-2 border-black'
+            />
+            <span>Welcome back, Marin</span>
+          </span>
         </li>
         <li>
           <button className='p-2 border-2 border-black bg-blue-100'>Logout</button>

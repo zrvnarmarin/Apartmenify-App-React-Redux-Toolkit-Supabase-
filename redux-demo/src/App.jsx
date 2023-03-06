@@ -17,8 +17,9 @@ import FacilityGroupedApartments from './components/FacilityGroupedApartments.js
 import Success from './components/auth/Success.jsx'
 // User components
 import UserDashboard from './components/user/UserDashboard'
-import SearchApartments from './components/user/SearchApartments'
+import SearcApartments from './components/user/SearchApartments';
 import Contact from './components/user/Contact';
+import Apartment from './components/user/Apartment';
 
 function App() {
   return (
@@ -43,7 +44,8 @@ function App() {
         </Route>
         {/* User routes - should be public */}
         <Route path='/userDashboard' element={<UserDashboard />} >
-          <Route path='searchApartments' element={<SearchApartments />} />
+          <Route path='searchApartments' element={<SearcApartments />} />
+          <Route path='searchApartments/:apartment' element={<Apartment />} />
           <Route path='contact' element={<Contact />} />
         </Route>
       </Routes>

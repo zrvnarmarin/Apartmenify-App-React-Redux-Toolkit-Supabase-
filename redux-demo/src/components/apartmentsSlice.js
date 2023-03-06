@@ -21,8 +21,9 @@ export const getApartment = createAsyncThunk('apartments/getApartment', async id
         .select()
         .eq('id', id)
 
-        return data
+        console.log(data)
 
+        return data
     } 
     catch (error) { return error.message }
 })
@@ -113,6 +114,7 @@ export const deleteFacility = createAsyncThunk('apartments/deleteFacility', asyn
 
 const initialState = {
     apartments: [],
+    apartment: {},
     status: 'idle',
     error: null,
     filter: '',
@@ -150,6 +152,7 @@ const apartmentsSlice = createSlice({
         })
         .addCase(getApartment.fulfilled, (state, action) => {
             console.log(action.payload)
+            state.apartment = action.payload
         })
         .addCase(addApartment.fulfilled, (state, action) => {
             // console.log(action.payload)
@@ -173,6 +176,7 @@ const apartmentsSlice = createSlice({
 
 // Exports 
 export const selectAllApartments = (state) => state.apartments.apartments
+export const selectApartment = (state) => state.apartments.apartment
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
 
