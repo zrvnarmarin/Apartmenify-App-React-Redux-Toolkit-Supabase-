@@ -1,18 +1,16 @@
 import React from 'react'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getApartment, selectApartment } from '../apartmentsSlice';
+import ApartmentDetails from './ApartmentDetails';
 
 const Apartment = ({ id, title, description, city, rooms, price }) => {
   const dispatch = useDispatch()
 
-  const fetchApartment = id => {
-    dispatch(getApartment(id))
-  }
-
-  const apartment = useSelector(selectApartment)
-  console.log(apartment)
+//   const fetchApartment = id => {
+//     dispatch(getApartment(id))
+//   }
 
   return (
     <li className='flex gap-4 border-2 border-black items-center'>
@@ -33,10 +31,12 @@ const Apartment = ({ id, title, description, city, rooms, price }) => {
             <Link
                 to={`/userDashboard/searchApartments/${id}`}
                 className='p-2 border-2 border-black bg-blue-100'
-                onClick={() => fetchApartment(id)}
+                // onClick={() => fetchApartment(id)}
+                state={{ apartmentId: id }}
             >
                 Reserve
             </Link>
+            <Outlet />
         </div>
     </li>
   )

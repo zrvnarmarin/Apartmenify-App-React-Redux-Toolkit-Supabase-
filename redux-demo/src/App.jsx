@@ -20,6 +20,7 @@ import UserDashboard from './components/user/UserDashboard'
 import SearcApartments from './components/user/SearchApartments';
 import Contact from './components/user/Contact';
 import Apartment from './components/user/Apartment';
+import ApartmentDetails from './components/user/ApartmentDetails';
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
         {/* User routes - should be public */}
         <Route path='/userDashboard' element={<UserDashboard />} >
           <Route path='searchApartments' element={<SearcApartments />} />
-          <Route path='searchApartments/:apartment' element={<Apartment />} />
+          <Route path='searchApartments/:apartment' element={<ApartmentDetails />} />
           <Route path='contact' element={<Contact />} />
         </Route>
       </Routes>
