@@ -45,8 +45,8 @@ function App() {
         </Route>
         {/* User routes - should be public */}
         <Route path='/userDashboard' element={<UserDashboard />} >
-          <Route path='searchApartments' element={<SearcApartments />} />
-          <Route path='searchApartments/:apartment' element={<ApartmentDetails />} />
+          <Route path='apartments' element={<SearcApartments />} />
+          <Route path='apartments/:apartment' element={<ApartmentDetails />} />
           <Route path='contact' element={<Contact />} />
         </Route>
       </Routes>

@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className='border-[1px] border-black p-3 mb-3'>
       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
         <li>
-          <Link to="searchApartments">Apartments</Link>
+          <Link to="apartments">Apartments</Link>
         </li>
         <li>
           <Link to="contact">Contact</Link>
