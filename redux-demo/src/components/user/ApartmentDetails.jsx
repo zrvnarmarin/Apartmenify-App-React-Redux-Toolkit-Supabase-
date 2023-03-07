@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const ApartmentDetails = () => {
-  const { state: { apartmentId } } = useLocation()
   const dispatch = useDispatch()
+
+  const { state: { apartmentId } } = useLocation()
   const apartment = useSelector(selectApartment)
   
   useEffect(() => {
-    console.log('details')
-    console.log(apartmentId)
+    console.log('details info, ovo je id: ', apartmentId)
     dispatch(getApartment(apartmentId))
     console.log(apartment)
   }, [])  
