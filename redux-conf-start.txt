@@ -8,3 +8,5 @@ Project API Key - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 za napraviti cookie language options za user - https://www.youtube.com/watch?v=w04LXKlusCQ&ab_channel=Classsed
 
 video za protected routes - https://www.youtube.com/watch?v=oUZjO00NkhY&t=121s&ab_channel=DaveGray
+
+RTK Query dobar tutorial - https://www.youtube.com/watch?v=YWbZILe35P4&ab_channel=DipeshMalvia --> pogledaj ostale isto

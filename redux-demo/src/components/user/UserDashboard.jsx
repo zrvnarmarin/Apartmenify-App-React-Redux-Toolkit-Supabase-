@@ -7,7 +7,6 @@ const UserDashboard = () => {
     <div style={{ padding: '5px', border: '1px solid black'}}>
         <Navbar />
         <Outlet />
-      User Main Page
     </div>
   )
 }
