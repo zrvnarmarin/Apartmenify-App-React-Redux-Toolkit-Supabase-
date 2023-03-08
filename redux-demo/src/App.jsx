@@ -5,12 +5,13 @@
 {/* <Route path='/cart' element={<CartShop /> } /> */} //ovo uvedi u outer da bi prikazao cart shop
 
 import React, { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+// General imports
+import LoginPage from './components/LoginPage';
 // Admin components
 import MainPage from './components/MainPage'
 import Apartments from './components/Apartments'
 import Facilities from './components/Facilities';
-import LoginPage from './components/LoginPage';
 import RegisteredUsers from './components/RegisteredUsers';
 import AddNewApartment from './components/AddNewApartment'
 import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
@@ -19,7 +20,6 @@ import Success from './components/auth/Success.jsx'
 import UserDashboard from './components/user/UserDashboard'
 import SearcApartments from './components/user/SearchApartments';
 import Contact from './components/user/Contact';
-import Apartment from './components/user/Apartment';
 import ApartmentDetails from './components/user/ApartmentDetails';
 
 function App() {

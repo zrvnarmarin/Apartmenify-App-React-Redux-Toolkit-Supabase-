@@ -8,7 +8,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event) => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
       if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
       else { navigate('/') }
     })

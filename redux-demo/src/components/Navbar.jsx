@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Logout from './Logout'
 
 const Navbar = () => {
   return (
-    <nav style={{ border: '1px solid blue', padding: '5px', marginBottom: '5px'}}>
-      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+    <nav className='border-[1px] border-black p-2 mb-2 ' >
+      <ul className='flex flex-wrap items-center justify-around' >
         <li>
           <Link to="apartments">Apartments</Link>
         </li>
@@ -13,6 +14,9 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="registeredUsers">Registered Users</Link>
+        </li>
+        <li>
+          <Logout />
         </li>
       </ul>
     </nav>
