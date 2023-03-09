@@ -8,7 +8,7 @@ const ReserveApartment = () => {
     const [surname, setSurname] = useState('')
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
-    
+
     const nameChangeHandler = e => setName(e.target.value)
     const surnameChangeHandler = e => setSurname(e.target.value)
 
@@ -21,6 +21,7 @@ const ReserveApartment = () => {
         console.log('start date: ', startDate)
         console.log('end date: ', endDate)
 
+        // TO DO: posalji ovo u supabnase, datume sredi u dobar format, i napuni redux state reservation
     }
 
     return (

@@ -25,7 +25,7 @@ const Navbar = () => {
           </span>
         </li>
         <li>
-          <button className='p-2 border-2 border-black bg-blue-100'>Logout</button>
+          <button className='p-2 border-[1px] border-black bg-blue-100'>Logout</button>
         </li>
       </ul>
     </nav>
