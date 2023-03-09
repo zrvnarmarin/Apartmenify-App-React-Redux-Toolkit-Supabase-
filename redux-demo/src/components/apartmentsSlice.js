@@ -28,7 +28,6 @@ export const getApartment = createAsyncThunk('apartments/getApartment', async id
 
 export const addApartment = createAsyncThunk('apartments/addApartment', async newApartment => {
     try {
-        // console.log(newApartment, 'ovo je payload iz add new apartmana')
         const { data, error } = await supabase
             .from('apartments')
             .insert([

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import LocationPin from '../../assets/locationPin.png'
 import Placeholder from '../../assets/placeholder.webp'
+import { useState } from 'react';
+import ReserveApartment from './ReserveApartment';
 
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
@@ -11,6 +13,10 @@ const ApartmentDetails = () => {
   const { state: { apartmentId } } = useLocation()
   const apartment = useSelector(selectApartment)
   const { title, address, city, facilities } = apartment
+
+  const [isReserveOpen, setIsReserveOpen] = useState(false)
+  const openReserveSection = () => setIsReserveOpen(true)
+  const closeReserveSection = () => setIsReserveOpen(false)
 
   useEffect(() => {
      dispatch(getApartment(apartmentId))
@@ -68,8 +74,10 @@ const ApartmentDetails = () => {
       </div>
 
       <div>
-        <h1 className='font-semibold text-2xl'>Availability</h1>
+        <button onClick={openReserveSection} className='w-font-semibold text-black text-md p-2 border-[1px] border-black bg-blue-100'>Reserve</button>
       </div>
+
+      { isReserveOpen && <ReserveApartment />}
 
     </div>
   )
