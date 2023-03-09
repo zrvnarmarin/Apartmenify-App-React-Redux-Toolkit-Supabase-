@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import apartmentsSlice from "./apartmentsSlice";
 
 export const addReservation = createAsyncThunk('reservations/addReservation', async newReservation => {
     try {
@@ -22,34 +23,17 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
 })
 
 const initialState = {
-    name: '',
-    surname: '',
-    startDate: null,
-    endDate: null,
-    reservation: [],
+    reservations: [],
 }
 
 const reservationsSlice = createSlice({
     name: 'reservations',
     initialState,
-    reducers: {
-        setName (state, action) {
-            state.name = action.payload
-        },
-        setSurname (state, action) {
-            state.surname = action.payload
-        },
-        setStartDate (state, action) {
-            state.startDate = action.payload
-        },
-        setEndDate (state, action) {
-            state.endDate = action.payload
-        }
-    },
     extraReducers(builder) {
         builder
         addCase(addReservation.fulfilled, (state, action) => {
-
+            state.reservations.push(action.payload)
+            console.log(action.payload)
         })
     }
 })
@@ -64,4 +48,4 @@ export const selectReservation = (state) => state.reservations.reservation
 export const { setName, setSurname, setStartDate, setEndDate } = reservationsSlice.actions
 
 
-export default usersSlice.reducer
+export default apartmentsSlice.reducer

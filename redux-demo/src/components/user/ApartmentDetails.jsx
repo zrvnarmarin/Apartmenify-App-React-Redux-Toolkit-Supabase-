@@ -14,10 +14,6 @@ const ApartmentDetails = () => {
   const apartment = useSelector(selectApartment)
   const { title, address, city, facilities } = apartment
 
-  const [isReserveOpen, setIsReserveOpen] = useState(false)
-  const openReserveSection = () => setIsReserveOpen(true)
-  const closeReserveSection = () => setIsReserveOpen(false)
-
   useEffect(() => {
      dispatch(getApartment(apartmentId))
   }, [dispatch])  
@@ -73,11 +69,7 @@ const ApartmentDetails = () => {
         At fugiat ducimus, voluptates qui blanditiis aperiam, corporis beatae modi eum alias in veritatis error officia odit cum tempore ex voluptate exercitationem voluptas explicabo labore nemo laborum similique. Facilis, neque?
       </div>
 
-      <div>
-        <button onClick={openReserveSection} className='w-font-semibold text-black text-md p-2 border-[1px] border-black bg-blue-100'>Reserve</button>
-      </div>
-
-      { isReserveOpen && <ReserveApartment />}
+      <ReserveApartment />
 
     </div>
   )
