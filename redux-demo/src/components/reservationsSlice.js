@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apartmentsSlice from "./apartmentsSlice";
+import supabase from "../supabaseClient";
 
 export const addReservation = createAsyncThunk('reservations/addReservation', async newReservation => {
     try {
@@ -9,10 +10,16 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
                 { 
                     apartmentId: newReservation.apartmentId,
                     userId: newReservation.userId,
-                    reservationDate: newReservation.reservationDate
+                    userEmail: newReservation.userEmail,
+                    name: newReservation.name,
+                    surname: newReservation.surname,
+                    startDate: newReservation.startDate,
+                    endDate: newReservation.startDate,
                 }
             ])
-            .single()
+
+            console.log('data', data)
+            console.log('error', error)
 
             return newReservation
     } 
@@ -31,9 +38,9 @@ const reservationsSlice = createSlice({
     initialState,
     extraReducers(builder) {
         builder
-        addCase(addReservation.fulfilled, (state, action) => {
+        .addCase(addReservation.fulfilled, (state, action) => {
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             state.reservations.push(action.payload)
-            console.log(action.payload)
         })
     }
 })
@@ -43,7 +50,7 @@ export const selectName = (state) => state.reservations.name
 export const selectSurname = (state) => state.reservations.surname
 export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
-export const selectReservation = (state) => state.reservations.reservation
+export const selectAllReservations = (state) => state.reservations.reservations
 
 export const { setName, setSurname, setStartDate, setEndDate } = reservationsSlice.actions
 

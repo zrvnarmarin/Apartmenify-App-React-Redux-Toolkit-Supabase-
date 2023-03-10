@@ -15,7 +15,7 @@ const ApartmentDetails = () => {
   const { title, address, city, facilities } = apartment
 
   useEffect(() => {
-     dispatch(getApartment(apartmentId))
+    dispatch(getApartment(apartmentId))
   }, [dispatch])  
 
   return (
@@ -69,7 +69,7 @@ const ApartmentDetails = () => {
         At fugiat ducimus, voluptates qui blanditiis aperiam, corporis beatae modi eum alias in veritatis error officia odit cum tempore ex voluptate exercitationem voluptas explicabo labore nemo laborum similique. Facilis, neque?
       </div>
 
-      <ReserveApartment />
+      <ReserveApartment apartmentId={apartmentId} />
 
     </div>
   )

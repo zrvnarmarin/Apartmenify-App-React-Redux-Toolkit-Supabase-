@@ -11,6 +11,8 @@ video za protected routes - https://www.youtube.com/watch?v=oUZjO00NkhY&t=121s&a
 
 RTK Query dobar tutorial - https://www.youtube.com/watch?v=YWbZILe35P4&ab_channel=DipeshMalvia --> pogledaj ostale isto
 
+
+ovo je za datume - https://www.youtube.com/watch?v=tgcCl52EN84&ab_channel=CooperCodes
 database design: 
 
 CREATE TABLE apartments (
