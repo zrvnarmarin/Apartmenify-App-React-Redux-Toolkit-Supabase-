@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import LanguageSelect from './LanguageSelect'
+import Logout from './../Logout';
 
 const Navbar = () => {
   return (
@@ -25,7 +26,7 @@ const Navbar = () => {
           </span>
         </li>
         <li>
-          <button className='p-2 border-[1px] border-black bg-blue-100'>Logout</button>
+          <Logout />
         </li>
       </ul>
     </nav>

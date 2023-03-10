@@ -6,14 +6,14 @@ const Logout = () => {
   const navigate = useNavigate()
 
   const logoutUser = async () => {
-        const { error } = await supabase.auth.signOut()
-        navigate('/')
-        console.log('ovo je data logout', data)
-        if (error) {
-            console.log('Error logging out:', error.message)
-        } else {
-            console.log('User logged out successfully')
-        }
+    const { error } = await supabase.auth.signOut()
+    navigate('/')
+    console.log('ovo je data logout', data)
+    if (error) {
+      console.log('Error logging out:', error.message)
+    } else {
+      console.log('User logged out successfully')
+    }
   }
 
   return (

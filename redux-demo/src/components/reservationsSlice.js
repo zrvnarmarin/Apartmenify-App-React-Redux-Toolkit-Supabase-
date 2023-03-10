@@ -29,6 +29,34 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
     }
 })
 
+export const getAllReservations = createAsyncThunk('reservations/getAllReservations', async () => {
+    try {
+        const { data, error } = await supabase
+        .from('reservations')
+        .select('*')
+
+        console.log('all reservations', data)
+
+        return data
+    } catch (error) {
+        return error.message
+    }
+})
+
+export const getReservation = createAsyncThunk('reservations/getAllReservations', async id => {
+    try {
+        const { data, error } = await supabase
+        .from('reservations')
+        .select()
+        .eq('id', id)
+
+        console.log(data)
+
+        return data[0]
+    } 
+    catch (error) { return error.message }
+})
+
 const initialState = {
     reservations: [],
 }
