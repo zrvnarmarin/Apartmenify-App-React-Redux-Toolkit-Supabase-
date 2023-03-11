@@ -43,7 +43,7 @@ export const getAllReservations = createAsyncThunk('reservations/getAllReservati
     }
 })
 
-export const getReservation = createAsyncThunk('reservations/getAllReservations', async id => {
+export const getReservationById = createAsyncThunk('reservations/getReservationById', async id => {
     try {
         const { data, error } = await supabase
         .from('reservations')
@@ -57,8 +57,24 @@ export const getReservation = createAsyncThunk('reservations/getAllReservations'
     catch (error) { return error.message }
 })
 
+export const getReservationsByApartmentId = createAsyncThunk('reservations/getReservationsByApartmentId', async apartmentId => {
+    try {
+        let { data, error } = await supabase
+        .from('reservations')
+        .select()
+        .eq('apartmentId', apartmentId)
+
+        console.log(`All reservations on apartment with ID of ${apartmentId}: `, data)
+        return data
+
+    } catch (error) {
+        return error.message
+    }
+})
+
 const initialState = {
     reservations: [],
+    reservation: {}
 }
 
 const reservationsSlice = createSlice({
@@ -70,17 +86,30 @@ const reservationsSlice = createSlice({
             console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             state.reservations.push(action.payload)
         })
+        .addCase(getAllReservations.fulfilled, (state, action) => {
+            state.reservations = action.payload
+            console.log(action.payload)
+        })
+        .addCase(getReservationById.fulfilled, (state, action) => {
+            state.reservation = action.payload
+            console.log(action.payload)
+        })
+        .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
+            state.reservation = action.payload
+            console.log(action.payload)
+        })
     }
 })
 
-// Exports
+// States
 export const selectName = (state) => state.reservations.name
 export const selectSurname = (state) => state.reservations.surname
 export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
 export const selectAllReservations = (state) => state.reservations.reservations
 
+// Reducers
 export const { setName, setSurname, setStartDate, setEndDate } = reservationsSlice.actions
 
-
+// Slice
 export default apartmentsSlice.reducer

@@ -43,3 +43,5 @@ CREATE TABLE ratings (
   comment TEXT,
   created_at TIMESTAMP NOT NULL DEFAULT now()
 );
+
+- kada se spremaju datumi u supabase, uvijek pretvori Date() objekt u ISOString(), jer to je format koji supabase prima

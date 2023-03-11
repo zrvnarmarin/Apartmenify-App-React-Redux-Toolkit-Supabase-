@@ -4,7 +4,7 @@ import supabase from '../../supabaseClient';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { addReservation } from '../reservationsSlice';
+import { addReservation, getReservationsByApartmentId } from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
     const [name, setName] = useState('')
@@ -19,13 +19,6 @@ const ReserveApartment = ({ apartmentId }) => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        supabase.auth.getUser().then(value => {
-            setUserId(value.data.user.id)
-            setUserEmail(value.data.user.email)
-        })
-    }, [])
-
     const submitFormHandler = (e) => {
         e.preventDefault()
 
@@ -38,6 +31,26 @@ const ReserveApartment = ({ apartmentId }) => {
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString()
         }))
+
+        resetForm()
+    }
+
+    const resetForm = () => {
+        setName('')
+        setSurname('')
+        setDateRange([])
+    }
+
+    useEffect(() => {
+        supabase.auth.getUser().then(value => {
+            setUserId(value.data.user.id)
+            setUserEmail(value.data.user.email)
+        })
+    }, [])
+
+    const disableReservedDates = (date) => {
+        const isDateBetweenReservationDates = date >= startDate && date <= endDate(Boolean)
+        return isDateBetweenReservationDates ? <div>je</div> : <div>nije</div>
     }
 
     return (
@@ -50,10 +63,25 @@ const ReserveApartment = ({ apartmentId }) => {
                 selectsRange={true}
                 startDate={startDate}
                 endDate={endDate}
-                onChange={update => setDateRange(update)}
+                onChange={selectedDate => {
+                    setDateRange(selectedDate)
+                    console.log('selected date', selectedDate)
+                }}
                 isClearable={true}
+                dateFormat='dd.MM.yyyy'
+                minDate={new Date()}
+                clearButtonTitle='Clear Dates'
+                highlightDates={[
+                    new Date(2023, 4, 4),
+                    new Date(2023, 4, 5),
+                    new Date(2023, 4, 6)
+                ]}
+                // renderDayContents={disableReservedDates}
             />
             <button className='border-[1px] border-black p-2 bg-blue-100'>Reserve Apartment</button>
+            <button type='button' onClick={() => {
+                dispatch(getReservationsByApartmentId(apartmentId))
+            }}>Display in console reservation</button>
         </form>
     )
 }

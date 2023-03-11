@@ -8,7 +8,6 @@ const Logout = () => {
   const logoutUser = async () => {
     const { error } = await supabase.auth.signOut()
     navigate('/')
-    console.log('ovo je data logout', data)
     if (error) {
       console.log('Error logging out:', error.message)
     } else {
