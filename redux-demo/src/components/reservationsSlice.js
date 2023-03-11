@@ -65,6 +65,9 @@ export const getReservationsByApartmentId = createAsyncThunk('reservations/getRe
         .eq('apartmentId', apartmentId)
 
         console.log(`All reservations on apartment with ID of ${apartmentId}: `, data)
+
+        // TO DO: extract start and end dates for each reservation and disable those dates on date picker
+
         return data
 
     } catch (error) {
@@ -83,7 +86,7 @@ const reservationsSlice = createSlice({
     extraReducers(builder) {
         builder
         .addCase(addReservation.fulfilled, (state, action) => {
-            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+            console.log('add reservation test')
             state.reservations.push(action.payload)
         })
         .addCase(getAllReservations.fulfilled, (state, action) => {
