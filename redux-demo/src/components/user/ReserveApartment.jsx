@@ -84,11 +84,36 @@ const ReserveApartment = ({ apartmentId }) => {
     const renderDayContents = (dayOfMonth, date) => {
         // console.log(date) // format: Sun Feb 26 2023 00:00:00 GMT+0100 (Central European Standard Time)
 
-        // TO DO: these are start and end dates of each reservation. Make a function that returns all dates between
-        console.log(startAndEndDatesOfEachReservation)
+        const allReservedDates = startAndEndDatesOfEachReservation
+        .map(dates => getDatesBetweenIntervals(dates.start, dates.end))
+        .flat(1)
+
+
+        console.log(allReservedDates)
+
 
         return <div>{dayOfMonth}</div>
     };
+
+    function getDatesBetweenIntervals(startDate, endDate) {
+        // Create an empty array to hold the dates
+        var dates = [];
+      
+        // Set the date to start from the beginning of the starting date
+        var currentDate = new Date(startDate);
+      
+        // Loop through all the dates between the starting and ending dates
+        while (currentDate <= endDate) {
+          // Add the current date to the array
+          dates.push(new Date(currentDate));
+      
+          // Move to the next day
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      
+        // Return the array of dates
+        return dates;
+      }
 
     return (
         <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>
