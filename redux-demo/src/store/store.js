@@ -6,6 +6,7 @@ import apartmentsReducer from '../components/apartmentsSlice'
 import usersReducer from '../components/auth/usersSlice'
 import cartReducer from '../features/cart/cartSlice'
 import modalReducer from '../features/modal/modalSlice'
+import reservationsReducer from '../components/reservationsSlice'
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         apartments: apartmentsReducer,
         cart: cartReducer,
         modal: modalReducer,
-        users: usersReducer
+        users: usersReducer,
+        reservations: reservationsReducer
     }
 })

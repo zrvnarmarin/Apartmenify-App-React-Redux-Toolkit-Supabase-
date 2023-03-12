@@ -14,12 +14,12 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
                     name: newReservation.name,
                     surname: newReservation.surname,
                     startDate: newReservation.startDate,
-                    endDate: newReservation.startDate,
+                    endDate: newReservation.endDate,
                 }
             ])
 
-            console.log('data', data)
-            console.log('error', error)
+            // console.log('data', data)
+            // console.log('error', error)
 
             return newReservation
     } 
@@ -64,7 +64,7 @@ export const getReservationsByApartmentId = createAsyncThunk('reservations/getRe
         .select()
         .eq('apartmentId', apartmentId)
 
-        console.log(`All reservations on apartment with ID of ${apartmentId}: `, data)
+        // console.log(`All reservations on apartment with ID of ${apartmentId}: `, data)
 
         // TO DO: extract start and end dates for each reservation and disable those dates on date picker
 
@@ -86,7 +86,6 @@ const reservationsSlice = createSlice({
     extraReducers(builder) {
         builder
         .addCase(addReservation.fulfilled, (state, action) => {
-            console.log('add reservation test')
             state.reservations.push(action.payload)
         })
         .addCase(getAllReservations.fulfilled, (state, action) => {
@@ -98,8 +97,7 @@ const reservationsSlice = createSlice({
             console.log(action.payload)
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
-            state.reservation = action.payload
-            console.log(action.payload)
+            state.reservations = action.payload
         })
     }
 })
@@ -115,4 +113,4 @@ export const selectAllReservations = (state) => state.reservations.reservations
 export const { setName, setSurname, setStartDate, setEndDate } = reservationsSlice.actions
 
 // Slice
-export default apartmentsSlice.reducer
+export default reservationsSlice.reducer

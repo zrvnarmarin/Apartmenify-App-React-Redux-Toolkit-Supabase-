@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import supabase from '../../supabaseClient';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { addReservation, getReservationsByApartmentId } from '../reservationsSlice';
+import { addReservation, getReservationsByApartmentId, selectAllReservations } from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
     const [name, setName] = useState('')
@@ -18,6 +18,8 @@ const ReserveApartment = ({ apartmentId }) => {
     const surnameChangeHandler = e => setSurname(e.target.value)
 
     const dispatch = useDispatch()
+
+    const allReservations = useSelector(selectAllReservations)
 
     const submitFormHandler = (e) => {
         e.preventDefault()
@@ -46,12 +48,27 @@ const ReserveApartment = ({ apartmentId }) => {
             setUserId(value.data.user.id)
             setUserEmail(value.data.user.email)
         })
+
+        // Get all reservations on mount
+        dispatch(getReservationsByApartmentId(apartmentId))
     }, [])
 
-    const disableReservedDates = (date) => {
-        const isDateBetweenReservationDates = date >= startDate && date <= endDate(Boolean)
-        return isDateBetweenReservationDates ? <div>je</div> : <div>nije</div>
-    }
+    const getReservedDateIntervals = () => {
+        const intervals = allReservations.map(reservation => ({
+            start: new Date(reservation.startDate.slice(0, 10)),
+            end: new Date(reservation.endDate.slice(0, 10))
+        }));
+
+        // Add an interval for the day before the start date of each reservation
+        const beforeIntervals = allReservations.map(reservation => ({
+            start: new Date(reservation.startDate.slice(0, 10)).setDate(new Date(reservation.startDate.slice(0, 10)).getDate() - 1),
+            end: new Date(reservation.startDate.slice(0, 10))
+        }));
+
+        return [...intervals, ...beforeIntervals];
+    };
+
+    const reservedDateIntervals = getReservedDateIntervals();
 
     return (
         <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>
@@ -76,12 +93,12 @@ const ReserveApartment = ({ apartmentId }) => {
                     new Date(2023, 4, 5),
                     new Date(2023, 4, 6)
                 ]}
-                // renderDayContents={disableReservedDates}
+                excludeDateIntervals={reservedDateIntervals}
             />
             <button className='border-[1px] border-black p-2 bg-blue-100'>Reserve Apartment</button>
             <button type='button' onClick={() => {
-                dispatch(getReservationsByApartmentId(apartmentId))
-            }}>Display in console reservation</button>
+
+            }}>Display reservation intervals</button>
         </form>
     )
 }
