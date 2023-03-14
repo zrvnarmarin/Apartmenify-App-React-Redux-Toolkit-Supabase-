@@ -75,9 +75,9 @@ const ReserveApartment = ({ apartmentId }) => {
             start: new Date(reservation.startDate.slice(0, 10)),
             end: new Date(reservation.endDate.slice(0, 10))
         }));
-
+            
         return startAndEndReservedDates
-    }
+    } 
 
     const startAndEndDatesOfEachReservation = getStartAndEndDatesOfEachReservation();
 
@@ -89,7 +89,9 @@ const ReserveApartment = ({ apartmentId }) => {
         .flat(1)
 
 
-        console.log(allReservedDates)
+        // console.log(allReservedDates)
+
+        // console.log('DATEEE', date.toISOString())
 
 
         return <div>{dayOfMonth}</div>
@@ -113,7 +115,7 @@ const ReserveApartment = ({ apartmentId }) => {
       
         // Return the array of dates
         return dates;
-      }
+    }
 
     return (
         <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>
@@ -130,11 +132,6 @@ const ReserveApartment = ({ apartmentId }) => {
                 dateFormat='dd.MM.yyyy'
                 minDate={new Date()}
                 clearButtonTitle='Clear Dates'
-                highlightDates={[
-                    new Date(2023, 4, 4),
-                    new Date(2023, 4, 5),
-                    new Date(2023, 4, 6)
-                ]}
                 excludeDateIntervals={reservedDateIntervals}
                 renderDayContents={renderDayContents}
             />

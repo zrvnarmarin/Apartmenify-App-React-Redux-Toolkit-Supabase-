@@ -56,7 +56,7 @@ const ApartmentDetails = () => {
       </div>
 
       <div className='flex flex-wrap flex-row gap-4'>
-        { facilities !== undefined && facilities.map(facility => 
+        { facilities?.map(facility => 
           <div key={facility} className='flex gap-2 items-center border-[1px] border-black py-4 px-6'>
             <img src={Placeholder} width={25} height={25} />
             <span>{facility}</span>
