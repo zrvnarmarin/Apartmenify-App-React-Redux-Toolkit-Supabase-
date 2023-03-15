@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-// General imports
+// General components
 import LoginPage from './components/LoginPage';
 // Admin components
 import MainPage from './components/MainPage'
@@ -21,6 +21,13 @@ import UserDashboard from './components/user/UserDashboard'
 import SearcApartments from './components/user/SearchApartments';
 import Contact from './components/user/Contact';
 import ApartmentDetails from './components/user/ApartmentDetails';
+import ManageAccount from './components/user/userSettings/ManageAccount';
+import Reservations from './components/user/userSettings/Reservations';
+import Saved from './components/user/userSettings/Saved';
+
+// Toast messages component
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -48,8 +55,13 @@ function App() {
           <Route path='apartments' element={<SearcApartments />} />
           <Route path='apartments/:apartment' element={<ApartmentDetails />} />
           <Route path='contact' element={<Contact />} />
+          <Route path='manageAccount' element={<ManageAccount />} />
+          <Route path='reservations' element={<Reservations />} />
+          <Route path='saved' element={<Saved />} />
         </Route>
       </Routes>
+
+      <ToastContainer />
 
     </div>
   )

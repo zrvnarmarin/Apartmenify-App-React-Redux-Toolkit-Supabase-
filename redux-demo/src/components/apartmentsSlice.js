@@ -147,6 +147,11 @@ const apartmentsSlice = createSlice({
         .addCase(getAllApartments.fulfilled, (state, action) => {
             state.apartments = action.payload;
             state.status = 'successed';
+            state.isLoading = false
+        })
+        .addCase(getAllApartments.pending, (state, action) => {
+            // state.status = 'successed';
+            state.isLoading = true
         })
         .addCase(getApartment.fulfilled, (state, action) => {
             // console.log(action.payload)
@@ -180,6 +185,8 @@ export const selectAllApartments = (state) => state.apartments.apartments
 export const selectApartment = (state) => state.apartments.apartment
 export const getApartmentsStatus = (state) => state.apartments.status
 export const getApartmentsError = (state) => state.apartments.error
+
+export const selectIsLoading = (state) => state.apartments.isLoading
 
 export const getFilter = (state) => state.apartments.filter
 export const getFilterOptions = (state) => state.apartments.filterOptions

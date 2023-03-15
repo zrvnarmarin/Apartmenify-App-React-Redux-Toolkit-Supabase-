@@ -34,6 +34,10 @@ const LoginPage = () => {
       </div>
       
       <hr />
+      <h1 className='text-2xl font-semibold'>
+        To see public user dashboard, click 
+        <Link to="/userDashboard/apartments" className="underline text-red-800"> here</Link>  (Testing Purposes)
+      </h1>
     </div>
   )
 }

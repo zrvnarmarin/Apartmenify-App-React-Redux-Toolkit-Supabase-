@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { selectApartment, getApartment, getApartmentsStatus } from '../apartmentsSlice'
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectApartment, getApartment } from '../apartmentsSlice'
 import LocationPin from '../../assets/locationPin.png'
 import Placeholder from '../../assets/placeholder.webp'
-import { useState } from 'react';
 import ReserveApartment from './ReserveApartment';
 
 const ApartmentDetails = () => {

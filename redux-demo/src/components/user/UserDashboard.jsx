@@ -1,12 +1,12 @@
 import React from 'react'
-import Navbar from './Navbar'
 import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar'
 
 const UserDashboard = () => {
   return (
     <div style={{ padding: '5px', border: '1px solid black'}}>
-        <Navbar />
-        <Outlet />
+      <Navbar />
+      <Outlet />
     </div>
   )
 }

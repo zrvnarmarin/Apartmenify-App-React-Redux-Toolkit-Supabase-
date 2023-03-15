@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import supabase from '../../supabaseClient';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { addReservation, getReservationsByApartmentId, selectAllReservations } from '../reservationsSlice';
+import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
 
 const ReserveApartment = ({ apartmentId }) => {
     const [name, setName] = useState('')
@@ -35,6 +37,8 @@ const ReserveApartment = ({ apartmentId }) => {
         }))
 
         resetForm()
+
+        toast.success('Reservation successful!')
     }
 
     const resetForm = () => {
@@ -88,34 +92,12 @@ const ReserveApartment = ({ apartmentId }) => {
         .map(dates => getDatesBetweenIntervals(dates.start, dates.end))
         .flat(1)
 
-
         // console.log(allReservedDates)
-
         // console.log('DATEEE', date.toISOString())
-
+        // TO DO: figure out how to paint red dates that have been reserved
 
         return <div>{dayOfMonth}</div>
     };
-
-    function getDatesBetweenIntervals(startDate, endDate) {
-        // Create an empty array to hold the dates
-        var dates = [];
-      
-        // Set the date to start from the beginning of the starting date
-        var currentDate = new Date(startDate);
-      
-        // Loop through all the dates between the starting and ending dates
-        while (currentDate <= endDate) {
-          // Add the current date to the array
-          dates.push(new Date(currentDate));
-      
-          // Move to the next day
-          currentDate.setDate(currentDate.getDate() + 1);
-        }
-      
-        // Return the array of dates
-        return dates;
-    }
 
     return (
         <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>

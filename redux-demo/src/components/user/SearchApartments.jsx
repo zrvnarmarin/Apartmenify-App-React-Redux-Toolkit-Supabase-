@@ -1,22 +1,23 @@
-import React from 'react'
-import Apartment from './Apartment'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllApartments, getAllApartments } from '../apartmentsSlice';
-import { useEffect, useMemo } from 'react';
-import { getApartmentsStatus } from './../apartmentsSlice';
+import Apartment from './Apartment'
+import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
+import { selectAllApartments, getAllApartments, selectIsLoading, } from '../apartmentsSlice';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
   const apartments = useSelector(selectAllApartments)
-  const apartmentsStatus = useSelector(getApartmentsStatus)
+  const isLoading = useSelector(selectIsLoading)
 
   useEffect(() => {
     dispatch(getAllApartments())
   }, [dispatch])
 
+  if (isLoading) return <LoadingSpinner />
+
   return (
     <ul className='grid grid-cols-2 gap-4'>
-      {apartments.map(apartment => 
+      { !isLoading && apartments.map(apartment => 
         <Apartment
           id={apartment.id}
           key={apartment.id} 
