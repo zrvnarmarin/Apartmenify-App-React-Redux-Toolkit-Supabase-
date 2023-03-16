@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
-import { selectAllApartments, getAllApartments, selectIsLoading, } from '../apartmentsSlice';
+import { selectAllApartments, getAllApartments, selectIsLoading } from '../apartmentsSlice';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const SearcApartments = () => {
 
   return (
     <ul className='grid grid-cols-2 gap-4'>
-      { !isLoading && apartments.map(apartment => 
+      { apartments.map(apartment => 
         <Apartment
           id={apartment.id}
           key={apartment.id} 

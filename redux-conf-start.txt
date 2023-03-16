@@ -40,3 +40,5 @@ CREATE TABLE ratings (
 );
 
 - kada se spremaju datumi u supabase, uvijek pretvori Date() objekt u ISOString(), jer to je format koji supabase prima
+
+- pogledaj ovaj api za storage upload za slike - https://supabase.com/docs/reference/javascript/v1/storage-createbucket
