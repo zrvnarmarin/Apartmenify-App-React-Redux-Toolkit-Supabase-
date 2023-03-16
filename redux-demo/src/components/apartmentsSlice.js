@@ -181,7 +181,7 @@ const apartmentsSlice = createSlice({
 })
 
 
-// Exports 
+// State exports 
 export const selectAllApartments = (state) => state.apartments.apartments
 export const selectApartment = (state) => state.apartments.apartment
 export const getApartmentsStatus = (state) => state.apartments.status
@@ -197,7 +197,8 @@ export const selectFacilities = (state) => state.apartments.facilities // povlaÄ
 
 export const getFacility = (state) => state.apartments.facility
 
+// Reducer exports
 export const { setFilter, setFilterQuery, setNewFacility } = apartmentsSlice.actions
 
-
+// Slice export
 export default apartmentsSlice.reducer
