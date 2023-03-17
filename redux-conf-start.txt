@@ -59,8 +59,13 @@ const getActiveUsers = createSelector(
   getUsers,
   users => users.filter(user => user.isActive)
 );
-In the above example, we define a basic selector getUsers that returns the users slice of the Redux state object. We then define a memoized selector getActiveUsers using createSelector, which takes two arguments: the first argument is an array of input selectors, and the second argument is a function that takes the output of those selectors and returns the derived data.
-
-In this case, the getActiveUsers selector takes the output of the getUsers selector and filters the list of users to return only those that have isActive set to true. The result of this selector is memoized, meaning that it will only be recomputed when the input selector (getUsers) changes.
-
-Memoized selectors can help to optimize performance by avoiding unnecessary recomputations of derived data when the input data hasn't changed. They can also help to simplify your code by encapsulating the logic for deriving data from the Redux state object.
+In the above example, we define a basic selector getUsers that returns the users slice of 
+the Redux state object. We then define a memoized selector getActiveUsers using createSelector, 
+which takes two arguments: the first argument is an array of input selectors, and the second 
+argument is a function that takes the output of those selectors and returns the derived data.
+In this case, the getActiveUsers selector takes the output of the getUsers selector and filters 
+the list of users to return only those that have isActive set to true. The result of this selector
+ is memoized, meaning that it will only be recomputed when the input selector (getUsers) changes.
+Memoized selectors can help to optimize performance by avoiding unnecessary recomputations of
+ derived data when the input data hasn't changed. They can also help to simplify your code by 
+ encapsulating the logic for deriving data from the Redux state object.
