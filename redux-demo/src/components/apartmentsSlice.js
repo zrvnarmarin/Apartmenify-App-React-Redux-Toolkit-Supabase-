@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
 import supabase from '../supabaseClient';
 import { storage } from '../supabaseClient';
 
@@ -118,12 +118,6 @@ const initialState = {
     error: null,
     filter: '',
     filterQuery: '',
-    filterOptions: [
-        { label: 'All', value: 'all'},
-        { label: 'City', value: 'city'},
-        { label: 'Address', value: 'address'},
-        { label: 'Title', value: 'title'},
-    ],
     facility: '',
     facilities: []
 }
@@ -134,6 +128,7 @@ const apartmentsSlice = createSlice({
     reducers: {
         setFilter: (state, action) => {
             state.filter = action.payload
+            console.log('filter option je: ', action.payload)
         },
         setFilterQuery: (state, action) => {
             state.filterQuery = action.payload
@@ -190,7 +185,6 @@ export const getApartmentsError = (state) => state.apartments.error
 export const selectIsLoading = (state) => state.apartments.isLoading
 
 export const getFilter = (state) => state.apartments.filter
-export const getFilterOptions = (state) => state.apartments.filterOptions
 export const getFilterQuery = (state) => state.apartments.filterQuery
 
 export const selectFacilities = (state) => state.apartments.facilities // povlači sa supabse-a
@@ -199,6 +193,8 @@ export const getFacility = (state) => state.apartments.facility
 
 // Reducer exports
 export const { setFilter, setFilterQuery, setNewFacility } = apartmentsSlice.actions
+
+// Memoized selectors export
 
 // Slice export
 export default apartmentsSlice.reducer

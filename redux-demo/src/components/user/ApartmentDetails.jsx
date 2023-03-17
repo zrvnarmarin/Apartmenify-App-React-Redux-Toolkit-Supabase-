@@ -18,7 +18,7 @@ const ApartmentDetails = () => {
   }, [dispatch])  
 
   return (
-    <div className='border-[1px] border-black px-72'>
+    <div className='border-[1px] border-black px-10'>
 
       <div className='flex flex-row flex-wrap gap-4 justify-between'>
         <div className='flex flex-col gap-1'>
