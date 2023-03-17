@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setFilter, getFilter, getFilterQuery, setFilterQuery } from './apartmentsSlice'
+import { setFilter, getFilter, getFilterQuery, setFilterQuery, setSort, getSort, setSortOrder, getSortOrder } from './apartmentsSlice'
 import { filterOptions } from '../data/apartments/filterOptions'
 import { sortOptions } from '../data/apartments/sortOptions'
 import { sortOrderOptions } from '../data/apartments/sortOrderOptions'
@@ -12,6 +12,11 @@ const FilterSortSection = () => {
   const filterQuery = useSelector(getFilterQuery)
   const filterChangeHandler = e => dispatch(setFilter(e.target.value))
   const filterQueryChangeHandler = e => dispatch(setFilterQuery(e.target.value))
+
+  const sort = useSelector(getSort)
+  const sortOrder = useSelector(getSortOrder)
+  const sortChangeHandler = e => dispatch(setSort(e.target.value))
+  const sortOrderChangeHandler = e => dispatch(setSortOrder(e.target.value))
 
 
   return (
@@ -27,7 +32,7 @@ const FilterSortSection = () => {
             className='bg-blue-50 border-[1px] border-black outline-none'
           >
             {filterOptions.map(option =>
-              <option key={option.label}>{option.label}</option>
+              <option key={option}>{option}</option>
             )}
           </select>
         </div>
@@ -48,27 +53,27 @@ const FilterSortSection = () => {
         <div>
           <label htmlFor="sort">Sort by: </label>
           <select
-            value={filter}
-            onChange={filterChangeHandler}
+            value={sort}
+            onChange={sortChangeHandler}
             id='sort'
             className='bg-blue-50 border-[1px] border-black outline-none'
           >
             {sortOptions.map(option =>
-              <option key={option.label}>{option.label}</option>
+              <option key={option}>{option}</option>
             )}
           </select>
         </div>
 
         <div>
-          <label htmlFor="sort">Sort order: </label>
+          <label htmlFor="sortOrder">Sort order: </label>
           <select
-            value={filter}
-            onChange={filterChangeHandler}
+            value={sortOrder}
+            onChange={sortOrderChangeHandler}
             id='sort'
             className='bg-blue-50 border-[1px] border-black outline-none'
           >
             {sortOrderOptions.map(option =>
-              <option key={option.label}>{option.label}</option>
+              <option key={option}>{option}</option>
             )}
           </select>
         </div>

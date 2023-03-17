@@ -3,17 +3,17 @@ import { Link, useOutletContext } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
-import { getApartmentsError, getApartmentsStatus, getFilter, getFilterQuery } from './apartmentsSlice'
+import { getApartmentsError, getApartmentsStatus, getFilter, getFilterQuery, selectFilteredApartments, selectSortedApartments } from './apartmentsSlice'
 
 const Apartments = () => {
+  const { apartments } = useOutletContext()
+  const apartmentsStatus = useSelector(getApartmentsStatus)
+  const apartmentsError = useSelector(getApartmentsError)
+
   const [sortOrder, setSortOrder] = useState('asc')
   const [sortOption, setSortOption] = useState('id')
   const sortOrderChangeHandler = e => setSortOrder(e.target.value)
   const sortOptionChangeHandler = e => setSortOption(e.target.value)
-
-  const { apartments } = useOutletContext()
-  const apartmentsStatus = useSelector(getApartmentsStatus)
-  const apartmentsError = useSelector(getApartmentsError)
 
   const filter = useSelector(getFilter)
   const filterQuery = useSelector(getFilterQuery)
@@ -37,6 +37,10 @@ const Apartments = () => {
       }
     });
   }, [apartments, filter, filterQuery]);
+
+  const filteredApartmentsSlice = useSelector(selectFilteredApartments)
+  const sortedApartmentsSlice = useSelector(selectSortedApartments)
+  console.log(sortedApartmentsSlice)
 
   const sortedApartments = useMemo(() => {
     const sorted = [...filteredApartments].sort((a, b) => {

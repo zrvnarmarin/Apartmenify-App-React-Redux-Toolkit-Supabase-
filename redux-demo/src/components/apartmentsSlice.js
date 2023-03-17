@@ -118,6 +118,8 @@ const initialState = {
     error: null,
     filter: '',
     filterQuery: '',
+    sort: 'price',
+    sortOrder: 'ascending',
     facility: '',
     facilities: []
 }
@@ -132,6 +134,15 @@ const apartmentsSlice = createSlice({
         },
         setFilterQuery: (state, action) => {
             state.filterQuery = action.payload
+            console.log('filter query je: ', action.payload)
+        },
+        setSort: (state, action) => {
+            state.sort = action.payload
+            console.log('sort option je: ', action.payload)
+        },
+        setSortOrder: (state, action) => {
+            state.sortOrder = action.payload
+            console.log('sort order je: ', action.payload)
         },
         setNewFacility: (state, action) => {
             state.facility = action.payload
@@ -175,7 +186,6 @@ const apartmentsSlice = createSlice({
     }
 })
 
-
 // State exports 
 export const selectAllApartments = (state) => state.apartments.apartments
 export const selectApartment = (state) => state.apartments.apartment
@@ -186,15 +196,74 @@ export const selectIsLoading = (state) => state.apartments.isLoading
 
 export const getFilter = (state) => state.apartments.filter
 export const getFilterQuery = (state) => state.apartments.filterQuery
+export const getSort = (state) => state.apartments.sort
+export const getSortOrder = (state) => state.apartments.sortOrder
 
 export const selectFacilities = (state) => state.apartments.facilities // povlači sa supabse-a
 
 export const getFacility = (state) => state.apartments.facility
 
 // Reducer exports
-export const { setFilter, setFilterQuery, setNewFacility } = apartmentsSlice.actions
+export const { setFilter, setFilterQuery, setSort, setSortOrder, setNewFacility } = apartmentsSlice.actions
 
-// Memoized selectors export
+// Memoized selectors exports
+export const selectFilteredApartments = createSelector(
+    [selectAllApartments, getFilter, getFilterQuery],
+    (apartments, filter, filterQuery) => apartments.filter(apartment => {
+        if (filter === 'All') {
+            return apartments;
+        }
+        else if (filter === 'Title') {
+            return apartment.title.toLowerCase().includes(filterQuery.toLowerCase());
+        }
+        else if (filter === 'Address') {
+            return apartment.address.toLowerCase().includes(filterQuery.toLowerCase());
+        } 
+        else if (filter === 'City') {
+            return apartment.city.toLowerCase().includes(filterQuery.toLowerCase());
+        } 
+        else {
+            return apartments;
+        }
+    })
+)
+
+export const selectSortedApartments = createSelector(
+    [selectAllApartments, getSort, getSortOrder],
+    (apartments, sort, sortOrder) => {
+      let sortedApartments = [...apartments];
+  
+      if (sort === 'price') {
+        sortedApartments.sort((a, b) => {
+          if (sortOrder === 'ascending') {
+            return a.price - b.price;
+          } else {
+            return b.price - a.price;
+          }
+        });
+      } else if (sort === 'rooms') {
+        sortedApartments.sort((a, b) => {
+          if (sortOrder === 'ascending') {
+            return a.rooms - b.rooms;
+          } else {
+            return b.rooms - a.rooms;
+          }
+        });
+      } else if (sort === 'distanceFromTheSea') {
+        sortedApartments.sort((a, b) => {
+            if (sortOrder === 'ascending') {
+              return a.distanceFromTheSea - b.distanceFromTheSea;
+            } else {
+              return b.distanceFromTheSea - a.distanceFromTheSea;
+            }
+          });
+      }
+  
+      return sortedApartments;
+    }
+);
+  
+  
 
 // Slice export
 export default apartmentsSlice.reducer
