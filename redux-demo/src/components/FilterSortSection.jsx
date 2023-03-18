@@ -18,7 +18,6 @@ const FilterSortSection = () => {
   const sortChangeHandler = e => dispatch(setSort(e.target.value))
   const sortOrderChangeHandler = e => dispatch(setSortOrder(e.target.value))
 
-
   return (
     <div className='p-2 border-[1px] border-black bg-red-100 flex flex-wrap justify-between items-center'>
       {/* Filter section */}

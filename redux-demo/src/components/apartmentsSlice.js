@@ -262,6 +262,14 @@ export const selectSortedApartments = createSelector(
       return sortedApartments;
     }
 );
+
+// export const selectFilteredAndSortedApartments = createSelector(
+//     [selectAllApartments, getFilter, getFilterQuery, getSort, getSortOrder],
+//     (apartments, filter, filterQuery, sort, sortOrder) => {
+//       const filteredApartments = selectFilteredApartments({ apartments, filter, filterQuery });
+//       return selectSortedApartments({ apartments: filteredApartments, sort, sortOrder });
+//     }
+//   );
   
   
 
