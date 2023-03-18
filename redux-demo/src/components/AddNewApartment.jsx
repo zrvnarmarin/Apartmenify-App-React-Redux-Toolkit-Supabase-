@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSlice'
+import { addApartment, getAllFacilities, selectFacilities, selectIsLoading } from './apartmentsSlice'
 import Select from '../UI/Select'
-import { storage } from '../supabaseClient';
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
@@ -22,12 +21,6 @@ const AddNewApartment = () => {
   const [selectedFacilities, setSelectedFacilities] = useState([{ label: "Wi-Fi", value: 'Wi-Fi' }])
   const facilities = useSelector(selectFacilities)
 
-  const [apartmentImage, setApartmentImage] = useState(null);
-  const imageUploadHandler = async (e) => {
-    const file = e.target.files[0];
-    setApartmentImage(file);
-  };
-
   const titleChangeHandler = e => setTitle(e.target.value)
   const cityChangeHandler = e => setCity(e.target.value)
   const addressChangeHandler = e => setAddress(e.target.value)
@@ -38,11 +31,10 @@ const AddNewApartment = () => {
   const singleBedsChangeHandler = e => setSingleBeds(e.target.value)
   const doubleBedsChangeHandler = e => setDoubleBeds(e.target.value)
 
+  const isLoading = useSelector(selectIsLoading)
+
   const formSubmitHandler = async e => {
     e.preventDefault()
-
-    // Upload apartment image 
-    console.log(storage)
 
     // Upload apartment data
     dispatch(addApartment({
@@ -85,7 +77,6 @@ const AddNewApartment = () => {
           value={selectedFacilities}
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
-        <input type="file" accept="image/*" onChange={imageUploadHandler} />
         <button className='border-[1px] border-black p-1 bg-blue-50'>Submit</button>
       </form>
     </div>

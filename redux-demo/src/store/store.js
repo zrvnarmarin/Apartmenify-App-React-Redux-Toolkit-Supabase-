@@ -5,8 +5,9 @@ import postsReducer from '../features/posts/postsSlice'
 import apartmentsReducer from '../components/apartmentsSlice'
 import usersReducer from '../components/auth/usersSlice'
 import cartReducer from '../features/cart/cartSlice'
-import modalReducer from '../features/modal/modalSlice'
+// import modalReducer from '../features/modal/modalSlice'
 import reservationsReducer from '../components/reservationsSlice'
+import modalReducer from '../UI/modalSlice'
 
 export const store = configureStore({
     reducer: {

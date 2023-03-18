@@ -14,8 +14,6 @@ const MainPage = () => {
     dispatch(getAllApartments())
   }, [apartmentsStatus, dispatch])
 
-  // console.log(apartments)
-
   return (
     <div style={{ padding: '5px', border: '1px solid black'}}>
       <Navbar />
