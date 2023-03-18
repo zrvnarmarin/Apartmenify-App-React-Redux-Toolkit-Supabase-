@@ -263,15 +263,40 @@ export const selectSortedApartments = createSelector(
     }
 );
 
-// export const selectFilteredAndSortedApartments = createSelector(
-//     [selectAllApartments, getFilter, getFilterQuery, getSort, getSortOrder],
-//     (apartments, filter, filterQuery, sort, sortOrder) => {
-//       const filteredApartments = selectFilteredApartments({ apartments, filter, filterQuery });
-//       return selectSortedApartments({ apartments: filteredApartments, sort, sortOrder });
-//     }
-//   );
+export const selectFilteredAndSortedApartments = createSelector(
+    [selectFilteredApartments, getSort, getSortOrder],
+    (filteredApartments, sort, sortOrder) => {
+        let sortedApartments = [...filteredApartments];
   
+      if (sort === 'price') {
+        sortedApartments.sort((a, b) => {
+          if (sortOrder === 'ascending') {
+            return a.price - b.price;
+          } else {
+            return b.price - a.price;
+          }
+        });
+      } else if (sort === 'rooms') {
+        sortedApartments.sort((a, b) => {
+          if (sortOrder === 'ascending') {
+            return a.rooms - b.rooms;
+          } else {
+            return b.rooms - a.rooms;
+          }
+        });
+      } else if (sort === 'distanceFromTheSea') {
+        sortedApartments.sort((a, b) => {
+            if (sortOrder === 'ascending') {
+              return a.distanceFromTheSea - b.distanceFromTheSea;
+            } else {
+              return b.distanceFromTheSea - a.distanceFromTheSea;
+            }
+          });
+      }
   
+      return sortedApartments;
+    }
+)
 
 // Slice export
 export default apartmentsSlice.reducer

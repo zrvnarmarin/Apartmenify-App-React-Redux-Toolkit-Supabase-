@@ -3,7 +3,7 @@ import { Link, useOutletContext } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import FilterSortSection from './FilterSortSection'
 import ApartmentTable from './ApartmentTable'
-import { getApartmentsError, getApartmentsStatus, selectFilteredApartments, selectSortedApartments } from './apartmentsSlice'
+import { getApartmentsError, selectFilteredAndSortedApartments, getApartmentsStatus, selectFilteredApartments, selectSortedApartments } from './apartmentsSlice'
 
 const Apartments = () => {
   const { apartments } = useOutletContext()
@@ -32,7 +32,8 @@ const Apartments = () => {
 
   const filteredApartmentsSlice = useSelector(selectFilteredApartments)
   const sortedApartmentsSlice = useSelector(selectSortedApartments)
-  console.log(filteredApartmentsSlice)
+  const combined = useSelector(selectFilteredAndSortedApartments)
+  console.log(combined)
 
   // const sortedApartments = useMemo(() => {
   //   const sorted = [...filteredApartments].sort((a, b) => {
