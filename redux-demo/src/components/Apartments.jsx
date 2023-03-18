@@ -40,7 +40,7 @@ const Apartments = () => {
 
   const filteredApartmentsSlice = useSelector(selectFilteredApartments)
   const sortedApartmentsSlice = useSelector(selectSortedApartments)
-  console.log(sortedApartmentsSlice)
+  console.log(filteredApartmentsSlice)
 
   const sortedApartments = useMemo(() => {
     const sorted = [...filteredApartments].sort((a, b) => {

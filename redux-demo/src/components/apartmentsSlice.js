@@ -210,16 +210,16 @@ export const { setFilter, setFilterQuery, setSort, setSortOrder, setNewFacility 
 export const selectFilteredApartments = createSelector(
     [selectAllApartments, getFilter, getFilterQuery],
     (apartments, filter, filterQuery) => apartments.filter(apartment => {
-        if (filter === 'All') {
+        if (filter === 'all') {
             return apartments;
         }
-        else if (filter === 'Title') {
+        else if (filter === 'title') {
             return apartment.title.toLowerCase().includes(filterQuery.toLowerCase());
         }
-        else if (filter === 'Address') {
+        else if (filter === 'address') {
             return apartment.address.toLowerCase().includes(filterQuery.toLowerCase());
         } 
-        else if (filter === 'City') {
+        else if (filter === 'city') {
             return apartment.city.toLowerCase().includes(filterQuery.toLowerCase());
         } 
         else {
