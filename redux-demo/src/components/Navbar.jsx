@@ -13,6 +13,9 @@ const Navbar = () => {
           <Link to="facilities">Facilities</Link>
         </li>
         <li>
+          <Link to="reservations">Reservations</Link>
+        </li>
+        <li>
           <Link to="registeredUsers">Registered Users</Link>
         </li>
         <li>

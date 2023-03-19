@@ -69,3 +69,17 @@ the list of users to return only those that have isActive set to true. The resul
 Memoized selectors can help to optimize performance by avoiding unnecessary recomputations of
  derived data when the input data hasn't changed. They can also help to simplify your code by 
  encapsulating the logic for deriving data from the Redux state object.
+
+
+ ///////////////////////////////////////////FOR THE RESERVATIONS //////////////////
+ Filter Reservations: Filtering reservations based on various criteria such as reservation date, client name, or reservation status (confirmed, pending, cancelled) can make it easier to find specific reservations and manage them more efficiently.
+
+Sort Reservations: Sorting reservations by various criteria such as reservation date, client name, or reservation status can make it easier to organize reservations and prioritize which ones to manage first.
+
+Pagination: If there are a large number of reservations, consider implementing pagination to limit the number of reservations displayed on each page, and make it easier to navigate through them.
+
+Search Functionality: Adding a search functionality to search reservations by client name, reservation date or other relevant information can make it easier to find specific reservations quickly.
+
+Reservation Details: Being able to view detailed information about each reservation can help manage reservations more efficiently. Include details such as the client name, reservation date, reservation status, number of guests, and any special requests or notes associated with the reservation.
+
+Edit and Delete Functionality: As an admin, you may need to edit or delete reservations. Consider adding functionality to allow you to modify or delete reservations easily.

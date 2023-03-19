@@ -17,9 +17,6 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
                 }
             ])
 
-            // console.log('data', data)
-            // console.log('error', error)
-
             return newReservation
     } 
     catch (error) { 
@@ -76,7 +73,9 @@ export const getReservationsByApartmentId = createAsyncThunk('reservations/getRe
 
 const initialState = {
     reservations: [],
-    reservation: {}
+    reservation: {}, 
+    isLoading: false,
+    error: null
 }
 
 const reservationsSlice = createSlice({
@@ -89,6 +88,11 @@ const reservationsSlice = createSlice({
         })
         .addCase(getAllReservations.fulfilled, (state, action) => {
             state.reservations = action.payload
+            state.isLoading = false
+            console.log(action.payload)
+        })
+        .addCase(getAllReservations.pending, (state, action) => {
+            state.isLoading = true
             console.log(action.payload)
         })
         .addCase(getReservationById.fulfilled, (state, action) => {
@@ -107,6 +111,7 @@ export const selectSurname = (state) => state.reservations.surname
 export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
 export const selectAllReservations = (state) => state.reservations.reservations
+export const selectIsLoading = (state) => state.reservations.isLoading
 
 // Reducers
 export const { setName, setSurname, setStartDate, setEndDate } = reservationsSlice.actions

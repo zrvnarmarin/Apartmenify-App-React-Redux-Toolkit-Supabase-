@@ -49,6 +49,7 @@ const ReserveApartment = ({ apartmentId }) => {
 
     useEffect(() => {
         supabase.auth.getUser().then(value => {
+            console.log(value.data.user.user_metadata.full_name)
             setUserId(value.data.user.id)
             setUserEmail(value.data.user.email)
         })

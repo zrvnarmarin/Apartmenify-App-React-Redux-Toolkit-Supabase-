@@ -12,6 +12,7 @@ import LoginPage from './components/LoginPage';
 import MainPage from './components/MainPage'
 import Apartments from './components/Apartments'
 import Facilities from './components/Facilities';
+import Reservations from './components/Reservations';
 import RegisteredUsers from './components/RegisteredUsers';
 import AddNewApartment from './components/AddNewApartment'
 import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
@@ -22,7 +23,7 @@ import SearcApartments from './components/user/SearchApartments';
 import Contact from './components/user/Contact';
 import ApartmentDetails from './components/user/ApartmentDetails';
 import ManageAccount from './components/user/userSettings/ManageAccount';
-import Reservations from './components/user/userSettings/Reservations';
+import UserReservations from './components/user/userSettings/UserReservations';
 import Saved from './components/user/userSettings/Saved';
 
 // Toast messages component
@@ -49,6 +50,7 @@ function App() {
           </Route>
           <Route path='registeredUsers' element={<RegisteredUsers />} />
           <Route path='addNewApartment' element={<AddNewApartment />} />
+          <Route path='reservations' element={<Reservations />} />
         </Route>
         {/* User routes - should be public */}
         <Route path='/userDashboard' element={<UserDashboard />} >
@@ -56,7 +58,7 @@ function App() {
           <Route path='apartments/:apartment' element={<ApartmentDetails />} />
           <Route path='contact' element={<Contact />} />
           <Route path='manageAccount' element={<ManageAccount />} />
-          <Route path='reservations' element={<Reservations />} />
+          <Route path='userReservations' element={<UserReservations />} />
           <Route path='saved' element={<Saved />} />
         </Route>
       </Routes>
