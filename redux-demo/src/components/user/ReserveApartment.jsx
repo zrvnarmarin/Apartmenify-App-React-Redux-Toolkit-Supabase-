@@ -15,6 +15,8 @@ const ReserveApartment = ({ apartmentId }) => {
     const [startDate, endDate] = dateRange;
     const [userId, setUserId] = useState('')
     const [userEmail, setUserEmail] = useState('')
+    const [userData, setUserData] = useState({}) // user data should be everything from use, vidi jel moze 
+    //kao objekt u supabase
 
     const nameChangeHandler = e => setName(e.target.value)
     const surnameChangeHandler = e => setSurname(e.target.value)
@@ -49,7 +51,7 @@ const ReserveApartment = ({ apartmentId }) => {
 
     useEffect(() => {
         supabase.auth.getUser().then(value => {
-            console.log(value.data.user.user_metadata.full_name)
+            // console.log(value.data.user.user_metadata) check this one for full data on user
             setUserId(value.data.user.id)
             setUserEmail(value.data.user.email)
         })

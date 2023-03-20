@@ -5,5 +5,5 @@ export const tableHeaderData = [
     { id: '4', value: 'City'}, 
     { id: '5', value: 'Rooms'}, 
     { id: '6', value: 'Price'}, 
-    { id: 7, value: ''}
+    { id: '7', value: ''}
 ]

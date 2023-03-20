@@ -29,25 +29,25 @@ export const getApartment = createAsyncThunk('apartments/getApartment', async id
 
 export const addApartment = createAsyncThunk('apartments/addApartment', async newApartment => {
     try {
-        const { data, error } = await supabase
-            .from('apartments')
-            .insert([
-                { 
-                    title: newApartment.title, 
-                    description: newApartment.description, 
-                    rooms: newApartment.rooms, 
-                    facilities: newApartment.facilities,
-                    city: newApartment.city,
-                    address: newApartment.address,
-                    singleBeds: newApartment.singleBeds,
-                    doubleBeds: newApartment.doubleBeds,
-                    distanceFromTheSea: newApartment.distanceFromTheSea,
-                    price: newApartment.price
-                }
-            ])
-            .single()
+      const { data, error } = await supabase
+        .from('apartments')
+        .insert([
+          { 
+            title: newApartment.title, 
+            description: newApartment.description, 
+            rooms: newApartment.rooms, 
+            facilities: newApartment.facilities,
+            city: newApartment.city,
+            address: newApartment.address,
+            singleBeds: newApartment.singleBeds,
+            doubleBeds: newApartment.doubleBeds,
+            distanceFromTheSea: newApartment.distanceFromTheSea,
+            price: newApartment.price
+          }
+        ])
+        .single()
 
-            return newApartment
+        return newApartment
     } 
     catch (error) { 
         console.log(error.message)

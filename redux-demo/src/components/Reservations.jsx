@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LoadingSpinner from '../UI/Loading Spinner/LoadingSpinner'
 import { getAllReservations, selectAllReservations, selectIsLoading } from './reservationsSlice'
+import Reservation from './Reservation'
+import ReservationTableHeader from './ReservationTableHeader';
 
 // TO DO: rezervacije prikazi kao listu; napravi filter rezervacija i sortiranje rezervacija; u reservations
 // preseli sav kod iz ReserveApartment komponente u njen slice, dakle sve stateove; stavi mogucnost
@@ -11,6 +13,7 @@ import { getAllReservations, selectAllReservations, selectIsLoading } from './re
 
 const Reservations = () => {
   const dispatch = useDispatch()
+
   const allReservations = useSelector(selectAllReservations)
   const isLoading = useSelector(selectIsLoading)
 
@@ -21,10 +24,22 @@ const Reservations = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div>
-        <p>Reservations</p>
-        {JSON.stringify(allReservations)}
-
+    <div className='flex flex-col gap-2'>
+      <p className='text-2xl p-2'>Reservations</p>
+        <ReservationTableHeader />
+        {allReservations.map(reservation => 
+          <Reservation
+            key={reservation.id}
+            id={reservation.id}
+            apartmentId={reservation.apartmentId}
+            userId={reservation.userId}
+            name={reservation.name}
+            surname={reservation.surname}
+            userEmail={reservation.userEmail}
+            startDate={reservation.startDate}
+            endDate={reservation.endDate}
+          />  
+        )}
     </div>
   )
 }

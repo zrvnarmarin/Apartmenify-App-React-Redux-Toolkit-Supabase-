@@ -31,7 +31,7 @@ export const getAllReservations = createAsyncThunk('reservations/getAllReservati
         .from('reservations')
         .select('*')
 
-        console.log('all reservations', data)
+        // console.log('all reservations', data)
 
         return data
     } catch (error) {
@@ -71,6 +71,19 @@ export const getReservationsByApartmentId = createAsyncThunk('reservations/getRe
     }
 })
 
+export const deleteReservation = createAsyncThunk('reservations/deleteReservation', async reservationId => {
+    try {
+        const { data, error } = await supabase
+        .from('reservations')
+        .delete()
+        .eq('id', reservationId)
+
+    return reservationId
+    } catch (error) {
+        return error.message
+    }
+})
+
 const initialState = {
     reservations: [],
     reservation: {}, 
@@ -101,6 +114,13 @@ const reservationsSlice = createSlice({
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.reservations = action.payload
+        })
+        .addCase(deleteReservation.fulfilled, (state, action) => {
+            state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)
+            state.isLoading = false
+        })
+        .addCase(deleteReservation.pending, (state, action) => {
+            state.isLoading = true
         })
     }
 })
