@@ -13,7 +13,7 @@ const Reservation = ({ id, apartmentId, name, surname, startDate, endDate }) => 
         <p>{`${name} ${surname}`}</p>
         <p>{new Date(startDate).toLocaleDateString()}</p>
         <p>{new Date(endDate).toLocaleDateString()}</p>
-        <button onClick={toggleMoreDetailsSection} className='p-2 border-[1px] border-black bg-blue-100'>More Info</button>
+        <button onClick={toggleMoreDetailsSection} className='p-2 border-[1px] border-black bg-blue-100'>Manage</button>
     </div>
   )
 }
