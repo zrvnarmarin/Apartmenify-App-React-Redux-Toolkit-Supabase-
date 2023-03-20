@@ -27,9 +27,10 @@ const Reservations = () => {
     <div className='flex flex-col gap-2'>
       <p className='text-2xl p-2'>Reservations</p>
         <ReservationTableHeader />
-        {allReservations.map(reservation => 
+        {allReservations.map((reservation, index) => 
           <Reservation
             key={reservation.id}
+            index={index + 1}
             id={reservation.id}
             apartmentId={reservation.apartmentId}
             userId={reservation.userId}

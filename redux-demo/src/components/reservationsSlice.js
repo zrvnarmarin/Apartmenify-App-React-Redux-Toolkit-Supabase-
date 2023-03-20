@@ -106,11 +106,9 @@ const reservationsSlice = createSlice({
         })
         .addCase(getAllReservations.pending, (state, action) => {
             state.isLoading = true
-            console.log(action.payload)
         })
         .addCase(getReservationById.fulfilled, (state, action) => {
             state.reservation = action.payload
-            console.log(action.payload)
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.reservations = action.payload

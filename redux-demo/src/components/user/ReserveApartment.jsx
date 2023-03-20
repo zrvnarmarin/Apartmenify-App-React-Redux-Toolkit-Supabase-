@@ -104,8 +104,20 @@ const ReserveApartment = ({ apartmentId }) => {
 
     return (
         <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>
-            <input value={name} onChange={nameChangeHandler} type="text" placeholder='Name' className='p-2 border-[1px] border-black' />
-            <input value={surname} onChange={surnameChangeHandler} type="text" placeholder='Surname' className='p-2 border-[1px] border-black' />
+            <input 
+                value={name} 
+                onChange={nameChangeHandler} 
+                type="text" 
+                placeholder='Name' 
+                className='p-2 border-[1px] border-black' 
+            />
+            <input 
+                value={surname} 
+                onChange={surnameChangeHandler} 
+                type="text"
+                placeholder='Surname' 
+                className='p-2 border-[1px] border-black' 
+             />
             <DatePicker
                 className="border-[1px] border-black p-2"
                 placeholderText="Date"
