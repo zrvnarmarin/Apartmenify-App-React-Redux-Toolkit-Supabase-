@@ -47,7 +47,8 @@ const AddNewApartment = () => {
       address: address,
       singleBeds: singleBeds,
       doubleBeds: doubleBeds,
-      facilities: selectedFacilities.map(selectedFacility => selectedFacility.value)
+      facilities: selectedFacilities.map(selectedFacility => selectedFacility.value),
+      availability: 'free'
     }))
 
     navigate('/main/apartments')

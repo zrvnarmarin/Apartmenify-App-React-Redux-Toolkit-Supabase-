@@ -6,9 +6,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
+import { updateApartmentAvailability } from '../apartmentsSlice';
 import { addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname, 
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
-    setUserEmail, resetForm } 
+    setUserEmail } 
     from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
@@ -38,6 +39,8 @@ const ReserveApartment = ({ apartmentId }) => {
             endDate: endDate.toISOString(),
             isCompleted: false
         }))
+
+        dispatch(updateApartmentAvailability({ apartmentId: apartmentId, availability: 'reserved' }))
 
         resetForm()
 

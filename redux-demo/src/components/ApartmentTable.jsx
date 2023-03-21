@@ -24,6 +24,7 @@ const ApartmentTable = ({ apartments }) => {
           singleBeds={apartment.singleBeds}
           distanceFromTheSea={apartment.distanceFromTheSea}
           facilities={apartment.facilities}
+          availability={apartment.availability}
         />
       )}
     </>

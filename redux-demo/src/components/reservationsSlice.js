@@ -143,6 +143,7 @@ const reservationsSlice = createSlice({
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.reservations = action.payload
+            console.log(action.payload, 'getreserv by apartment id')
         })
         .addCase(deleteReservation.fulfilled, (state, action) => {
             state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)

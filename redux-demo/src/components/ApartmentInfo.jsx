@@ -5,7 +5,7 @@ import Modal from '../UI/Modal'
 import { openModal, selectIsModalOpen } from '../UI/modalSlice'
 import { modalTexts } from '../data/modal/modalTexts'
 
-const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities }) => {
+const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
   const deleteSelectedApartment = () => dispatch(deleteTestApartment(id))
@@ -21,7 +21,7 @@ const ApartmentInfo = ({ id, tableIndex, title, status, city, rooms, price, desc
       <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
         <span>{tableIndex}</span>
         <div>{title}</div>
-        <div>{status}</div>
+        <div>{availability}</div>
         <div>{city}</div>
         <div>{rooms}</div>
         <div>{price} e</div>

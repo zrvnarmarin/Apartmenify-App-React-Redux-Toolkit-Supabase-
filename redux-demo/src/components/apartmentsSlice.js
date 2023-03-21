@@ -1,6 +1,5 @@
 import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
 import supabase from '../supabaseClient';
-import { storage } from '../supabaseClient';
 
 //Supabase 
 export const getAllApartments = createAsyncThunk('apartments/getAllApartments', async () => {
@@ -42,7 +41,8 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async ne
             singleBeds: newApartment.singleBeds,
             doubleBeds: newApartment.doubleBeds,
             distanceFromTheSea: newApartment.distanceFromTheSea,
-            price: newApartment.price
+            price: newApartment.price,
+            availability: newApartment.availability
           }
         ])
         .single()
@@ -82,107 +82,123 @@ export const getAllFacilities = createAsyncThunk('apartments/getAllFacilities', 
 })
 
 export const addFacility = createAsyncThunk('apartments/addFacility', async facility => {
-    try {
-        const { data, error } = await supabase
-            .from('facilities')
-            .insert({name: facility})
-            .single()
+  try {
+    const { data, error } = await supabase
+      .from('facilities')
+      .insert({name: facility})
+      .single()
 
-            console.log(facility)
+      console.log(facility)
 
     return facility
 
     } catch (error) {
-        return error.message
+      return error.message
     }
 })
 
 export const deleteFacility = createAsyncThunk('apartments/deleteFacility', async id => {
-    try {
-        const { data, error } = await supabase
-            .from('facilities')
-            .delete()
-            .eq('id', id)
+  try {
+    const { data, error } = await supabase
+      .from('facilities')
+      .delete()
+      .eq('id', id)
 
-            return id
-    } catch (error) {
-        return error.message
-    }
+      return id
+  } catch (error) {
+    return error.message
+  }
+})
+
+export const updateApartmentAvailability = createAsyncThunk('apartments/updateApartmentAvailability',
+ async ({ apartmentId, availability }) => {
+  
+  const { error } = await supabase
+  .from('apartments')
+  .update({ availability: availability })
+  .eq('id', apartmentId)
+
+  console.log('thunk apartment id', apartmentId, availability)
+  return data
 })
 
 const initialState = {
-    apartments: [],
-    apartment: {},
-    isLoading: false,
-    status: 'idle',
-    error: null,
-    filter: '',
-    filterQuery: '',
-    sort: 'price',
-    sortOrder: 'ascending',
-    facility: '',
-    facilities: []
+  apartments: [],
+  apartment: {},
+  isLoading: false,
+  status: 'idle',
+  error: null,
+  filter: '',
+  filterQuery: '',
+  sort: 'price',
+  sortOrder: 'ascending',
+  facility: '',
+  facilities: []
 }
 
 const apartmentsSlice = createSlice({
     name: 'apartments',
     initialState,
     reducers: {
-        setFilter: (state, action) => {
-            state.filter = action.payload
-            console.log('filter option je: ', action.payload)
-        },
-        setFilterQuery: (state, action) => {
-            state.filterQuery = action.payload
-            console.log('filter query je: ', action.payload)
-        },
-        setSort: (state, action) => {
-            state.sort = action.payload
-            console.log('sort option je: ', action.payload)
-        },
-        setSortOrder: (state, action) => {
-            state.sortOrder = action.payload
-            console.log('sort order je: ', action.payload)
-        },
-        setNewFacility: (state, action) => {
-            state.facility = action.payload
-        },
+      setFilter: (state, action) => {
+        state.filter = action.payload
+        console.log('filter option je: ', action.payload)
+      },
+      setFilterQuery: (state, action) => {
+        state.filterQuery = action.payload
+        console.log('filter query je: ', action.payload)
+      },
+      setSort: (state, action) => {
+        state.sort = action.payload
+        console.log('sort option je: ', action.payload)
+      },
+      setSortOrder: (state, action) => {
+        state.sortOrder = action.payload
+        console.log('sort order je: ', action.payload)
+      },
+      setNewFacility: (state, action) => {
+        state.facility = action.payload
+      },
     },
     extraReducers(builder) {
-        builder
-        // SUPABASE: 
-        .addCase(getAllApartments.fulfilled, (state, action) => {
-            state.apartments = action.payload;
-            state.status = 'successed';
-            state.isLoading = false
-        })
-        .addCase(getAllApartments.pending, (state, action) => {
-            // state.status = 'successed';
-            state.isLoading = true
-        })
-        .addCase(getApartment.fulfilled, (state, action) => {
-            // console.log(action.payload)
-            state.apartment = action.payload
-        })
-        // .addCase(getApartment.pending, (state, action) => {
-        //     state.status = 'loading'
-        // })
-        .addCase(addApartment.fulfilled, (state, action) => {
-            // console.log(action.payload)
-            state.apartments.push(action.payload)
-            state.status = 'idle'
-            state.error = null
-        })
-        .addCase(deleteTestApartment.fulfilled, (state, action) => {
-            state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
-        })
-        .addCase(getAllFacilities.fulfilled, (state, action) => {
-            state.facilities = action.payload
-        })
-        .addCase(addFacility.fulfilled, (state, action) => {
-            console.log(action.payload)
-            state.facility = action.payload
-        })
+      builder
+      // SUPABASE: 
+      .addCase(getAllApartments.fulfilled, (state, action) => {
+        state.apartments = action.payload;
+        state.status = 'successed';
+        state.isLoading = false
+      })
+      .addCase(getAllApartments.pending, (state, action) => {
+        // state.status = 'successed';
+        state.isLoading = true
+      })
+      .addCase(getApartment.fulfilled, (state, action) => {
+        // console.log(action.payload)
+        state.apartment = action.payload
+      })
+      // .addCase(getApartment.pending, (state, action) => {
+      //     state.status = 'loading'
+      // })
+      .addCase(addApartment.fulfilled, (state, action) => {
+        // console.log(action.payload)
+        state.apartments.push(action.payload)
+        state.status = 'idle'
+        state.error = null
+      })
+      .addCase(deleteTestApartment.fulfilled, (state, action) => {
+        state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+      })
+      .addCase(getAllFacilities.fulfilled, (state, action) => {
+        state.facilities = action.payload
+      })
+      .addCase(addFacility.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.facility = action.payload
+      })
+      .addCase(updateApartmentAvailability.fulfilled, (state, action) => {
+        console.log(action.payload)
+        console.log('hej iz add case-a')
+      })
     }
 })
 

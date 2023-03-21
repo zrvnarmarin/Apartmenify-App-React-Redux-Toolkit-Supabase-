@@ -5,17 +5,11 @@ import { getAllReservations, selectAllReservations, selectIsLoading } from './re
 import Reservation from './Reservation'
 import ReservationTableHeader from './ReservationTableHeader';
 
-// TO DO: rezervacije prikazi kao listu; napravi filter rezervacija i sortiranje rezervacija; u reservations
-// preseli sav kod iz ReserveApartment komponente u njen slice, dakle sve stateove; stavi mogucnost
-// brisanja rezervacija; stavi mogucnost prikaza rezervacija by username, by email etc. 
-// dobro promisli i razradi kako ce izgledati cijela komponenta i koju datu jos mogu izvuci iz usera
-// kad je prijavljen na appu u trenutku rezervacije apartmana (pogledaj user metadata properti)
-
 const Reservations = () => {
-  const dispatch = useDispatch()
-
   const allReservations = useSelector(selectAllReservations)
   const isLoading = useSelector(selectIsLoading)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getAllReservations())
