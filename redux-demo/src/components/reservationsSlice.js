@@ -14,6 +14,7 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
                     surname: newReservation.surname,
                     startDate: newReservation.startDate,
                     endDate: newReservation.endDate,
+                    isCompleted: newReservation.isCompleted
                 }
             ])
 
@@ -88,12 +89,41 @@ const initialState = {
     reservations: [],
     reservation: {}, 
     isLoading: false,
-    error: null
+    error: null,
+
+    name: '',
+    surname: '',
+    userId: '',
+    userEmail: ''
 }
 
 const reservationsSlice = createSlice({
     name: 'reservations',
     initialState,
+    reducers: {
+        setName: (state, action) => {
+            state.name = action.payload
+        },
+        resetName: (state, action) => {
+            state.name = ''
+        },
+        setSurname: (state, action) => {
+            state.surname = action.payload
+        },
+        resetSurname: (state, action) => {
+            state.surname = ''
+        },
+        setUserId: (state, action) => {
+            state.userId = action.payload
+        },
+        setUserEmail: (state, action) => {
+            state.userEmail = action.payload
+        },
+        resetForm: (state, action) => {
+            state.name = ''
+            state.surname = ''
+        }
+    },
     extraReducers(builder) {
         builder
         .addCase(addReservation.fulfilled, (state, action) => {
@@ -130,9 +160,11 @@ export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
 export const selectAllReservations = (state) => state.reservations.reservations
 export const selectIsLoading = (state) => state.reservations.isLoading
+export const selectUserId = (state) => state.reservations.userId
+export const selectUserEmail = (state) => state.reservations.userEmail
 
 // Reducers
-export const { setName, setSurname, setStartDate, setEndDate } = reservationsSlice.actions
+export const { setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, setStartDate, setEndDate } = reservationsSlice.actions
 
 // Slice
 export default reservationsSlice.reducer

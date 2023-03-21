@@ -5,25 +5,25 @@ import supabase from '../../supabaseClient';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { addReservation, getReservationsByApartmentId, selectAllReservations } from '../reservationsSlice';
 import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
+import { addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname, 
+        resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
+        setUserEmail, resetForm } 
+        from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
-    const [name, setName] = useState('')
-    const [surname, setSurname] = useState('')
+    const name = useSelector(selectName)
+    const surname = useSelector(selectSurname)
+    const userId = useSelector(selectUserId)
+    const userEmail = useSelector(selectUserEmail)
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
-    const [userId, setUserId] = useState('')
-    const [userEmail, setUserEmail] = useState('')
-    const [userData, setUserData] = useState({}) // user data should be everything from use, vidi jel moze 
-    //kao objekt u supabase
-
-    const nameChangeHandler = e => setName(e.target.value)
-    const surnameChangeHandler = e => setSurname(e.target.value)
 
     const dispatch = useDispatch()
 
     const allReservations = useSelector(selectAllReservations)
+    const nameChangeHandler = e => dispatch(setName(e.target.value))
+    const surnameChangeHandler = e => dispatch(setSurname(e.target.value))
 
     const submitFormHandler = (e) => {
         e.preventDefault()
@@ -35,7 +35,8 @@ const ReserveApartment = ({ apartmentId }) => {
             name: name,
             surname: surname,
             startDate: startDate.toISOString(),
-            endDate: endDate.toISOString()
+            endDate: endDate.toISOString(),
+            isCompleted: false
         }))
 
         resetForm()
@@ -44,16 +45,16 @@ const ReserveApartment = ({ apartmentId }) => {
     }
 
     const resetForm = () => {
-        setName('')
-        setSurname('')
+        dispatch(resetName())
+        dispatch(resetSurname())
         setDateRange([])
     }
 
     useEffect(() => {
         supabase.auth.getUser().then(value => {
             // console.log(value.data.user.user_metadata) check this one for full data on user
-            setUserId(value.data.user.id)
-            setUserEmail(value.data.user.email)
+            dispatch(setUserId(value.data.user.id))
+            dispatch(setUserEmail(value.data.user.email))
         })
 
         // Get all reservations on mount
