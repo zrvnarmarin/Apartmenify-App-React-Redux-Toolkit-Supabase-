@@ -7,11 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
 import { addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname, 
-        resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
-        setUserEmail, resetForm } 
-        from '../reservationsSlice';
+    resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
+    setUserEmail, resetForm } 
+    from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
+    const allReservations = useSelector(selectAllReservations)
     const name = useSelector(selectName)
     const surname = useSelector(selectSurname)
     const userId = useSelector(selectUserId)
@@ -21,7 +22,6 @@ const ReserveApartment = ({ apartmentId }) => {
 
     const dispatch = useDispatch()
 
-    const allReservations = useSelector(selectAllReservations)
     const nameChangeHandler = e => dispatch(setName(e.target.value))
     const surnameChangeHandler = e => dispatch(setSurname(e.target.value))
 

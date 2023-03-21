@@ -91,6 +91,7 @@ const initialState = {
     isLoading: false,
     error: null,
 
+    // User specific data
     name: '',
     surname: '',
     userId: '',
@@ -164,7 +165,7 @@ export const selectUserId = (state) => state.reservations.userId
 export const selectUserEmail = (state) => state.reservations.userEmail
 
 // Reducers
-export const { setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, setStartDate, setEndDate } = reservationsSlice.actions
+export const { setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, setStartDate, setEndDate, resetForm } = reservationsSlice.actions
 
 // Slice
 export default reservationsSlice.reducer
