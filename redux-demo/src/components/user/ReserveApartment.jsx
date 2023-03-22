@@ -9,7 +9,7 @@ import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
 import { updateApartmentAvailability } from '../apartmentsSlice';
 import { addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname, 
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
-    setUserEmail } 
+    setUserEmail, selectStartDate, selectEndDate, selectDateRange, setDateRange as setRangeDate, selectCurrentDate } 
     from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
@@ -21,8 +21,18 @@ const ReserveApartment = ({ apartmentId }) => {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
 
-    const dispatch = useDispatch()
+    // iz reservation slice-a
+    const stDate = useSelector(selectStartDate)
+    const edDate = useSelector(selectEndDate)
+    const dtRange = useSelector(selectDateRange)
+    const currentDate = useSelector(selectCurrentDate)
+    
+    console.log('date range', dtRange)
+    console.log('start date - ', stDate)
+    console.log('end date - ', edDate)
+    console.log('current date - ', currentDate)
 
+    const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))
     const surnameChangeHandler = e => dispatch(setSurname(e.target.value))
 
@@ -128,7 +138,11 @@ const ReserveApartment = ({ apartmentId }) => {
                 selectsRange={true}
                 startDate={startDate}
                 endDate={endDate}
-                onChange={selectedDate => setDateRange(selectedDate)}
+                onChange={selectedDate => {
+                    // console.log(selectedDate, 'onchange handler ')
+                    setDateRange(selectedDate)
+                    dispatch(setRangeDate(JSON.stringify(selectedDate)))
+                }}
                 isClearable={true}
                 dateFormat='dd.MM.yyyy'
                 minDate={new Date()}

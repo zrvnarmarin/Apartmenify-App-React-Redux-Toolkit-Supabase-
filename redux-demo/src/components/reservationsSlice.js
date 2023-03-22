@@ -90,6 +90,10 @@ const initialState = {
     reservation: {}, 
     isLoading: false,
     error: null,
+    dateRange: [null, null],
+    startDate: '',
+    endDate: '',
+    currentDate: new Date().toISOString(),
 
     // User specific data
     name: '',
@@ -123,6 +127,24 @@ const reservationsSlice = createSlice({
         resetForm: (state, action) => {
             state.name = ''
             state.surname = ''
+        },
+        setStartDate: (state, action) => {
+            state.startDate = new Date(action.payload).toISOString()
+            console.log(state.startDate, 'start date reducer')
+        },
+        setEndDate: (state, action) => {
+            state.endDate = new Date(action.payload).toISOString()
+            console.log(state.endDate, 'end date reducer')
+        },
+        setDateRange: (state, action) => {
+            const parsedDateRange = JSON.parse(action.payload)
+            // const startDate = parsedDateRange[0]
+            // const endDate = parsedDateRange[1]
+            console.log(parsedDateRange)
+
+            state.dateRange = parsedDateRange
+            // state.startDate = startDate
+            // state.endDate = endDate
         }
     },
     extraReducers(builder) {
@@ -143,7 +165,7 @@ const reservationsSlice = createSlice({
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.reservations = action.payload
-            console.log(action.payload, 'getreserv by apartment id')
+            // console.log(action.payload, 'getreserv by apartment id')
         })
         .addCase(deleteReservation.fulfilled, (state, action) => {
             state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)
@@ -158,15 +180,19 @@ const reservationsSlice = createSlice({
 // States
 export const selectName = (state) => state.reservations.name
 export const selectSurname = (state) => state.reservations.surname
-export const selectStartDate = (state) => state.reservations.startDate
-export const selectEndDate = (state) => state.reservations.endDate
 export const selectAllReservations = (state) => state.reservations.reservations
 export const selectIsLoading = (state) => state.reservations.isLoading
 export const selectUserId = (state) => state.reservations.userId
 export const selectUserEmail = (state) => state.reservations.userEmail
+export const selectStartDate = (state) => state.reservations.startDate
+export const selectEndDate = (state) => state.reservations.endDate
+export const selectDateRange = (state) => state.reservations.dateRange
+export const selectCurrentDate = (state) => state.reservations.currentDate
 
 // Reducers
-export const { setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, setStartDate, setEndDate, resetForm } = reservationsSlice.actions
+export const { 
+    setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, 
+    setDateRange, setStartDate, setEndDate, resetForm } = reservationsSlice.actions
 
 // Slice
 export default reservationsSlice.reducer
