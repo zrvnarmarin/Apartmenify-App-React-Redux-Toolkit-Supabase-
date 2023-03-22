@@ -138,13 +138,13 @@ const reservationsSlice = createSlice({
         },
         setDateRange: (state, action) => {
             const parsedDateRange = JSON.parse(action.payload)
-            // const startDate = parsedDateRange[0]
-            // const endDate = parsedDateRange[1]
-            console.log(parsedDateRange)
+            const formatedDates = parsedDateRange.map(dates => new Date(dates).toLocaleDateString())
+
+            console.log(formatedDates, 'parsed date range')
 
             state.dateRange = parsedDateRange
-            // state.startDate = startDate
-            // state.endDate = endDate
+            state.startDate = formatedDates[0]
+            state.endDate = formatedDates[1]
         }
     },
     extraReducers(builder) {

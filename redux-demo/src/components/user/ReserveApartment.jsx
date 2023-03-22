@@ -27,10 +27,10 @@ const ReserveApartment = ({ apartmentId }) => {
     const dtRange = useSelector(selectDateRange)
     const currentDate = useSelector(selectCurrentDate)
     
-    console.log('date range', dtRange)
+    // console.log('date range', dtRange)
     console.log('start date - ', stDate)
     console.log('end date - ', edDate)
-    console.log('current date - ', currentDate)
+    // console.log('current date - ', currentDate)
 
     const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))
@@ -139,8 +139,8 @@ const ReserveApartment = ({ apartmentId }) => {
                 startDate={startDate}
                 endDate={endDate}
                 onChange={selectedDate => {
-                    // console.log(selectedDate, 'onchange handler ')
                     setDateRange(selectedDate)
+                    // console.log(selectedDate, 'selected date')
                     dispatch(setRangeDate(JSON.stringify(selectedDate)))
                 }}
                 isClearable={true}
