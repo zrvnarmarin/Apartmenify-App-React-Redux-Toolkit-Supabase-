@@ -9,7 +9,8 @@ import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
 import { updateApartmentAvailability } from '../apartmentsSlice';
 import { addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname, 
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
-    setUserEmail, selectStartDate, selectEndDate, selectDateRange, setDateRange as setRangeDate, selectCurrentDate } 
+    setUserEmail, selectStartDate, selectEndDate, selectDateRange, setDateRange as setRangeDate, 
+    selectCurrentDate } 
     from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId }) => {
@@ -28,9 +29,9 @@ const ReserveApartment = ({ apartmentId }) => {
     const currentDate = useSelector(selectCurrentDate)
     
     // console.log('date range', dtRange)
-    console.log('start date - ', stDate)
-    console.log('end date - ', edDate)
-    // console.log('current date - ', currentDate)
+    // console.log('start date - ', stDate)
+    // console.log('end date - ', edDate)
+    console.log('current date - ', currentDate)
 
     const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))
@@ -109,11 +110,7 @@ const ReserveApartment = ({ apartmentId }) => {
         .map(dates => getDatesBetweenIntervals(dates.start, dates.end))
         .flat(1)
 
-        // console.log(allReservedDates)
-        // console.log('DATEEE', date.toISOString())
-        // TO DO: figure out how to paint red dates that have been reserved
-
-        return <div>{dayOfMonth}</div>
+        return <div className={`${outputDate === date ? 'bg-red-700' : ''}`}>{dayOfMonth}</div>
     };
 
     return (

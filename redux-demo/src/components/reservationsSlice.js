@@ -93,7 +93,7 @@ const initialState = {
     dateRange: [null, null],
     startDate: '',
     endDate: '',
-    currentDate: new Date().toISOString(),
+    currentDate: new Date().toLocaleDateString(),
 
     // User specific data
     name: '',
