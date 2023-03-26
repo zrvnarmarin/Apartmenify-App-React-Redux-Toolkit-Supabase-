@@ -85,4 +85,4 @@ Reservation Details: Being able to view detailed information about each reservat
 Edit and Delete Functionality: As an admin, you may need to edit or delete reservations. Consider adding functionality to allow you to modify or delete reservations easily.
 
 to do: add readme doc, solve the reservations problem and issue when user clicks the apartment that 
-wants to reserve, the app does not get id for selected apartment
+wants to reserve, the app does not get id for selected apartment, add refresh token with each signin 
