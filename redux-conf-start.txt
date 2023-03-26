@@ -83,3 +83,6 @@ Search Functionality: Adding a search functionality to search reservations by cl
 Reservation Details: Being able to view detailed information about each reservation can help manage reservations more efficiently. Include details such as the client name, reservation date, reservation status, number of guests, and any special requests or notes associated with the reservation.
 
 Edit and Delete Functionality: As an admin, you may need to edit or delete reservations. Consider adding functionality to allow you to modify or delete reservations easily.
+
+to do: add readme doc, solve the reservations problem and issue when user clicks the apartment that 
+wants to reserve, the app does not get id for selected apartment
