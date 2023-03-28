@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import supabase from "../supabaseClient";
 
 export const addReservation = createAsyncThunk('reservations/addReservation', async newReservation => {
@@ -111,7 +111,10 @@ const initialState = {
     name: '',
     surname: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+
+    // User reservation filter
+    filter: 'current'
 }
 
 const reservationsSlice = createSlice({
@@ -157,6 +160,10 @@ const reservationsSlice = createSlice({
             state.dateRange = parsedDateRange
             state.startDate = formatedDates[0]
             state.endDate = formatedDates[1]
+        },
+        setFilter: (state, action) => {
+            state.filter = action.payload
+            console.log(action.payload)
         }
     },
     extraReducers(builder) {
@@ -177,7 +184,6 @@ const reservationsSlice = createSlice({
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.reservations = action.payload
-            // console.log(action.payload, 'getreserv by apartment id')
         })
         .addCase(deleteReservation.fulfilled, (state, action) => {
             state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)
@@ -204,11 +210,29 @@ export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
 export const selectDateRange = (state) => state.reservations.dateRange
 export const selectCurrentDate = (state) => state.reservations.currentDate
+export const selectFilter = (state) => state.reservations.filter
 
 // Reducers
 export const { 
     setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, 
-    setDateRange, setStartDate, setEndDate, resetForm } = reservationsSlice.actions
+    setDateRange, setStartDate, setEndDate, resetForm, setFilter
+} = reservationsSlice.actions
+
+// Memoized selectors
+export const filteredReservations = createSelector(
+    [selectAllReservations, selectFilter],
+    (allReservations, filter) => {
+        if (filter.toLowerCase() === 'current') {
+            return allReservations.filter(reservation => !reservation.isCompleted)
+        }
+        if (filter.toLowerCase() === 'previous') {
+            return allReservations.filter(reservation => reservation.isCompleted)
+        }
+        else {
+            return allReservations
+        }
+    }
+)
 
 // Slice
 export default reservationsSlice.reducer
