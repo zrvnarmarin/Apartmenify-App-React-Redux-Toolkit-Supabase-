@@ -21,7 +21,7 @@ const Apartment = ({ id, title, description, city, rooms, price }) => {
             <p>PRICE: {price} e</p>
             <Link
                 to={`/userDashboard/apartments/${id}`}
-                state={{ apartmentId: id }}
+                state={{ apartmentId: id, apartmentTitle: title }}
                 className='p-2 border-2 border-black bg-blue-100'
             >
                 Reserve

@@ -9,7 +9,7 @@ import ReserveApartment from './ReserveApartment';
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
 
-  const { state: { apartmentId } } = useLocation()
+  const { state: { apartmentId, apartmentTitle } } = useLocation()
   const apartment = useSelector(selectApartment)
   const { title, address, city, facilities } = apartment
 
@@ -68,7 +68,10 @@ const ApartmentDetails = () => {
         At fugiat ducimus, voluptates qui blanditiis aperiam, corporis beatae modi eum alias in veritatis error officia odit cum tempore ex voluptate exercitationem voluptas explicabo labore nemo laborum similique. Facilis, neque?
       </div>
 
-      <ReserveApartment apartmentId={apartmentId} />
+      <ReserveApartment 
+        apartmentId={apartmentId} 
+        apartmentTitle={apartmentTitle} 
+      />
 
     </div>
   )

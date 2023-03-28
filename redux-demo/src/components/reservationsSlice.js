@@ -8,6 +8,7 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
             .insert([
                 { 
                     apartmentId: newReservation.apartmentId,
+                    apartmentTitle: newReservation.apartmentTitle,
                     userId: newReservation.userId,
                     userEmail: newReservation.userEmail,
                     name: newReservation.name,

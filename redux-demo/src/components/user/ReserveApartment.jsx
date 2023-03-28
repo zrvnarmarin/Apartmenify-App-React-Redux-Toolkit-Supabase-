@@ -13,7 +13,7 @@ import { addReservation, getReservationsByApartmentId, selectAllReservations, se
     selectCurrentDate } 
     from '../reservationsSlice';
 
-const ReserveApartment = ({ apartmentId }) => {
+const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     const allReservations = useSelector(selectAllReservations)
     const name = useSelector(selectName)
     const surname = useSelector(selectSurname)
@@ -32,6 +32,7 @@ const ReserveApartment = ({ apartmentId }) => {
     // console.log('start date - ', stDate)
     // console.log('end date - ', edDate)
     console.log('current date - ', currentDate)
+    console.log('apartment title prop', apartmentTitle)
 
     const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))
@@ -48,7 +49,8 @@ const ReserveApartment = ({ apartmentId }) => {
             surname: surname,
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString(),
-            isCompleted: false
+            isCompleted: false,
+            apartmentTitle: apartmentTitle,
         }))
 
         dispatch(updateApartmentAvailability({ apartmentId: apartmentId, availability: 'reserved' }))
