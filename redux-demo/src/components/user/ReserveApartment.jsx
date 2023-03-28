@@ -66,7 +66,7 @@ const ReserveApartment = ({ apartmentId }) => {
 
     useEffect(() => {
         supabase.auth.getUser().then(value => {
-            // console.log(value.data.user.user_metadata) check this one for full data on user
+            // console.log(value.data.user.user_metadata) //check this one for full data on user
             dispatch(setUserId(value.data.user.id))
             dispatch(setUserEmail(value.data.user.email))
         })
@@ -110,7 +110,7 @@ const ReserveApartment = ({ apartmentId }) => {
         .map(dates => getDatesBetweenIntervals(dates.start, dates.end))
         .flat(1)
 
-        return <div className={`${outputDate === date ? 'bg-red-700' : ''}`}>{dayOfMonth}</div>
+        return <div>{dayOfMonth}</div>
     };
 
     return (
