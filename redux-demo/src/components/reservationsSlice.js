@@ -79,7 +79,7 @@ export const getReservationsByUserEmail = createAsyncThunk('reservations/getRese
     .select()
     .eq('userEmail', userEmail)
 
-    console.log(data)
+    // console.log(data)
 
     return data
 })
@@ -163,7 +163,6 @@ const reservationsSlice = createSlice({
         },
         setFilter: (state, action) => {
             state.filter = action.payload
-            console.log(action.payload)
         }
     },
     extraReducers(builder) {
@@ -184,6 +183,7 @@ const reservationsSlice = createSlice({
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.reservations = action.payload
+            state.isLoading = false
         })
         .addCase(deleteReservation.fulfilled, (state, action) => {
             state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)

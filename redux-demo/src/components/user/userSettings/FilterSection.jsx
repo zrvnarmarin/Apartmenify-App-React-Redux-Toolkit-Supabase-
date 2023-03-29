@@ -8,7 +8,7 @@ const FilterSection = () => {
   const setReservationFilter = filter => dispatch(setFilter(filter))
 
   return (
-    <div className='flex flex-row items-center justify-end gap-4'>
+    <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px] bg-red-100'>
         {filterOptions.map(option => 
             <button
                 key={option.id}
