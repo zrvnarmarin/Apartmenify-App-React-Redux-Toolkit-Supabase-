@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getReservationsByUserEmail, filteredReservations, deleteReservation } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
-import { Link } from 'react-router-dom';
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservations)
@@ -21,11 +21,6 @@ const UserReservations = () => {
   useEffect(() => {
     dispatch(getReservationsByUserEmail(email))
   }, [dispatch])
-
-  // if (userReservations.length === 0) return <div>
-  //   <h1>No reservations</h1>
-  //   <Link>Find Your stay</Link>
-  // </div>
 
   return (
     <div>
@@ -43,14 +38,14 @@ const UserReservations = () => {
             is finished reservation : <span>{(userReservation.isCompleted.toString())}</span>
             <button 
               onClick={openModalWindow}
-              className='p-2 border-[1px] border-black bg-blue-100'
+              className={`p-2 border-[1px] border-black bg-blue-100`}
             >
               { userReservation.isCompleted ? 'Remove' : 'Cancel'}
             </button>
             { 
               isModalOpen && 
               <Modal 
-                modalText={modalTexts.cancelCurrentReservation} 
+                modalText={userReservation.isCompleted ? modalTexts.deleteCompletedReservation : modalTexts.cancelCurrentReservation} 
                 confirmAction={() => deleteSelectedReservation(userReservation.id)} 
               />
             }
