@@ -7,10 +7,8 @@ const FilterSection = () => {
   const dispatch = useDispatch()
   const setReservationFilter = filter => dispatch(setFilter(filter))
 
-  const reservationFilter = useSelector(selectFilter)
-  console.log('filter je', reservationFilter)
-
   const [isActive, setIsActive] = useState(1)
+  const reservationFilter = useSelector(selectFilter)
 
   return (
     <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px] bg-red-100'>
