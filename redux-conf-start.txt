@@ -8,68 +8,12 @@ RTK Query dobar tutorial - https://www.youtube.com/watch?v=YWbZILe35P4&ab_channe
 
 
 ovo je za datume - https://www.youtube.com/watch?v=tgcCl52EN84&ab_channel=CooperCodes
-database design: 
-
-CREATE TABLE apartments (
-  id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
-  room_numbers INTEGER NOT NULL,
-  city TEXT NOT NULL
-);
-
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL
-);
-
-CREATE TABLE reservations (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id),
-  apartment_id INTEGER REFERENCES apartments(id),
-  reservation_date TIMESTAMP NOT NULL
-);
-
-CREATE TABLE ratings (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id),
-  apartment_id INTEGER REFERENCES apartments(id),
-  rating INTEGER NOT NULL,
-  comment TEXT,
-  created_at TIMESTAMP NOT NULL DEFAULT now()
-);
-
 - kada se spremaju datumi u supabase, uvijek pretvori Date() objekt u ISOString(), jer to je format koji supabase prima
 
 - pogledaj ovaj api za storage upload za slike - https://supabase.com/docs/reference/javascript/v1/storage-createbucket
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// using memoized selectors for filtering and sorting? e.g: 
-Sure, here's an example of how you can create memoized selectors using the createSelector function from the reselect library:
-
-import { createSelector } from 'reselect';
-
-// A selector that returns the users slice of the state
-const getUsers = state => state.users;
-
-// A memoized selector that returns the list of active users
-const getActiveUsers = createSelector(
-  getUsers,
-  users => users.filter(user => user.isActive)
-);
-In the above example, we define a basic selector getUsers that returns the users slice of 
-the Redux state object. We then define a memoized selector getActiveUsers using createSelector, 
-which takes two arguments: the first argument is an array of input selectors, and the second 
-argument is a function that takes the output of those selectors and returns the derived data.
-In this case, the getActiveUsers selector takes the output of the getUsers selector and filters 
-the list of users to return only those that have isActive set to true. The result of this selector
- is memoized, meaning that it will only be recomputed when the input selector (getUsers) changes.
-Memoized selectors can help to optimize performance by avoiding unnecessary recomputations of
- derived data when the input data hasn't changed. They can also help to simplify your code by 
- encapsulating the logic for deriving data from the Redux state object.
-
 
  ///////////////////////////////////////////FOR THE RESERVATIONS //////////////////
  Filter Reservations: Filtering reservations based on various criteria such as reservation date, client name, or reservation status (confirmed, pending, cancelled) can make it easier to find specific reservations and manage them more efficiently.
@@ -86,3 +30,12 @@ Edit and Delete Functionality: As an admin, you may need to edit or delete reser
 
 to do: add readme doc, solve the reservations problem and issue when user clicks the apartment that 
 wants to reserve, the app does not get id for selected apartment, add refresh token with each signin 
+
+///////////////////////////////////////////SAVED APARTMENTS ////////////////////////////////////
+- saving will be in user slice, because I will be tracking saved apartments for each user
+- maping data:
+
+- data design: wishlist and saved apartments
+- each wishlist will contain ID, user`s ID and name
+- saved apartments table will contain ID, wishlist`s ID and apartment`s id
+TO DO later: supabase tables already made! put this into workv in user`s slice!
