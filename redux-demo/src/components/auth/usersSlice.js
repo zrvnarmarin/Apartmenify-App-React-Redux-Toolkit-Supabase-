@@ -18,10 +18,20 @@ export const getUser = createAsyncThunk('users/getUser', async () => {
     return user
 })
 
-export const getAllWishlists = createAsyncThunk('users/getAllWishlists', async () => {
+export const getAllWishlists = createAsyncThunk('users/getAllWishlists', async userId => {
     const { data, error } = await supabase
     .from('wishlists')
     .select()
+    .eq('userId', userId)
+
+    return data
+})
+
+export const getAllWishlistsByUserId = createAsyncThunk('users/getAllWishlistsByName', async userId => {
+    const { data, error } = await supabase
+    .from('wishlists')
+    .select('name')
+    .eq('userId', userId)
 
     return data
 })
@@ -86,6 +96,13 @@ const usersSlice = createSlice({
             state.isLoading = false
         })
         .addCase(getAllWishlists.fulfilled, (state, action) => {
+            state.wishlists = action.payload
+            state.status = 'successed'
+            state.isLoading = false
+
+            console.log(action.payload)
+        })
+        .addCase(getAllWishlistsByUserId.fulfilled, (state, action) => {
             state.wishlists = action.payload
             state.status = 'successed'
             state.isLoading = false

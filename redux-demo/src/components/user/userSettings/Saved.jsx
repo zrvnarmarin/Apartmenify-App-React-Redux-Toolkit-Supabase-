@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getAllSavedApartments } from '../../auth/usersSlice'
+import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getAllSavedApartments, getUser } from '../../auth/usersSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { selectUser, getAllWishlists } from './../../auth/usersSlice';
@@ -32,7 +32,9 @@ const Saved = () => {
   }
 
   useEffect(() => {
-    dispatch(getAllWishlists())
+    dispatch(getUser())
+    
+    dispatch(getAllWishlists(userId))
 
     dispatch(getAllSavedApartments({
       userId: userId,
@@ -43,7 +45,7 @@ const Saved = () => {
 
   return (
     <div>
-      <div className='flex flex-row gap-2 items-center'>
+      <div className='flex flex-row gap-2 items-center relative'>
 
         <h1 className='text-2xl'>Saved</h1>
 

@@ -1,24 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from './../auth/usersSlice';
+import { getAllWishlistsByUserId } from './../auth/usersSlice';
+import UseComponentVisible from '../../hooks/UseComponentVisible';
 
 const Apartment = ({ id, title, description, city, rooms, price }) => {
 
   const [isApartmentSaved, setIsApartmentSaved] = useState(false)
   const toggleApartmentSavedStatus = () => setIsApartmentSaved(prev => !prev)
-
   const apartmentSavedStatusIcon = isApartmentSaved ? SavedIcon : UnsavedIcon
 
   const { id: userId } = useSelector(selectUser)
 
-  useEffect(() => {
-    console.log(userId, id)
-  }, [])
+  const dispatch = useDispatch()
+
+  const { ref, isComponentVisible, setIsComponentVisible } = UseComponentVisible(true);
+
 
   return (
     <li className='flex gap-4 border-2 border-black items-center'>
@@ -44,10 +44,27 @@ const Apartment = ({ id, title, description, city, rooms, price }) => {
                 Reserve
             </Link>
         </div>
-        <div onClick={() => {
-            toggleApartmentSavedStatus()
-        }} >
+
+        <div 
+            className='relative' 
+            onClick={() => {
+                toggleApartmentSavedStatus()
+
+                if (!isApartmentSaved) { dispatch(getAllWishlistsByUserId(userId)) }
+// TO DO: https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+//get the ref working when user clicks outside 
+            }} 
+        >
             <img src={apartmentSavedStatusIcon} />
+            {
+                isApartmentSaved 
+                ? <div ref={ref} className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
+                border-black absolute top-8 left-0 bg-white w-60'
+                >
+                   <span>Saved to: Wishlist Name</span>
+               </div>
+               : ''
+            }
         </div>
     </li>
   )
