@@ -40,6 +40,13 @@ export const addWishlist = createAsyncThunk('users/addWishlist', async newWishli
     return newWishlist
 })
 
+export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartments', async data  => {
+    const { data: savedApartments, error} = await supabase
+    .from('savedApartments')
+    .select('apartmentId')
+    .eg('wishlistId', data.name)
+})
+
 const initialState = {
     users: [],
     user: {},

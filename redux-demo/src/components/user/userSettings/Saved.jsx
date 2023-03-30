@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist } from '../../auth/usersSlice'
+import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getAllSavedApartments } from '../../auth/usersSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { selectUser, getAllWishlists } from './../../auth/usersSlice';
@@ -33,6 +33,12 @@ const Saved = () => {
 
   useEffect(() => {
     dispatch(getAllWishlists())
+
+    dispatch(getAllSavedApartments({
+      userId: userId,
+      name: wishlist
+    }))
+    
   }, [dispatch])
 
   return (
@@ -57,6 +63,14 @@ const Saved = () => {
                 <span className='p-2 bg-blue-100'>Update</span>
                 <span className='p-2 bg-blue-100'>Delete</span>
               </p>
+              {/* {allWishlists.map(wishlist =>
+                  <div key={wishlist.id}>
+                    <span>{wishlist.name}</span>
+                    <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>0</span>
+                    <span className='p-2 bg-blue-100'>Update</span>
+                    <span className='p-2 bg-blue-100'>Delete</span>
+                  </div>
+              )} */}
               <p className='flex row items-center gap-2'>
                 <span>Marin</span>
                 <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>0</span>
@@ -95,7 +109,7 @@ const Saved = () => {
             </form>
           }
         </div>
-{/* {JSON.stringify(allWishlists)} */}
+{JSON.stringify(allWishlists)}
       </div>
     </div>
   )
