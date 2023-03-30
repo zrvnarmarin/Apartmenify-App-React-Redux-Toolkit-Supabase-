@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist } from '../../auth/usersSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { selectUser, getAllWishlists } from './../../auth/usersSlice';
 
 const Saved = () => {
   const [isSavedApartmentsListShown, setIsSavedApartmentsListShown] = useState(false)
@@ -6,6 +10,30 @@ const Saved = () => {
 
   const [isCreateNewListShown, setIsCreateNewListShown] = useState(false)
   const toggleNewList = () => setIsCreateNewListShown(prev => !prev)
+
+  const { id: userId } = useSelector(selectUser)
+  const wishlist = useSelector(selectWishlist)
+  const allWishlists = useSelector(selectAllWishlists) 
+
+  const dispatch = useDispatch()
+  const setNewWishlist = e => dispatch(setWishlist(e.target.value))
+
+  const submitFormHandler = (e) => {
+    e.preventDefault()
+
+    dispatch(addWishlist({
+      name: wishlist,
+      userId: userId
+    }))
+
+    dispatch(resetWishlist())
+
+    setIsCreateNewListShown(false)
+  }
+
+  useEffect(() => {
+    dispatch(getAllWishlists())
+  }, [dispatch])
 
   return (
     <div>
@@ -50,7 +78,7 @@ const Saved = () => {
         <div>
           { 
             isCreateNewListShown && 
-            <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
+            <form onSubmit={submitFormHandler} className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
             border-black absolute top-[25%] left-[21%] bg-white '
             >
               <div className='flex flex-row items-center justify-between '>
@@ -61,12 +89,13 @@ const Saved = () => {
                 type="text" 
                 placeholder='Name your new list' 
                 className='p-2 border-black border-[1px]'
+                onChange={setNewWishlist}
               />
               <button className='p-2 border-black border-[1px] bg-blue-100'>Create</button>
-            </div>
+            </form>
           }
         </div>
-
+{/* {JSON.stringify(allWishlists)} */}
       </div>
     </div>
   )

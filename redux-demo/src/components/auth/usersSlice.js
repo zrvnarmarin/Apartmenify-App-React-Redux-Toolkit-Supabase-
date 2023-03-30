@@ -18,30 +18,84 @@ export const getUser = createAsyncThunk('users/getUser', async () => {
     return user
 })
 
+export const getAllWishlists = createAsyncThunk('users/getAllWishlists', async () => {
+    const { data, error } = await supabase
+    .from('wishlists')
+    .select()
+
+    return data
+})
+
+export const addWishlist = createAsyncThunk('users/addWishlist', async newWishlist => {
+    const { data, error } = await supabase  
+    .from('wishlists')
+    .insert([
+        {
+            name: newWishlist.name,
+            userId: newWishlist.userId
+        }
+    ])
+    .single()
+
+    return newWishlist
+})
+
 const initialState = {
     users: [],
     user: {},
     status: 'idle',
-    error: null
+    isLoading: false,
+    error: null,
+    wishlists: [],
+    wishlist: ''
 }
 
 const usersSlice = createSlice({
     name: 'users',
     initialState,
+    reducers: {
+        setWishlist: (state, action) => {
+            state.wishlist = action.payload
+        },
+        resetWishlist: (state, action) => {
+            state.wishlist = ''
+        }
+    },
     extraReducers(builder) {
         builder
         .addCase(getAllUsers.fulfilled, (state, action) => {
             state.users = action.payload;
             state.status = 'successed';
+            state.isLoading = false
         })
         .addCase(getUser.fulfilled, (state, action) => {
             state.user = action.payload
             state.status = 'successed';
+            state.isLoading = false
+        })
+        .addCase(addWishlist.fulfilled, (state, action) => {
+            state.wishlists.push(action.payload)
+            state.status = 'successed'
+            state.isLoading = false
+        })
+        .addCase(getAllWishlists.fulfilled, (state, action) => {
+            state.wishlists = action.payload
+            state.status = 'successed'
+            state.isLoading = false
+
+            console.log(action.payload)
         }
     )} 
 })
 
+// State exports
 export const selectAllUsers = (state) => state.users.users
 export const selectUser = (state) => state.users.user
+export const selectAllWishlists = (state) => state.users.wishlists
+export const selectWishlist = (state) => state.users.wishlist
 
+// Reducers exports
+export const { setWishlist, resetWishlist } = usersSlice.actions
+
+// Slice export
 export default usersSlice.reducer
