@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { useSelector, useDispatch } from 'react-redux';
-import { selectUser } from './../auth/usersSlice';
-import { getAllWishlistsByUserId } from './../auth/usersSlice';
+import { selectUser, selectAllWishlists } from './../auth/usersSlice';
+import { getAllWishlistsByUserId, addSavedApartment } from './../auth/usersSlice';
 import UseComponentVisible from '../../hooks/UseComponentVisible';
 
-const Apartment = ({ id, title, description, city, rooms, price }) => {
+const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
   const [isApartmentSaved, setIsApartmentSaved] = useState(false)
   const toggleApartmentSavedStatus = () => setIsApartmentSaved(prev => !prev)
+
   const apartmentSavedStatusIcon = isApartmentSaved ? SavedIcon : UnsavedIcon
 
   const { id: userId } = useSelector(selectUser)
+  const allUserWishlists = useSelector(selectAllWishlists)
 
   const dispatch = useDispatch()
 
   const { ref, isComponentVisible, setIsComponentVisible } = UseComponentVisible(true);
 
+  useEffect(() => {
+    dispatch(getAllWishlistsByUserId(userId))
+  }, [])
 
   return (
     <li className='flex gap-4 border-2 border-black items-center'>
@@ -37,8 +42,8 @@ const Apartment = ({ id, title, description, city, rooms, price }) => {
             <p>Exceptional</p>
             <p>PRICE: {price} e</p>
             <Link
-                to={`/userDashboard/apartments/${id}`}
-                state={{ apartmentId: id, apartmentTitle: title }}
+                to={`/userDashboard/apartments/${apartmentId}`}
+                state={{ apartmentId: apartmentId, apartmentTitle: title }}
                 className='p-2 border-[1px] border-black bg-blue-100'
             >
                 Reserve
@@ -50,9 +55,14 @@ const Apartment = ({ id, title, description, city, rooms, price }) => {
             onClick={() => {
                 toggleApartmentSavedStatus()
 
-                if (!isApartmentSaved) { dispatch(getAllWishlistsByUserId(userId)) }
-// TO DO: https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
-//get the ref working when user clicks outside 
+                if (allUserWishlists && allUserWishlists.length > 0) {
+                    dispatch(addSavedApartment({
+                        apartmentId: apartmentId,
+                        wishlistId: allUserWishlists[allUserWishlists.length - 1].id,
+                        userId: userId
+                    }))
+                }
+
             }} 
         >
             <img src={apartmentSavedStatusIcon} />
@@ -61,7 +71,14 @@ const Apartment = ({ id, title, description, city, rooms, price }) => {
                 ? <div ref={ref} className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
                 border-black absolute top-8 left-0 bg-white w-60'
                 >
-                   <span>Saved to: Wishlist Name</span>
+                   <span>Saved to: </span>
+                   <div>
+                        {allUserWishlists.map(wishlist => 
+                            <p key={wishlist.id}>
+                                {wishlist.name}
+                            </p>    
+                        )}
+                   </div>
                </div>
                : ''
             }
