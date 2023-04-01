@@ -70,8 +70,17 @@ export const addSavedApartment = createAsyncThunk('users/addSavedApartment', asy
     .single()
 
     return savedApartment
+})
 
-    console.log(savedApartment, 'async thunk savedApartment')
+export const deleteSavedApartment = createAsyncThunk('users/deleteSavedApartment', async savedApartment => {
+    const { data, error } = await supabase
+    .from('savedApartments')
+    .delete()
+    .eq('wishlistId', savedApartment.wishlistId)
+    .eq('apartmentId', savedApartment.apartmentId)
+    .eq('userId', savedApartment.userId)
+
+    return savedApartment
 })
 
 const initialState = {
@@ -130,6 +139,9 @@ const usersSlice = createSlice({
         .addCase(addSavedApartment.fulfilled, (state, action) => {
             console.log(action.payload)
             console.log('heeej')
+        })
+        .addCase(deleteSavedApartment.fulfilled, (state, action) => {
+            console.log('izbrisan apartman')
         }
     )} 
 })

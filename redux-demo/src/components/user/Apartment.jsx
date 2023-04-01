@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { selectUser, selectAllWishlists } from './../auth/usersSlice';
+import { selectUser, selectAllWishlists, deleteSavedApartment } from './../auth/usersSlice';
 import { getAllWishlistsByUserId, addSavedApartment } from './../auth/usersSlice';
-import UseComponentVisible from '../../hooks/UseComponentVisible';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
@@ -22,11 +21,30 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
 
   const dispatch = useDispatch()
 
-  const { ref, isComponentVisible, setIsComponentVisible } = UseComponentVisible(true);
-
   useEffect(() => {
     dispatch(getAllWishlistsByUserId(userId))
   }, [])
+
+  const addToWishlistHandler = async () => {
+        if (allUserWishlists && allUserWishlists.length && !isApartmentSaved > 0) {
+            dispatch(addSavedApartment({
+                apartmentId: apartmentId,
+                wishlistId: allUserWishlists[allUserWishlists.length - 1].id,
+                userId: userId
+            }))
+
+            setIsApartmentSaved(true);
+        }
+        else {
+            dispatch(deleteSavedApartment({
+                apartmentId: apartmentId,
+                wishlistId: allUserWishlists[allUserWishlists.length - 1].id,
+                userId: userId
+            }))
+
+            setIsApartmentSaved(false);
+        }
+  };
 
   return (
     <li className='flex gap-4 border-[1px] border-black items-center'>
@@ -58,13 +76,7 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
             onClick={() => {
                 toggleApartmentSavedStatus()
 
-                if (allUserWishlists && allUserWishlists.length > 0) {
-                    dispatch(addSavedApartment({
-                        apartmentId: apartmentId,
-                        wishlistId: allUserWishlists[allUserWishlists.length - 1].id,
-                        userId: userId
-                    }))
-                }
+                if (allUserWishlists && allUserWishlists.length > 0) { addToWishlistHandler() }
 
             }} 
         >
@@ -72,7 +84,7 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
             {
                 isApartmentSaved 
                 ? <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
-                border-black absolute top-8 left-0 bg-white w-60'
+                border-black absolute top-8 left-0 bg-white w-60 z-50'
                 >
                    <div className='flex flex-row items-center gap-1'>
                         <span>Saved To:</span>
