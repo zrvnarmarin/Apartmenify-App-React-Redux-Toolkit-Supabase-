@@ -20,7 +20,7 @@ const SearcApartments = () => {
   return (
     <div>
       <FilterSortSection />
-      <ul className='flex flex-col gap-4 p-2 border-black border-[1px]'>
+      <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2'>
         { filteredAndSortedApartments.map(apartment =>
           <Apartment
             id={apartment.id}

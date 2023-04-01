@@ -12,6 +12,9 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
   const [isApartmentSaved, setIsApartmentSaved] = useState(false)
   const toggleApartmentSavedStatus = () => setIsApartmentSaved(prev => !prev)
 
+  const [areWishlistsShown, setAreWishlistsShown] = useState(false)
+  const showAllWishlists = () => setAreWishlistsShown(true)
+
   const apartmentSavedStatusIcon = isApartmentSaved ? SavedIcon : UnsavedIcon
 
   const { id: userId } = useSelector(selectUser)
@@ -26,7 +29,7 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
   }, [])
 
   return (
-    <li className='flex gap-4 border-2 border-black items-center'>
+    <li className='flex gap-4 border-[1px] border-black items-center'>
         <img
             src="https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1"
             className='w-32 h-32 border-[1px] border-black '
@@ -68,16 +71,19 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
             <img src={apartmentSavedStatusIcon} />
             {
                 isApartmentSaved 
-                ? <div ref={ref} className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
+                ? <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
                 border-black absolute top-8 left-0 bg-white w-60'
                 >
-                   <span>Saved to: </span>
-                   <div>
-                        {allUserWishlists.map(wishlist => 
-                            <p key={wishlist.id}>
-                                {wishlist.name}
-                            </p>    
-                        )}
+                   <div className='flex flex-row items-center gap-1'>
+                        <span>Saved To:</span>
+                        <span>{allUserWishlists[allUserWishlists.length - 1].name}</span>
+                   </div>
+                   <hr />
+                   <div className='flex flex-row items-center justify-between'>
+                        <span>Change</span>
+                        <button onClick={() => {
+                            showAllWishlists()
+                        }}>&darr;</button>
                    </div>
                </div>
                : ''
