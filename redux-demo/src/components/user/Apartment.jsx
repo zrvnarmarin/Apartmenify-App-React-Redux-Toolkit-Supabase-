@@ -82,8 +82,8 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
         >
             <img src={apartmentSavedStatusIcon} />
             {
-                isApartmentSaved 
-                ? <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
+                isApartmentSaved &&
+                <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
                 border-black absolute top-8 left-0 bg-white w-60 z-50'
                 >
                    <div className='flex flex-row items-center gap-1'>
@@ -98,7 +98,6 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
                         }}>&darr;</button>
                    </div>
                </div>
-               : ''
             }
         </div>
     </li>

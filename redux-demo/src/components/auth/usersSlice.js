@@ -54,7 +54,12 @@ export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartmen
     const { data: savedApartments, error} = await supabase
     .from('savedApartments')
     .select('apartmentId')
-    .eg('wishlistId', data.name)
+    .eg('wishlistId', data.wishlistId)
+    .eg('userId', data.userId)
+
+    console.log(savedApartments)
+
+    return savedApartments
 })
 
 export const addSavedApartment = createAsyncThunk('users/addSavedApartment', async savedApartment  => {
@@ -91,7 +96,8 @@ const initialState = {
     error: null,
     wishlists: [],
     wishlist: '',
-    savedApartment: []
+    savedApartment: {},
+    savedApartments: []
 }
 
 const usersSlice = createSlice({
@@ -136,9 +142,15 @@ const usersSlice = createSlice({
 
             // console.log(action.payload)
         })
+        .addCase(getAllSavedApartments, (state, action) => {
+            state.savedApartments = action.payload
+            console.log('ad case saved apartments', action.payload)
+        })
         .addCase(addSavedApartment.fulfilled, (state, action) => {
-            console.log(action.payload)
-            console.log('heeej')
+            state.savedApartments.push(action.payload)
+            state.isLoading = false
+
+            console.log('dodan apartman', action.payload)
         })
         .addCase(deleteSavedApartment.fulfilled, (state, action) => {
             console.log('izbrisan apartman')
@@ -151,6 +163,7 @@ export const selectAllUsers = (state) => state.users.users
 export const selectUser = (state) => state.users.user
 export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist
+export const selectAllSavedApartments = (state) => state.users.savedApartments
 
 // Reducers exports
 export const { setWishlist, resetWishlist } = usersSlice.actions
