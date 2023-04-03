@@ -152,11 +152,10 @@ const usersSlice = createSlice({
             state.isLoading = false
         })
         .addCase(deleteSavedApartment.fulfilled, (state, action) => {
-            state.savedApartments = state.savedApartments.filter((apartment) => {
-              return !(['apartmentId', 'wishlistId', 'userId'].some((prop) => {
-                return apartment[prop] === action.payload[prop];
-              }));
-            });
+            const propsToCompare = ['apartmentId', 'wishlistId', 'userId']
+            state.savedApartments = state.savedApartments.filter(apartment => {
+              return propsToCompare.some(prop => apartment[prop] !== action.payload[prop])
+            })
         }
     )} 
 })

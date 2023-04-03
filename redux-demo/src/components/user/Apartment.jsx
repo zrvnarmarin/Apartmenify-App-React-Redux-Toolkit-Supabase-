@@ -27,6 +27,12 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
     dispatch(getAllWishlistsByUserId(userId))
   }, [])
 
+  useEffect(() => {
+    // Check if the current apartment is saved
+    const isApartmentSaved = savedApartments.some(apartment => apartment.apartmentId === apartmentId && apartment.userId === userId)
+    setIsApartmentSaved(isApartmentSaved)
+  }, [savedApartments, apartmentId, userId])
+
   console.log(savedApartments)
 
   const addToWishlistHandler = async () => {
