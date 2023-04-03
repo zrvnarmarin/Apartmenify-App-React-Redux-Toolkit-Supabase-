@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteTestApartment } from './apartmentsSlice'
+import { deleteApartment } from './apartmentsSlice'
 import Modal from '../UI/Modal'
 import { openModal, selectIsModalOpen } from '../UI/modalSlice'
 import { modalTexts } from '../data/modal/modalTexts'
@@ -8,7 +8,7 @@ import { modalTexts } from '../data/modal/modalTexts'
 const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
-  const deleteSelectedApartment = () => dispatch(deleteTestApartment(id))
+  const deleteSelectedApartment = () => dispatch(deleteApartment(id))
 
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)

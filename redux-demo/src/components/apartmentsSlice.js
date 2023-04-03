@@ -55,7 +55,7 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async ne
     }
 })
 
-export const deleteTestApartment = createAsyncThunk('apartments/deleteApartment', async id => {
+export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async id => {
     try {
         const { data, error } = await supabase
         .from('apartments')
@@ -189,7 +189,7 @@ const apartmentsSlice = createSlice({
         state.status = 'idle'
         state.error = null
       })
-      .addCase(deleteTestApartment.fulfilled, (state, action) => {
+      .addCase(deleteApartment.fulfilled, (state, action) => {
         state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
       })
       .addCase(getAllFacilities.fulfilled, (state, action) => {
