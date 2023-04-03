@@ -17,3 +17,12 @@ export const getDatesBetweenIntervals = (startDate, endDate) => {
     // Return the array of dates
     return dates;
 }
+
+export function compareObjects(obj1, obj2, props) {
+  for (let prop of props) {
+    if (obj1[prop] !== obj2[prop]) {
+      return false;
+    }
+  }
+  return true;
+}

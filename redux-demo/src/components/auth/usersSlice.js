@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import supabase from '../../supabaseClient';
+import { compareObjects } from '../../utils/utilityFunctions';
 
 export const getAllUsers = createAsyncThunk('users/getAllUsers', async () => {
     try {
@@ -149,11 +150,13 @@ const usersSlice = createSlice({
         .addCase(addSavedApartment.fulfilled, (state, action) => {
             state.savedApartments.push(action.payload)
             state.isLoading = false
-
-            console.log('dodan apartman', action.payload)
         })
         .addCase(deleteSavedApartment.fulfilled, (state, action) => {
-            console.log('izbrisan apartman')
+            state.savedApartments = state.savedApartments.filter((apartment) => {
+              return !(['apartmentId', 'wishlistId', 'userId'].some((prop) => {
+                return apartment[prop] === action.payload[prop];
+              }));
+            });
         }
     )} 
 })
