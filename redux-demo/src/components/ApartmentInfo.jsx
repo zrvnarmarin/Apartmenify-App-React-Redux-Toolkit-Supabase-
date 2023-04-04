@@ -67,7 +67,6 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
               <div className='flex flex-row gap-2'>
                 <button className="p-2 bg-blue-50 border-[1px] border-black">Change Details</button>
                 <button
-                  // onClick={deleteSelectedApartment}
                   onClick={openModalWindow}
                   className="p-2 bg-blue-50 border-[1px] border-black">Delete</button>
               </div>

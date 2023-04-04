@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, 
-  getAllSavedApartments, getUser } from '../../auth/usersSlice'
+  getAllSavedApartments, getUser, selectAllSavedApartments, numberOfSavedApartmentsInEachWishlist 
+} from '../../auth/usersSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { selectUser, getAllWishlists } from './../../auth/usersSlice';
@@ -18,6 +19,12 @@ const Saved = () => {
 
   const dispatch = useDispatch()
   const setNewWishlist = e => dispatch(setWishlist(e.target.value))
+
+  const savedApartments = useSelector(selectAllSavedApartments)
+  // console.log(savedApartments)
+
+  const memoizedSelector = useSelector(numberOfSavedApartmentsInEachWishlist) 
+  console.log(memoizedSelector)
 
   const submitFormHandler = (e) => {
     e.preventDefault()

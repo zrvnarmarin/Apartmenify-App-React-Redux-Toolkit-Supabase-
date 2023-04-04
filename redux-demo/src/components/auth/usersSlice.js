@@ -1,6 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import supabase from '../../supabaseClient';
-import { compareObjects } from '../../utils/utilityFunctions';
 
 export const getAllUsers = createAsyncThunk('users/getAllUsers', async () => {
     try {
@@ -169,6 +168,29 @@ export const selectAllSavedApartments = (state) => state.users.savedApartments
 
 // Reducers exports
 export const { setWishlist, resetWishlist } = usersSlice.actions
+
+// Memoized selectors
+export const numberOfSavedApartmentsInEachWishlist = createSelector(
+    [selectAllWishlists, selectAllSavedApartments], 
+    (allWishlists, allSavedApartments) => {
+        const apartmentsByWishlist = allWishlists.reduce((result, wishlist) => {
+            // Find all saved apartments for this wishlist
+            const savedApartmentsForWishlist = allSavedApartments.filter(
+              apartment => apartment.wishlistId === wishlist.id
+            );
+          
+            // Count the number of saved apartments for this wishlist
+            const numApartmentsForWishlist = savedApartmentsForWishlist.length;
+          
+            // Add the count to the result object, keyed by wishlist id
+            result[wishlist.name] = numApartmentsForWishlist;
+          
+            return result;
+        }, {});
+
+        console.log(apartmentsByWishlist)
+    }
+)
 
 // Slice export
 export default usersSlice.reducer
