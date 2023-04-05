@@ -3,56 +3,64 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments } from './../auth/usersSlice';
+import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments } from './../auth/usersSlice';
 import { getAllWishlistsByUserId, addSavedApartment } from './../auth/usersSlice';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
-  const [isApartmentSaved, setIsApartmentSaved] = useState(false)
-  const toggleApartmentSavedStatus = () => setIsApartmentSaved(prev => !prev)
+  const [isLiked, setIsLiked] = useState(false)
+  const toggleLikeStatus = () => setIsLiked(prev => !prev)
 
   const [areWishlistsShown, setAreWishlistsShown] = useState(false)
   const showAllWishlists = () => setAreWishlistsShown(true)
 
-  const apartmentSavedStatusIcon = isApartmentSaved ? SavedIcon : UnsavedIcon
-
-  const { id: userId } = useSelector(selectUser)
-  const allUserWishlists = useSelector(selectAllWishlists)
-
+  const likeStatusIcon = isLiked ? SavedIcon : UnsavedIcon
   const dispatch = useDispatch()
 
+  const { id: userId } = useSelector(selectUser)
+  const allWishlists = useSelector(selectAllWishlists)
   const savedApartments = useSelector(selectAllSavedApartments)
 
   useEffect(() => {
     dispatch(getAllWishlistsByUserId(userId))
+  
+    if (allWishlists?.length > 0) {
+      dispatch(getAllSavedApartments({
+        wishlistId: allWishlists[allWishlists.length - 1].id,
+        userId: userId
+      }))
+    }
+
+    
   }, [])
+  
 
   useEffect(() => {
     // Check if the current apartment is saved
-    const isApartmentSaved = savedApartments.some(apartment => apartment.apartmentId === apartmentId && apartment.userId === userId)
-    setIsApartmentSaved(isApartmentSaved)
+    const isLiked = savedApartments.some(apartment => apartment.apartmentId === apartmentId && apartment.userId === userId)
+    setIsLiked(isLiked)
   }, [savedApartments, apartmentId, userId])
 
   console.log(savedApartments)
 
   const addToWishlistHandler = async () => {
-        if (allUserWishlists && allUserWishlists.length && !isApartmentSaved > 0) {
+        if (allWishlists && allWishlists.length && !isLiked) {
             dispatch(addSavedApartment({
                 apartmentId: apartmentId,
-                wishlistId: allUserWishlists[allUserWishlists.length - 1].id,
+                wishlistId: allWishlists[allWishlists.length - 1].id,
                 userId: userId
             }))
 
-            setIsApartmentSaved(true);
+            setIsLiked(true);
         }
         else {
             dispatch(deleteSavedApartment({
                 apartmentId: apartmentId,
-                wishlistId: allUserWishlists[allUserWishlists.length - 1].id,
+                wishlistId: allWishlists[allWishlists.length - 1].id,
                 userId: userId
             }))
 
-            setIsApartmentSaved(false);
+            setIsLiked(false);
         }
   };
 
@@ -84,21 +92,21 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
         <div 
             className='relative' 
             onClick={() => {
-                toggleApartmentSavedStatus()
+                toggleLikeStatus()
 
-                if (allUserWishlists && allUserWishlists.length > 0) { addToWishlistHandler() }
+                if (allWishlists && allWishlists.length > 0) { addToWishlistHandler() }
 
             }} 
         >
-            <img src={apartmentSavedStatusIcon} />
-            {
-                isApartmentSaved &&
+            <img src={likeStatusIcon} />
+            {/* {
+                isLiked &&
                 <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
                 border-black absolute top-8 left-0 bg-white w-60 z-50'
                 >
                    <div className='flex flex-row items-center gap-1'>
                         <span>Saved To:</span>
-                        <span>{allUserWishlists[allUserWishlists.length - 1].name}</span>
+                        <span>{allWishlists[allWishlists.length - 1].name}</span>
                    </div>
                    <hr />
                    <div className='flex flex-row items-center justify-between'>
@@ -108,7 +116,7 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
                         }}>&darr;</button>
                    </div>
                </div>
-            }
+            } */}
         </div>
     </li>
   )

@@ -23,8 +23,8 @@ const Saved = () => {
   const savedApartments = useSelector(selectAllSavedApartments)
   // console.log(savedApartments)
 
-  const memoizedSelector = useSelector(numberOfSavedApartmentsInEachWishlist) 
-  console.log(memoizedSelector)
+  const apartmentCountInEachWishlist = Object.entries(useSelector(numberOfSavedApartmentsInEachWishlist)) 
+  console.log(apartmentCountInEachWishlist)
 
   const submitFormHandler = (e) => {
     e.preventDefault()
@@ -57,8 +57,11 @@ const Saved = () => {
 
         <h1 className='text-2xl'>Saved</h1>
 
-        <button onClick={toggleSavedApartmentsList} className='p-2 border-[1px] border-black bg-blue-100'>
-          England -- 
+        <button 
+          onClick={toggleSavedApartmentsList} 
+          className='p-2 border-[1px] border-black bg-blue-100'
+        >
+          {allWishlists[allWishlists.length - 1].name}
         </button>
 
         <div>
@@ -67,32 +70,14 @@ const Saved = () => {
             <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
             border-black absolute top-[25%] left-20 bg-white '
             >
-              <p className='flex row items-center gap-2'>
-                <span>Marin</span>
-                <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>0</span>
-                <span className='p-2 bg-blue-100'>Update</span>
-                <span className='p-2 bg-blue-100'>Delete</span>
-              </p>
-              {/* {allWishlists.map(wishlist =>
-                  <div key={wishlist.id}>
-                    <span>{wishlist.name}</span>
-                    <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>0</span>
-                    <span className='p-2 bg-blue-100'>Update</span>
-                    <span className='p-2 bg-blue-100'>Delete</span>
-                  </div>
-              )} */}
-              <p className='flex row items-center gap-2'>
-                <span>Marin</span>
-                <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>0</span>
-                <span className='p-2 bg-blue-100'>Update</span>
-                <span className='p-2 bg-blue-100'>Delete</span>
-              </p>
-              <p className='flex row items-center gap-2'>
-                <span>Marin</span>
-                <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>0</span>
-                <span className='p-2 bg-blue-100'>Update</span>
-                <span className='p-2 bg-blue-100'>Delete</span>
-              </p>
+              {apartmentCountInEachWishlist.map(([key, value]) => 
+                <div key={key} className='flex row items-center gap-2'>
+                  <span>{key}:</span>
+                  <span className='rounded-full px-[6px] py-[1px] bg-slate-700 text-white'>{value}</span>
+                  <span className='p-2 bg-blue-100'>Update</span>
+                  <span className='p-2 bg-blue-100'>Delete</span>
+                </div>
+              )}
             </div>
           }
         </div>

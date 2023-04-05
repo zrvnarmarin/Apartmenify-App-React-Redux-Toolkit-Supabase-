@@ -57,7 +57,7 @@ export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartmen
     .eg('wishlistId', data.wishlistId)
     .eg('userId', data.userId)
 
-    console.log(savedApartments)
+    console.log('saved apartments', savedApartments)
 
     return savedApartments
 })
@@ -96,8 +96,9 @@ const initialState = {
     error: null,
     wishlists: [],
     wishlist: '',
+    savedApartments: [],
     savedApartment: {},
-    savedApartments: []
+    isApartmentSaved: false
 }
 
 const usersSlice = createSlice({
@@ -142,10 +143,11 @@ const usersSlice = createSlice({
 
             // console.log(action.payload)
         })
-        .addCase(getAllSavedApartments, (state, action) => {
+        .addCase(getAllSavedApartments.fulfilled, (state, action) => {
             state.savedApartments = action.payload
-            console.log('ad case saved apartments', action.payload)
-        })
+            console.log('jeeboteee booooog')
+            console.log('add case saved apartments', action.payload)
+          })
         .addCase(addSavedApartment.fulfilled, (state, action) => {
             state.savedApartments.push(action.payload)
             state.isLoading = false
@@ -165,6 +167,7 @@ export const selectUser = (state) => state.users.user
 export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist
 export const selectAllSavedApartments = (state) => state.users.savedApartments
+export const selectIsApartmentSaved = (state) => state.users.isApartmentSaved
 
 // Reducers exports
 export const { setWishlist, resetWishlist } = usersSlice.actions
@@ -188,7 +191,7 @@ export const numberOfSavedApartmentsInEachWishlist = createSelector(
             return result;
         }, {});
 
-        console.log(apartmentsByWishlist)
+        return apartmentsByWishlist
     }
 )
 
