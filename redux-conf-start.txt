@@ -42,3 +42,7 @@ TO DO later: supabase tables already made! put this into workv in user`s slice!
 
 5.423 - fux the bug in apartment component, when on mount it fetches user`s saved apartments, but whenn
 visited another route, the data is lost; its still persisted in supabase, but not in redux store
+
+since the liked status of each apartment needs to be available on many apartment components with different jsx, 
+consider creating a custom hook which can be imported to each apartment jsx components through app
+and it should work with any of them;

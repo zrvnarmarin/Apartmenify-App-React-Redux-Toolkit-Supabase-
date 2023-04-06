@@ -30,8 +30,6 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
         userId: userId
       }))
     }
-
-    
   }, [])
   
 
