@@ -18,11 +18,8 @@ const SearcApartments = () => {
   useEffect(() => {
     dispatch(getAllApartments())
     dispatch(getAllWishlists(userId))
-  }, [dispatch])
+  }, [userId])
 
-  // console.log(wishlists)
-
-  
   if (isLoading) return <LoadingSpinner />
   
   return (
@@ -38,6 +35,7 @@ const SearcApartments = () => {
             city={apartment.city}
             rooms={apartment.rooms}
             price={apartment.price}
+            wishlists={wishlists}
           />
         )}
       </ul>

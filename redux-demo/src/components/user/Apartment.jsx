@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments, getUser } from './../auth/usersSlice';
+import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments, getUser, addWishlist } from './../auth/usersSlice';
 import { getAllWishlistsByUserId, addSavedApartment } from './../auth/usersSlice';
 
-const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
+const Apartment = ({ id: apartmentId, title, description, city, rooms, price, wishlists }) => {
 
     const dispatch = useDispatch()
     const { id: userId } = useSelector(selectUser)
