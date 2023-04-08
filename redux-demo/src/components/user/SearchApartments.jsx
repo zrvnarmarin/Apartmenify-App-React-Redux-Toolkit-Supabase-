@@ -4,16 +4,24 @@ import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
 import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../apartmentsSlice';
 import FilterSortSection from '../FilterSortSection';
+import { selectUser, getAllWishlists, selectAllWishlists } from '../auth/usersSlice';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
-  
+
+  const { id: userId } = useSelector(selectUser)
+  const wishlists = useSelector(selectAllWishlists)
+
   useEffect(() => {
     dispatch(getAllApartments())
+    dispatch(getAllWishlists(userId))
   }, [dispatch])
+
+  // console.log(wishlists)
+
   
   if (isLoading) return <LoadingSpinner />
   

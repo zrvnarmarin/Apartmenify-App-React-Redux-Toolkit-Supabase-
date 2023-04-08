@@ -3,121 +3,72 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments } from './../auth/usersSlice';
+import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments, getUser } from './../auth/usersSlice';
 import { getAllWishlistsByUserId, addSavedApartment } from './../auth/usersSlice';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
-  const [isLiked, setIsLiked] = useState(false)
-  const toggleLikeStatus = () => setIsLiked(prev => !prev)
+    const dispatch = useDispatch()
+    const { id: userId } = useSelector(selectUser)
 
-  const [areWishlistsShown, setAreWishlistsShown] = useState(false)
-  const showAllWishlists = () => setAreWishlistsShown(true)
+    const [isLiked, setIsLiked] = useState(false)
 
-  const likeStatusIcon = isLiked ? SavedIcon : UnsavedIcon
-  const dispatch = useDispatch()
-
-  const { id: userId } = useSelector(selectUser)
-  const allWishlists = useSelector(selectAllWishlists)
-  const savedApartments = useSelector(selectAllSavedApartments)
-
-  useEffect(() => {
-    dispatch(getAllWishlistsByUserId(userId))
-  
-    if (allWishlists?.length > 0) {
-      dispatch(getAllSavedApartments({
-        wishlistId: allWishlists[allWishlists.length - 1].id,
-        userId: userId
-      }))
-    }
-  }, [])
-  
-
-  useEffect(() => {
-    // Check if the current apartment is saved
-    const isLiked = savedApartments.some(apartment => apartment.apartmentId === apartmentId && apartment.userId === userId)
-    setIsLiked(isLiked)
-  }, [savedApartments, apartmentId, userId])
-
-  console.log(savedApartments)
-
-  const addToWishlistHandler = async () => {
-        if (allWishlists && allWishlists.length && !isLiked) {
+    useEffect(() => {
+        if (isLiked) {
+            setIsLiked(true)
             dispatch(addSavedApartment({
                 apartmentId: apartmentId,
-                wishlistId: allWishlists[allWishlists.length - 1].id,
+                wishlistId: 36,
                 userId: userId
             }))
-
-            setIsLiked(true);
-        }
-        else {
+            console.log('apartment is liked')
+        } else {
+            setIsLiked(false)
             dispatch(deleteSavedApartment({
                 apartmentId: apartmentId,
-                wishlistId: allWishlists[allWishlists.length - 1].id,
+                wishlistId: 36,
                 userId: userId
             }))
-
-            setIsLiked(false);
+            console.log('apartment is not liked')
         }
-  };
 
-  return (
-    <li className='flex gap-4 border-[1px] border-black items-center'>
-        <img
-            src="https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1"
-            className='w-32 h-32 border-[1px] border-black '
-        />
-        <div>
-            <p>TITLE: {title}</p>
-            <p>DESCRIPTION: {description}</p>
-            <p>CITY: {city}</p>
-            <p>ROOMS: {rooms} rooms</p>
-        </div>
-        <div>
-            <p>8.9</p>
-            <p>Exceptional</p>
-            <p>PRICE: {price} e</p>
-            <Link
-                to={`/userDashboard/apartments/${apartmentId}`}
-                state={{ apartmentId: apartmentId, apartmentTitle: title }}
-                className='p-2 border-[1px] border-black bg-blue-100'
-            >
-                Reserve
-            </Link>
-        </div>
+    }, [isLiked])
 
-        <div 
-            className='relative' 
-            onClick={() => {
-                toggleLikeStatus()
-
-                if (allWishlists && allWishlists.length > 0) { addToWishlistHandler() }
-
-            }} 
-        >
-            <img src={likeStatusIcon} />
-            {/* {
-                isLiked &&
-                <div className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px]
-                border-black absolute top-8 left-0 bg-white w-60 z-50'
+    return (
+        <li className='flex gap-4 border-[1px] border-black items-center'>
+            <img
+                src="https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1"
+                className='w-32 h-32 border-[1px] border-black '
+            />
+            <div>
+                <p>TITLE: {title}</p>
+                <p>DESCRIPTION: {description}</p>
+                <p>CITY: {city}</p>
+                <p>ROOMS: {rooms} rooms</p>
+            </div>
+            <div>
+                <p>8.9</p>
+                <p>Exceptional</p>
+                <p>PRICE: {price} e</p>
+                <Link
+                    to={`/userDashboard/apartments/${apartmentId}`}
+                    state={{ apartmentId: apartmentId, apartmentTitle: title }}
+                    className='p-2 border-[1px] border-black bg-blue-100'
                 >
-                   <div className='flex flex-row items-center gap-1'>
-                        <span>Saved To:</span>
-                        <span>{allWishlists[allWishlists.length - 1].name}</span>
-                   </div>
-                   <hr />
-                   <div className='flex flex-row items-center justify-between'>
-                        <span>Change</span>
-                        <button onClick={() => {
-                            showAllWishlists()
-                        }}>&darr;</button>
-                   </div>
-               </div>
-            } */}
-        </div>
-    </li>
-  )
+                    Reserve
+                </Link>
+            </div>
+
+            <button 
+                className='border-black border-[1px] bg-red-200 p-2' 
+                onClick={() => {
+                    setIsLiked(prev => !prev)
+                }} 
+            >
+                { isLiked ? 'Unlike' : 'Like'}
+            </button>
+        </li>
+    )
 }
 
 export default Apartment
