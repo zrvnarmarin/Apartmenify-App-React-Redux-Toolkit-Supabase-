@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
 import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments, getUser, addWishlist } from './../auth/usersSlice';
-import { getAllWishlistsByUserId, addSavedApartment } from './../auth/usersSlice';
+import { addSavedApartment } from './../auth/usersSlice';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price, wishlists }) => {
 

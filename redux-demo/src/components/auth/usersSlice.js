@@ -29,7 +29,7 @@ let { data: wishlists, error } = await supabase
 // .from('wishlists')
 // .select('*')
 
-    console.log('sve wishliste iz thunca', wishlists)
+    // console.log('sve wishliste iz thunca', wishlists)
 
     return wishlists
 })
