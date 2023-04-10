@@ -45,4 +45,8 @@ visited another route, the data is lost; its still persisted in supabase, but no
 
 since the liked status of each apartment needs to be available on many apartment components with different jsx, 
 consider creating a custom hook which can be imported to each apartment jsx components through app
-and it should work with any of them;
+and it should work with any of them;đ
+
+MAJOR BUG FIXED: the problem was that userID was undefined every time I tried to send it to userSlice. I simply get the userID directly
+in the async thunk and then send user credentials to supabase query, that way is ensured that user credentials (in this case userID)
+is always defined

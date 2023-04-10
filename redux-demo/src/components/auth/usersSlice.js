@@ -18,21 +18,19 @@ export const getUser = createAsyncThunk('users/getUser', async () => {
     return user
 })
 
-export const getAllWishlists = createAsyncThunk('users/getAllWishlists', async userId => {
+export const getAllWishlists = createAsyncThunk('users/getAllWishlists', async () => {
+    const { data: { user: { id: userId } } } = await supabase.auth.getUser()
+
+    let { data: wishlists, error } = await supabase
+      .from('wishlists')
+      .select('*')
+      .eq('userId', userId)
   
-let { data: wishlists, error } = await supabase
-.from('wishlists')
-.select("*")
-.eq('userId', userId)
-
-//     let { data: wishlists, error } = await supabase
-// .from('wishlists')
-// .select('*')
-
-    // console.log('sve wishliste iz thunca', wishlists)
-
+      console.log(wishlists)
+  
     return wishlists
-})
+  })
+  
 
 export const getAllWishlistsByUserId = createAsyncThunk('users/getAllWishlistsByName', async userId => {
     const { data, error } = await supabase
@@ -57,24 +55,29 @@ export const addWishlist = createAsyncThunk('users/addWishlist', async newWishli
     return newWishlist
 })
 
-export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartments', async data  => {
-    const { data: savedApartments, error} = await supabase
-    .from('savedApartments')
-    .eq('userId', data.userId)
+export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartments', async ()  => {
+  let { data: { user: { id: userId } } } = await supabase.auth.getUser()
 
-    console.log('saved apartments', savedApartments)
+  let { data: savedApartments, error } = await supabase
+  .from('savedApartments')
+  .select("*")
+  .eq('userId', userId)
+
+    // console.log('saved apartments', savedApartments)
 
     return savedApartments
 })
 
 export const addSavedApartment = createAsyncThunk('users/addSavedApartment', async savedApartment  => {
+  let { data: { user: { id: userId } } } = await supabase.auth.getUser()
+
     const { data, error } = await supabase
     .from('savedApartments')
     .insert([
         {
             apartmentId: savedApartment.apartmentId,
             wishlistId: savedApartment.wishlistId,
-            userId: savedApartment.userId
+            userId: userId
         }
     ])
     .single()
@@ -83,12 +86,14 @@ export const addSavedApartment = createAsyncThunk('users/addSavedApartment', asy
 })
 
 export const deleteSavedApartment = createAsyncThunk('users/deleteSavedApartment', async savedApartment => {
+  let { data: { user: { id: userId } } } = await supabase.auth.getUser()
+
     const { data, error } = await supabase
     .from('savedApartments')
     .delete()
     .eq('wishlistId', savedApartment.wishlistId)
     .eq('apartmentId', savedApartment.apartmentId)
-    .eq('userId', savedApartment.userId)
+    .eq('userId', userId)
 
     return savedApartment
 })

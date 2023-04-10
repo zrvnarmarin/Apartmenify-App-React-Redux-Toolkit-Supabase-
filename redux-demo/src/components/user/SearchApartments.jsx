@@ -4,7 +4,7 @@ import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
 import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../apartmentsSlice';
 import FilterSortSection from '../FilterSortSection';
-import { selectUser, getAllWishlists, selectAllWishlists, getAllSavedApartments, selectAllSavedApartments } from '../auth/usersSlice';
+import { selectUser, getAllWishlists, selectAllWishlists, getAllSavedApartments, selectAllSavedApartments, getUser } from '../auth/usersSlice';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
@@ -16,18 +16,19 @@ const SearcApartments = () => {
   const wishlists = useSelector(selectAllWishlists)
   const savedApartments = useSelector(selectAllSavedApartments)
 
-  console.log(savedApartments)
-
   useEffect(() => {
+    dispatch(getAllSavedApartments())
     dispatch(getAllApartments())
-    dispatch(getAllWishlists(userId))
-    dispatch(getAllSavedApartments(userId))
-  }, [userId])
+    dispatch(getAllWishlists())
+  }, [])
+
+  console.log()
 
   if (isLoading) return <LoadingSpinner />
   
   return (
     <div>
+      SAVED APARTMENTS: {JSON.stringify(savedApartments)}
       <FilterSortSection />
       <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2'>
         { filteredAndSortedApartments.map(apartment =>
@@ -39,7 +40,6 @@ const SearcApartments = () => {
             city={apartment.city}
             rooms={apartment.rooms}
             price={apartment.price}
-            wishlists={wishlists}
           />
         )}
       </ul>
