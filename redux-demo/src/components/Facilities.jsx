@@ -7,6 +7,8 @@ import ApartmentTable from './ApartmentTable';
 const Facilities = () => {
   const dispatch = useDispatch()
 
+  const [isActive, setIsActive] = useState(1)
+
   const [newFacility, setNewFacility] = useState("");
   const newFacilityChangeHandler = (e) => setNewFacility(e.target.value)
   const resetNewFacility = () => setNewFacility('')
@@ -27,8 +29,6 @@ const Facilities = () => {
 
   return (
     <div className='p-2 border-[1px] border-black flex flex-col gap-2'>
-
-      NEW ADDED FACILITY: {newFacility}
 
       <div className='flex flex-row flex-wrap justify-between items-center'>
         <h1 className='text-2xl'>
@@ -51,10 +51,16 @@ const Facilities = () => {
 
       <div className='flex flex-row gap-4'>
       {Object.entries(countOfApartmentsByFacility).map(([facility, count], i) =>
-        <span key={i} className='border-[1px] border-black p-2'>
+        <span 
+          key={i} 
+          className={`${isActive === i + 1 ? 'bg-blue-300' : ''} border-[1px] border-black p-2`}
+        >
           <Link 
             to={`/main/facilities`} 
-            onClick={() => existingFacilityClickHandler(facility)}
+            onClick={() => {
+              setIsActive(i + 1)
+              existingFacilityClickHandler(facility)
+            }}
           >
             <span>{facility}</span>
             <span className='rounded-full ml-2 px-3 py-1 bg-blue-100'>{count}</span>
@@ -66,6 +72,7 @@ const Facilities = () => {
       <div className='flex flex-col gap-3'>
         <ApartmentTable apartments={apartmentsByFacility} />
       </div>
+      
     </div>
   )
 }
