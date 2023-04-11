@@ -318,5 +318,7 @@ export const selectFilteredAndSortedApartments = createSelector(
     }
 )
 
+
+
 // Slice export
 export default apartmentsSlice.reducer
