@@ -60,7 +60,7 @@ const AddNewApartment = () => {
 
   return (
     <div style={{ padding: '5px', border: '1px solid brown', display: 'flex', flexDirection: 'column', gap: '15px'}}>
-      <h1>AddNewApartment</h1>
+      <h1 className='text-2xl'>AddNewApartment</h1>
       <form onSubmit={formSubmitHandler} className='grid grid-cols-2 gap-4'>
         <input value={title} onChange={titleChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Title' />
         <input value={city} onChange={cityChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='City' />

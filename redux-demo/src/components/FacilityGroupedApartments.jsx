@@ -36,6 +36,7 @@ const FacilityGroupedApartments = () => {
       }
     })
 
+    console.log(apartmentsToShow)
     return apartmentsToShow
   }
 

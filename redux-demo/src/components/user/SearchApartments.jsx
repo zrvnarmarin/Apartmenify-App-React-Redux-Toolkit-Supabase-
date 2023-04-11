@@ -12,17 +12,14 @@ const SearcApartments = () => {
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
 
-  const { id: userId } = useSelector(selectUser)
   const wishlists = useSelector(selectAllWishlists)
   const savedApartments = useSelector(selectAllSavedApartments)
 
   useEffect(() => {
-    dispatch(getAllSavedApartments())
     dispatch(getAllApartments())
+    dispatch(getAllSavedApartments())
     dispatch(getAllWishlists())
   }, [])
-
-  console.log()
 
   if (isLoading) return <LoadingSpinner />
   

@@ -3,44 +3,42 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
 import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { selectUser, selectAllWishlists, deleteSavedApartment, selectAllSavedApartments, getAllSavedApartments, getUser, addWishlist, selectIsApartmentSaved } from './../auth/usersSlice';
+import { deleteSavedApartment, selectAllSavedApartments } from './../auth/usersSlice';
 import { addSavedApartment } from './../auth/usersSlice';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
     const dispatch = useDispatch()
 
-    const [isLiked, setIsLiked] = useState(false)
+    // Load the initial isLiked value from localStorage, defaulting to false
+    const [isLiked, setIsLiked] = useState(localStorage.getItem(`isLiked_${apartmentId}`) === 'true' || false);
 
     const savedApartments = useSelector(selectAllSavedApartments)
 
-    // if (savedApartments.some(savedApartment => savedApartment.apartmentId === apartmentId)) {
-    //     console.log(`apartment with ID: ${apartmentId} is SAVED`)
-    //     savedApartmentsCount += 1
-    // } else {
-    //     console.log(`apartment with ID: ${apartmentId} is NOT SAVED`)
-    //     unsavedApartmentsCount += 1
-    // }
-
     useEffect(() => {
-        if (savedApartments.some(savedApartment => savedApartment.apartmentId === apartmentId)) {
-            console.log(`apartment with ID: ${apartmentId} is SAVED`)
-        } else {
-            console.log(`apartment with ID: ${apartmentId} is NOT SAVED`)
-        }
-    }, [isLiked, apartmentId, savedApartments])
+        // Update localStorage with the new isLiked value
+        localStorage.setItem(`isLiked_${apartmentId}`, isLiked.toString());
+    }, [isLiked, apartmentId]);
+
+    // useEffect(() => {
+    //     if (savedApartments.some(savedApartment => savedApartment.apartmentId === apartmentId)) {
+    //         console.log(`apartment with ID: ${apartmentId} is SAVED`)
+    //     } else {
+    //         console.log(`apartment with ID: ${apartmentId} is NOT SAVED`)
+    //     }
+    // }, [isLiked, apartmentId, savedApartments])
 
     const handleLikeClick = () => {
         if (isLiked) {
             dispatch(deleteSavedApartment({
                 apartmentId: apartmentId,
-                wishlistId: 36
+                wishlistId: 39
             }))
             setIsLiked(false)
         } else {
             dispatch(addSavedApartment({
                 apartmentId: apartmentId,
-                wishlistId: 36
+                wishlistId: 39
             }))
             setIsLiked(true)
         }

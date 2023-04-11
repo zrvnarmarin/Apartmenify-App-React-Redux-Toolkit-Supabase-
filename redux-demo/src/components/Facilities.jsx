@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFacility, selectAllApartments, getAllFacilities, getAllApartments } from './apartmentsSlice';
+import FacilityGroupedApartments from './FacilityGroupedApartments';
 
 const Facilities = () => {
   const apartments = useSelector(selectAllApartments)
@@ -27,24 +28,42 @@ const Facilities = () => {
       return count;
     }, {});
 
-    
-
     return facilities;
   }
+
+  useEffect(() => {
+    dispatch(getAllFacilities())
+  }, [])
 
   const facilityCount = useMemo(() => countFacilities(apartments), [apartments, newFacility]);
 
   return (
-    <div style={{ padding: '5px', border: '1px solid black', display: 'flex', flexDirection: 'column', gap: '5px'}}>
-      <h1 className='text-2xl'>
-        <Link to={`/main/facilities`}>Facilities</Link>
-      </h1>
+    <div className='p-2 border-[1px] border-black flex flex-col gap-2'>
+
+      <div className='flex flex-row flex-wrap justify-between items-center'>
+        <h1 className='text-2xl'>
+          <Link to={`/main/facilities`}>Facilities</Link>
+        </h1>
+
+        <form onSubmit={formSubmitHandler} className='flex flex-row gap-2'>
+          <input
+            type="text"
+            placeholder="Add new facility.."
+            className='border-[1px] border-black p-1'
+            value={newFacility}
+            onChange={newFacilityChangeHandler}
+          />
+          <button className="p-2 bg-blue-50 border-[1px] border-black">
+            +Add New Facility
+          </button>
+        </form>
+      </div>
 
       {Object.entries(facilityCount).map(([facility, count], i) =>
         <div key={i}>
           <Link to={`/main/facilities/${facility}`}>
             <span>{facility}</span>
-            <span> {count}</span>
+            <span className='rounded-full ml-2 px-3 py-1 bg-blue-100'>{count}</span>
           </Link>
             { 
               count === 0 
@@ -58,21 +77,7 @@ const Facilities = () => {
         </div>
       )}
 
-      <form onSubmit={formSubmitHandler} className='flex flex-row gap-2 p-2 border-2 border-black'>
-        <input
-          type="text"
-          placeholder="Add new facility.."
-          className='border-[1px] border-black p-1'
-          value={newFacility}
-          onChange={newFacilityChangeHandler}
-        />
-        <button className="p-2 bg-blue-50 border-[1px] border-black">
-          +Add New Facility
-        </button>
-
-      </form>
-
-      <Outlet />
+      <FacilityGroupedApartments />
     </div>
   )
 }

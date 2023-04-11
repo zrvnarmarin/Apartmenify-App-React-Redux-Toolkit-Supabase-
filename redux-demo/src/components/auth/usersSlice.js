@@ -26,11 +26,8 @@ export const getAllWishlists = createAsyncThunk('users/getAllWishlists', async (
       .select('*')
       .eq('userId', userId)
   
-      console.log(wishlists)
-  
     return wishlists
-  })
-  
+})
 
 export const getAllWishlistsByUserId = createAsyncThunk('users/getAllWishlistsByName', async userId => {
     const { data, error } = await supabase
@@ -148,8 +145,6 @@ const usersSlice = createSlice({
             state.wishlists = action.payload
             state.status = 'successed'
             state.isLoading = false
-
-            // console.log(action.payload)
         })
         .addCase(getAllSavedApartments.fulfilled, (state, action) => {
             state.savedApartments = action.payload
@@ -182,6 +177,7 @@ export const { setWishlist, resetWishlist } = usersSlice.actions
 export const numberOfSavedApartmentsInEachWishlist = createSelector(
     [selectAllWishlists, selectAllSavedApartments], 
     (allWishlists, allSavedApartments) => {
+        
         const apartmentsByWishlist = allWishlists.reduce((result, wishlist) => {
             // Find all saved apartments for this wishlist
             const savedApartmentsForWishlist = allSavedApartments.filter(

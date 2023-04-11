@@ -104,7 +104,7 @@ const Saved = () => {
             </form>
           }
         </div>
-{JSON.stringify(allWishlists)}
+{JSON.stringify(savedApartments)}
       </div>
     </div>
   )
