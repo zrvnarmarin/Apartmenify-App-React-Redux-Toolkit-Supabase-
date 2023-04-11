@@ -7,6 +7,7 @@ import ApartmentInfo from './ApartmentInfo';
 const FacilityGroupedApartments = () => {
   const { facility } = useParams()
   const apartments = useSelector(selectAllApartments)
+  // console.log(apartments)
 
   const getFacilityApartmentsGroup = apartments => {
     let facilities = [];
@@ -21,6 +22,8 @@ const FacilityGroupedApartments = () => {
         }
       });
     });
+
+    console.log(facilities)
     
     return facilities;
   }
@@ -36,7 +39,7 @@ const FacilityGroupedApartments = () => {
       }
     })
 
-    console.log(apartmentsToShow)
+    // console.log(apartmentsToShow)
     return apartmentsToShow
   }
 

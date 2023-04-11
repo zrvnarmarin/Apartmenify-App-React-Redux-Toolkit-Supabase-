@@ -318,7 +318,22 @@ export const selectFilteredAndSortedApartments = createSelector(
     }
 )
 
+export const selectCountApartmentsByFacility = createSelector(
+  [selectAllApartments],
+  (apartments) => {
 
+    const facilities = apartments.reduce((count, apartment) => {
+      apartment.facilities.forEach(facility => {
+        count[facility] = (count[facility] || 0) + 1;
+      });
+      return count;
+    }, {});
+
+    console.log(facilities, 'iz selektora')
+
+    return facilities;
+  }
+)
 
 // Slice export
 export default apartmentsSlice.reducer
