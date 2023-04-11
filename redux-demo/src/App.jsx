@@ -15,7 +15,6 @@ import Facilities from './components/Facilities';
 import Reservations from './components/Reservations';
 import RegisteredUsers from './components/RegisteredUsers';
 import AddNewApartment from './components/AddNewApartment'
-import FacilityGroupedApartments from './components/FacilityGroupedApartments.jsx'
 import Success from './components/auth/Success.jsx'
 // User components
 import UserDashboard from './components/user/UserDashboard'
@@ -45,9 +44,7 @@ function App() {
         {/* Admin routes - should be protected */}
         <Route path='/main' element={<MainPage />} >
           <Route path='apartments' element={<Apartments />} />
-          <Route path='facilities' element={<Facilities />} >
-            <Route path=':facility' element={<FacilityGroupedApartments />} />
-          </Route>
+          <Route path='facilities' element={<Facilities />} />
           <Route path='registeredUsers' element={<RegisteredUsers />} />
           <Route path='addNewApartment' element={<AddNewApartment />} />
           <Route path='reservations' element={<Reservations />} />

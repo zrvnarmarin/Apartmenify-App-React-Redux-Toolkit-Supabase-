@@ -1,26 +1,33 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFacility, selectCountApartmentsByFacility } from './apartmentsSlice';
-import FacilityGroupedApartments from './FacilityGroupedApartments';
+import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from './apartmentsSlice';
+import ApartmentTable from './ApartmentTable';
 
 const Facilities = () => {
   const dispatch = useDispatch()
 
   const [newFacility, setNewFacility] = useState("");
-  const newFacilityChangeHandler = (e) => setNewFacility(e.target.value) 
-  
-  const countOfApartmentsByFacility = useSelector(selectCountApartmentsByFacility)
+  const newFacilityChangeHandler = (e) => setNewFacility(e.target.value)
+  const resetNewFacility = () => setNewFacility('')
+
+  const [existingFacility, setExistingFacility] = useState('')
+  const existingFacilityClickHandler = existingFacility => setExistingFacility(existingFacility)
+
+  const countOfApartmentsByFacility = useSelector(selectCountOfApartmentsByFacility)
+  const apartmentsByFacility = useSelector(selectApartmentsByFacility(existingFacility))
 
   const formSubmitHandler = e => {
     e.preventDefault()
 
     dispatch(addFacility(newFacility))
-    setNewFacility("")
+
+    resetNewFacility()
   }
 
   return (
     <div className='p-2 border-[1px] border-black flex flex-col gap-2'>
+
       NEW ADDED FACILITY: {newFacility}
 
       <div className='flex flex-row flex-wrap justify-between items-center'>
@@ -42,25 +49,23 @@ const Facilities = () => {
         </form>
       </div>
 
+      <div className='flex flex-row gap-4'>
       {Object.entries(countOfApartmentsByFacility).map(([facility, count], i) =>
-        <div key={i}>
-          <Link to={`/main/facilities/${facility}`}>
+        <span key={i} className='border-[1px] border-black p-2'>
+          <Link 
+            to={`/main/facilities`} 
+            onClick={() => existingFacilityClickHandler(facility)}
+          >
             <span>{facility}</span>
             <span className='rounded-full ml-2 px-3 py-1 bg-blue-100'>{count}</span>
           </Link>
-            { 
-              count === 0 
-              ? <button 
-                className='p-2 bg-blue-50 border-[1px] border-black'
-                onClick={() => {
-                dispatch(deleteFacilityGroup(i))
-              }}>Delete</button> 
-              : ''
-            }
-        </div>
+        </span>
       )}
+      </div>
 
-      {/* <FacilityGroupedApartments /> */}
+      <div className='flex flex-col gap-3'>
+        <ApartmentTable apartments={apartmentsByFacility} />
+      </div>
     </div>
   )
 }

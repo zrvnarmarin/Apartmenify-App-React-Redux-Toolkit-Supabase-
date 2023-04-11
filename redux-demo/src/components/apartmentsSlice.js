@@ -136,7 +136,6 @@ const initialState = {
   filterQuery: '',
   sort: 'price',
   sortOrder: 'ascending',
-  facility: '',
   facilities: []
 }
 
@@ -159,10 +158,7 @@ const apartmentsSlice = createSlice({
       setSortOrder: (state, action) => {
         state.sortOrder = action.payload
         console.log('sort order je: ', action.payload)
-      },
-      setNewFacility: (state, action) => {
-        state.facility = action.payload
-      },
+      }
     },
     extraReducers(builder) {
       builder
@@ -220,8 +216,6 @@ export const getSort = (state) => state.apartments.sort
 export const getSortOrder = (state) => state.apartments.sortOrder
 
 export const selectFacilities = (state) => state.apartments.facilities // povlači sa supabse-a
-
-export const getFacility = (state) => state.apartments.facility
 
 // Reducer exports
 export const { setFilter, setFilterQuery, setSort, setSortOrder, setNewFacility } = apartmentsSlice.actions
@@ -318,7 +312,20 @@ export const selectFilteredAndSortedApartments = createSelector(
     }
 )
 
-export const selectCountApartmentsByFacility = createSelector(
+export const selectApartmentsByFacility = (facility) =>
+  createSelector(
+    [selectAllApartments],
+    (apartments) => {
+      const apartmentsByFacility = apartments.filter((apartment) =>
+        apartment.facilities.includes(facility)
+      );
+      // console.log(apartmentsByFacility);
+      return apartmentsByFacility;
+    }
+);
+
+
+export const selectCountOfApartmentsByFacility = createSelector(
   [selectAllApartments],
   (apartments) => {
 
