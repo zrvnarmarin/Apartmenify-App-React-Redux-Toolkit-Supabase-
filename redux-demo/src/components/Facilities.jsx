@@ -7,7 +7,7 @@ import ApartmentTable from './ApartmentTable';
 const Facilities = () => {
   const dispatch = useDispatch()
 
-  const [isActive, setIsActive] = useState(1)
+  const [isActive, setIsActive] = useState(0)
 
   const [newFacility, setNewFacility] = useState("");
   const newFacilityChangeHandler = (e) => setNewFacility(e.target.value)
@@ -72,7 +72,7 @@ const Facilities = () => {
       <div className='flex flex-col gap-3'>
         <ApartmentTable apartments={apartmentsByFacility} />
       </div>
-      
+
     </div>
   )
 }

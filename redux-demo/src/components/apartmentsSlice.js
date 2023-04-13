@@ -324,11 +324,9 @@ export const selectApartmentsByFacility = (facility) =>
     }
 );
 
-
 export const selectCountOfApartmentsByFacility = createSelector(
   [selectAllApartments],
   (apartments) => {
-
     const facilities = apartments.reduce((count, apartment) => {
       apartment.facilities.forEach(facility => {
         count[facility] = (count[facility] || 0) + 1;
