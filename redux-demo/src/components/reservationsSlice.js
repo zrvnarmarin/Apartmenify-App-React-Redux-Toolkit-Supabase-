@@ -97,6 +97,24 @@ export const deleteReservation = createAsyncThunk('reservations/deleteReservatio
     }
 })
 
+export const updateReservation = createAsyncThunk('reservations/updateReservations', async (updatedReservation) => {
+    const { data, error } = await supabase
+    .from('reservations')
+    .update({ 
+      name: updatedReservation.name, 
+      surname: updatedReservation.surname,
+      startDate: updatedReservation.startDate,
+      enddate: updatedReservation.endDate
+    })
+    .eq('userId', updatedReservation.user.userId)
+    .eq('userEmail', updatedReservation.user.userEmail)
+
+    console.log(data)
+    return data
+
+    console.log(updateReservation)
+})
+
 const initialState = {
     reservations: [],
     reservation: {}, 
@@ -194,6 +212,10 @@ const reservationsSlice = createSlice({
         })
         .addCase(getReservationsByUserEmail.fulfilled, (state, action) => {
             state.reservations = action.payload
+            state.isLoading = false
+        })
+        .addCase(updateReservation.fulfilled, (state, action) => {
+            state.reservation = action.payload
             state.isLoading = false
         })
     }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle }) => {
+const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, userId, userEmail }) => {
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
 
@@ -26,14 +26,14 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
           <button className='p-2 border-[1px] border-black bg-blue-100'>
           <Link 
             to={`${id}`} 
-            state={{ index: index, id: id, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentTitle: apartmentTitle}}
+            state={{ index: index, id: id, userId: userId, userEmail: userEmail, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentTitle: apartmentTitle}}
           >
           Update
         </Link>
           </button>
         </div>
       }
-      
+
     </div>
   )
 }
