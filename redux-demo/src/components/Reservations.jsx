@@ -13,6 +13,7 @@ const Reservations = () => {
 
   useEffect(() => {
     dispatch(getAllReservations())
+    console.log(allReservations)
   }, [dispatch])
 
   if (isLoading) return <LoadingSpinner />
@@ -33,6 +34,7 @@ const Reservations = () => {
             userEmail={reservation.userEmail}
             startDate={reservation.startDate}
             endDate={reservation.endDate}
+            apartmentTitle={reservation.apartmentTitle}
           />  
         )}
     </div>
