@@ -109,7 +109,7 @@ export const updateReservation = createAsyncThunk('reservations/updateReservatio
     .eq('userId', updatedReservation.user.userId)
     .eq('userEmail', updatedReservation.user.userEmail)
 
-    console.log(data)
+    console.log(updatedReservation.startDate, updatedReservation.endDate)
     return data
 
     console.log(updateReservation)

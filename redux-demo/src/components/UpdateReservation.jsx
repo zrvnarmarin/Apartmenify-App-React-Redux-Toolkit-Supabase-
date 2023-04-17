@@ -9,11 +9,12 @@ import { updateReservation } from './reservationsSlice';
 const UpdateReservation = () => {
     const dispatch = useDispatch()
     const location = useLocation()
-    const data = location.state
-    const [reservation, setReservation] = useState(data)
+    const reservationData = location.state
+    const [reservation, setReservation] = useState(reservationData)
 
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
+    console.log(reservation.startDate)
 
     const submitHandler = e => {
         e.preventDefault()
@@ -24,7 +25,9 @@ const UpdateReservation = () => {
                 userEmail: reservation.userEmail
             },
             name: reservation.name,
-            surname: reservation.surname
+            surname: reservation.surname,
+            startDate: reservation.startDate.toISOString(),
+            endDate: reservation.endDate.toISOString()
         }
 
         dispatch(updateReservation(updatedReservation))

@@ -13,7 +13,6 @@ const Reservations = () => {
 
   useEffect(() => {
     dispatch(getAllReservations())
-    console.log(allReservations)
   }, [dispatch])
 
   if (isLoading) return <LoadingSpinner />
