@@ -13,6 +13,9 @@ const ManageAccount = () => {
   const [isEditEmailClicked, setIsEditEmailClicked] = useState(false)
   const toggleIsEditEmailClicked = () => setIsEditEmailClicked(prev => !prev)
 
+  const [isEditDateOfBirthClicked, setIsEditDateOfBirthClicked] = useState(false)
+  const toggleIsEditDateOfBirthClicked = () => setIsEditDateOfBirthClicked(prev => !prev)
+
   return (
     <div>
 
@@ -50,6 +53,8 @@ const ManageAccount = () => {
         </div>
       }
 
+      <hr className='my-2' />
+
       { isEditEmailClicked
       ?
         <div>
@@ -72,6 +77,32 @@ const ManageAccount = () => {
           </button>
         </div>
       }
+
+    <hr className='my-2' />
+
+    { isEditDateOfBirthClicked
+    ?
+      <div>
+        <label>Date Of Birth</label>
+        <input type="text" className='border-[1px] border-black p-2' />
+        <p>Enter your date of birth.</p>
+        <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditDateOfBirthClicked}>
+          Cancel
+        </button>
+        <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditDateOfBirthClicked}>
+          Save
+        </button>
+      </div>
+    :
+      <div className='flex flex-row justify-between items-center'>
+        <span>Date Of Birth</span>
+        <span>Neki datum</span>
+        <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditDateOfBirthClicked}>
+          Edit
+        </button>
+      </div>
+    }
+
 
     </div>
   )
