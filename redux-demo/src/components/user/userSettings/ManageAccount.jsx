@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from '../../auth/usersSlice'
+import { countries } from '../../../data/countries'
+import { genders } from '../../../data/genders'
 
 const ManageAccount = () => {
   const user = useSelector(selectUser)
   const { user_metadata } = user
-  console.log(user_metadata.avatar_url)
+  // console.log(user_metadata)
 
   const [isEditNameClicked, setIsEditNameClicked] = useState(false)
   const toggleIsEditNameClicked = () => setIsEditNameClicked(prev => !prev)
@@ -15,6 +17,12 @@ const ManageAccount = () => {
 
   const [isEditDateOfBirthClicked, setIsEditDateOfBirthClicked] = useState(false)
   const toggleIsEditDateOfBirthClicked = () => setIsEditDateOfBirthClicked(prev => !prev)
+
+  const [isEditNationalityClicked, setIsEditNationalityClicked] = useState(false)
+  const toggleIsEditationalityClicked = () => setIsEditNationalityClicked(prev => !prev)
+
+  const [isEditGenderClicked, setIsEditGenderClicked] = useState(false)
+  const toggleIsEditGenderClicked = () => setIsEditGenderClicked(prev => !prev)
 
   return (
     <div>
@@ -103,9 +111,67 @@ const ManageAccount = () => {
       </div>
     }
 
+    <hr className='my-2' />
 
-    </div>
-  )
-}
+    { isEditNationalityClicked
+    ?
+      <div>
+        <label>Nationality</label>
+        <select>
+          {countries.map(country =>
+            <option key={country}>{country}</option>  
+          )}
+        </select>
+        <p>Select the country/region you`re from.</p>
+        <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditationalityClicked}>
+          Cancel
+        </button>
+        <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditationalityClicked}>
+          Save
+        </button>
+      </div>
+    :
+      <div className='flex flex-row justify-between items-center'>
+        <span>Nationality</span>
+        <span>Select the country/region you`re from.</span>
+        <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditationalityClicked}>
+          Edit
+        </button>
+      </div>
+    }
+
+    <hr className='my-2' />
+
+    { isEditGenderClicked
+        ?
+          <div>
+            <label>Gender</label>
+            <p>Select your gender.</p>
+            <select>
+              {genders.map(gender =>
+                <option key={gender}>{gender}</option>  
+              )}
+            </select>
+            <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditGenderClicked}>
+              Cancel
+            </button>
+            <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditGenderClicked}>
+              Save
+            </button>
+          </div>
+        :
+          <div className='flex flex-row justify-between items-center'>
+            <span>Gender</span>
+            <span>Select your gender.</span>
+            <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditGenderClicked}>
+              Edit
+            </button>
+          </div>
+        }
+
+
+        </div>
+      )
+    }
 
 export default ManageAccount

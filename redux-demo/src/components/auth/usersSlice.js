@@ -98,6 +98,7 @@ export const deleteSavedApartment = createAsyncThunk('users/deleteSavedApartment
 const initialState = {
     users: [],
     user: {},
+    dateOfBirth: '',
     status: 'idle',
     isLoading: false,
     error: null,
@@ -165,6 +166,7 @@ const usersSlice = createSlice({
 // State exports
 export const selectAllUsers = (state) => state.users.users
 export const selectUser = (state) => state.users.user
+export const selectDateOfBirth = (state) => state.users.dateOfBirth
 export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist
 export const selectAllSavedApartments = (state) => state.users.savedApartments
