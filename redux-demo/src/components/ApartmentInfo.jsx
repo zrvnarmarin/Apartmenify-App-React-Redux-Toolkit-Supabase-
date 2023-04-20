@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { deleteApartment } from './apartmentsSlice'
 import Modal from '../UI/Modal'
 import { openModal, selectIsModalOpen } from '../UI/modalSlice'
@@ -65,7 +66,26 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
             </div>
             <div className='flex items-center justify-end'>
               <div className='flex flex-row gap-2'>
-                <button className="p-2 bg-blue-50 border-[1px] border-black">Change Details</button>
+              <button className='p-2 border-[1px] border-black bg-blue-100'>
+                <Link 
+                  to={`${id}`} 
+                  state={{
+                    id: id,
+                    title: title,
+                    city: city,
+                    rooms: rooms,
+                    price: price,
+                    description: description,
+                    address: address,
+                    singleBeds: singleBeds,
+                    doubleBeds: doubleBeds,
+                    distanceFromTheSea,
+                    facilities: facilities
+                  }}
+                >
+                  Update
+                </Link>
+              </button>
                 <button
                   onClick={openModalWindow}
                   className="p-2 bg-blue-50 border-[1px] border-black">Delete</button>

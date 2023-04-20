@@ -29,6 +29,7 @@ import Saved from './components/user/userSettings/Saved';
 // Toast messages component
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import UpdateApartment from './components/UpdateApartment';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         {/* Admin routes - should be protected */}
         <Route path='/main' element={<MainPage />} >
           <Route path='apartments' element={<Apartments />} />
+          <Route path='apartments/:apartment' element={<UpdateApartment />} />
           <Route path='facilities' element={<Facilities />} />
           <Route path='registeredUsers' element={<RegisteredUsers />} />
           <Route path='addNewApartment' element={<AddNewApartment />} />
