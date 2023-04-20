@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+import { selectFacilities } from './apartmentsSlice'
+import Select from '../UI/Select'
 
 const UpdateApartment = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const apartmentData = location.state
     const [updatedApartment, setUpdatedApartment] = useState(apartmentData)
-    console.log(updatedApartment)
-
+    const facilities = useSelector(selectFacilities)
+    const [selectedFacilities, setSelectedFacilities] = useState(apartmentData.facilities.map(facility => {
+        return { value: facility, label: facility}
+    }))
+    console.log(apartmentData.facilities)
+    // data.map(facility => ({ value: facility.name, label: facility.name }))
     const submitFormHandler = e => {
 
     }
@@ -80,13 +86,13 @@ const UpdateApartment = () => {
             className='border-[1px] border-black p-1' 
             placeholder='Double Beds' 
         />
-        {/* <Select
+        <Select
           multiple
           name={'Facilities'}
           options={facilities}
           value={selectedFacilities}
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
-        /> */}
+        />
         <button className='border-[1px] border-black p-1 bg-blue-50'>Submit</button>
       </form>
     </div>
