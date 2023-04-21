@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { selectFacilities } from './apartmentsSlice'
+import { selectFacilities, getAllFacilities, updateApartment } from './apartmentsSlice'
 import Select from '../UI/Select'
 
 const UpdateApartment = () => {
@@ -13,11 +13,32 @@ const UpdateApartment = () => {
     const [selectedFacilities, setSelectedFacilities] = useState(apartmentData.facilities.map(facility => {
         return { value: facility, label: facility}
     }))
-    console.log(apartmentData.facilities)
-    // data.map(facility => ({ value: facility.name, label: facility.name }))
-    const submitFormHandler = e => {
 
+    // console.log(selectedFacilities)
+    
+    const submitFormHandler = e => {
+        e.preventDefault()
+
+        const updatedApartmentObject = {
+            title: updatedApartment.title,
+            description: updatedApartment.description,
+            rooms: updatedApartment.rooms,
+            address: updatedApartment.address,
+            city: updatedApartment.city,
+            distanceFromTheSea: updatedApartment.distanceFromTheSea,
+            price: updatedApartment.price,
+            singleBeds: updatedApartment.singleBeds,
+            doubleBeds: updatedApartment.doubleBeds,
+        }
+        
+        console.log(updatedApartment)
+
+        dispatch(updateApartment(updatedApartmentObject))
     }
+
+    useEffect(() => {
+        dispatch(getAllFacilities())
+    })
 
   return (
     <div className='p-2 border-[1px] border-black flex flex-col gap-7'>
