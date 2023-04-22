@@ -31,26 +31,29 @@ const UpdateApartment = () => {
             doubleBeds: updatedApartment.doubleBeds,
         }
         
-        console.log(updatedApartment)
+        console.log(updatedApartmentObject)
 
         dispatch(updateApartment(updatedApartmentObject))
     }
 
     useEffect(() => {
         dispatch(getAllFacilities())
-    })
+    }, [])
 
   return (
     <div className='p-2 border-[1px] border-black flex flex-col gap-7'>
       <h1 className='text-2xl'>Update Apartment</h1>
       <form onSubmit={submitFormHandler} className='grid grid-cols-2 gap-4'>
-        <input 
-            value={updatedApartment.title} 
-            onChange={e => setUpdatedApartment(prev => { return { prev, title: e.target.value }})} 
-            type="text" 
-            className='border-[1px] border-black p-1' 
-            placeholder='Title' 
-        />
+      <input 
+  value={apartmentData.title} 
+  onChange={e => setUpdatedApartment(prev => { 
+    return { ...prev, title: e.target.value }
+  })} 
+  type="text" 
+  className='border-[1px] border-black p-1' 
+  placeholder='Title' 
+/>
+
         <input 
             value={updatedApartment.city} 
             onChange={e => setUpdatedApartment(prev => { return { prev, city: e.target.value }})} 
