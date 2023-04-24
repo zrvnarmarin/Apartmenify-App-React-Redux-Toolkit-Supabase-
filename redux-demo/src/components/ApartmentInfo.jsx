@@ -80,7 +80,8 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
                     singleBeds: singleBeds,
                     doubleBeds: doubleBeds,
                     distanceFromTheSea,
-                    facilities: facilities
+                    facilities: facilities, 
+                    availability: availability
                   }}
                 >
                   Update

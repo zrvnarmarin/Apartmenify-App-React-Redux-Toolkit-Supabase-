@@ -68,23 +68,26 @@ export const deleteApartment = createAsyncThunk('apartments/deleteApartment', as
 })
 
 export const updateApartment = createAsyncThunk('apartments/updateApartment', async updatedApartment => {
+  console.log('heej', updatedApartment)
+
   const { data, error } = await supabase
   .from('apartments')
-  .update({
-    title: updatedApartment.title,
+  .update({ 
+    title: updatedApartment.title, 
     description: updatedApartment.description,
+    city: updatedApartment.city,
     rooms: updatedApartment.rooms,
     address: updatedApartment.address,
-    city: updatedApartment.city,
     distanceFromTheSea: updatedApartment.distanceFromTheSea,
     price: updatedApartment.price,
     singleBeds: updatedApartment.singleBeds,
     doubleBeds: updatedApartment.doubleBeds,
-    facilities: updatedApartment.facilities.map(facility => facility.value)
+    availability: updatedApartment.availability,
+    facilities: updatedApartment.facilities
   })
   .eq('id', updatedApartment.id)
 
-  console.log('heej')
+  console.log(data)
 
   return data
 })
