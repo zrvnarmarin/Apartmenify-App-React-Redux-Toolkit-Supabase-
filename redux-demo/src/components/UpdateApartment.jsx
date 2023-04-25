@@ -32,7 +32,7 @@ const UpdateApartment = () => {
             singleBeds: updatedApartment.singleBeds,
             doubleBeds: updatedApartment.doubleBeds,
             availability: updatedApartment.availability,
-            facilities: selectedFacilities
+            facilities: selectedFacilities.map(facility => facility.value)
         }
         
         console.log(updatedApartmentObject)
