@@ -92,6 +92,7 @@ export const deleteReservation = createAsyncThunk('reservations/deleteReservatio
         .eq('id', reservationId)
 
     return reservationId
+
     } catch (error) {
         return error.message
     }
@@ -191,7 +192,7 @@ const reservationsSlice = createSlice({
         .addCase(getAllReservations.fulfilled, (state, action) => {
             state.reservations = action.payload
             state.isLoading = false
-            console.log(action.payload)
+            // console.log(action.payload)
         })
         .addCase(getAllReservations.pending, (state, action) => {
             state.isLoading = true

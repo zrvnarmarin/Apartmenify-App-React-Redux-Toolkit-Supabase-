@@ -87,8 +87,6 @@ export const updateApartment = createAsyncThunk('apartments/updateApartment', as
   })
   .eq('id', updatedApartment.id)
 
-  console.log(data)
-
   return data
 })
 
@@ -359,7 +357,7 @@ export const selectCountOfApartmentsByFacility = createSelector(
       return count;
     }, {});
 
-    console.log(facilities, 'iz selektora')
+    // console.log(facilities, 'iz selektora')
 
     return facilities;
   }

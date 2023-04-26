@@ -31,8 +31,8 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     // console.log('date range', dtRange)
     // console.log('start date - ', stDate)
     // console.log('end date - ', edDate)
-    console.log('current date - ', currentDate)
-    console.log('apartment title prop', apartmentTitle)
+    // console.log('current date - ', currentDate)
+    // console.log('apartment title prop', apartmentTitle)
 
     const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))

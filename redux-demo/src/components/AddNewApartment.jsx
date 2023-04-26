@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { addApartment, getAllFacilities, selectFacilities, selectIsLoading } from './apartmentsSlice'
 import Select from '../UI/Select'
+import supabase from '../supabaseClient';
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
@@ -32,6 +33,10 @@ const AddNewApartment = () => {
   const doubleBedsChangeHandler = e => setDoubleBeds(e.target.value)
 
   const isLoading = useSelector(selectIsLoading)
+
+  const bucket = async () => {
+    console.log(supabase)
+  }
 
   const formSubmitHandler = async e => {
     e.preventDefault()
@@ -78,7 +83,9 @@ const AddNewApartment = () => {
           value={selectedFacilities}
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
+        <input type="file" />
         <button className='border-[1px] border-black p-1 bg-blue-50'>Submit</button>
+        <button onClick={bucket}>Bucket Check</button>
       </form>
     </div>
   )
