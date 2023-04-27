@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import { format, addMonths, isSameMonth, addDays } from 'date-fns';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 import { useDispatch } from 'react-redux';
 import { updateReservation } from './reservationsSlice';
 
@@ -12,9 +12,25 @@ const UpdateReservation = () => {
     const reservationData = location.state
     const [reservation, setReservation] = useState(reservationData)
 
-    const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
-    console.log(reservation.startDate)
+    const pastMonth = new Date()
+    const defaultSelected = {
+        from: pastMonth,
+        to: addDays(pastMonth, 4)
+      };
+      const [range, setRange] = useState(defaultSelected)
+    
+      let footer = <p>Please pick the first day.</p>;
+      if (range?.from) {
+        if (!range.to) {
+          footer = <p>{format(range.from, 'PPP')}</p>;
+        } else if (range.to) {
+          footer = (
+            <p>
+              {format(range.from, 'PPP')}–{format(range.to, 'PPP')}
+            </p>
+          );
+        }
+    }
 
     const submitHandler = e => {
         e.preventDefault()
@@ -49,21 +65,14 @@ const UpdateReservation = () => {
                 type="text" 
                 onChange={e => setReservation(prev => {return {...prev, surname: e.target.value}})} 
             />
-            <DatePicker
-                className="border-[1px] border-black p-2 w-full"
-                placeholderText="Date"
-                selectsRange={true}
-                startDate={startDate}
-                endDate={endDate}
-                onChange={selectedDate => {
-                    setDateRange(selectedDate)
-                }}
-                isClearable={true}
-                dateFormat='dd.MM.yyyy'
-                minDate={new Date()}
-                clearButtonTitle='Clear Dates'
-                // excludeDateIntervals={reservedDateIntervals}
-                // renderDayContents={renderDayContents}
+            <DayPicker
+                id="test"
+                mode="range"
+                defaultMonth={pastMonth}
+                selected={range}
+                footer={footer}
+                onSelect={setRange}
+                className='border-[1px] border-black'
             />
             <button className='border-[1px] border-black'>Submit</button>
         </form>
