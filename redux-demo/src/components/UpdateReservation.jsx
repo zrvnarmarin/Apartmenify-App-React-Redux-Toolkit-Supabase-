@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { format, addMonths, isSameMonth, addDays } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
@@ -9,6 +9,7 @@ import { updateReservation } from './reservationsSlice';
 const UpdateReservation = () => {
   const dispatch = useDispatch()
   const location = useLocation()
+  const navigate = useNavigate()
   const reservationData = location.state
   const [reservation, setReservation] = useState(reservationData)
 
@@ -20,12 +21,21 @@ const UpdateReservation = () => {
   };
   
   const [range, setRange] = useState(defaultSelected)
+  console.log(range)
   
   let footer = <p>Please pick the first day.</p>
 
   if (range?.from) {
-    if (!range.to) footer = <p>{format(range.from, 'PPP')}</p>
-    if (range.to) footer = <p> {format(range.from, 'PPP')}–{format(range.to, 'PPP')} </p>
+    if (!range.to) 
+      footer = <p>{format(range.from, 'PPP')}</p>
+
+    if (range.to) 
+      footer = 
+      <p className=''> 
+        <span className='border-[1px] border-black'>{format(range.from, 'PPP')}</span>
+          
+        <span className='border-[1px] border-black'>{format(range.to, 'PPP')} </span>
+      </p>
   }
 
   const submitHandler = e => {
@@ -38,11 +48,13 @@ const UpdateReservation = () => {
       },
       name: reservation.name,
       surname: reservation.surname,
-      startDate: reservation.startDate.toISOString(),
-      endDate: reservation.endDate.toISOString()
+      startDate: range.from,
+      endDate: range.to
     }
 
     dispatch(updateReservation(updatedReservation))
+
+    navigate('/main/reservations')
   }
 
   return (
@@ -60,7 +72,7 @@ const UpdateReservation = () => {
           value={reservation.surname} 
           type="text" 
           onChange={e => setReservation(prev => {return {...prev, surname: e.target.value}})} 
-        />
+        /> <br />
         <DayPicker
           id="test"
           mode="range"
@@ -68,8 +80,8 @@ const UpdateReservation = () => {
           selected={range}
           footer={footer}
           onSelect={setRange}
-          className='border-[1px] border-black'
-        />
+          className='col-span-1 border-[1px] border-black'
+        /> <br />
         <button className='border-[1px] border-black'>Submit</button>
       </form>
     </div>
