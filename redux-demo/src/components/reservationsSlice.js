@@ -98,6 +98,23 @@ export const deleteReservation = createAsyncThunk('reservations/deleteReservatio
     }
 })
 
+export const cancelReservation = createAsyncThunk('reservations/cancelReservation', async reservationId => {
+    try {
+        const { data, error } = await supabase
+        .from('reservations')
+        .update({
+            isCompleted: false
+        })
+        .eq('id', reservationId)
+        console.log(reservationId)
+
+        return reservationId
+
+    } catch (error) {
+        return error.message
+    }
+})
+
 export const updateReservation = createAsyncThunk('reservations/updateReservations', async (updatedReservation) => {
     const { data, error } = await supabase
     .from('reservations')
@@ -209,6 +226,9 @@ const reservationsSlice = createSlice({
             state.isLoading = false
         })
         .addCase(deleteReservation.pending, (state, action) => {
+            state.isLoading = true
+        })
+        .addCase(cancelReservation.pending, (state, action) => {
             state.isLoading = true
         })
         .addCase(getReservationsByUserEmail.fulfilled, (state, action) => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservations, deleteReservation } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservations, cancelReservation } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
@@ -13,7 +13,7 @@ const UserReservations = () => {
   const { email } = useSelector(selectUser)
 
   const dispatch = useDispatch()
-  const deleteSelectedReservation = reservationId => dispatch(deleteReservation(reservationId))
+  const cancelSelectedReservation = reservationId => dispatch(cancelReservation(reservationId))
 
   const isModalOpen = useSelector(selectIsModalOpen)
   const openModalWindow = () => dispatch(openModal())
@@ -46,7 +46,7 @@ const UserReservations = () => {
               isModalOpen && 
               <Modal 
                 modalText={userReservation.isCompleted ? modalTexts.deleteCompletedReservation : modalTexts.cancelCurrentReservation} 
-                confirmAction={() => deleteSelectedReservation(userReservation.id)} 
+                confirmAction={() => cancelSelectedReservation(userReservation.id)} 
               />
             }
           </div>  
