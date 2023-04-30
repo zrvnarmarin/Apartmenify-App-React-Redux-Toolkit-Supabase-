@@ -11,7 +11,7 @@ const FilterSection = () => {
   const reservationFilter = useSelector(selectFilter)
 
   return (
-    <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px] bg-red-100'>
+    <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px]'>
       {filterOptions.map(option => 
         <button
           key={option.id}

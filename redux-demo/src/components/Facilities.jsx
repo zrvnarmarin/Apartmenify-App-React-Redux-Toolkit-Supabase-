@@ -3,6 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from './apartmentsSlice';
 import ApartmentTable from './ApartmentTable';
+import { toast } from 'react-toastify';
 
 const Facilities = () => {
   const dispatch = useDispatch()
@@ -23,6 +24,8 @@ const Facilities = () => {
     e.preventDefault()
 
     dispatch(addFacility(newFacility))
+    
+    toast.success('New facility added!')
 
     resetNewFacility()
   }
