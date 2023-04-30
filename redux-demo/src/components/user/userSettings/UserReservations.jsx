@@ -7,6 +7,7 @@ import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
+import { toast } from 'react-toastify';
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservations)
@@ -35,18 +36,21 @@ const UserReservations = () => {
             end time: <span>{userReservation.endDate}</span>, 
             apartment id: <span>{userReservation.apartmentId}</span>, 
             apartment name: <span>{userReservation.apartmentTitle}</span>, 
-            is finished reservation : <span>{(userReservation.isCompleted.toString())}</span>
+            status: <span>{userReservation.status}</span>
             <button 
               onClick={openModalWindow}
               className={`p-2 border-[1px] border-black bg-blue-100`}
             >
-              { userReservation.isCompleted ? 'Remove' : 'Cancel'}
+              { userReservation.status === 'confirmed' ? 'Remove' : 'Cancel'}
             </button>
             { 
               isModalOpen && 
               <Modal 
                 modalText={userReservation.isCompleted ? modalTexts.deleteCompletedReservation : modalTexts.cancelCurrentReservation} 
-                confirmAction={() => cancelSelectedReservation(userReservation.id)} 
+                confirmAction={() => {
+                  cancelSelectedReservation(userReservation.id)
+                  toast.info('Reservation is canceled!')
+                }} 
               />
             }
           </div>  

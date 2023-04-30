@@ -15,7 +15,7 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
                     surname: newReservation.surname,
                     startDate: newReservation.startDate,
                     endDate: newReservation.endDate,
-                    isCompleted: newReservation.isCompleted
+                    status: newReservation.status
                 }
             ])
 
@@ -103,10 +103,10 @@ export const cancelReservation = createAsyncThunk('reservations/cancelReservatio
         const { data, error } = await supabase
         .from('reservations')
         .update({
-            isCompleted: false
+            status: 'canceled'
         })
         .eq('id', reservationId)
-        console.log(reservationId)
+        console.log(reservationId, isCanceled.toString())
 
         return reservationId
 

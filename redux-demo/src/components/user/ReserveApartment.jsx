@@ -49,7 +49,7 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
             surname: surname,
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString(),
-            isCompleted: false,
+            status: 'confirmed',
             apartmentTitle: apartmentTitle,
         }))
 
