@@ -6,7 +6,7 @@ import { modalTexts } from '../data/modal/modalTexts'
 import { deleteReservation } from './reservationsSlice'
 import Modal from '../UI/Modal'
 
-const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, userId, userEmail }) => {
+const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, userId, userEmail, status }) => {
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
 
@@ -20,6 +20,7 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
     <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
       <p>{index}</p>
       <p>#{id}</p>
+      <p>{status}</p>
       <p>{apartmentTitle}</p>
       <p>{`${name} ${surname}`}</p>
       <p>{new Date(startDate).toLocaleDateString()}</p>

@@ -129,8 +129,6 @@ export const updateReservation = createAsyncThunk('reservations/updateReservatio
 
     console.log(updatedReservation.startDate, updatedReservation.endDate)
     return data
-
-    console.log(updateReservation)
 })
 
 const initialState = {

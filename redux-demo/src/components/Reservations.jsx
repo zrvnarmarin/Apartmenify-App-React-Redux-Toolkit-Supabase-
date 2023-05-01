@@ -34,6 +34,7 @@ const Reservations = () => {
             startDate={reservation.startDate}
             endDate={reservation.endDate}
             apartmentTitle={reservation.apartmentTitle}
+            status={reservation.status}
           />  
         )}
     </div>
