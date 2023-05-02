@@ -1,4 +1,5 @@
 export const filterOptions = [
     { id: 1, value: 'Current' },
-    { id: 2, value: 'Previous' }
+    { id: 2, value: 'Previous' },
+    { id: 3, value: 'Canceled' }
 ]

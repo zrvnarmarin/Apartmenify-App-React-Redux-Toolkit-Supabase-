@@ -264,10 +264,13 @@ export const filteredReservations = createSelector(
     [selectAllReservations, selectFilter],
     (allReservations, filter) => {
         if (filter.toLowerCase() === 'current') {
-            return allReservations.filter(reservation => !reservation.isCompleted)
+            return allReservations.filter(reservation => reservation.status === 'confirmed' || reservation.status === 'inProgress')
         }
         if (filter.toLowerCase() === 'previous') {
-            return allReservations.filter(reservation => reservation.isCompleted)
+            return allReservations.filter(reservation => reservation.status === 'finished')
+        }
+        if (filter.toLowerCase() === 'canceled') {
+            return allReservations.filter(reservation => reservation.status === 'canceled')
         }
         else {
             return allReservations

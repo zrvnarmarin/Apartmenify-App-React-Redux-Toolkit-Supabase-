@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservations, cancelReservation } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservations, cancelReservation, deleteReservation } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
@@ -13,7 +13,13 @@ const UserReservations = () => {
   const userReservations = useSelector(filteredReservations)
   const { email } = useSelector(selectUser)
 
+  console.log(userReservations)
+
   const dispatch = useDispatch()
+  // TO DO: 
+  // pogledaj zasto funkcija ispod ne zna vratiti userReservation.id
+  // const deleteSelectedReservation = reservationId = dispatch(deleteReservation(reservationId))
+
   const cancelSelectedReservation = reservationId => dispatch(cancelReservation(reservationId))
 
   const isModalOpen = useSelector(selectIsModalOpen)
@@ -41,14 +47,33 @@ const UserReservations = () => {
               onClick={openModalWindow}
               className={`p-2 border-[1px] border-black bg-blue-100`}
             >
-              { userReservation.status === 'confirmed' ? 'Remove' : 'Cancel'}
+              { 
+                userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
+                ? 'Cancel'
+                : userReservation.status === 'finished' 
+                // zasto apartmentId ne radi ovdje - TO DO
+                ? <Link to={`/userDashboard/apartments/${userReservation.apartmentId}`}>Reserve Again</Link> 
+                : userReservation.status === 'canceled'
+                ? 'Remove'
+                : ''
+              }
+              {userReservation.apartmentId}
             </button>
             { 
               isModalOpen && 
               <Modal 
-                modalText={userReservation.isCompleted ? modalTexts.deleteCompletedReservation : modalTexts.cancelCurrentReservation} 
+                modalText={
+                  userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
+                  ? modalTexts.cancelCurrentReservation 
+                  : modalTexts.removeReservation
+                } 
                 confirmAction={() => {
-                  cancelSelectedReservation(userReservation.id)
+                  if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') {
+                    cancelSelectedReservation(userReservation.id)
+                    console.log(userReservation.id)
+                  } else if (userReservation.status === 'canceled') {
+                    dispatch(deleteReservation(userReservation.id))
+                  }
                   toast.info('Reservation is canceled!')
                 }} 
               />

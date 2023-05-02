@@ -22,6 +22,8 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
 
+    console.log(allReservations)
+    
     // iz reservation slice-a
     const stDate = useSelector(selectStartDate)
     const edDate = useSelector(selectEndDate)
