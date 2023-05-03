@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getReservationsByUserEmail, filteredReservations, cancelReservation, deleteReservation } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
@@ -8,10 +8,13 @@ import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
+import { getApartment } from '../../apartmentsSlice';
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservations)
   const { email } = useSelector(selectUser)
+
+  const navigate = useNavigate()
 
   console.log(userReservations)
 
@@ -50,9 +53,11 @@ const UserReservations = () => {
               { 
                 userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
                 ? 'Cancel'
+
                 : userReservation.status === 'finished' 
-                // zasto apartmentId ne radi ovdje - TO DO
+                // zasto apartmentId ne radi ovdje - TO DO - link na apartman koji je user vec rezervirao 
                 ? <Link to={`/userDashboard/apartments/${userReservation.apartmentId}`}>Reserve Again</Link> 
+                
                 : userReservation.status === 'canceled'
                 ? 'Remove'
                 : ''
@@ -68,13 +73,16 @@ const UserReservations = () => {
                   : modalTexts.removeReservation
                 } 
                 confirmAction={() => {
-                  if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') {
+                  if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') 
                     cancelSelectedReservation(userReservation.id)
-                    console.log(userReservation.id)
-                  } else if (userReservation.status === 'canceled') {
+
+                  else if (userReservation.status === 'canceled') 
                     dispatch(deleteReservation(userReservation.id))
-                  }
-                  toast.info('Reservation is canceled!')
+
+                  else if (userReservation.status === 'finished') 
+                    dispatch(getApartment(userReservation.apartmentId))
+                  
+                    toast.info('Reservation is canceled!')
                 }} 
               />
             }

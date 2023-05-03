@@ -9,9 +9,12 @@ import ReserveApartment from './ReserveApartment';
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
 
-  const { state: { apartmentId, apartmentTitle } } = useLocation()
+  // TO DO: radi na ovaj hacky nacin, ali kako dohvatiti onda apartmentTitle - to 
+  // const { state: { apartmentId, apartmentTitle } } = useLocation()
   const apartment = useSelector(selectApartment)
   const { title, address, city, facilities } = apartment
+  const apartmentId =  useLocation().pathname.substring(useLocation().pathname.lastIndexOf('/') + 1)
+  console.log(test)
 
   useEffect(() => {
     dispatch(getApartment(apartmentId))
@@ -69,8 +72,8 @@ const ApartmentDetails = () => {
       </div>
 
       <ReserveApartment 
-        apartmentId={apartmentId} 
-        apartmentTitle={apartmentTitle} 
+        apartmentId={test} 
+        // apartmentTitle={apartmentTitle} 
       />
 
     </div>
