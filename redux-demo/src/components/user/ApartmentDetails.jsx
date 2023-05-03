@@ -14,7 +14,7 @@ const ApartmentDetails = () => {
   const apartment = useSelector(selectApartment)
   const { title, address, city, facilities } = apartment
   const apartmentId =  useLocation().pathname.substring(useLocation().pathname.lastIndexOf('/') + 1)
-  console.log(test)
+  console.log(apartmentId)
 
   useEffect(() => {
     dispatch(getApartment(apartmentId))
@@ -72,7 +72,7 @@ const ApartmentDetails = () => {
       </div>
 
       <ReserveApartment 
-        apartmentId={test} 
+        apartmentId={apartmentId} 
         // apartmentTitle={apartmentTitle} 
       />
 
