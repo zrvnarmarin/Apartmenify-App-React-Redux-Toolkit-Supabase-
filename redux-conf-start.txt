@@ -50,3 +50,6 @@ and it should work with any of them;đ
 MAJOR BUG FIXED: the problem was that userID was undefined every time I tried to send it to userSlice. I simply get the userID directly
 in the async thunk and then send user credentials to supabase query, that way is ensured that user credentials (in this case userID)
 is always defined
+
+TO DO: when user clicks on previous reservation filter, and clicks the link from useLocation hook, which should navigate to apartment 
+that user already reserved in the past, there is an error which said that apartment id and title are null 
