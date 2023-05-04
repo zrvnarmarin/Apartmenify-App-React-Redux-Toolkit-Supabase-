@@ -255,8 +255,9 @@ export const selectFilter = (state) => state.reservations.filter
 
 // Reducers
 export const { 
-    setName, setSurname, resetName, resetSurname, setUserId, setUserEmail, 
-    setDateRange, setStartDate, setEndDate, resetForm, setFilter
+    setName, setSurname, resetName, resetSurname, 
+    setUserId, setUserEmail, setDateRange, setStartDate,
+    setEndDate, resetForm, setFilter
 } = reservationsSlice.actions
 
 // Memoized selectors

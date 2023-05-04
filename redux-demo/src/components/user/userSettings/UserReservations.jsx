@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservations, cancelReservation, deleteReservation } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservations, cancelReservation, deleteReservation, selectCurrentDate } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
@@ -15,10 +15,11 @@ const UserReservations = () => {
   const { email } = useSelector(selectUser)
 
   const navigate = useNavigate()
-
-  console.log(userReservations)
-
   const dispatch = useDispatch()
+
+  const currentDate = useSelector(selectCurrentDate)
+  console.log(currentDate)
+
   // TO DO: 
   // pogledaj zasto funkcija ispod ne zna vratiti userReservation.id
   // const deleteSelectedReservation = reservationId = dispatch(deleteReservation(reservationId))
@@ -82,7 +83,7 @@ const UserReservations = () => {
                   else if (userReservation.status === 'finished') 
                     dispatch(getApartment(userReservation.apartmentId))
                   
-                    toast.info('Reservation is canceled!')
+                  toast.info('Reservation is canceled!')
                 }} 
               />
             }

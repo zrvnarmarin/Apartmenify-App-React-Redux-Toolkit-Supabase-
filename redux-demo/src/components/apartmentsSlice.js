@@ -143,7 +143,8 @@ export const updateApartmentAvailability = createAsyncThunk('apartments/updateAp
     .eq('id', apartmentId)
 
     console.log('thunk apartment id', apartmentId, availability)
-  return data
+    
+    return data
   } catch (error) {
     return error.message
   }

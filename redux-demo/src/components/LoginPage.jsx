@@ -4,6 +4,8 @@ import supabase from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 
+// TO DO: make this modular so that other accounts can be used
+
 const LoginPage = () => {
   const navigate = useNavigate()
   
