@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from './apartmentsSlice';
 import ApartmentTable from './ApartmentTable';

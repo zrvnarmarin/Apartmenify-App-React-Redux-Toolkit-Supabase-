@@ -304,7 +304,7 @@ export const selectSortedApartments = createSelector(
 export const selectFilteredAndSortedApartments = createSelector(
     [selectFilteredApartments, getSort, getSortOrder],
     (filteredApartments, sort, sortOrder) => {
-        let sortedApartments = [...filteredApartments];
+      let sortedApartments = [...filteredApartments];
   
       if (sort === 'price') {
         sortedApartments.sort((a, b) => {
@@ -324,12 +324,12 @@ export const selectFilteredAndSortedApartments = createSelector(
         });
       } else if (sort === 'distanceFromTheSea') {
         sortedApartments.sort((a, b) => {
-            if (sortOrder === 'ascending') {
-              return a.distanceFromTheSea - b.distanceFromTheSea;
-            } else {
-              return b.distanceFromTheSea - a.distanceFromTheSea;
-            }
-          });
+          if (sortOrder === 'ascending') {
+            return a.distanceFromTheSea - b.distanceFromTheSea;
+          } else {
+            return b.distanceFromTheSea - a.distanceFromTheSea;
+          }
+        });
       }
   
       return sortedApartments;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setFilter, selectFilter } from '../../reservationsSlice'
+import { setBookingStatusfilter, selectBookingStatusFilter } from '../../reservationsSlice'
 import { filterOptions } from '../../../data/reservations/user/filterOptions'
 
 const FilterSection = () => {
   const dispatch = useDispatch()
-  const setReservationFilter = filter => dispatch(setFilter(filter))
+  const setReservationFilter = filter => dispatch(setBookingStatusfilter(filter))
 
   const [isActive, setIsActive] = useState(1)
-  const reservationFilter = useSelector(selectFilter)
+  const reservationFilter = useSelector(selectBookingStatusFilter)
 
   return (
     <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px]'>

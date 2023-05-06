@@ -147,8 +147,8 @@ const initialState = {
     userId: '',
     userEmail: '',
 
-    // User reservation filter
-    filter: 'current'
+    // User booking status filter
+    bookingStatusFilter: 'current'
 }
 
 const reservationsSlice = createSlice({
@@ -195,8 +195,8 @@ const reservationsSlice = createSlice({
             state.startDate = formatedDates[0]
             state.endDate = formatedDates[1]
         },
-        setFilter: (state, action) => {
-            state.filter = action.payload
+        setBookingStatusfilter: (state, action) => {
+            state.bookingStatusFilter = action.payload
         }
     },
     extraReducers(builder) {
@@ -251,32 +251,38 @@ export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
 export const selectDateRange = (state) => state.reservations.dateRange
 export const selectCurrentDate = (state) => state.reservations.currentDate
-export const selectFilter = (state) => state.reservations.filter
+export const selectBookingStatusFilter = (state) => state.reservations.bookingStatusFilter
 
 // Reducers
 export const { 
     setName, setSurname, resetName, resetSurname, 
     setUserId, setUserEmail, setDateRange, setStartDate,
-    setEndDate, resetForm, setFilter
+    setEndDate, resetForm, setBookingStatusfilter
 } = reservationsSlice.actions
 
 // Memoized selectors
-export const filteredReservations = createSelector(
-    [selectAllReservations, selectFilter],
-    (allReservations, filter) => {
-        if (filter.toLowerCase() === 'current') {
+export const filteredReservationsByBookingStatus = createSelector(
+    [selectAllReservations, selectBookingStatusFilter],
+    (allReservations, bookingStatusFilter) => {
+        if (bookingStatusFilter.toLowerCase() === 'current') {
             return allReservations.filter(reservation => reservation.status === 'confirmed' || reservation.status === 'inProgress')
         }
-        if (filter.toLowerCase() === 'previous') {
+        if (bookingStatusFilter.toLowerCase() === 'previous') {
             return allReservations.filter(reservation => reservation.status === 'finished')
         }
-        if (filter.toLowerCase() === 'canceled') {
+        if (bookingStatusFilter.toLowerCase() === 'canceled') {
             return allReservations.filter(reservation => reservation.status === 'canceled')
         }
         else {
             return allReservations
         }
     }
+)
+
+// TO DO: napravi filtirriranje rezervacija po statusu - conformed, inProgress, finished, canceled --> gumb koji tracka pojedini status;
+// napravi filter u input za korisnike, i filtriranje od - do datuma --> user unese od do values i filtriraju se unutar tih datuma
+export const filteredReservationsByStatus = createSelector(
+    [selectAllReservations, filter]
 )
 
 // Slice

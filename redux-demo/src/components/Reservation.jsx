@@ -17,7 +17,7 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
   const openModalWindow = () => dispatch(openModal())
 
   return (
-    <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
+    <div className='grid grid-cols-8 p-2 border-[1px] border-black items-center'>
       <p>{index}</p>
       <p>#{id}</p>
       <p>{status}</p>

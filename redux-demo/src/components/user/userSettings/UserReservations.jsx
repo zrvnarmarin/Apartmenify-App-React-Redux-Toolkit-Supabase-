@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservations, cancelReservation, deleteReservation, selectCurrentDate } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, selectCurrentDate } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
@@ -9,16 +9,19 @@ import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
 import { getApartment } from '../../apartmentsSlice';
+import UserReservationTableHeader from './UserReservationTableHeader';
 
 const UserReservations = () => {
-  const userReservations = useSelector(filteredReservations)
+  const userReservations = useSelector(filteredReservationsByBookingStatus)
   const { email } = useSelector(selectUser)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const currentDate = useSelector(selectCurrentDate)
-  console.log(currentDate)
+
+  console.log('Current date:', currentDate)
+  console.log('all REservations: ', userReservations)
 
   // TO DO: 
   // pogledaj zasto funkcija ispod ne zna vratiti userReservation.id
@@ -34,19 +37,22 @@ const UserReservations = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
+      <h1 className='text-2xl'>
+        Reservations
+      </h1>
       <FilterSection />
-      <div className='flex flex-col gap-3'>
+      <UserReservationTableHeader />
+      <div >
         { 
           userReservations.length === 0 
           ? <h1>No reservations</h1> 
-          : userReservations.map(userReservation =>
-          <div key={userReservation.id} className='border-[1px] border-black p-2'>
-            start time: <span>{userReservation.startDate}</span>, 
-            end time: <span>{userReservation.endDate}</span>, 
-            apartment id: <span>{userReservation.apartmentId}</span>, 
-            apartment name: <span>{userReservation.apartmentTitle}</span>, 
-            status: <span>{userReservation.status}</span>
+          : userReservations.map((userReservation, i) =>
+          <div key={userReservation.id} className='grid grid-cols-5 border-[1px] border-black p-2 items-center'>
+            <p>{i}</p>
+            <p>{userReservation.apartmentTitle}</p>
+            <p>{userReservation.startDate}</p>
+            <p>{userReservation.endDate}</p> 
             <button 
               onClick={openModalWindow}
               className={`p-2 border-[1px] border-black bg-blue-100`}
@@ -62,8 +68,7 @@ const UserReservations = () => {
                 : userReservation.status === 'canceled'
                 ? 'Remove'
                 : ''
-              }
-              {userReservation.apartmentId}
+              } {userReservation.apartmentId}
             </button>
             { 
               isModalOpen && 
