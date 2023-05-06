@@ -147,8 +147,13 @@ const initialState = {
     userId: '',
     userEmail: '',
 
-    // User booking status filter
-    bookingStatusFilter: 'current'
+    // User 
+    reservationFilter: 'all',
+    reservationFilterQuery: '',
+    bookingStatusFilter: 'current',
+
+    // Admin 
+    reservationStatusFilter: 'confirmed'
 }
 
 const reservationsSlice = createSlice({
@@ -195,8 +200,17 @@ const reservationsSlice = createSlice({
             state.startDate = formatedDates[0]
             state.endDate = formatedDates[1]
         },
+        setReservationFilter: (state, action) => {
+            state.reservationFilter = action.payload
+        },
         setBookingStatusfilter: (state, action) => {
             state.bookingStatusFilter = action.payload
+        },
+        setReservationStatusfilter: (state, action) => {
+            state.reservationStatusFilter = action.payload
+        },
+        setReservationFilterQuery: (state, action) => {
+            state.reservationFilterQuery = action.payload
         }
     },
     extraReducers(builder) {
@@ -252,12 +266,16 @@ export const selectEndDate = (state) => state.reservations.endDate
 export const selectDateRange = (state) => state.reservations.dateRange
 export const selectCurrentDate = (state) => state.reservations.currentDate
 export const selectBookingStatusFilter = (state) => state.reservations.bookingStatusFilter
+export const selectReservationStatusFilter = (state) => state.reservations.reservationStatusFilter
+export const selectReservationFilter = (state) => state.reservations.reservationFilter
+export const selectReservationFilterQuery = (state) => state.reservations.reservationFilterQuery
 
 // Reducers
 export const { 
     setName, setSurname, resetName, resetSurname, 
     setUserId, setUserEmail, setDateRange, setStartDate,
-    setEndDate, resetForm, setBookingStatusfilter
+    setEndDate, resetForm, setBookingStatusfilter, setReservationStatusfilter,
+    setReservationFilter, setReservationFilterQuery
 } = reservationsSlice.actions
 
 // Memoized selectors
@@ -279,11 +297,43 @@ export const filteredReservationsByBookingStatus = createSelector(
     }
 )
 
-// TO DO: napravi filtirriranje rezervacija po statusu - conformed, inProgress, finished, canceled --> gumb koji tracka pojedini status;
-// napravi filter u input za korisnike, i filtriranje od - do datuma --> user unese od do values i filtriraju se unutar tih datuma
-export const filteredReservationsByStatus = createSelector(
-    [selectAllReservations, filter]
-)
+export const filteredReservations = createSelector(
+    [selectAllReservations, selectReservationStatusFilter, selectReservationFilter, selectReservationFilterQuery],
+    (allReservations, reservationStatusFilter, reservationFilter, reservationFilterQuery) =>
+      allReservations
+      .filter(reservation => {
+        let user = reservation.name + ' ' + reservation.surname;
+  
+        if (reservationStatusFilter !== 'all' && reservation.status.toLowerCase() !== reservationStatusFilter.toLowerCase()) {
+          return false;
+        }
+  
+        if (reservationFilter === 'all') {
+          return true;
+        } else if (reservationFilter === 'apartment title') {
+          return reservation.apartmentTitle.toLowerCase().includes(reservationFilterQuery.toLowerCase());
+        } else if (reservationFilter === 'user') {
+          return user.toLowerCase().includes(reservationFilterQuery.toLowerCase());
+        }
+  
+        return false;
+      })
+      .filter(reservation => {
+        if (reservationStatusFilter === 'all') {
+          return true;
+        } else if (reservationStatusFilter === 'Confirmed') {
+          return reservation.status === 'confirmed';
+        } else if (reservationStatusFilter === 'In Progress') {
+          return reservation.status === 'inProgress';
+        } else if (reservationStatusFilter === 'Canceled') {
+          return reservation.status === 'canceled';
+        } else if (reservationStatusFilter === 'Finished') {
+          return reservation.status === 'finished';
+        }
+  
+        return false;
+      })
+);
 
 // Slice
 export default reservationsSlice.reducer

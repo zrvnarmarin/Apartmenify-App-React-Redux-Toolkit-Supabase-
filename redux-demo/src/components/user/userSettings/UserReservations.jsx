@@ -20,8 +20,8 @@ const UserReservations = () => {
 
   const currentDate = useSelector(selectCurrentDate)
 
-  console.log('Current date:', currentDate)
-  console.log('all REservations: ', userReservations)
+  // console.log('Current date:', currentDate)
+  // console.log('all REservations: ', userReservations)
 
   // TO DO: 
   // pogledaj zasto funkcija ispod ne zna vratiti userReservation.id

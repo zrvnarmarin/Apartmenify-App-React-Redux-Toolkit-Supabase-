@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setBookingStatusfilter } from '../../reservationsSlice'
-import { bookingStatusFilterOptions } from './../../../data/reservations/user/bookingStatusFilterOptions';
+import { reservationStatusFilterOptions } from './../data/reservations/reservationStatusFilterOptions';
+import { useDispatch } from 'react-redux';
+import { setReservationStatusfilter } from './reservationsSlice';
 
-const FilterSection = () => {
+const ReservationStatusFilterSection = () => {
   const dispatch = useDispatch()
 
-  const setReservationFilter = filter => dispatch(setBookingStatusfilter(filter))
+  const setReservationStatusFilter = filter => dispatch(setReservationStatusfilter(filter))
   const [isActive, setIsActive] = useState(1)
 
   return (
     <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px]'>
-      {bookingStatusFilterOptions.map(option => 
+      {reservationStatusFilterOptions.map(option => 
         <button
           key={option.id}
           onClick={() => {
-            setReservationFilter(option.value)
+            setReservationStatusFilter(option.value)
             setIsActive(option.id)
           }} 
           className={`${isActive === option.id ? 'bg-blue-300' : 'bg-blue-100'} p-2 border-[1px] border-black`}
@@ -27,4 +27,4 @@ const FilterSection = () => {
   )
 }
 
-export default FilterSection
+export default ReservationStatusFilterSection

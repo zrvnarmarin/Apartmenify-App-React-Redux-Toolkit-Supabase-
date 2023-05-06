@@ -7,11 +7,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
 import { updateApartmentAvailability } from '../apartmentsSlice';
-import { 
-    addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname, 
-    resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId, 
-    setUserEmail, selectStartDate, selectEndDate, selectDateRange, setDateRange as setRangeDate, 
-    selectCurrentDate } 
+import {
+    addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname,
+    resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId,
+    setUserEmail, selectStartDate, selectEndDate, selectDateRange, setDateRange as setRangeDate,
+    selectCurrentDate }
 from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
@@ -23,14 +23,15 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
 
-    console.log(allReservations)
-    
+    // console.log(allReservations)
+    // console.log(apartmentTitle)
+
     // iz reservation slice-a
-    const stDate = useSelector(selectStartDate)
-    const edDate = useSelector(selectEndDate)
-    const dtRange = useSelector(selectDateRange)
-    const currentDate = useSelector(selectCurrentDate)
-    
+    // const stDate = useSelector(selectStartDate)
+    // const edDate = useSelector(selectEndDate)
+    // const dtRange = useSelector(selectDateRange)
+    // const currentDate = useSelector(selectCurrentDate)
+
     // console.log('date range', dtRange)
     // console.log('start date - ', stDate)
     // console.log('end date - ', edDate)
@@ -102,9 +103,9 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
             start: new Date(reservation.startDate.slice(0, 10)),
             end: new Date(reservation.endDate.slice(0, 10))
         }));
-            
+
         return startAndEndReservedDates
-    } 
+    }
 
     const startAndEndDatesOfEachReservation = getStartAndEndDatesOfEachReservation();
 
@@ -120,19 +121,19 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
 
     return (
         <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>
-            <input 
-                value={name} 
-                onChange={nameChangeHandler} 
-                type="text" 
-                placeholder='Name' 
-                className='p-2 border-[1px] border-black' 
-            />
-            <input 
-                value={surname} 
-                onChange={surnameChangeHandler} 
+            <input
+                value={name}
+                onChange={nameChangeHandler}
                 type="text"
-                placeholder='Surname' 
-                className='p-2 border-[1px] border-black' 
+                placeholder='Name'
+                className='p-2 border-[1px] border-black'
+            />
+            <input
+                value={surname}
+                onChange={surnameChangeHandler}
+                type="text"
+                placeholder='Surname'
+                className='p-2 border-[1px] border-black'
              />
             <DatePicker
                 className="border-[1px] border-black p-2"

@@ -10,11 +10,11 @@ const ApartmentDetails = () => {
   const dispatch = useDispatch()
 
   // TO DO: radi na ovaj hacky nacin, ali kako dohvatiti onda apartmentTitle - to 
-  // const { state: { apartmentId, apartmentTitle } } = useLocation()
+  const { state: { apartmentId, apartmentTitle } } = useLocation()
   const apartment = useSelector(selectApartment)
   const { title, address, city, facilities } = apartment
-  const apartmentId =  useLocation().pathname.substring(useLocation().pathname.lastIndexOf('/') + 1)
-  console.log(apartmentId)
+  // const apartmentId =  useLocation().pathname.substring(useLocation().pathname.lastIndexOf('/') + 1)
+  // console.log(apartmentId)
 
   useEffect(() => {
     dispatch(getApartment(apartmentId))
@@ -73,7 +73,7 @@ const ApartmentDetails = () => {
 
       <ReserveApartment 
         apartmentId={apartmentId} 
-        // apartmentTitle={apartmentTitle} 
+        apartmentTitle={apartmentTitle} 
       />
 
     </div>

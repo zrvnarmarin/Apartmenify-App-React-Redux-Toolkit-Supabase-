@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LoadingSpinner from '../UI/Loading Spinner/LoadingSpinner'
-import { getAllReservations, selectAllReservations, selectIsLoading } from './reservationsSlice'
+import { getAllReservations, selectIsLoading, filteredReservations, selectReservationFilter, selectReservationFilterQuery } from './reservationsSlice'
 import Reservation from './Reservation'
 import ReservationTableHeader from './ReservationTableHeader';
+import ReservationStatusFilterSection from './ReservationStatusFilterSection';
+import ReservationFilterSection from './ReservationFilterSection'
 
 const Reservations = () => {
-  const allReservations = useSelector(selectAllReservations)
+  const allReservations = useSelector(filteredReservations)
   const isLoading = useSelector(selectIsLoading)
+
+  const reservationFilter = useSelector(selectReservationFilter)
+  const reservationFilterQuery = useSelector(selectReservationFilterQuery)
+  console.log(reservationFilter, reservationFilterQuery)
 
   const dispatch = useDispatch()
 
@@ -20,6 +26,8 @@ const Reservations = () => {
   return (
     <div className='flex flex-col gap-2'>
       <p className='text-2xl p-2'>Reservations</p>
+      <ReservationFilterSection />
+      <ReservationStatusFilterSection />
         <ReservationTableHeader />
         {allReservations.map((reservation, index) => 
           <Reservation
