@@ -304,9 +304,7 @@ export const filteredReservations = createSelector(
       .filter(reservation => {
         let user = reservation.name + ' ' + reservation.surname;
   
-        if (reservationStatusFilter !== 'all' && reservation.status.toLowerCase() !== reservationStatusFilter.toLowerCase()) {
-          return false;
-        }
+        if (reservationStatusFilter !== 'all' && reservation.status.toLowerCase() !== reservationStatusFilter.toLowerCase()) return false;
   
         if (reservationFilter === 'all') {
           return true;
@@ -319,17 +317,11 @@ export const filteredReservations = createSelector(
         return false;
       })
       .filter(reservation => {
-        if (reservationStatusFilter === 'all') {
-          return true;
-        } else if (reservationStatusFilter === 'Confirmed') {
-          return reservation.status === 'confirmed';
-        } else if (reservationStatusFilter === 'In Progress') {
-          return reservation.status === 'inProgress';
-        } else if (reservationStatusFilter === 'Canceled') {
-          return reservation.status === 'canceled';
-        } else if (reservationStatusFilter === 'Finished') {
-          return reservation.status === 'finished';
-        }
+        if (reservationStatusFilter === 'all') return true
+        else if (reservationStatusFilter === 'Confirmed') return reservation.status === 'confirmed'
+        else if (reservationStatusFilter === 'In Progress') return reservation.status === 'inProgress'
+        else if (reservationStatusFilter === 'Canceled') return reservation.status === 'canceled'
+        else if (reservationStatusFilter === 'Finished') return reservation.status === 'finished'
   
         return false;
       })

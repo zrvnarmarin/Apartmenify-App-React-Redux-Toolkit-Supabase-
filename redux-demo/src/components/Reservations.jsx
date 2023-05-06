@@ -11,10 +11,6 @@ const Reservations = () => {
   const allReservations = useSelector(filteredReservations)
   const isLoading = useSelector(selectIsLoading)
 
-  const reservationFilter = useSelector(selectReservationFilter)
-  const reservationFilterQuery = useSelector(selectReservationFilterQuery)
-  console.log(reservationFilter, reservationFilterQuery)
-
   const dispatch = useDispatch()
 
   useEffect(() => {

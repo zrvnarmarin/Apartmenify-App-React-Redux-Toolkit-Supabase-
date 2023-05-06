@@ -12,6 +12,8 @@ const ReservationFilterSection = () => {
   const reservationFilterQuery = useSelector(selectReservationFilterQuery)
   const reservationFilterQueryChangeHandler = e => dispatch(setReservationFilterQuery(e.target.value))
 
+  // TO DO: ovdje staviti date pickere za filtriranje datuma kasnije
+
   return (
     <div className='p-2 border-[1px] border-black flex flex-wrap justify-between items-center'>
       <div className='flex flex-wrap gap-6 items-center'>
@@ -33,11 +35,11 @@ const ReservationFilterSection = () => {
             ? 
             <div>
                 <input
-                value={reservationFilterQuery}
-                onChange={reservationFilterQueryChangeHandler}
-                type="text"
-                placeholder='Enter filter value...'
-                className='border-[1px] border-black p-1'
+                    value={reservationFilterQuery}
+                    onChange={reservationFilterQueryChangeHandler}
+                    type="text"
+                    placeholder='Enter filter value...'
+                    className='border-[1px] border-black p-1'
                 />
             </div> 
             : <></>
