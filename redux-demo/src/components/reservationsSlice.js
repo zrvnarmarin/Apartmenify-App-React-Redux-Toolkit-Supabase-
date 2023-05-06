@@ -148,11 +148,11 @@ const initialState = {
     userEmail: '',
 
     // User 
+    bookingStatusFilter: 'current',
+    
+    // Admin 
     reservationFilter: 'all',
     reservationFilterQuery: '',
-    bookingStatusFilter: 'current',
-
-    // Admin 
     reservationStatusFilter: 'confirmed'
 }
 
@@ -295,7 +295,7 @@ export const filteredReservationsByBookingStatus = createSelector(
             return allReservations
         }
     }
-)
+);
 
 export const filteredReservations = createSelector(
     [selectAllReservations, selectReservationStatusFilter, selectReservationFilter, selectReservationFilterQuery],
