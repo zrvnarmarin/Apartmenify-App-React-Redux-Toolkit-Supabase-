@@ -43,57 +43,57 @@ const UserReservations = () => {
       </h1>
       <FilterSection />
       <UserReservationTableHeader />
-      <div >
+      <div className='flex flex-col gap-2'>
         { 
           userReservations.length === 0 
           ? <h1>No reservations</h1> 
           : userReservations.map((userReservation, i) =>
-          <div key={userReservation.id} className='grid grid-cols-5 border-[1px] border-black p-2 items-center'>
-            <p>{i}</p>
-            <p>{userReservation.apartmentTitle}</p>
-            <p>{userReservation.startDate}</p>
-            <p>{userReservation.endDate}</p> 
-            <button 
-              onClick={openModalWindow}
-              className={`p-2 border-[1px] border-black bg-blue-100`}
-            >
-              { 
-                userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
-                ? 'Cancel'
-
-                : userReservation.status === 'finished' 
-                // zasto apartmentId ne radi ovdje - TO DO - link na apartman koji je user vec rezervirao 
-                ? <Link to={`/userDashboard/apartments/${userReservation.apartmentId}`}>Reserve Again</Link> 
-                
-                : userReservation.status === 'canceled'
-                ? 'Remove'
-                : ''
-              } {userReservation.apartmentId}
-            </button>
-            { 
-              isModalOpen && 
-              <Modal 
-                modalText={
+            <div key={userReservation.id} className='grid grid-cols-5 border-[1px] border-black p-2 items-center'>
+              <p>{i}</p>
+              <p>{userReservation.apartmentTitle}</p>
+              <p>{userReservation.startDate}</p>
+              <p>{userReservation.endDate}</p> 
+              <button 
+                onClick={openModalWindow}
+                className={`p-2 border-[1px] border-black bg-blue-100`}
+              >
+                { 
                   userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
-                  ? modalTexts.cancelCurrentReservation 
-                  : modalTexts.removeReservation
-                } 
-                confirmAction={() => {
-                  if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') 
-                    cancelSelectedReservation(userReservation.id)
+                  ? 'Cancel'
 
-                  else if (userReservation.status === 'canceled') 
-                    dispatch(deleteReservation(userReservation.id))
-
-                  else if (userReservation.status === 'finished') 
-                    dispatch(getApartment(userReservation.apartmentId))
+                  : userReservation.status === 'finished' 
+                  // zasto apartmentId ne radi ovdje - TO DO - link na apartman koji je user vec rezervirao 
+                  ? <Link to={`/userDashboard/apartments/${userReservation.apartmentId}`}>Reserve Again</Link> 
                   
-                  toast.info('Reservation is canceled!')
-                }} 
-              />
-            }
-          </div>  
-        )}
+                  : userReservation.status === 'canceled'
+                  ? 'Remove'
+                  : ''
+                } {userReservation.apartmentId}
+              </button>
+              { 
+                isModalOpen && 
+                <Modal 
+                  modalText={
+                    userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
+                    ? modalTexts.cancelCurrentReservation 
+                    : modalTexts.removeReservation
+                  } 
+                  confirmAction={() => {
+                    if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') 
+                      cancelSelectedReservation(userReservation.id)
+
+                    else if (userReservation.status === 'canceled') 
+                      dispatch(deleteReservation(userReservation.id))
+
+                    else if (userReservation.status === 'finished') 
+                      dispatch(getApartment(userReservation.apartmentId))
+                    
+                    toast.info('Reservation is canceled!')
+                  }} 
+                />
+              }
+            </div>  
+          )}
       </div>
 
     </div>

@@ -6,6 +6,8 @@ import 'react-day-picker/dist/style.css';
 import { useDispatch } from 'react-redux';
 import { updateReservation } from './reservationsSlice';
 
+import DatePicker from "react-datepicker";
+
 const UpdateReservation = () => {
   const dispatch = useDispatch()
   const location = useLocation()
@@ -23,7 +25,7 @@ const UpdateReservation = () => {
   const [range, setRange] = useState(defaultSelected)
   console.log(range)
   
-  let footer = <p>Please pick the first day.</p>
+  let footer = <p className='w-full p-2 text-2xl'>Please pick the first day.</p>
 
   if (range?.from) {
     if (!range.to) 
@@ -31,11 +33,11 @@ const UpdateReservation = () => {
 
     if (range.to) 
       footer = 
-      <p className=''> 
+      <div className='bg-red-200 w-full p-2 text-lg'> 
         <span className='border-[1px] border-black'>{format(range.from, 'PPP')}</span>
           
         <span className='border-[1px] border-black'>{format(range.to, 'PPP')} </span>
-      </p>
+      </div>
   }
 
   const submitHandler = e => {
@@ -56,11 +58,13 @@ const UpdateReservation = () => {
 
     navigate('/main/reservations')
   }
-
+//previous for forms tyle = grid grid-cols-3 gap-4
   return (
-    <div>
-      <p className='text-2xl p-2'>Update Reservation</p>
-      <form onSubmit={submitHandler} className='grid grid-cols-3 gap-4'>
+    <div className='flex flex-col gap-2 p-2'>
+
+      <p className='text-2xl'>Update Reservation</p> 
+
+      <form onSubmit={submitHandler} className='grid grid-cols-2 gap-4'>
         <input 
           className='border-[1px] border-black p-2' 
           value={reservation.name} 
@@ -72,17 +76,29 @@ const UpdateReservation = () => {
           value={reservation.surname} 
           type="text" 
           onChange={e => setReservation(prev => {return {...prev, surname: e.target.value}})} 
-        /> <br />
-        <DayPicker
+        /> 
+        
+        {/* <DayPicker
           id="test"
           mode="range"
           defaultMonth={pastMonth}
           selected={range}
           footer={footer}
           onSelect={setRange}
-          className='col-span-1 border-[1px] border-black'
-        /> <br />
-        <button className='border-[1px] border-black'>Submit</button>
+          className='border-[1px] border-black '
+        /> */}
+        <div className='col-span-1'>
+          <DatePicker
+            className="border-[1px] border-black p-2 w-full"
+            placeholderText="Date"
+            selectsRange={true}
+            isClearable={true}
+            dateFormat='dd.MM.yyyy'
+            minDate={new Date()}
+            clearButtonTitle='Clear Dates'
+          />
+        </div>
+        <button className='border-[1px] border-black bg-blue-100'>Submit</button>
       </form>
     </div>
   )

@@ -10,7 +10,7 @@ const ReservationStatusFilterSection = () => {
   const [isActive, setIsActive] = useState(1)
 
   return (
-    <div className='flex flex-row items-center justify-start gap-4 p-2 mb-3 border-black border-[1px]'>
+    <div className='flex flex-row items-center justify-start gap-4 p-2 border-black border-[1px]'>
       {reservationStatusFilterOptions.map(option => 
         <button
           key={option.id}
