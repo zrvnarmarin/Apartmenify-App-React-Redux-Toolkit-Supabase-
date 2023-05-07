@@ -116,6 +116,7 @@ export const cancelReservation = createAsyncThunk('reservations/cancelReservatio
 })
 
 export const updateReservation = createAsyncThunk('reservations/updateReservations', async (updatedReservation) => {
+    console.log('updejtana rezervacija', updatedReservation)
     const { data, error } = await supabase
     .from('reservations')
     .update({ 
@@ -126,6 +127,7 @@ export const updateReservation = createAsyncThunk('reservations/updateReservatio
     })
     .eq('userId', updatedReservation.user.userId)
     .eq('userEmail', updatedReservation.user.userEmail)
+    .eq('id', updatedReservation.reservationId)
 
     console.log(updatedReservation.startDate, updatedReservation.endDate)
     return data

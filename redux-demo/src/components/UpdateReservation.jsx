@@ -1,44 +1,21 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { format, addMonths, isSameMonth, addDays } from 'date-fns';
-import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
 import { useDispatch } from 'react-redux';
-import { updateReservation } from './reservationsSlice';
-
 import DatePicker from "react-datepicker";
+import { toast } from 'react-toastify';
+import { updateReservation } from './reservationsSlice';
 
 const UpdateReservation = () => {
   const dispatch = useDispatch()
-  const location = useLocation()
   const navigate = useNavigate()
+  const location = useLocation()
+
   const reservationData = location.state
+  console.log(reservationData)
   const [reservation, setReservation] = useState(reservationData)
 
-  const pastMonth = new Date()
-
-  const defaultSelected = {
-    from: pastMonth,
-    to: addDays(pastMonth, 4)
-  };
-  
-  const [range, setRange] = useState(defaultSelected)
-  console.log(range)
-  
-  let footer = <p className='w-full p-2 text-2xl'>Please pick the first day.</p>
-
-  if (range?.from) {
-    if (!range.to) 
-      footer = <p>{format(range.from, 'PPP')}</p>
-
-    if (range.to) 
-      footer = 
-      <div className='bg-red-200 w-full p-2 text-lg'> 
-        <span className='border-[1px] border-black'>{format(range.from, 'PPP')}</span>
-          
-        <span className='border-[1px] border-black'>{format(range.to, 'PPP')} </span>
-      </div>
-  }
+  const [dateRange, setDateRange] = useState([null, null])
+  const [startDate, endDate] = dateRange
 
   const submitHandler = e => {
     e.preventDefault()
@@ -50,20 +27,19 @@ const UpdateReservation = () => {
       },
       name: reservation.name,
       surname: reservation.surname,
-      startDate: range.from,
-      endDate: range.to
+      startDate: startDate,
+      endDate: endDate,
+      reservationId: reservation.id
     }
 
     dispatch(updateReservation(updatedReservation))
-
     navigate('/main/reservations')
+    toast.info('Reservation has been updated!')
   }
-//previous for forms tyle = grid grid-cols-3 gap-4
+
   return (
     <div className='flex flex-col gap-2 p-2'>
-
-      <p className='text-2xl'>Update Reservation</p> 
-
+      <p className='text-2xl'>Update Reservation <span className='rounded-full bg-red-100 p-2'>{reservation.id}</span></p> 
       <form onSubmit={submitHandler} className='grid grid-cols-2 gap-4'>
         <input 
           className='border-[1px] border-black p-2' 
@@ -77,16 +53,6 @@ const UpdateReservation = () => {
           type="text" 
           onChange={e => setReservation(prev => {return {...prev, surname: e.target.value}})} 
         /> 
-        
-        {/* <DayPicker
-          id="test"
-          mode="range"
-          defaultMonth={pastMonth}
-          selected={range}
-          footer={footer}
-          onSelect={setRange}
-          className='border-[1px] border-black '
-        /> */}
         <div className='col-span-1'>
           <DatePicker
             className="border-[1px] border-black p-2 w-full"
@@ -94,11 +60,18 @@ const UpdateReservation = () => {
             selectsRange={true}
             isClearable={true}
             dateFormat='dd.MM.yyyy'
-            minDate={new Date()}
+            // minDate={new Date()}
             clearButtonTitle='Clear Dates'
+            startDate={startDate}
+            endDate={endDate}
+            onChange={selectedDate => setDateRange(selectedDate)}
           />
         </div>
-        <button className='border-[1px] border-black bg-blue-100'>Submit</button>
+        <button
+          className='border-[1px] border-black bg-blue-100'
+        >
+          Submit
+        </button>
       </form>
     </div>
   )

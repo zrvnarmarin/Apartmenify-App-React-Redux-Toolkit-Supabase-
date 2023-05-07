@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LoadingSpinner from '../UI/Loading Spinner/LoadingSpinner'
-import { getAllReservations, selectIsLoading, filteredReservations, selectReservationFilter, selectReservationFilterQuery } from './reservationsSlice'
+import { getAllReservations, selectIsLoading, filteredReservations } from './reservationsSlice'
 import Reservation from './Reservation'
 import ReservationTableHeader from './ReservationTableHeader';
 import ReservationStatusFilterSection from './ReservationStatusFilterSection';
