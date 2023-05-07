@@ -11,7 +11,6 @@ const UpdateReservation = () => {
   const location = useLocation()
 
   const reservationData = location.state
-  console.log(reservationData)
   const [reservation, setReservation] = useState(reservationData)
 
   const [dateRange, setDateRange] = useState([null, null])

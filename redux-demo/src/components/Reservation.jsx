@@ -35,14 +35,18 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
       { isOpenMoreDetailsSection && 
         <div>
           <button onClick={openModalWindow} className='p-2 border-[1px] border-black bg-blue-100'>Delete</button>
-          <button className='p-2 border-[1px] border-black bg-blue-100'>
-          <Link 
-            to={`${id}`} 
-            state={{ index: index, id: id, userId: userId, userEmail: userEmail, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentId: apartmentId, apartmentTitle: apartmentTitle}}
-          >
-          Update
-        </Link>
-          </button>
+          { status === 'confirmed' || status === 'inProgress'
+            ? 
+              <button className='p-2 border-[1px] border-black bg-blue-100'>
+                <Link 
+                  to={`${id}`} 
+                  state={{ index: index, id: id, userId: userId, userEmail: userEmail, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentId: apartmentId, apartmentTitle: apartmentTitle, status: status }}
+                >
+                  Update
+                </Link>
+              </button>
+            : <></>
+          }
         </div>
       }
 

@@ -116,7 +116,6 @@ export const cancelReservation = createAsyncThunk('reservations/cancelReservatio
 })
 
 export const updateReservation = createAsyncThunk('reservations/updateReservations', async (updatedReservation) => {
-    console.log('updejtana rezervacija', updatedReservation)
     const { data, error } = await supabase
     .from('reservations')
     .update({ 
@@ -210,6 +209,7 @@ const reservationsSlice = createSlice({
         },
         setReservationStatusfilter: (state, action) => {
             state.reservationStatusFilter = action.payload
+            // console.log(action.payload)
         },
         setReservationFilterQuery: (state, action) => {
             state.reservationFilterQuery = action.payload
@@ -223,7 +223,6 @@ const reservationsSlice = createSlice({
         .addCase(getAllReservations.fulfilled, (state, action) => {
             state.reservations = action.payload
             state.isLoading = false
-            // console.log(action.payload)
         })
         .addCase(getAllReservations.pending, (state, action) => {
             state.isLoading = true
@@ -306,8 +305,6 @@ export const filteredReservations = createSelector(
       .filter(reservation => {
         let user = reservation.name + ' ' + reservation.surname;
   
-        if (reservationStatusFilter !== 'all' && reservation.status.toLowerCase() !== reservationStatusFilter.toLowerCase()) return false;
-  
         if (reservationFilter === 'all') {
           return true;
         } else if (reservationFilter === 'apartment title') {
@@ -319,8 +316,7 @@ export const filteredReservations = createSelector(
         return false;
       })
       .filter(reservation => {
-        if (reservationStatusFilter === 'all') return true
-        else if (reservationStatusFilter === 'Confirmed') return reservation.status === 'confirmed'
+        if (reservationStatusFilter === 'Confirmed') return reservation.status === 'confirmed'
         else if (reservationStatusFilter === 'In Progress') return reservation.status === 'inProgress'
         else if (reservationStatusFilter === 'Canceled') return reservation.status === 'canceled'
         else if (reservationStatusFilter === 'Finished') return reservation.status === 'finished'
