@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, selectCurrentDate } from './../../reservationsSlice';
@@ -10,6 +10,7 @@ import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
 import { getApartment } from '../../apartmentsSlice';
 import UserReservationTableHeader from './UserReservationTableHeader';
+import { format } from 'date-fns'
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservationsByBookingStatus)
@@ -18,16 +19,8 @@ const UserReservations = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const currentDate = useSelector(selectCurrentDate)
-
-  // console.log('Current date:', currentDate)
-  // console.log('all REservations: ', userReservations)
-
-  // TO DO: 
-  // pogledaj zasto funkcija ispod ne zna vratiti userReservation.id
-  // const deleteSelectedReservation = reservationId = dispatch(deleteReservation(reservationId))
-
   const cancelSelectedReservation = reservationId => dispatch(cancelReservation(reservationId))
+  const removeSelectedReservation = reservationId => dispatch(deleteReservation(reservationId))
 
   const isModalOpen = useSelector(selectIsModalOpen)
   const openModalWindow = () => dispatch(openModal())
@@ -36,11 +29,39 @@ const UserReservations = () => {
     dispatch(getReservationsByUserEmail(email))
   }, [dispatch])
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [targetTime, setTargetTime] = useState(new Date(currentTime.getTime() + 10000));
+  const [timer, setTimer] = useState(null);
+  
+  useEffect(() => {
+    const newTimer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    setTimer(newTimer);
+    return () => clearInterval(newTimer);
+  }, []);
+  
+  useEffect(() => {
+    if (currentTime >= targetTime) {
+      console.log("Dates are equal!");
+      setTargetTime(new Date(targetTime.getTime() + 10000)); // increase targetTime by 10 seconds
+    } else {
+      console.log("Dates are not equal.");
+    }
+  }, [currentTime, targetTime]);
+  
+  
+
+  
   return (
     <div className='flex flex-col gap-2'>
       <h1 className='text-2xl'>
         Reservations
       </h1>
+      <h1>CURRENT: {currentTime.toString()}</h1>
+      <h1>FUTURE: {targetTime.toString()}</h1>
       <FilterSection />
       <UserReservationTableHeader />
       <div className='flex flex-col gap-2'>
@@ -68,7 +89,7 @@ const UserReservations = () => {
                   : userReservation.status === 'canceled'
                   ? 'Remove'
                   : ''
-                } {userReservation.apartmentId}
+                } 
               </button>
               { 
                 isModalOpen && 
@@ -79,25 +100,31 @@ const UserReservations = () => {
                     : modalTexts.removeReservation
                   } 
                   confirmAction={() => {
-                    if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') 
+                    if (userReservation.status === 'confirmed' || userReservation.status === 'inProgress') {
                       cancelSelectedReservation(userReservation.id)
+                      toast.info('Reservation is canceled!')
+                    }
 
-                    else if (userReservation.status === 'canceled') 
-                      dispatch(deleteReservation(userReservation.id))
+                    else if (userReservation.status === 'canceled') {
+                      removeSelectedReservation(userReservation.id)
+                      toast.info('Reservation is removed!')
+                    }
 
-                    else if (userReservation.status === 'finished') 
+                    else if (userReservation.status === 'finished') {
                       dispatch(getApartment(userReservation.apartmentId))
-                    
-                    toast.info('Reservation is canceled!')
+                    }
                   }} 
                 />
               }
             </div>  
           )}
       </div>
-
     </div>
   )
 }
 
 export default UserReservations
+
+ // TO DO: 
+  // pogledaj zasto funkcija ispod ne zna vratiti userReservation.id
+  // const deleteSelectedReservation = reservationId = dispatch(deleteReservation(reservationId))

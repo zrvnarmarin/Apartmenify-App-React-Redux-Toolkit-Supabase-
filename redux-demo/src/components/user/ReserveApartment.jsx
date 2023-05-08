@@ -10,8 +10,8 @@ import { updateApartmentAvailability } from '../apartmentsSlice';
 import {
     addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname,
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId,
-    setUserEmail, selectStartDate, selectEndDate, selectDateRange, setDateRange as setRangeDate,
-    selectCurrentDate }
+    setUserEmail, setDateRange as setRangeDate
+}
 from '../reservationsSlice';
 
 const ReserveApartment = ({ apartmentId, apartmentTitle }) => {

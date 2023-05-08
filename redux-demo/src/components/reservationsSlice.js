@@ -138,9 +138,6 @@ const initialState = {
     isLoading: false,
     error: null,
     dateRange: [null, null],
-    startDate: '',
-    endDate: '',
-    currentDate: new Date().toLocaleDateString(),
 
     // User specific data
     name: '',
