@@ -8,6 +8,7 @@ import cartReducer from '../features/cart/cartSlice'
 // import modalReducer from '../features/modal/modalSlice'
 import reservationsReducer from '../components/reservationsSlice'
 import modalReducer from '../UI/modalSlice'
+import timeReducer from '../components/timeSlice'
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
         cart: cartReducer,
         modal: modalReducer,
         users: usersReducer,
-        reservations: reservationsReducer
+        reservations: reservationsReducer,
+        time: timeReducer
     }
 })

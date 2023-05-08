@@ -19,7 +19,7 @@ export const addReservation = createAsyncThunk('reservations/addReservation', as
                 }
             ])
 
-            return newReservation
+        return newReservation
     } 
     catch (error) { 
         console.log(error.message)

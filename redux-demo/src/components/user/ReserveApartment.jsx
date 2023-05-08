@@ -23,21 +23,6 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
 
-    // console.log(allReservations)
-    // console.log(apartmentTitle)
-
-    // iz reservation slice-a
-    // const stDate = useSelector(selectStartDate)
-    // const edDate = useSelector(selectEndDate)
-    // const dtRange = useSelector(selectDateRange)
-    // const currentDate = useSelector(selectCurrentDate)
-
-    // console.log('date range', dtRange)
-    // console.log('start date - ', stDate)
-    // console.log('end date - ', edDate)
-    // console.log('current date - ', currentDate)
-    // console.log('apartment title prop', apartmentTitle)
-
     const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))
     const surnameChangeHandler = e => dispatch(setSurname(e.target.value))
