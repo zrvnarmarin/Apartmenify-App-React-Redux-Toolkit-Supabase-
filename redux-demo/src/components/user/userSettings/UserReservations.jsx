@@ -8,12 +8,9 @@ import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
-import { getApartment, selectAllApartments } from '../../apartmentsSlice';
+import { getApartment } from '../../apartmentsSlice';
 import UserReservationTableHeader from './UserReservationTableHeader';
-import { setCurrentTime as setTime, selectCurrentTime } from '../../timeSlice';
 import { format } from 'date-fns';
-import { store } from '../../../store/store'
-import { current } from '@reduxjs/toolkit';
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservationsByBookingStatus)
@@ -36,9 +33,6 @@ const UserReservations = () => {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [targetDate, setTargetDate] = useState(new Date(currentDate.getTime() + 5000));
-
-  const reservationDate = userReservations.map(res => new Date(res.endDate). getTime())
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -48,10 +42,26 @@ const UserReservations = () => {
   }, []);
 
   useEffect(() => {
-    if (currentDate.getTime() > reservationDate) {
-      console.log('Current date is bigger than target date!');
-    }
-  }, [currentDate, targetDate]);
+
+    const reservationDates = userReservations.map(res => {
+      const startDateTime = new Date(res.startDate).getTime()
+      const endDateTime = new Date(res.endDate).getTime()
+
+      // If the current date is bigger than the reservations`s end date, and there is no more reservations on that apartment,
+      // then the apartment`s availability is free
+      if (currentDate.getTime() > endDateTime) {
+        console.log(`current date is bigger than reservation end dateTime -- apartment ${res.apartmentId} is now free again `)
+      }
+
+      // If the current date is between the reservation`s start and end dates, then the apartment`s availability is occupied
+      if (currentDate.getTime() > startDateTime && currentDate < endDateTime) {
+        console.log(`apartment with ID ${res.apartmentId} is currently occupied!`)
+      }
+
+    })
+
+
+  }, [currentDate]);
 
   return (
     <div className='flex flex-col gap-2'>
@@ -59,7 +69,7 @@ const UserReservations = () => {
         Reservations
       </h1>
       <h1>CURRENT: {currentDate.toString()}</h1>
-      <h1>FUTURE: {userReservations.map(res => new Date(res.endDate)).toString()}</h1>
+      <h1>RESERVATION END DATES: {userReservations.map(res => new Date(res.endDate)).toString()}</h1>
       <FilterSection />
       <UserReservationTableHeader />
       <div className='flex flex-col gap-2'>
