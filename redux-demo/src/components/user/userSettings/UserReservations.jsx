@@ -8,9 +8,12 @@ import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
-import { getApartment } from '../../apartmentsSlice';
+import { getApartment, selectAllApartments } from '../../apartmentsSlice';
 import UserReservationTableHeader from './UserReservationTableHeader';
 import { setCurrentTime as setTime, selectCurrentTime } from '../../timeSlice';
+import { format } from 'date-fns';
+import { store } from '../../../store/store'
+import { current } from '@reduxjs/toolkit';
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservationsByBookingStatus)
@@ -32,35 +35,31 @@ const UserReservations = () => {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [targetTime, setTargetTime] = useState(new Date(currentTime.getTime() + 10000));
-  const [timer, setTimer] = useState(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [targetDate, setTargetDate] = useState(new Date(currentDate.getTime() + 5000));
 
-  const current = useSelector(selectCurrentTime);
+  const reservationDate = userReservations.map(res => new Date(res.endDate). getTime())
 
   useEffect(() => {
-    const newTimer = setInterval(() => {
-      const newTime = new Date();
-      setCurrentTime(newTime);
-      dispatch(setTime(newTime.toString()));
+    const timerId = setInterval(() => {
+      setCurrentDate(new Date());
     }, 1000);
-    setTimer(newTimer);
-    return () => clearInterval(newTimer);
-  }, [dispatch]);
+    return () => clearInterval(timerId);
+  }, []);
 
   useEffect(() => {
-    if (currentTime >= targetTime) {
-      setTargetTime(new Date(targetTime.getTime() + 10000)); // increase targetTime by 10 seconds
+    if (currentDate.getTime() > reservationDate) {
+      console.log('Current date is bigger than target date!');
     }
-  }, [currentTime, targetTime]);
+  }, [currentDate, targetDate]);
 
   return (
     <div className='flex flex-col gap-2'>
       <h1 className='text-2xl'>
         Reservations
       </h1>
-      <h1>CURRENT: {current}</h1>
-      <h1>FUTURE: {targetTime.toString()}</h1>
+      <h1>CURRENT: {currentDate.toString()}</h1>
+      <h1>FUTURE: {userReservations.map(res => new Date(res.endDate)).toString()}</h1>
       <FilterSection />
       <UserReservationTableHeader />
       <div className='flex flex-col gap-2'>

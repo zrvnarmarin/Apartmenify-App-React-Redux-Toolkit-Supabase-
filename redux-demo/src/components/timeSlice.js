@@ -9,7 +9,6 @@ const timeSlice = createSlice({
     initialState,
     reducers: {
         setCurrentTime: (state, action) => {
-            console.log(action.payload)
             state.currentTime = action.payload
         }
     }
@@ -25,3 +24,5 @@ export const {
 
 // Slice
 export default timeSlice.reducer
+
+// pogledaj ovo za prijenos statea https://stackoverflow.com/questions/72807148/how-to-access-state-of-one-slice-in-reducer-of-another-slice-using-redux-toolkit
