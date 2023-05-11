@@ -133,16 +133,15 @@ export const deleteFacility = createAsyncThunk('apartments/deleteFacility', asyn
   }
 })
 
-export const updateApartmentAvailability = createAsyncThunk('apartments/updateApartmentAvailability',
- async ({ apartmentId, availability }) => {
+export const updateApartmentAvailability = createAsyncThunk('apartments/updateApartmentAvailability', async ({ apartmentId, availability }) => {
   
   try {
-    const { error } = await supabase
+    const { data, error } = await supabase
     .from('apartments')
     .update({ availability: availability })
     .eq('id', apartmentId)
 
-    console.log('thunk apartment id', apartmentId, availability)
+    // console.log('thunk apartment id', apartmentId, availability)
     
     return data
   } catch (error) {
@@ -220,8 +219,7 @@ const apartmentsSlice = createSlice({
         state.facility = action.payload
       })
       .addCase(updateApartmentAvailability.fulfilled, (state, action) => {
-        console.log(action.payload)
-        console.log('hej iz add case-a')
+        // console.log(state.apartments)
       })
     }
 })

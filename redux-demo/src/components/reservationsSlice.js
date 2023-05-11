@@ -151,7 +151,9 @@ const initialState = {
     // Admin 
     reservationFilter: 'all',
     reservationFilterQuery: '',
-    reservationStatusFilter: 'confirmed'
+    reservationStatusFilter: 'confirmed',
+
+    testReservations: []
 }
 
 const reservationsSlice = createSlice({
@@ -228,8 +230,14 @@ const reservationsSlice = createSlice({
             state.reservation = action.payload
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
-            state.reservations = action.payload
+            // state.reservations = action.payload
             state.isLoading = false
+
+            state.testReservations.push(action.payload)
+
+            console.log(action.payload)
+
+            // console.log(action.payload)
         })
         .addCase(deleteReservation.fulfilled, (state, action) => {
             state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)
@@ -267,6 +275,8 @@ export const selectBookingStatusFilter = (state) => state.reservations.bookingSt
 export const selectReservationStatusFilter = (state) => state.reservations.reservationStatusFilter
 export const selectReservationFilter = (state) => state.reservations.reservationFilter
 export const selectReservationFilterQuery = (state) => state.reservations.reservationFilterQuery
+
+export const selectTestReservations = (state) => state.reservations.testReservations
 
 // Reducers
 export const { 
@@ -321,6 +331,16 @@ export const filteredReservations = createSelector(
         return false;
       })
 );
+
+export const test = createSelector(
+    [selectTestReservations],
+    (allReservations) => 
+        allReservations
+        .map(reservation => {
+            console.log('rest reservation', reservation)
+        })
+
+)
 
 // Slice
 export default reservationsSlice.reducer
