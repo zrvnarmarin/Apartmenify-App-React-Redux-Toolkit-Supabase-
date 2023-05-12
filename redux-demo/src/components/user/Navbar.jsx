@@ -26,7 +26,7 @@ const Navbar = () => {
               src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg"
               className='w-12 h-12 rounded-full border-2 border-black'
             />
-            <span className='font-semibold'>Marin</span>
+            <span className='font-semibold'>John</span>
           </Link>
           { isUserSettingsShown && <UserSettings />}
         </li>

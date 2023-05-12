@@ -79,7 +79,7 @@ const ManageAccount = () => {
       :
         <div className='flex flex-row justify-between items-center'>
           <span>Email Address <span className='text-white font-medium bg-green-500 rounded-md p-1'>Veriffied</span></span>
-          <span>{user_metadata.email}</span>
+          <span>testemail@email.com</span>
           <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditEmailClicked}>
             Edit
           </button>

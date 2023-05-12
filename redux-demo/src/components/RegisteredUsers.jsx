@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectAllUsers, getAllUsers } from './auth/usersSlice'
+import RegisteredUserTableHeaderData from './RegisteredUserTableHeaderData'
 
 const RegisteredUsers = () => {
   const dispatch = useDispatch()
@@ -11,9 +12,23 @@ const RegisteredUsers = () => {
   }, [])
 
   return (
-    <div style={{ padding: '5px', border: '1px solid red', display: 'flex', flexDirection: 'column', gap: '5px'}}>
+    <div>
       <h1>Registered Users</h1>
-      {JSON.stringify(users)}
+
+      <RegisteredUserTableHeaderData />
+
+      <div className='grid grid-rows-4 p-2 border-[1px] border-black gap-2'>
+        {/* {JSON.stringify(users)} */}
+        {users.map((user, i) => 
+          <div key={user.id} className='grid grid-cols-4 p-2 border-[1px] border-black gap-2'>
+            <p>{i}</p>
+            <p>USER ID</p>
+            <p>{user.email}</p>
+            <p>{user.role}</p>
+          </div>  
+        )}
+      </div>
+      
     </div>
   )
 }

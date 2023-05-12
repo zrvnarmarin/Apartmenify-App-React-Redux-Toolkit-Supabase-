@@ -105,44 +105,47 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     };
 
     return (
-        <form onSubmit={submitFormHandler} className='bg-blue-100 flex flex-col gap-4 '>
-            <input
-                value={name}
-                onChange={nameChangeHandler}
-                type="text"
-                placeholder='Name'
-                className='p-2 border-[1px] border-black'
-            />
-            <input
-                value={surname}
-                onChange={surnameChangeHandler}
-                type="text"
-                placeholder='Surname'
-                className='p-2 border-[1px] border-black'
-             />
-            <DatePicker
-                className="border-[1px] border-black p-2"
-                placeholderText="Date"
-                selectsRange={true}
-                startDate={startDate}
-                endDate={endDate}
-                onChange={selectedDate => {
-                    setDateRange(selectedDate)
-                    // console.log(selectedDate, 'selected date')
-                    dispatch(setRangeDate(JSON.stringify(selectedDate)))
-                }}
-                isClearable={true}
-                dateFormat='dd.MM.yyyy'
-                minDate={new Date()}
-                clearButtonTitle='Clear Dates'
-                excludeDateIntervals={reservedDateIntervals}
-                renderDayContents={renderDayContents}
-            />
-            <button className='border-[1px] border-black p-2 bg-blue-100'>Reserve Apartment</button>
-            <button type='button' onClick={() => {
-                console.log(reservedDateIntervals)
-            }}>Display reservation intervals</button>
-        </form>
+        <>
+            <h1 className='text-2xl'>Reserve Apartment</h1>
+            <form onSubmit={submitFormHandler} className='flex flex-col gap-4 mt-2 py-4'>
+                <input
+                    value={name}
+                    onChange={nameChangeHandler}
+                    type="text"
+                    placeholder='Name'
+                    className='p-2 border-[1px] border-black'
+                />
+                <input
+                    value={surname}
+                    onChange={surnameChangeHandler}
+                    type="text"
+                    placeholder='Surname'
+                    className='p-2 border-[1px] border-black'
+                />
+                <DatePicker
+                    className="border-[1px] border-black p-2"
+                    placeholderText="Date"
+                    selectsRange={true}
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={selectedDate => {
+                        setDateRange(selectedDate)
+                        // console.log(selectedDate, 'selected date')
+                        dispatch(setRangeDate(JSON.stringify(selectedDate)))
+                    }}
+                    isClearable={true}
+                    dateFormat='dd.MM.yyyy'
+                    minDate={new Date()}
+                    clearButtonTitle='Clear Dates'
+                    excludeDateIntervals={reservedDateIntervals}
+                    renderDayContents={renderDayContents}
+                />
+                <button className='border-[1px] border-black p-2 bg-blue-100'>Reserve Apartment</button>
+                {/* <button type='button' onClick={() => {
+                    console.log(reservedDateIntervals)
+                }}>Display reservation intervals</button> */}
+            </form>
+        </>
     )
 }
 

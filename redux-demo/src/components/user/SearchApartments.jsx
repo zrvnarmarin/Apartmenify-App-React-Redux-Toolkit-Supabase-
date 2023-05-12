@@ -25,7 +25,7 @@ const SearcApartments = () => {
   
   return (
     <div>
-      SAVED APARTMENTS: {JSON.stringify(savedApartments)}
+      {/* SAVED APARTMENTS: {JSON.stringify(savedApartments)} */}
       <FilterSortSection />
       <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2'>
         { filteredAndSortedApartments.map(apartment =>

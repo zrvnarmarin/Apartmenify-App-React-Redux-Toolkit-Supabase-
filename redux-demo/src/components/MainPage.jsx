@@ -18,7 +18,7 @@ const MainPage = () => {
     <div style={{ padding: '5px', border: '1px solid black'}}>
       <Navbar />
       <Outlet context={{ apartments: apartments }} />
-      Main Page
+      <h1 className='text-2xl'>ADMIN</h1>
     </div>
   )
 }

@@ -56,25 +56,30 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
                 <p>CITY: {city}</p>
                 <p>ROOMS: {rooms} rooms</p>
             </div>
-            <div>
+            <div className='flex flex-col gap-2 justify-start'>
                 <p>8.9</p>
                 <p>Exceptional</p>
                 <p>PRICE: {price} e</p>
-                <Link
-                    to={`/userDashboard/apartments/${apartmentId}`}
-                    state={{ apartmentId: apartmentId, apartmentTitle: title }}
-                    className='p-2 border-[1px] border-black bg-blue-100'
+                
+            </div>
+            <div className='flex flex-row gap-2'>
+                <button>
+                    <Link
+                        to={`/userDashboard/apartments/${apartmentId}`}
+                        state={{ apartmentId: apartmentId, apartmentTitle: title }}
+                        className='p-2 border-[1px] border-black bg-blue-100'
+                    >
+                        Reserve
+                    </Link>
+                </button>
+                <button 
+                    className='border-black border-[1px] bg-blue-100 p-2' 
+                    onClick={handleLikeClick} 
                 >
-                    Reserve
-                </Link>
+                    { isLiked ? 'Unlike' : 'Like'}
+                </button>
             </div>
 
-            <button 
-                className='border-black border-[1px] bg-red-200 p-2' 
-                onClick={handleLikeClick} 
-            >
-                { isLiked ? 'Unlike' : 'Like'}
-            </button>
         </li>
     )
 }
