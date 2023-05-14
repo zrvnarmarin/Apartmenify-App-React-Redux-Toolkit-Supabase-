@@ -132,6 +132,20 @@ export const updateReservation = createAsyncThunk('reservations/updateReservatio
     return data
 })
 
+export const updateReservationStatus = createAsyncThunk('reservations/updateReservationStatus', async (reservation) => {
+    const { data, error } = await supabase
+    .from('reservations')
+    .update({
+        status: reservation.reservationStatus
+    })
+    .eq('id', reservation.reservationId)
+
+    console.log(data)
+
+    return data
+
+})
+
 const initialState = {
     reservations: [],
     reservation: {}, 

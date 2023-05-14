@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
@@ -44,35 +44,40 @@ const UserReservations = () => {
 
   const [isDispatched, setIsDispatched] = useState(false)
 
-  useEffect(() => {
-    const endDates = userReservations.map(res => new Date(res.endDate).getTime())
-    const someEndDatesExpired = endDates.some(endDateTime => currentDate.getTime() > endDateTime)
-    const everyEndDatesExpired = endDates.every(endDateTime => currentDate.getTime() > endDateTime)
-  
-    console.log('Every date expired: ', everyEndDatesExpired.toString().toUpperCase())
-    console.log('Some date expired: ', someEndDatesExpired.toString().toUpperCase())
-    console.log(userReservations)
-  
-    if (someEndDatesExpired && !isDispatched) {
-      setIsDispatched(true);
-      const expiredApartments = userReservations.filter(res => currentDate.getTime() > new Date(res.endDate).getTime())
-      expiredApartments.forEach(expiredRes => {
-        console.log(`Apartment with ID ${expiredRes.apartmentId} (${expiredRes.apartmentTitle}) is expired!`)
-        const remainingReservations = userReservations.filter(res => res.apartmentId === expiredRes.apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime())
-        console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${expiredRes.apartmentId}.`)
-      })
-      const apartmentReservations = userReservations.reduce((acc, res) => {
-        acc[res.apartmentId] = (acc[res.apartmentId] || 0) + 1
-        return acc
-      }, {})
-      const multiResApartments = Object.entries(apartmentReservations).filter(([_, count]) => count > 1)
-      multiResApartments.forEach(([apartmentId, count]) => {
-        console.log(`Apartment with ID ${apartmentId} has ${count} reservations!`)
-        const remainingReservations = userReservations.filter(res => res.apartmentId === apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime())
-        console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${apartmentId}.`)
-      })
+  const isStatusUpdated = useRef(false);
+
+function checkApartments() {
+  const expiredApartments = userReservations.filter(res => currentDate.getTime() > new Date(res.endDate).getTime());
+
+  expiredApartments.forEach(expiredRes => {
+    console.log(`Apartment with ID ${expiredRes.apartmentId} (${expiredRes.apartmentTitle}) is expired!`);
+    const remainingReservations = userReservations.filter(res => res.apartmentId === expiredRes.apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime());
+    console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${expiredRes.apartmentId}.`);
+
+    // Dispatch the action where reservation updates status from IN PROGRESS to FINISHED
+    if (!isStatusUpdated.current) {
+      dispatch(updateReservationStatus({ reservationId: expiredRes.id, reservationStatus: 'finished' }));
+      isStatusUpdated.current = true;
     }
-  }, [currentDate]);
+  });
+
+  const apartmentReservations = userReservations.reduce((acc, res) => {
+    acc[res.apartmentId] = (acc[res.apartmentId] || 0) + 1;
+    return acc;
+  }, {});
+
+  const multiResApartments = Object.entries(apartmentReservations).filter(([_, count]) => count > 1);
+
+  multiResApartments.forEach(([apartmentId, count]) => {
+    console.log(`Apartment with ID ${apartmentId} has ${count} reservations!`);
+    const remainingReservations = userReservations.filter(res => res.apartmentId === apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime());
+    console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${apartmentId}.`);
+  });
+}
+
+useEffect(() => {
+  checkApartments();
+}, [currentDate]);
   
   
   return (
