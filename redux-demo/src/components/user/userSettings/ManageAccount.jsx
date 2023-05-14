@@ -54,7 +54,7 @@ const ManageAccount = () => {
       :
         <div className='flex flex-row justify-between items-center'>
           <span>Name</span>
-          <span>{user_metadata.name}</span>
+          <span>John</span>
           <button className='bg-blue-100 border-black border-[1px] p-2' onClick={toggleIsEditNameClicked}>
             Edit
           </button>

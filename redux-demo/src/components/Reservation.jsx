@@ -17,7 +17,7 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
   const openModalWindow = () => dispatch(openModal())
 
   return (
-    <div className='grid grid-cols-8 p-2 border-[1px] border-black items-center'>
+    <div className='grid grid-cols-8 p-2 gap-4 border-[1px] border-black items-center'>
       <p>{index}</p>
       <p>#{id}</p>
       <p>{status}</p>
@@ -33,7 +33,7 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
       </button>
 
       { isOpenMoreDetailsSection && 
-        <div>
+        <div className='flex flex-row gap-2'>
           <button onClick={openModalWindow} className='p-2 border-[1px] border-black bg-blue-100'>Delete</button>
           { status === 'confirmed' || status === 'inProgress'
             ? 

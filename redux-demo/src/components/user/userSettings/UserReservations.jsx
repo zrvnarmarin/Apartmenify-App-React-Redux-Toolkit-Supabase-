@@ -42,40 +42,39 @@ const UserReservations = () => {
     return () => clearInterval(timerId);
   }, []);
 
+  const [isDispatched, setIsDispatched] = useState(false)
+
   useEffect(() => {
-
-    userReservations.map(res => {
-      const startDateTime = new Date(res.startDate).getTime()
-      const endDateTime = new Date(res.endDate).getTime()
-
-      // If the current date is bigger than the reservations`s end date, and there is no more reservations on that apartment,
-      // then the apartment`s availability is free
-      if (currentDate.getTime() > endDateTime) {
-        console.log(`current date is bigger than reservation end dateTime -- apartment ${res.apartmentId} is now free again `)
-        // dispatch(getReservationsByApartmentId(res.apartmentId))
-        dispatch(updateApartmentAvailability({ apartmentId: res.apartmentId, availability: 'free'}))
-        return
-      }
-
-      // If the current date is between the reservation`s start and end dates, then the apartment`s availability is occupied
-      if (currentDate.getTime() > startDateTime && currentDate < endDateTime) {
-        console.log(`apartment with ID ${res.apartmentId} is currently occupied!`)
-        dispatch(updateApartmentAvailability({ apartmentId: res.apartmentId, availability: 'occupied'}))
-      }
-
-      // console.log(currentDate.getTime() > endDateTime)
-    })
-
-    // console.log(testReservations)
-
+    const endDates = userReservations.map(res => new Date(res.endDate).getTime())
+    const someEndDatesExpired = endDates.some(endDateTime => currentDate.getTime() > endDateTime)
+    const everyEndDatesExpired = endDates.every(endDateTime => currentDate.getTime() > endDateTime)
+  
+    console.log('Every date expired: ', everyEndDatesExpired.toString().toUpperCase())
+    console.log('Some date expired: ', someEndDatesExpired.toString().toUpperCase())
+    console.log(userReservations)
+  
+    if (someEndDatesExpired && !isDispatched) {
+      setIsDispatched(true);
+      const expiredApartments = userReservations.filter(res => currentDate.getTime() > new Date(res.endDate).getTime())
+      expiredApartments.forEach(expiredRes => {
+        console.log(`Apartment with ID ${expiredRes.apartmentId} (${expiredRes.apartmentTitle}) is expired!`)
+        const remainingReservations = userReservations.filter(res => res.apartmentId === expiredRes.apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime())
+        console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${expiredRes.apartmentId}.`)
+      })
+      const apartmentReservations = userReservations.reduce((acc, res) => {
+        acc[res.apartmentId] = (acc[res.apartmentId] || 0) + 1
+        return acc
+      }, {})
+      const multiResApartments = Object.entries(apartmentReservations).filter(([_, count]) => count > 1)
+      multiResApartments.forEach(([apartmentId, count]) => {
+        console.log(`Apartment with ID ${apartmentId} has ${count} reservations!`)
+        const remainingReservations = userReservations.filter(res => res.apartmentId === apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime())
+        console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${apartmentId}.`)
+      })
+    }
   }, [currentDate]);
-
-  useEffect(() => {
-    userReservations.map(res => {
-      console.log('change')
-    })
-  }, [userReservations])
-
+  
+  
   return (
     <div className='flex flex-col gap-2'>
       <h1 className='text-2xl'>
