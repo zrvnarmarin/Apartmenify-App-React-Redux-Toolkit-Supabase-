@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from './../../reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
@@ -16,6 +16,7 @@ const UserReservations = () => {
   const userReservations = useSelector(filteredReservationsByBookingStatus)
   const testReservations = useSelector(selectTestReservations)
   const { email } = useSelector(selectUser)
+  const bookingStatusFilter = useSelector(selectBookingStatusFilter)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const UserReservations = () => {
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  // Timer 
   useEffect(() => {
     const timerId = setInterval(() => {
       setCurrentDate(new Date());
@@ -42,42 +44,55 @@ const UserReservations = () => {
     return () => clearInterval(timerId);
   }, []);
 
-  const [isDispatched, setIsDispatched] = useState(false)
+  // Function which filters reservations by each of their status and compare current date which their start and an end date 
+  function checkApartments() {
 
-  const isStatusUpdated = useRef(false);
+    if (bookingStatusFilter === 'Current') {
+      const confirmedReservations = userReservations.filter(res => res.status === 'confirmed')
+      const inProgressReservations = userReservations.filter(res => res.status === 'inProgress')
 
-function checkApartments() {
-  const expiredApartments = userReservations.filter(res => currentDate.getTime() > new Date(res.endDate).getTime());
+      confirmedReservations.map(res => {
+        if (currentDate.getTime() < new Date(res.startDate).getTime()) {
+          console.log(`Reservation with ID ${res.id} will occur in the future at ${format(new Date(res.startDate), 'dd.MM.yyyy')}`)
+        }
 
-  expiredApartments.forEach(expiredRes => {
-    console.log(`Apartment with ID ${expiredRes.apartmentId} (${expiredRes.apartmentTitle}) is expired!`);
-    const remainingReservations = userReservations.filter(res => res.apartmentId === expiredRes.apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime());
-    console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${expiredRes.apartmentId}.`);
+        if (currentDate.getTime() > new Date(res.startDate).getTime()) {
+          dispatch(updateReservationStatus({ reservationId: res.id, reservationStatus: 'inProgress'}))
+          console.log(`Updated reservation ${res.id} status from confirmed to inProgress!`)
+        }
+      })
 
-    // Dispatch the action where reservation updates status from IN PROGRESS to FINISHED
-    if (!isStatusUpdated.current) {
-      dispatch(updateReservationStatus({ reservationId: expiredRes.id, reservationStatus: 'finished' }));
-      isStatusUpdated.current = true;
+      inProgressReservations.map(res => {
+        if (currentDate.getTime() > new Date(res.startDate).getTime() && currentDate.getTime() < new Date(res.endDate).getTime()) {
+          console.log(`Reservation with ID ${res.id} is currently in occuring!`)
+        }
+        if (currentDate.getTime() > new Date(res.endDate).getTime()) {
+          dispatch(updateReservationStatus({ reservationId: res.id, reservationStatus: 'finished'}))
+          console.log(`Reservation with ID ${res.id} status from inProgress to finished!`)
+        }
+      })
     }
-  });
 
-  const apartmentReservations = userReservations.reduce((acc, res) => {
-    acc[res.apartmentId] = (acc[res.apartmentId] || 0) + 1;
-    return acc;
-  }, {});
+    if (bookingStatusFilter === 'Previous') {
+      const finishedReservations = userReservations.filter(res => res.status === 'finished')
 
-  const multiResApartments = Object.entries(apartmentReservations).filter(([_, count]) => count > 1);
+      finishedReservations.map(res => {
+        console.log(res)
+      })
+    }
 
-  multiResApartments.forEach(([apartmentId, count]) => {
-    console.log(`Apartment with ID ${apartmentId} has ${count} reservations!`);
-    const remainingReservations = userReservations.filter(res => res.apartmentId === apartmentId && currentDate.getTime() <= new Date(res.endDate).getTime());
-    console.log(`There are ${remainingReservations.length} reservations left for apartment with ID ${apartmentId}.`);
-  });
-}
+    if (bookingStatusFilter === 'Canceled') {
+      const canceledReservations = userReservations.filter(res => res.status === 'canceled')
 
-useEffect(() => {
-  checkApartments();
-}, [currentDate]);
+      canceledReservations.forEach(res => {
+        console.log(res)
+      })
+    }
+  }
+
+  useEffect(() => {
+    checkApartments();
+  }, [currentDate, bookingStatusFilter, userReservations])
   
   
   return (
@@ -86,7 +101,7 @@ useEffect(() => {
         Reservations
       </h1>
       <h1>CURRENT: {currentDate.toString()}</h1>
-      <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId}</p> )}</div>
+      <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId} RESERVATION ID: {res.id}</p> )}</div>
       <FilterSection />
       <UserReservationTableHeader />
       <div className='flex flex-col gap-2'>

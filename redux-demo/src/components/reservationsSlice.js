@@ -140,7 +140,7 @@ export const updateReservationStatus = createAsyncThunk('reservations/updateRese
     })
     .eq('id', reservation.reservationId)
 
-    console.log(data)
+    console.log(reservation)
 
     return data
 
@@ -266,6 +266,9 @@ const reservationsSlice = createSlice({
         .addCase(getReservationsByUserEmail.fulfilled, (state, action) => {
             state.reservations = action.payload
             state.isLoading = false
+        })
+        .addCase(getReservationsByUserEmail.pending, (state, action) => {
+            state.isLoading = true
         })
         .addCase(updateReservation.fulfilled, (state, action) => {
             state.reservation = action.payload
