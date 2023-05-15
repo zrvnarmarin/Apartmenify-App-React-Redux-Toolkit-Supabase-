@@ -44,14 +44,13 @@ const UserReservations = () => {
     return () => clearInterval(timerId);
   }, []);
 
-  // Function which filters reservations by each of their status and compare current date which their start and an end date 
-  function checkApartments() {
+  function trackReservationsStatuses() {
 
     if (bookingStatusFilter === 'Current') {
       const confirmedReservations = userReservations.filter(res => res.status === 'confirmed')
       const inProgressReservations = userReservations.filter(res => res.status === 'inProgress')
 
-      confirmedReservations.map(res => {
+      confirmedReservations.forEach(res => {
         if (currentDate.getTime() < new Date(res.startDate).getTime()) {
           console.log(`Reservation with ID ${res.id} will occur in the future at ${format(new Date(res.startDate), 'dd.MM.yyyy')}`)
         }
@@ -62,7 +61,7 @@ const UserReservations = () => {
         }
       })
 
-      inProgressReservations.map(res => {
+      inProgressReservations.forEach(res => {
         if (currentDate.getTime() > new Date(res.startDate).getTime() && currentDate.getTime() < new Date(res.endDate).getTime()) {
           console.log(`Reservation with ID ${res.id} is currently in occuring!`)
         }
@@ -76,7 +75,7 @@ const UserReservations = () => {
     if (bookingStatusFilter === 'Previous') {
       const finishedReservations = userReservations.filter(res => res.status === 'finished')
 
-      finishedReservations.map(res => {
+      finishedReservations.forEach(res => {
         console.log(res)
       })
     }
@@ -91,7 +90,7 @@ const UserReservations = () => {
   }
 
   useEffect(() => {
-    checkApartments();
+    trackReservationsStatuses();
   }, [currentDate, bookingStatusFilter, userReservations])
   
   
