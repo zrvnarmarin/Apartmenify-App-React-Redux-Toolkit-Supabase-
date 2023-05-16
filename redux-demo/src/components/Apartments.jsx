@@ -16,7 +16,7 @@ const Apartments = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className='p-2 flex flex-col gap-3 mx-2'>
+    <div className='p-2 flex flex-col gap-4 mx-2'>
       
       <div className='flex flex-row flex-wrap justify-between my-2'>
       <h1 className='text-3xl font-semibold text-[#f4eff0]'>Apartments</h1>
