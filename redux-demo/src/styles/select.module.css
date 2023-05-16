@@ -85,7 +85,7 @@
   }
   
   .options::-webkit-scrollbar-thumb {
-    background: #080c24;
+    background: #f5f0f1;
     width: 100px;
     scrollbar-width: thin;
     border-radius: 6px;

@@ -5,8 +5,7 @@ import { deleteApartment } from './apartmentsSlice'
 import Modal from '../UI/Modal'
 import { openModal, selectIsModalOpen } from '../UI/modalSlice'
 import { modalTexts } from '../data/modal/modalTexts'
-import ArrowImage from '../assets/icons8-double-down-50.webp'
-import { cancelReservation } from './reservationsSlice';
+import ArrowImage from '../assets/ArrowDown.webp'
 
 const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
@@ -22,7 +21,7 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
   return (
     <>
       <div className='grid grid-cols-7 items-center p-2 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
-        <span>{tableIndex}</span>
+        <span className='pl-2 text-[#f5eced] text-lg font-semibold'>{tableIndex}</span>
         <div>{title}</div>
         <div>{availability}</div>
         <div>{city}</div>
@@ -63,7 +62,7 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
               <p className='text-[#f5eced] text-lg font-semibold'>Distance from the sea:</p>
               <p>{distanceFromTheSea} km</p>
             </div>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between pb-4'>
               <p className='text-[#f5eced] text-lg font-semibold pl-2'>Facilities:</p>
               <div className="flex flex-row gap-8">
                 {facilities.map((facility, i) =>
@@ -73,9 +72,9 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
                 )}
               </div>
             </div>
-            <div className='flex items-center justify-end'>
+            <div className='flex items-center justify-end pt-4 border-t-[1px]'>
               <div className='flex flex-row gap-2'>
-              <button className='p-2 border-[1px] border-black bg-blue-100'>
+              <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>
                 <Link 
                   to={`${id}`} 
                   state={{
@@ -98,7 +97,7 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
               </button>
                 <button
                   onClick={openModalWindow}
-                  className="p-2 bg-blue-50 border-[1px] border-black">Delete</button>
+                  className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Delete</button>
               </div>
             </div>
           </div>

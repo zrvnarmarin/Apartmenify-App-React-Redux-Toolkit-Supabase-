@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import supabase from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
-import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { supabaseAuthStyles } from '../styles/supabaseAuth'
 
 // TO DO: make this modular so that other accounts can be used
 
@@ -11,8 +11,8 @@ const LoginPage = () => {
   
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
-      // if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
-      // else { navigate('/') }
+      if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
+      else { navigate('/') }
     })
 
     supabase.auth.getUser().then(value => {
@@ -29,52 +29,10 @@ const LoginPage = () => {
       <div className='mt-16 bg-[#0f0f0f]  items-center justify-center'>
         <Auth
           supabaseClient={supabase}
-          appearance={{ 
-            style: {
-              button: { 
-                flex: 1,
-                backgroundImage: "linear-gradient(to right, #e8132f, #fd3b54)",
-                paddingLeft: "24px",
-                paddingRight: "24px",
-                paddingTop: "8px",
-                paddingBottom: "8px",
-                border: "none",
-                borderRadius: "0.375rem",
-                fontWeight: "500",
-                color: "rgb(245 236 237 / 1)",
-                marginTop: '5px',
-                marginBottom: "5px"
-              },
-              anchor: {
-                color: "#f4eff0"
-              },
-              label: {
-                color: "#9e9a9b",
-                fontSize: "1.125rem",
-                lineHeight: "1.75rem",
-                fontWeight: "600"
-              },
-              input: {
-                color: "#f5f0f1",
-                backgroundColor:"#252525",
-                borderRadius: "0.375rem",
-                paddingLeft: "1.5rem",
-                paddingRight: "1.5rem",
-                paddingTop: "0.5rem",
-                paddingBottom: "0.5rem",
-                border: "none",
-                outline: "none"
-              }
-            }
-          }}
+          appearance={supabaseAuthStyles}
           providers={['google', 'linkedin', 'facebook', 'github']}
         />
       </div>
-      
-      <h1 className='text-2xl font-semibold'>
-        To see public user dashboard, click 
-        <Link to="/userDashboard/apartments" className="underline text-red-800"> here</Link>  (Testing Purposes)
-      </h1>
     </div>
   )
 }
