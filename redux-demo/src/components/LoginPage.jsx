@@ -11,8 +11,8 @@ const LoginPage = () => {
   
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
-      else { navigate('/') }
+      // if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
+      // else { navigate('/') }
     })
 
     supabase.auth.getUser().then(value => {
@@ -24,18 +24,53 @@ const LoginPage = () => {
   }, [])
 
   return (
-    <div className='border-2 border-black p-4'>
-      <h1 className='text-6xl font-semibold text-center'>Apartmenify</h1>
-      <div className='mt-32'>
+    <div className='bg-[#0f0f0f] p-4 w-[100vw] h-[100vh]'>
+      <h1 className='text-6xl font-semibold text-center text-[#f4eff0] mt-16'>Apartmenify</h1>
+      <div className='mt-16 bg-[#0f0f0f]  items-center justify-center'>
         <Auth
           supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          theme="dark"
-          providers={['discord', 'google']}
+          appearance={{ 
+            style: {
+              button: { 
+                flex: 1,
+                backgroundImage: "linear-gradient(to right, #e8132f, #fd3b54)",
+                paddingLeft: "24px",
+                paddingRight: "24px",
+                paddingTop: "8px",
+                paddingBottom: "8px",
+                border: "none",
+                borderRadius: "0.375rem",
+                fontWeight: "500",
+                color: "rgb(245 236 237 / 1)",
+                marginTop: '5px',
+                marginBottom: "5px"
+              },
+              anchor: {
+                color: "#f4eff0"
+              },
+              label: {
+                color: "#9e9a9b",
+                fontSize: "1.125rem",
+                lineHeight: "1.75rem",
+                fontWeight: "600"
+              },
+              input: {
+                color: "#f5f0f1",
+                backgroundColor:"#252525",
+                borderRadius: "0.375rem",
+                paddingLeft: "1.5rem",
+                paddingRight: "1.5rem",
+                paddingTop: "0.5rem",
+                paddingBottom: "0.5rem",
+                border: "none",
+                outline: "none"
+              }
+            }
+          }}
+          providers={['google', 'linkedin', 'facebook', 'github']}
         />
       </div>
       
-      <hr />
       <h1 className='text-2xl font-semibold'>
         To see public user dashboard, click 
         <Link to="/userDashboard/apartments" className="underline text-red-800"> here</Link>  (Testing Purposes)
