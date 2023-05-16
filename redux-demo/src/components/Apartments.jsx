@@ -16,13 +16,15 @@ const Apartments = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className='p-2 border-[1px] border-black flex flex-col gap-3'>
+    <div className='p-2 flex flex-col gap-3 mx-2'>
       
-      <div className='flex flex-row flex-wrap justify-between'>
-      <h1 className='text-2xl'>Apartments</h1>
-        <button className="p-2 bg-blue-50 border-[1px] border-black">
+      <div className='flex flex-row flex-wrap justify-between my-2'>
+      <h1 className='text-3xl font-semibold text-[#f4eff0]'>Apartments</h1>
+        <button 
+        // px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#305ee8] to-[#548afd] drop-shadow-lg -- OVO JE PLAVA!
+        className="px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
           <Link to="/main/addNewApartment">
-            +Add New Apartment
+            Add New Apartment
           </Link>
         </button>
       </div>

@@ -5,6 +5,8 @@ import { deleteApartment } from './apartmentsSlice'
 import Modal from '../UI/Modal'
 import { openModal, selectIsModalOpen } from '../UI/modalSlice'
 import { modalTexts } from '../data/modal/modalTexts'
+import ArrowImage from '../assets/icons8-double-down-50.webp'
+import { cancelReservation } from './reservationsSlice';
 
 const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
@@ -19,50 +21,57 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
   
   return (
     <>
-      <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
+      <div className='grid grid-cols-7 items-center p-2 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
         <span>{tableIndex}</span>
         <div>{title}</div>
         <div>{availability}</div>
         <div>{city}</div>
         <div>{rooms}</div>
         <div>{price} e</div>
-        <div>
+        <div className='justify-self-center'>
           <button
             onClick={toggleMoreDetailsSection}
-            className="p-2 bg-blue-50 border-[1px] border-black"
+            className="p-2 bg-[#252525] rounded-full"
           >
-            { isOpenMoreDetailsSection ? 'Hide Info' : 'More Info'}
+            <img
+              src={ArrowImage} 
+              width={20}
+              height={20}
+              className={`${!isOpenMoreDetailsSection ? "rotate-180" : ""}`} 
+            />
           </button>
         </div>
         { isOpenMoreDetailsSection &&
           <div className='col-span-full'>
-            <div className='flex items-center justify-between'>
-              <p>Description:</p>
+            <div className='flex items-center justify-between p-2'>
+              <p className='text-[#f5eced] text-lg font-semibold'>Description:</p>
               <p>{description}</p>
             </div>
-            <div className='flex items-center justify-between'>
-              <p>Address:</p>
+            <div className='flex items-center justify-between p-2'>
+              <p className='text-[#f5eced] text-lg font-semibold'>Address:</p>
               <p>{address}</p>
             </div>
-            <div className='flex items-center justify-between'>
-              <p>Double beds:</p>
+            <div className='flex items-center justify-between p-2'>
+              <p className='text-[#f5eced] text-lg font-semibold'>Double beds:</p>
               <p>{doubleBeds}</p>
             </div>
-            <div className='flex items-center justify-between'>
-              <p>Single beds:</p>
+            <div className='flex items-center justify-between p-2'>
+              <p className='text-[#f5eced] text-lg font-semibold'>Single beds:</p>
               <p>{singleBeds}</p>
             </div>
-            <div className='flex items-center justify-between'>
-              <p>Distance from the sea:</p>
+            <div className='flex items-center justify-between p-2'>
+              <p className='text-[#f5eced] text-lg font-semibold'>Distance from the sea:</p>
               <p>{distanceFromTheSea} km</p>
             </div>
             <div className='flex items-center justify-between'>
-              <p>Facilities:</p>
-              {facilities.map((facility, i) =>
-                <div key={i} className='flex items-center justify-between gap-2'>
-                  <p>{facility}</p>
-                </div>
-              )}
+              <p className='text-[#f5eced] text-lg font-semibold pl-2'>Facilities:</p>
+              <div className="flex flex-row gap-8">
+                {facilities.map((facility, i) =>
+                  <div key={i} className='flex items-center justify-between gap-2'>
+                    <p className="bg-[#252525] p-2 rounded-md">{facility}</p>
+                  </div>
+                )}
+              </div>
             </div>
             <div className='flex items-center justify-end'>
               <div className='flex flex-row gap-2'>

@@ -64,18 +64,18 @@ const AddNewApartment = () => {
   }, [])
 
   return (
-    <div className='p-2 border-[1px] border-black flex flex-col gap-7'>
-      <h1 className='text-2xl'>Add New Apartment</h1>
-      <form onSubmit={formSubmitHandler} className='grid grid-cols-2 gap-4'>
-        <input value={title} onChange={titleChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Title' />
-        <input value={city} onChange={cityChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='City' />
-        <input value={price} onChange={priceChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Price' />
-        <input value={distanceFromTheSea} onChange={distanceFromTheSeaChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Distance From The Sea' />
-        <input value={description} onChange={descriptionChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Description' />
-        <input value={address} onChange={addressChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Address' />
-        <input value={rooms} onChange={roomsChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Rooms' />
-        <input value={singleBeds} onChange={singleBedsChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Single Beds' />
-        <input value={doubleBeds} onChange={doubleBedsChangeHandler} type="text" className='border-[1px] border-black p-1' placeholder='Double Beds' />
+    <div className='my-2 p-2 flex flex-col gap-7'>
+      <h1 className='text-3xl font-semibold text-[#f4eff0]'>Add New Apartment</h1>
+      <form onSubmit={formSubmitHandler} className='grid grid-cols-2 gap-4 bg-[#121212]'>
+        <input value={title} onChange={titleChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Title' />
+        <input value={city} onChange={cityChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='City' />
+        <input value={price} onChange={priceChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Price' />
+        <input value={distanceFromTheSea} onChange={distanceFromTheSeaChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Distance From The Sea' />
+        <input value={description} onChange={descriptionChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Description' />
+        <input value={address} onChange={addressChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Address' />
+        <input value={rooms} onChange={roomsChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Rooms' />
+        <input value={singleBeds} onChange={singleBedsChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Single Beds' />
+        <input value={doubleBeds} onChange={doubleBedsChangeHandler} type="text" className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Double Beds' />
         <Select
           multiple
           name={'Facilities'}
@@ -83,9 +83,7 @@ const AddNewApartment = () => {
           value={selectedFacilities}
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
-        <input type="file" />
         <button className='border-[1px] border-black p-1 bg-blue-50'>Submit</button>
-        <button onClick={bucket}>Bucket Check</button>
       </form>
     </div>
   )

@@ -4,23 +4,27 @@ import Logout from './Logout'
 
 const Navbar = () => {
   return (
-    <nav className='border-[1px] border-black p-2 mb-2 ' >
-      <ul className='flex flex-wrap items-center justify-around' >
-        <li>
-          <Link to="apartments">Apartments</Link>
-        </li>
-        <li>
-          <Link to="facilities">Facilities</Link>
-        </li>
-        <li>
-          <Link to="reservations">Reservations</Link>
-        </li>
-        <li>
-          <Link to="registeredUsers">Users</Link>
-        </li>
-        <li>
-          <Logout />
-        </li>
+    <nav className='p-2 mb-2 bg-[#0f0f0f] font-medium text-[#f4eff0]'>
+      <ul className='flex flex-wrap items-center justify-between' >
+        <div className='flex flex-row gap-32 items-center '>
+          <li>
+            <Link to="apartments">Apartments</Link>
+          </li>
+          <li>
+            <Link to="facilities">Facilities</Link>
+          </li>
+          <li>
+            <Link to="reservations">Reservations</Link>
+          </li>
+          <li>
+            <Link to="registeredUsers">Users</Link>
+          </li>
+        </div>
+        <div className='flex justify-end'>
+          <li>
+            <Logout />
+          </li>
+        </div>
       </ul>
     </nav>
   )

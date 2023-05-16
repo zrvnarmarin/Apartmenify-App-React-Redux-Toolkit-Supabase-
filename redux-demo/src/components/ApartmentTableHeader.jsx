@@ -4,9 +4,9 @@ import { tableHeaderData } from './../data/tableHeaderData';
 const ApartmentTableHeader = () => {
 
   return (
-    <div className='grid grid-cols-7 p-2 border-[1px] border-black'>
+    <div className='grid grid-cols-7 p-2 rounded-md bg-[#121212]'>
       {tableHeaderData.map(headerData =>
-        <div key={headerData.id}>{headerData.value}</div>
+        <p className='text-[#f5eced] text-lg font-semibold' key={headerData.id}>{headerData.value}</p>
       )}
     </div>
 

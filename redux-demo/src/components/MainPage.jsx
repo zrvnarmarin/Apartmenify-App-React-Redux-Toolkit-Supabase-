@@ -15,7 +15,7 @@ const MainPage = () => {
   }, [apartmentsStatus, dispatch])
 
   return (
-    <div style={{ padding: '5px', border: '1px solid black'}}>
+    <div className='border-black border-[1px] bg-[#1f1f1f]'>
       <Navbar />
       <Outlet context={{ apartments: apartments }} />
       <h1 className='text-2xl'>ADMIN</h1>

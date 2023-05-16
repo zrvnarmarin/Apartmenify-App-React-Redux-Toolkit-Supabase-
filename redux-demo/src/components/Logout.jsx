@@ -16,7 +16,10 @@ const Logout = () => {
   }
 
   return (
-    <button onClick={logoutUser} className='border-[1px] border-black p-2 bg-blue-100'>
+    <button
+      onClick={logoutUser} 
+      className='px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] '
+    >
       Logout
     </button>
   )
