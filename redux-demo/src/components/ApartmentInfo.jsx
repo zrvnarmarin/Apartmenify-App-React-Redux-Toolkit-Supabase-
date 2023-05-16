@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify';
 import { deleteApartment } from './apartmentsSlice'
 import Modal from '../UI/Modal'
 import { openModal, selectIsModalOpen } from '../UI/modalSlice'
@@ -10,7 +11,11 @@ import ArrowImage from '../assets/ArrowDown.webp'
 const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
-  const deleteSelectedApartment = () => dispatch(deleteApartment(id))
+
+  const deleteSelectedApartment = () => {
+    dispatch(deleteApartment(id))
+    toast.success('Apartment deleted!')
+  }
 
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)

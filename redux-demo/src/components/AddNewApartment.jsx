@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify';
 import { addApartment, getAllFacilities, selectFacilities, selectIsLoading } from './apartmentsSlice'
 import Select from '../UI/Select'
-import supabase from '../supabaseClient';
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
@@ -34,10 +34,6 @@ const AddNewApartment = () => {
 
   const isLoading = useSelector(selectIsLoading)
 
-  const bucket = async () => {
-    console.log(supabase)
-  }
-
   const formSubmitHandler = async e => {
     e.preventDefault()
 
@@ -55,6 +51,8 @@ const AddNewApartment = () => {
       facilities: selectedFacilities.map(selectedFacility => selectedFacility.value),
       availability: 'free'
     }))
+
+    toast.success(`Apartment ${title} has been added to database!`)
 
     navigate('/main/apartments')
   }
@@ -83,7 +81,11 @@ const AddNewApartment = () => {
           value={selectedFacilities}
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
-        <button className='col-start-2 col-end-3 px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Submit</button>
+        <button 
+          className='col-start-2 col-end-3 px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+        >
+          Submit
+        </button>
       </form>
     </div>
   )
