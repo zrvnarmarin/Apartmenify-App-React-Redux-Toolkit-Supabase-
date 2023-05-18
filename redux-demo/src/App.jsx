@@ -17,6 +17,7 @@ import RegisteredUsers from './components/RegisteredUsers';
 import AddNewApartment from './components/AddNewApartment'
 import Success from './components/auth/Success.jsx'
 import UpdateReservation from './components/UpdateReservation';
+import Stats from './components/Stats.jsx'
 // User components
 import UserDashboard from './components/user/UserDashboard'
 import SearcApartments from './components/user/SearchApartments';
@@ -52,6 +53,7 @@ function App() {
           <Route path='addNewApartment' element={<AddNewApartment />} />
           <Route path='reservations' element={<Reservations />} />
           <Route path='reservations/:reservation' element={<UpdateReservation />} />
+          <Route path='stats' element={<Stats />} />
         </Route>
         {/* User routes - should be public */}
         <Route path='/userDashboard' element={<UserDashboard />} >

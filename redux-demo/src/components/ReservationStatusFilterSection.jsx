@@ -10,15 +10,16 @@ const ReservationStatusFilterSection = () => {
   const [isActive, setIsActive] = useState(1)
 
   return (
-    <div className='flex flex-row items-center justify-start gap-4 p-2 border-black border-[1px]'>
+    <div className='flex flex-row items-center justify-start gap-4 px-4'>
       {reservationStatusFilterOptions.map(option => 
         <button
           key={option.id}
           onClick={() => {
             setReservationStatusFilter(option.value)
             setIsActive(option.id)
+            // px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]
           }} 
-          className={`${isActive === option.id ? 'bg-blue-300' : 'bg-blue-100'} p-2 border-[1px] border-black`}
+          className={`${isActive === option.id ? 'bg-blue-300' : 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'} px-6 py-2 rounded-md font-medium text-[#f5eced]`}
         >
           {option.value} reservations
         </button>    

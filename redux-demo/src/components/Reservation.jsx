@@ -7,8 +7,6 @@ import { deleteReservation } from './reservationsSlice'
 import Modal from '../UI/Modal'
 
 const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, apartmentId, userId, userEmail, status }) => {
-  const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
-  const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
 
   const dispatch = useDispatch()
   const deleteSelectedReservation = () => dispatch(deleteReservation(id))
@@ -17,7 +15,7 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
   const openModalWindow = () => dispatch(openModal())
 
   return (
-    <div className='grid grid-cols-8 p-2 gap-4 border-[1px] border-black items-center'>
+    <div className='grid grid-cols-8 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal mx-4'>
       <p>{index}</p>
       <p>#{id}</p>
       <p>{status}</p>
@@ -25,19 +23,16 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
       <p>{`${name} ${surname}`}</p>
       <p>{new Date(startDate).toLocaleDateString()}</p>
       <p>{new Date(endDate).toLocaleDateString()}</p>
-      <button 
-        onClick={toggleMoreDetailsSection} 
-        className='p-2 border-[1px] border-black bg-blue-100'
-      >
-        { isOpenMoreDetailsSection ? 'Close' : 'Manage'}
-      </button>
-
-      { isOpenMoreDetailsSection && 
-        <div className='flex flex-row gap-2'>
-          <button onClick={openModalWindow} className='p-2 border-[1px] border-black bg-blue-100'>Delete</button>
+      <div className='flex flex-row gap-2'>
+          <button 
+            onClick={openModalWindow} 
+            className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+          >
+            Delete
+          </button>
           { status === 'confirmed' || status === 'inProgress'
             ? 
-              <button className='p-2 border-[1px] border-black bg-blue-100'>
+              <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>
                 <Link 
                   to={`${id}`} 
                   state={{ index: index, id: id, userId: userId, userEmail: userEmail, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentId: apartmentId, apartmentTitle: apartmentTitle, status: status }}
@@ -45,10 +40,10 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
                   Update
                 </Link>
               </button>
-            : <></>
+            : 
+              <></>
           }
         </div>
-      }
 
       { 
         isModalOpen && 

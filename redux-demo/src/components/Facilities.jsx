@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from './apartmentsSlice';
 import ApartmentTable from './ApartmentTable';
-import { toast } from 'react-toastify';
 
 const Facilities = () => {
   const dispatch = useDispatch()
@@ -31,32 +31,30 @@ const Facilities = () => {
   }
 
   return (
-    <div className='p-2 border-[1px] border-black flex flex-col gap-2'>
+    <div className='flex flex-col gap-4'>
 
       <div className='flex flex-row flex-wrap justify-between items-center'>
-        <h1 className='text-2xl'>
-          <Link to={`/main/facilities`}>Facilities</Link>
-        </h1>
+        <h1 className='text-3xl mb-2 font-semibold text-[#f4eff0] ml-4 mt-4'>Facilities</h1>
 
         <form onSubmit={formSubmitHandler} className='flex flex-row gap-2'>
           <input
             type="text"
             placeholder="Add new facility.."
-            className='border-[1px] border-black p-1'
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             value={newFacility}
             onChange={newFacilityChangeHandler}
           />
-          <button className="p-2 bg-blue-50 border-[1px] border-black">
-            +Add New Facility
+          <button className="px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
+            Add New Facility
           </button>
         </form>
       </div>
 
-      <div className='flex flex-row gap-4'>
+      <div className='flex flex-row flex-wrap gap-4 mx-4'>
       {Object.entries(countOfApartmentsByFacility).map(([facility, count], i) =>
         <span 
           key={i} 
-          className={`${isActive === i + 1 ? 'bg-blue-300' : ''} border-[1px] border-black p-2`}
+          className={`${isActive === i + 1 ? 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]' : 'bg-[#121212]'} px-6 py-2 rounded-md font-medium text-[#f5eced]`}
         >
           <Link 
             to={`/main/facilities`} 
@@ -66,13 +64,13 @@ const Facilities = () => {
             }}
           >
             <span>{facility}</span>
-            <span className='rounded-full ml-2 px-3 py-1 bg-blue-100'>{count}</span>
+            <span className='rounded-full ml-2 px-3 py-1 bg-[#1f1f1f]'>{count}</span>
           </Link>
         </span>
       )}
       </div>
 
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-3 mx-4'>
         <ApartmentTable apartments={apartmentsByFacility} />
       </div>
 

@@ -20,11 +20,16 @@ const Reservations = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className='flex flex-col gap-2'>
-      <p className='text-2xl p-2'>Reservations</p>
-      <ReservationFilterSection />
+    <div className='flex flex-col gap-4'>
+
+      <div className='flex flex-row flex-wrap items-center justify-between'>
+        <p className='text-3xl font-semibold text-[#f4eff0] pl-4'>Reservations</p>
+        <ReservationFilterSection />
+      </div>
+
       <ReservationStatusFilterSection />
-        <ReservationTableHeader />
+
+      <ReservationTableHeader />
         {allReservations.map((reservation, index) => 
           <Reservation
             key={reservation.id}
@@ -41,6 +46,7 @@ const Reservations = () => {
             status={reservation.status}
           />  
         )}
+
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ const MainPage = () => {
   }, [apartmentsStatus, dispatch])
 
   return (
-    <div className='border-black border-[1px] bg-[#1f1f1f]'>
+    <div className='bg-[#1f1f1f]'>
       <Navbar />
       <Outlet context={{ apartments: apartments }} />
       <h1 className='text-2xl'>ADMIN</h1>

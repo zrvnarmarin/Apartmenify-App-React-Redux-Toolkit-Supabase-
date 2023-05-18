@@ -3,9 +3,9 @@ import { reservationsTableHeaderData } from './../data/reservations/reservations
 
 const ReservationTableHeader = () => {
   return (
-    <div className='grid grid-cols-8 p-2 border-[1px] border-black'>
+    <div className='grid grid-cols-8 p-2 mx-4 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
       {reservationsTableHeaderData.map(headerData =>
-        <div key={headerData.id}>{headerData.value}</div>
+        <div className='text-[#f5eced] text-lg font-semibold pl-2' key={headerData.id}>{headerData.value}</div>
       )}
     </div>
   )

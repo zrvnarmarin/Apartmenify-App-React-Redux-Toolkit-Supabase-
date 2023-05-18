@@ -16,6 +16,9 @@ const Navbar = () => {
           <li>
             <Link to="reservations">Reservations</Link>
           </li>
+          <li className='ml-2'>
+            <Link to="apartments">Stats</Link>
+          </li>
           <li>
             <Link to="registeredUsers">Users</Link>
           </li>
