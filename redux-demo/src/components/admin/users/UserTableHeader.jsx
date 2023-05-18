@@ -1,7 +1,7 @@
 import React from 'react'
-import { registeredUsersTableData } from '../data/registeredUser'
+import { registeredUsersTableData } from '../../../data/registeredUser'
 
-const RegisteredUserTableHeaderData = () => {
+const UserTableHeader = () => {
   return (
     <div className='grid grid-cols-4 p-2 mt-8 mx-4 bg-[#121212] rounded-md'>
       {registeredUsersTableData.map(headerData =>
@@ -11,4 +11,4 @@ const RegisteredUserTableHeaderData = () => {
   )
 }
 
-export default RegisteredUserTableHeaderData
+export default UserTableHeader

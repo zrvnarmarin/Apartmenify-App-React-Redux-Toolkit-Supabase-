@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectApartment, getApartment } from '../apartmentsSlice'
+import { selectApartment, getApartment } from '../admin/apartments/apartmentsSlice'
 import LocationPin from '../../assets/locationPin.png'
 import Placeholder from '../../assets/placeholder.webp'
 import ReserveApartment from './ReserveApartment';

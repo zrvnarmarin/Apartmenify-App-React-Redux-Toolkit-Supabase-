@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setFilter, getFilter, getFilterQuery, setFilterQuery, setSort, getSort, setSortOrder, getSortOrder } from './apartmentsSlice'
-import { filterOptions } from '../data/apartments/filterOptions'
-import { sortOptions } from '../data/apartments/sortOptions'
-import { sortOrderOptions } from '../data/apartments/sortOrderOptions'
+import { filterOptions } from '../../../data/apartments/filterOptions'
+import { sortOptions } from '../../../data/apartments/sortOptions'
+import { sortOrderOptions } from '../../../data/apartments/sortOrderOptions'
 
-const FilterSortSection = () => {
+const ApartmentFilterSortSection = () => {
   const dispatch = useDispatch()
 
   const filter = useSelector(getFilter)
@@ -82,4 +82,4 @@ const FilterSortSection = () => {
   )
 }
 
-export default FilterSortSection
+export default ApartmentFilterSortSection

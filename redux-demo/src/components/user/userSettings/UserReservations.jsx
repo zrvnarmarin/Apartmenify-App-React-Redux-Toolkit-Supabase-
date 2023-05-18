@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from './../../reservationsSlice';
+import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import FilterSection from './FilterSection';
 import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
-import { getApartment, updateApartmentAvailability } from '../../apartmentsSlice';
+import { getApartment } from '../../admin/apartments/apartmentsSlice';
 import UserReservationTableHeader from './UserReservationTableHeader';
 import { format } from 'date-fns';
 

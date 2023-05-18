@@ -1,5 +1,5 @@
 import React from 'react'
-import { reservationsTableHeaderData } from './../data/reservations/reservationsTableHeaderData';
+import { reservationsTableHeaderData } from '../../../data/reservations/reservationsTableHeaderData';
 
 const ReservationTableHeader = () => {
   return (

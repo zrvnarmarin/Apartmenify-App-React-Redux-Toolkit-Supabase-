@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { reservationStatusFilterOptions } from './../data/reservations/reservationStatusFilterOptions';
+import { reservationStatusFilterOptions } from '../../../data/reservations/reservationStatusFilterOptions';
 import { useDispatch } from 'react-redux';
 import { setReservationStatusfilter } from './reservationsSlice';
 

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from './apartmentsSlice';
-import ApartmentTable from './ApartmentTable';
+import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from '../apartments/apartmentsSlice';
+import ApartmentTable from '../apartments/ApartmentTable';
 
 const Facilities = () => {
   const dispatch = useDispatch()
@@ -57,7 +57,7 @@ const Facilities = () => {
           className={`${isActive === i + 1 ? 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]' : 'bg-[#121212]'} px-6 py-2 rounded-md font-medium text-[#f5eced]`}
         >
           <Link 
-            to={`/main/facilities`} 
+            to={`/adminDashboard/facilities`} 
             onClick={() => {
               setIsActive(i + 1)
               existingFacilityClickHandler(facility)

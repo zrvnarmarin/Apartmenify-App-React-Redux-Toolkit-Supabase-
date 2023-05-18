@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import supabase from '../supabaseClient'
 import { Auth } from '@supabase/auth-ui-react'
-import { supabaseAuthStyles } from '../styles/supabaseAuth'
+import { supabaseAuthStyles } from '../styles/supabaseAuthStyles'
 
 // TO DO: make this modular so that other accounts can be used
 
@@ -11,7 +11,7 @@ const LoginPage = () => {
   
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event !== 'SIGNED_OUT') { navigate('/main/apartments') } 
+      if (event !== 'SIGNED_OUT') { navigate('/adminDashboard/apartments') } 
       else { navigate('/') }
     })
 

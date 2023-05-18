@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { deleteApartment } from './apartmentsSlice'
-import Modal from '../UI/Modal'
-import { openModal, selectIsModalOpen } from '../UI/modalSlice'
-import { modalTexts } from '../data/modal/modalTexts'
-import ArrowImage from '../assets/ArrowDown.webp'
+import Modal from '../../../UI/Modal'
+import { openModal, selectIsModalOpen } from '../../../UI/modalSlice'
+import { modalTexts } from '../../../data/modal/modalTexts'
+import ArrowImage from '../../../assets/ArrowDown.webp'
 
-const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
+const Apartment = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
 
@@ -120,4 +120,4 @@ const ApartmentInfo = ({ id, tableIndex, title, city, rooms, price, description,
   )
 }
 
-export default ApartmentInfo
+export default Apartment

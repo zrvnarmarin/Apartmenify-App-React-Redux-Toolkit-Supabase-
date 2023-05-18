@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import FilterSortSection from './FilterSortSection'
-import ApartmentTable from './ApartmentTable'
+import ApartmentFilterSortSection from './ApartmentFilterSortSection.jsx.jsx'
+import ApartmentTable from './ApartmentTable.jsx'
 import { getApartmentsError, selectFilteredAndSortedApartments, getApartmentsStatus, selectIsLoading } from './apartmentsSlice'
-import LoadingSpinner from '../UI/Loading Spinner/LoadingSpinner'
+import LoadingSpinner from '../../../UI/Loading Spinner/LoadingSpinner'
 
 const Apartments = () => {
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
@@ -23,13 +23,13 @@ const Apartments = () => {
         <button 
         // px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#305ee8] to-[#548afd] drop-shadow-lg -- OVO JE PLAVA!
         className="px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
-          <Link to="/main/addNewApartment">
+          <Link to="/adminDashboard/addNewApartment">
             Add New Apartment
           </Link>
         </button>
       </div>
 
-      <FilterSortSection />
+      <ApartmentFilterSortSection />
 
       {apartmentsStatus === 'loading' ? (
         <p>Loading...</p>

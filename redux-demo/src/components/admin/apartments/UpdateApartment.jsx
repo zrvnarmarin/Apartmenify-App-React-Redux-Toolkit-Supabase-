@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { selectFacilities, getAllFacilities, updateApartment } from './apartmentsSlice'
-import Select from '../UI/Select'
+import Select from '../../../UI/Select'
 
 const UpdateApartment = () => {
     const dispatch = useDispatch()

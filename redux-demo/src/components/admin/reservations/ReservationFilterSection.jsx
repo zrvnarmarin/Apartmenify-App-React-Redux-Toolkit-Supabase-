@@ -1,5 +1,5 @@
 import React from 'react'
-import { reservationFilterOptions } from './../data/reservations/reservationFilterOptions';
+import { reservationFilterOptions } from '../../../data/reservations/reservationFilterOptions';
 import { selectReservationFilter, setReservationFilter, selectReservationFilterQuery, setReservationFilterQuery } from './reservationsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 

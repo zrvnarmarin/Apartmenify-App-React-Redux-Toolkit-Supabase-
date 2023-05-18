@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
-import supabase from "../supabaseClient";
+import supabase from "../../../supabaseClient";
 
 export const addReservation = createAsyncThunk('reservations/addReservation', async newReservation => {
     try {

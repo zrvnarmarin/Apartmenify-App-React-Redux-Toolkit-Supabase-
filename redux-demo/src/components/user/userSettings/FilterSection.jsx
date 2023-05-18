@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setBookingStatusfilter } from '../../reservationsSlice'
+import { setBookingStatusfilter } from '../../admin/reservations/reservationsSlice'
 import { bookingStatusFilterOptions } from './../../../data/reservations/user/bookingStatusFilterOptions';
 
 const FilterSection = () => {

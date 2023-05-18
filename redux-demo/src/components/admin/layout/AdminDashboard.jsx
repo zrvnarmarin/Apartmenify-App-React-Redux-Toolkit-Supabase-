@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from './Navbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllApartments, getApartmentsStatus, getAllApartments } from './apartmentsSlice';
+import { selectAllApartments, getApartmentsStatus, getAllApartments } from '../apartments/apartmentsSlice.js';
 
-const MainPage = () => {
+const AdminDashboard = () => {
   const dispatch = useDispatch()
 
   const apartments = useSelector(selectAllApartments)
@@ -23,4 +23,4 @@ const MainPage = () => {
   )
 }
 
-export default MainPage
+export default AdminDashboard

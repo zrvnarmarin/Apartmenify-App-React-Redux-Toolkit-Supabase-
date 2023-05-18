@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import { addApartment, getAllFacilities, selectFacilities, selectIsLoading } from './apartmentsSlice'
-import Select from '../UI/Select'
+import Select from '../../../UI/Select'
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
@@ -54,7 +54,7 @@ const AddNewApartment = () => {
 
     toast.success(`Apartment ${title} has been added to database!`)
 
-    navigate('/main/apartments')
+    navigate('/adminDashboard/apartments')
   }
 
   useEffect(() => {

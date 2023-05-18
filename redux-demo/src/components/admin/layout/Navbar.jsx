@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logout from './Logout'
+import Logout from '../../Logout.jsx'
 
 const Navbar = () => {
   return (
@@ -17,10 +17,10 @@ const Navbar = () => {
             <Link to="reservations">Reservations</Link>
           </li>
           <li className='ml-2'>
-            <Link to="apartments">Stats</Link>
+            <Link to="stats">Stats</Link>
           </li>
           <li>
-            <Link to="registeredUsers">Users</Link>
+            <Link to="users">Users</Link>
           </li>
         </div>
         <div className='flex justify-end mr-2'>

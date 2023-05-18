@@ -6,13 +6,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { getDatesBetweenIntervals } from '../../utils/utilityFunctions';
-import { updateApartmentAvailability } from '../apartmentsSlice';
+import { updateApartmentAvailability } from '../admin/apartments/apartmentsSlice';
 import {
     addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname,
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId,
     setUserEmail, setDateRange as setRangeDate
 }
-from '../reservationsSlice';
+from '../admin/reservations/reservationsSlice';
 
 const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     const allReservations = useSelector(selectAllReservations)

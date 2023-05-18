@@ -1,5 +1,5 @@
 import React from 'react'
-import { tableHeaderData } from './../data/tableHeaderData';
+import { tableHeaderData } from '../../../data/tableHeaderData';
 
 const ApartmentTableHeader = () => {
 

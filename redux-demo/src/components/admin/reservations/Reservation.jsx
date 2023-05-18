@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { selectIsModalOpen, openModal } from '../UI/modalSlice'
-import { modalTexts } from '../data/modal/modalTexts'
+import { selectIsModalOpen, openModal } from '../../../UI/modalSlice'
+import { modalTexts } from '../../../data/modal/modalTexts'
 import { deleteReservation } from './reservationsSlice'
-import Modal from '../UI/Modal'
+import Modal from '../../../UI/Modal'
 
 const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, apartmentId, userId, userEmail, status }) => {
 

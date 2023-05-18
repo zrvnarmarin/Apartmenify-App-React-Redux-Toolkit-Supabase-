@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAllUsers, getAllUsers } from './auth/usersSlice'
-import RegisteredUserTableHeaderData from './RegisteredUserTableHeaderData'
+import { selectAllUsers, getAllUsers } from '../../auth/usersSlice'
+import UserTableHeader from './UserTableHeader';
 
-const RegisteredUsers = () => {
+const Users = () => {
   const dispatch = useDispatch()
   const users = useSelector(selectAllUsers)
 
@@ -16,7 +16,7 @@ const RegisteredUsers = () => {
       <h1 className='text-3xl font-semibold text-[#f4eff0] mx-4 mt-4'>Registered Users</h1>
       <div className='flex flex-col flex-wrap gap-4'>
 
-        <RegisteredUserTableHeaderData />
+        <UserTableHeader />
         
         <div className='flex flex-col gap-4 mx-4 text-[#f5f0f1]'>
         {users.map((user, i) => 
@@ -33,4 +33,4 @@ const RegisteredUsers = () => {
   )
 }
 
-export default RegisteredUsers
+export default Users

@@ -23,7 +23,7 @@ const Success = () => {
   
     useEffect(() => {
       const timeout = setTimeout(() => {
-        navigate('/main/apartments')
+        navigate('/adminDashboard/apartments')
       }, 65000)
   
       // Clean up the timeout on unmount

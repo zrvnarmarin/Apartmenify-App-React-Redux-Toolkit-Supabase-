@@ -1,5 +1,5 @@
 import React from 'react'
-import ApartmentInfo from './ApartmentInfo.jsx'
+import Apartment from './Apartment.jsx'
 import ApartmentTableHeader from './ApartmentTableHeader.jsx'
 
 const ApartmentTable = ({ apartments }) => {
@@ -9,7 +9,7 @@ const ApartmentTable = ({ apartments }) => {
       <ApartmentTableHeader />
 
       {apartments.map((apartment, tableIndex) =>
-        <ApartmentInfo
+        <Apartment
           key={apartment.id}
           id={apartment.id}
           tableIndex={tableIndex + 1} 

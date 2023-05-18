@@ -32,7 +32,7 @@ const UpdateReservation = () => {
     }
 
     dispatch(updateReservation(updatedReservation))
-    navigate('/main/reservations')
+    navigate('/adminDashboard/reservations')
     toast.info('Reservation has been updated!')
   }
 
