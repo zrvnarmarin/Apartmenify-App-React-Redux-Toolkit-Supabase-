@@ -8,42 +8,6 @@ import { addSavedApartment } from './../auth/usersSlice';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
-    const dispatch = useDispatch()
-
-    // Load the initial isLiked value from localStorage, defaulting to false
-    const [isLiked, setIsLiked] = useState(localStorage.getItem(`isLiked_${apartmentId}`) === 'true' || false);
-
-    const savedApartments = useSelector(selectAllSavedApartments)
-
-    useEffect(() => {
-        // Update localStorage with the new isLiked value
-        localStorage.setItem(`isLiked_${apartmentId}`, isLiked.toString());
-    }, [isLiked, apartmentId]);
-
-    // useEffect(() => {
-    //     if (savedApartments.some(savedApartment => savedApartment.apartmentId === apartmentId)) {
-    //         console.log(`apartment with ID: ${apartmentId} is SAVED`)
-    //     } else {
-    //         console.log(`apartment with ID: ${apartmentId} is NOT SAVED`)
-    //     }
-    // }, [isLiked, apartmentId, savedApartments])
-
-    const handleLikeClick = () => {
-        if (isLiked) {
-            dispatch(deleteSavedApartment({
-                apartmentId: apartmentId,
-                wishlistId: 39
-            }))
-            setIsLiked(false)
-        } else {
-            dispatch(addSavedApartment({
-                apartmentId: apartmentId,
-                wishlistId: 39
-            }))
-            setIsLiked(true)
-        }
-    }
-
     return (
         <li className='flex gap-4 border-[1px] border-black items-center'>
             <img

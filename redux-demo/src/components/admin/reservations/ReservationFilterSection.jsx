@@ -1,7 +1,7 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { reservationFilterOptions } from '../../../data/reservations/reservationFilterOptions';
 import { selectReservationFilter, setReservationFilter, selectReservationFilterQuery, setReservationFilterQuery } from './reservationsSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
 const ReservationFilterSection = () => {
   const dispatch = useDispatch()
