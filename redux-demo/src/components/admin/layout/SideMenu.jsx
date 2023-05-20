@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import XButton from '../../../assets/X.svg'
 import Logout from '../../Logout'
+import XButton from '../../../assets/X.svg'
 
 const SideMenu = ({ closeSideMenu }) => {
   return (
@@ -19,7 +19,12 @@ const SideMenu = ({ closeSideMenu }) => {
                 </button>
             </li>
             <li className='flex flex-col items-center justify-center mb-16'>
-                <Link to="apartments" className='text-5xl hover:font-bold'>Apartmenify</Link>
+                <Link 
+                    to="apartments" 
+                    className='text-5xl hover:font-bold'
+                >
+                    Apartmenify
+                </Link>
             </li>
             <li className='tracking-wider flex flex-col items-center justify-center gap-16 text-3xl font-bold'>
                 <Link 
@@ -48,9 +53,8 @@ const SideMenu = ({ closeSideMenu }) => {
                 </Link>
             </li>
             <hr />
-            <li className=''>
-                <Logout />
-            </li>
+            <li><Logout /></li>
+            
         </ul>
         
     </div>

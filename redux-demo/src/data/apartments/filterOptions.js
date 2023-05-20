@@ -1,6 +1,6 @@
 export const filterOptions = [
-    'all',
-    'city',
-    'address',
-    'title'
+    'All',
+    'City',
+    'Address',
+    'Title'
 ]

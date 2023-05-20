@@ -155,10 +155,10 @@ const initialState = {
   isLoading: false,
   status: 'idle',
   error: null,
-  filter: '',
+  filter: 'All',
   filterQuery: '',
-  sort: 'price',
-  sortOrder: 'ascending',
+  sort: 'Price',
+  sortOrder: 'Ascending',
   facilities: []
 }
 
@@ -168,19 +168,15 @@ const apartmentsSlice = createSlice({
     reducers: {
       setFilter: (state, action) => {
         state.filter = action.payload
-        console.log('filter option je: ', action.payload)
       },
       setFilterQuery: (state, action) => {
         state.filterQuery = action.payload
-        console.log('filter query je: ', action.payload)
       },
       setSort: (state, action) => {
         state.sort = action.payload
-        console.log('sort option je: ', action.payload)
       },
       setSortOrder: (state, action) => {
         state.sortOrder = action.payload
-        console.log('sort order je: ', action.payload)
       }
     },
     extraReducers(builder) {
@@ -237,7 +233,7 @@ export const getFilterQuery = (state) => state.apartments.filterQuery
 export const getSort = (state) => state.apartments.sort
 export const getSortOrder = (state) => state.apartments.sortOrder
 
-export const selectFacilities = (state) => state.apartments.facilities // povlači sa supabse-a
+export const selectFacilities = (state) => state.apartments.facilities
 
 // Reducer exports
 export const { setFilter, setFilterQuery, setSort, setSortOrder, setNewFacility } = apartmentsSlice.actions
@@ -246,16 +242,16 @@ export const { setFilter, setFilterQuery, setSort, setSortOrder, setNewFacility 
 export const selectFilteredApartments = createSelector(
   [selectAllApartments, getFilter, getFilterQuery],
   (apartments, filter, filterQuery) => apartments.filter(apartment => {
-    if (filter === 'all') {
+    if (filter === 'All') {
       return apartments;
     }
-    else if (filter === 'title') {
+    else if (filter === 'Title') {
       return apartment.title.toLowerCase().includes(filterQuery.toLowerCase());
     }
-    else if (filter === 'address') {
+    else if (filter === 'Address') {
       return apartment.address.toLowerCase().includes(filterQuery.toLowerCase());
     } 
-    else if (filter === 'city') {
+    else if (filter === 'City') {
       return apartment.city.toLowerCase().includes(filterQuery.toLowerCase());
     } 
     else {
@@ -269,25 +265,25 @@ export const selectSortedApartments = createSelector(
     (apartments, sort, sortOrder) => {
       let sortedApartments = [...apartments];
   
-      if (sort === 'price') {
+      if (sort === 'Price') {
         sortedApartments.sort((a, b) => {
-          if (sortOrder === 'ascending') {
+          if (sortOrder === 'Ascending') {
             return a.price - b.price;
           } else {
             return b.price - a.price;
           }
         });
-      } else if (sort === 'rooms') {
+      } else if (sort === 'Rooms') {
         sortedApartments.sort((a, b) => {
-          if (sortOrder === 'ascending') {
+          if (sortOrder === 'Ascending') {
             return a.rooms - b.rooms;
           } else {
             return b.rooms - a.rooms;
           }
         });
-      } else if (sort === 'distanceFromTheSea') {
+      } else if (sort === 'Distance From The Sea') {
         sortedApartments.sort((a, b) => {
-            if (sortOrder === 'ascending') {
+            if (sortOrder === 'Ascending') {
               return a.distanceFromTheSea - b.distanceFromTheSea;
             } else {
               return b.distanceFromTheSea - a.distanceFromTheSea;
@@ -304,25 +300,25 @@ export const selectFilteredAndSortedApartments = createSelector(
     (filteredApartments, sort, sortOrder) => {
       let sortedApartments = [...filteredApartments];
   
-      if (sort === 'price') {
+      if (sort === 'Price') {
         sortedApartments.sort((a, b) => {
-          if (sortOrder === 'ascending') {
+          if (sortOrder === 'Ascending') {
             return a.price - b.price;
           } else {
             return b.price - a.price;
           }
         });
-      } else if (sort === 'rooms') {
+      } else if (sort === 'Rooms') {
         sortedApartments.sort((a, b) => {
-          if (sortOrder === 'ascending') {
+          if (sortOrder === 'Ascending') {
             return a.rooms - b.rooms;
           } else {
             return b.rooms - a.rooms;
           }
         });
-      } else if (sort === 'distanceFromTheSea') {
+      } else if (sort === 'Distance From The Sea') {
         sortedApartments.sort((a, b) => {
-          if (sortOrder === 'ascending') {
+          if (sortOrder === 'Ascending') {
             return a.distanceFromTheSea - b.distanceFromTheSea;
           } else {
             return b.distanceFromTheSea - a.distanceFromTheSea;
@@ -341,7 +337,7 @@ export const selectApartmentsByFacility = (facility) =>
       const apartmentsByFacility = apartments.filter((apartment) =>
         apartment.facilities.includes(facility)
       );
-      // console.log(apartmentsByFacility);
+
       return apartmentsByFacility;
     }
 );
@@ -353,10 +349,9 @@ export const selectCountOfApartmentsByFacility = createSelector(
       apartment.facilities.forEach(facility => {
         count[facility] = (count[facility] || 0) + 1;
       });
+      
       return count;
     }, {});
-
-    // console.log(facilities, 'iz selektora')
 
     return facilities;
   }

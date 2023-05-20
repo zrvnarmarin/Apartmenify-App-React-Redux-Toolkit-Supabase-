@@ -9,7 +9,6 @@ import { activeRouteStyles } from '../../../styles/activeRouteStyles.js'
 const Navbar = () => {
   const [isOpenedSideMenu, setIsOpenedSideMenu] = useState(false)
   
-  const openSideMenu = () => setIsOpenedSideMenu(true)
   const closeSideMenu = () => setIsOpenedSideMenu(false)
   const toggleSideMenu = () => setIsOpenedSideMenu(prev => !prev)
 

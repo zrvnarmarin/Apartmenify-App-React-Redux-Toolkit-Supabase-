@@ -8,17 +8,15 @@ const AdminDashboard = () => {
   const dispatch = useDispatch()
 
   const apartments = useSelector(selectAllApartments)
-  const apartmentsStatus = useSelector(getApartmentsStatus)
 
   useEffect(() => {
     dispatch(getAllApartments())
-  }, [apartmentsStatus, dispatch])
+  }, [dispatch])
 
   return (
     <div className='bg-[#1f1f1f]'>
       <Navbar />
       <Outlet context={{ apartments: apartments }} />
-      <h1 className='text-2xl'>ADMIN</h1>
     </div>
   )
 }

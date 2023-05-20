@@ -1,4 +1,4 @@
 export const sortOrderOptions = [
-    'ascending',
-    'descending'
+    'Ascending',
+    'Descending'
 ]

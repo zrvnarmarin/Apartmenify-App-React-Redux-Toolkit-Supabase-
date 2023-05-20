@@ -1,5 +1,5 @@
 export const sortOptions = [
-    'price',
-    'rooms',
-    'distanceFromTheSea'
+    'Price',
+    'Rooms',
+    'Distance From The Sea'
 ]
