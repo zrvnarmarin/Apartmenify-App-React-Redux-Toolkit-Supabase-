@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Logout from '../../Logout.jsx'
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import LogoImage from '../../../assets/logo.webp'
+import SideMenu from './SideMenu.jsx'
 
 const Navbar = () => {
   const [isOpenedSideMenu, setIsOpenedSideMenu] = useState(false)
@@ -32,7 +33,7 @@ const Navbar = () => {
           <Logout />
         </li>
         <li className='block ss:hidden'>
-          <div>
+          <button onClick={toggleSideMenu}>
             <img 
               className=''
               src={HamburgerMenuButton} 
@@ -40,9 +41,10 @@ const Navbar = () => {
               width={35} 
               height={35} 
             />
-          </div>
+          </button>
         </li>
       </ul>
+      { isOpenedSideMenu ? <SideMenu closeSideMenu={closeSideMenu} /> : <></>}
     </nav>
   )
 }

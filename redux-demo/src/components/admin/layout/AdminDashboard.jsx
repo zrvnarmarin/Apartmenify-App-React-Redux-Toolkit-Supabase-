@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   }, [apartmentsStatus, dispatch])
 
   return (
-    <div className='bg-[#1f1f1f] font-poppins'>
+    <div className='bg-[#1f1f1f]'>
       <Navbar />
       <Outlet context={{ apartments: apartments }} />
       <h1 className='text-2xl'>ADMIN</h1>
