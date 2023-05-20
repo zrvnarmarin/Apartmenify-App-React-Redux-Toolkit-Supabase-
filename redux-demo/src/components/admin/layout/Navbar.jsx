@@ -1,33 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logout from '../../Logout.jsx'
+import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
+import LogoImage from '../../../assets/logo.webp'
 
 const Navbar = () => {
+  const [isOpenedSideMenu, setIsOpenedSideMenu] = useState(false)
+  
+  const openSideMenu = () => setIsOpenedSideMenu(true)
+  const closeSideMenu = () => setIsOpenedSideMenu(false)
+  const toggleSideMenu = () => setIsOpenedSideMenu(prev => !prev)
+
   return (
-    <nav className='p-2 mb-2 bg-[#0f0f0f] font-medium text-[#f4eff0]'>
-      <ul className='flex flex-wrap items-center justify-between'>
-        <div className='flex flex-row gap-32 items-center '>
-          <li className='ml-2'>
+    <nav className='bg-[#121212] text-[#f5eced] md:text-xl lg:2-xl py-3 px-6'>
+      <ul className='flex flex-row justify-between items-center'>
+        <li className='flex flex-row items-center'>
+          <Link to="apartments" className=' md:block'>
+            <img src={LogoImage} alt="logo_image" height={45} width={45} />
+          </Link>
+        </li>
+        <li className='ss:flex hidden'>
+          <div className='flex flex-row items-center gap-8 sm:gap-12'>
             <Link to="apartments">Apartments</Link>
-          </li>
-          <li>
             <Link to="facilities">Facilities</Link>
-          </li>
-          <li>
             <Link to="reservations">Reservations</Link>
-          </li>
-          <li className='ml-2'>
             <Link to="stats">Stats</Link>
-          </li>
-          <li>
             <Link to="users">Users</Link>
-          </li>
-        </div>
-        <div className='flex justify-end mr-2'>
-          <li>
-            <Logout />
-          </li>
-        </div>
+          </div>
+        </li>
+        <li className='hidden md:block'>
+          <Logout />
+        </li>
+        <li className='block ss:hidden'>
+          <div>
+            <img 
+              className=''
+              src={HamburgerMenuButton} 
+              alt="hamburger_menu_button" 
+              width={35} 
+              height={35} 
+            />
+          </div>
+        </li>
       </ul>
     </nav>
   )

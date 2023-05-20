@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import SavedIcon from '../../assets/saved_apartments_icons/filled_heart_white_outer_stroke.png'
-import UnsavedIcon from '../../assets/saved_apartments_icons/empty_heart_white_outer_stroke.png'
-import { deleteSavedApartment, selectAllSavedApartments } from './../auth/usersSlice';
-import { addSavedApartment } from './../auth/usersSlice';
 
 const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) => {
 
@@ -35,12 +30,6 @@ const Apartment = ({ id: apartmentId, title, description, city, rooms, price }) 
                     >
                         Reserve
                     </Link>
-                </button>
-                <button 
-                    className='border-black border-[1px] bg-blue-100 p-2' 
-                    onClick={handleLikeClick} 
-                >
-                    { isLiked ? 'Unlike' : 'Like'}
                 </button>
             </div>
 
