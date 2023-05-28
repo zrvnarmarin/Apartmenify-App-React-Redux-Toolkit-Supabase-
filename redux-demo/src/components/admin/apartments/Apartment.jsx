@@ -7,10 +7,15 @@ import Modal from '../../../UI/Modal'
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice'
 import { modalTexts } from '../../../data/modal/modalTexts'
 import ArrowImage from '../../../assets/ArrowDown.webp'
+import FreeApartmentIcon from '../../../assets/apartment_availability_icons/free.webp'
+import OccupiedApartmentIcon from '../../../assets/apartment_availability_icons/occupied.webp'
+import ReservedApartmentIcon from '../../../assets/apartment_availability_icons/reserved.webp'
 
 const Apartment = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
+
+  const [isAvailabilityToolTipShown, setSsAvailabilityToolTipShown] = useState(false)
 
   const deleteSelectedApartment = () => {
     dispatch(deleteApartment(id))
@@ -22,16 +27,46 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
 
   const isModalOpen = useSelector(selectIsModalOpen)
   const openModalWindow = () => dispatch(openModal())
+
+  const showAvailabilityToolTip = () => setSsAvailabilityToolTipShown(true)
+  const hideAvailabilityToolTip = () => setSsAvailabilityToolTipShown(false)
   
   return (
     <>
       <div className='grid grid-cols-7 items-center p-2 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
         <span className='pl-2 text-[#f5eced] text-lg font-semibold'>{tableIndex}</span>
-        <div>{title}</div>
-        <div>{availability}</div>
-        <div>{city}</div>
-        <div>{rooms}</div>
-        <div>{price} e</div>
+        <div className='pl-2'>{title}</div>
+        
+        <div className={`pl-2 flex gap-2 items-center relative`}>
+          <img 
+            src={ 
+              availability === 'free' 
+              ? FreeApartmentIcon 
+              : availability === 'reserved' 
+              ? ReservedApartmentIcon 
+              : OccupiedApartmentIcon
+            } 
+            alt="apartment_availability_icon" 
+            width={30}
+            height={30}
+            className={`inline-block`}
+            onMouseEnter={showAvailabilityToolTip}
+            onMouseLeave={hideAvailabilityToolTip}
+          />
+          { isAvailabilityToolTipShown 
+            ?
+              <span 
+                className='absolute bottom-5 left-10 bg-gradient-to-r from-[#e8132f] to-[#fd3b54] capitalize py-1 px-2 rounded z-10'
+              >
+                {availability}
+              </span>
+            : 
+              <></>
+          }
+        </div>
+        <div className='pl-2'>{city}</div>
+        <div className='pl-2'>{rooms}</div>
+        <div className='pl-2'>{price} e</div>
         <div className='justify-self-center'>
           <button
             onClick={toggleMoreDetailsSection}
@@ -41,7 +76,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
               src={ArrowImage} 
               width={20}
               height={20}
-              className={`${!isOpenMoreDetailsSection ? "rotate-180" : ""}`} 
+              className={`${!isOpenMoreDetailsSection ? "rotate-180" : ""} duration-300`} 
             />
           </button>
         </div>
@@ -72,7 +107,9 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
               <div className="flex flex-row gap-8">
                 {facilities.map((facility, i) =>
                   <div key={i} className='flex items-center justify-between gap-2'>
-                    <p className="bg-[#252525] p-2 rounded-md">{facility}</p>
+                    <p className="bg-[#252525] hover:bg-gradient-to-r from-[#e8132f] to-[#fd3b54] duration-200 p-2 rounded-md font-medium">
+                      {facility}
+                    </p>
                   </div>
                 )}
               </div>

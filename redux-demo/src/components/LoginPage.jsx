@@ -25,12 +25,12 @@ const LoginPage = () => {
 
   return (
     <div className='bg-[#0f0f0f] p-4 w-[100vw] h-[100vh]'>
-      <h1 className='text-6xl font-semibold text-center text-[#f4eff0] mt-16'>Apartmenify</h1>
-      <div className='mt-16 bg-[#0f0f0f]  items-center justify-center'>
+      <h1 className='text-6xl font-semibold text-center text-[#f4eff0] mt-32'>Apartmenify</h1>
+      <div className='mt-32 bg-[#0f0f0f]  items-center justify-center'>
         <Auth
           supabaseClient={supabase}
           appearance={supabaseAuthStyles}
-          providers={['google', 'linkedin', 'facebook', 'github']}
+          providers={['google', 'linkedin', 'facebook']}
         />
       </div>
     </div>

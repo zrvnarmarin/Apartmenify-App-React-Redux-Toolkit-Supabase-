@@ -62,7 +62,7 @@ const Navbar = () => {
         </li>
 
         <li className='block ss:hidden'>
-          <button onClick={toggleSideMenu}>
+          <button aria-label='hamburger_menu' onClick={toggleSideMenu}>
             <img 
               src={HamburgerMenuButton} 
               alt="hamburger_menu_button" 

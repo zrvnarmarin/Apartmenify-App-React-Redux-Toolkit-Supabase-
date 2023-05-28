@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
 import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../admin/apartments/apartmentsSlice';
-import ApartmentFilterSortSection from '../admin/apartments/ApartmentFilterSortSection.jsx.jsx';
+import FilterSortSection from '../admin/apartments/filterSort/FilterSortSection.jsx';
 import { selectUser, getAllWishlists, selectAllWishlists, getAllSavedApartments, selectAllSavedApartments, getUser } from '../auth/usersSlice';
 
 const SearcApartments = () => {
@@ -26,7 +26,7 @@ const SearcApartments = () => {
   return (
     <div>
       {/* SAVED APARTMENTS: {JSON.stringify(savedApartments)} */}
-      <ApartmentFilterSortSection />
+      <FilterSortSection />
       <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2'>
         { filteredAndSortedApartments.map(apartment =>
           <Apartment

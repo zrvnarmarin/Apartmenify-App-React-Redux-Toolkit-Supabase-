@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import ApartmentFilterSortSection from './ApartmentFilterSortSection.jsx.jsx'
+import FilterSortSection from './filterSort/FilterSortSection.jsx.jsx'
 import ApartmentTable from './ApartmentTable.jsx'
 import { selectFilteredAndSortedApartments } from './apartmentsSlice'
 import RouteContainer from '../layout/RouteContainer.jsx'
@@ -12,7 +12,7 @@ const Apartments = () => {
   return (
     <RouteContainer>
       <ApartmentsHeader />
-      <ApartmentFilterSortSection />
+      <FilterSortSection />
       <ApartmentTable apartments={filteredAndSortedApartments} /> 
     </RouteContainer>
   )

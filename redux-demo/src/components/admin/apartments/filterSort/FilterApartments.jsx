@@ -8,6 +8,7 @@ const FilterApartment = () => {
 
   const filter = useSelector(getFilter)
   const filterQuery = useSelector(getFilterQuery)
+  
   const filterChangeHandler = e => dispatch(setFilter(e.target.value))
   const filterQueryChangeHandler = e => dispatch(setFilterQuery(e.target.value))
 
