@@ -20,7 +20,7 @@ const FilterApartment = () => {
           value={filter}
           onChange={filterChangeHandler}
           id='filter'
-          className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+          className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
         >
           {filterOptions.map(option =>
             <option key={option}>{option}</option>
@@ -36,7 +36,7 @@ const FilterApartment = () => {
               onChange={filterQueryChangeHandler}
               type="text"
               placeholder='Enter filter value...'
-              className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+              className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
             />
           </div>
         : 

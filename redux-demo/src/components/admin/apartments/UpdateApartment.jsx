@@ -45,70 +45,70 @@ const UpdateApartment = () => {
     }, [])
 
   return (
-    <div className='p-2 border-[1px] border-black flex flex-col gap-7'>
-      <h1 className='text-2xl'>Update Apartment</h1>
+    <div className='px-6 py-12 border-[1px] border-black flex flex-col gap-7'>
+      <h1 className='text-3xl font-semibold text-[#f4eff0]'>Update Apartment</h1>
       <form onSubmit={submitFormHandler} className='grid grid-cols-2 gap-4'>
         <input 
             value={updatedApartment.title} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, title: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Title' 
         />
         <input 
             value={updatedApartment.city} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, city: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='City' 
         />
         <input 
             value={updatedApartment.price} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, price: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Price' 
         />
         <input 
             value={updatedApartment.distanceFromTheSea} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, distanceFromTheSea: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Distance From The Sea' 
         />
         <input 
             value={updatedApartment.description} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, description: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Description' 
         />
         <input 
             value={updatedApartment.address} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, address: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Address' 
         />
         <input 
             value={updatedApartment.rooms} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, rooms: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Rooms' 
         />
         <input 
             value={updatedApartment.singleBeds} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, singleBeds: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Single Beds' 
         />
         <input 
             value={updatedApartment.doubleBeds} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, doubleBeds: e.target.value }})} 
             type="text" 
-            className='border-[1px] border-black p-1' 
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
             placeholder='Double Beds' 
         />
         <Select
@@ -118,7 +118,7 @@ const UpdateApartment = () => {
           value={selectedFacilities}
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
-        <button className='border-[1px] border-black p-1 bg-blue-50'>Submit</button>
+        <button className='col-start-2 col-end-3 px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Submit</button>
       </form>
     </div>
   )

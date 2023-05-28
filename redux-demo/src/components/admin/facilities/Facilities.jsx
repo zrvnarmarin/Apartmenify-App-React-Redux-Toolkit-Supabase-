@@ -31,16 +31,16 @@ const Facilities = () => {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 px-6 py-12'>
 
       <div className='flex flex-row flex-wrap justify-between items-center'>
-        <h1 className='text-3xl mb-2 font-semibold text-[#f4eff0] ml-4 mt-4'>Facilities</h1>
+        <h1 className='text-3xl mb-2 font-semibold text-[#f4eff0]'>Facilities</h1>
 
         <form onSubmit={formSubmitHandler} className='flex flex-row gap-2'>
           <input
             type="text"
             placeholder="Add new facility.."
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
             value={newFacility}
             onChange={newFacilityChangeHandler}
           />
@@ -50,7 +50,7 @@ const Facilities = () => {
         </form>
       </div>
 
-      <div className='flex flex-row flex-wrap gap-4 mx-4'>
+      <div className='flex flex-row flex-wrap gap-4'>
       {Object.entries(countOfApartmentsByFacility).map(([facility, count], i) =>
         <span 
           key={i} 
@@ -70,7 +70,7 @@ const Facilities = () => {
       )}
       </div>
 
-      <div className='flex flex-col gap-3 mx-4'>
+      <div className='flex flex-col gap-3'>
         <ApartmentTable apartments={apartmentsByFacility} />
       </div>
 

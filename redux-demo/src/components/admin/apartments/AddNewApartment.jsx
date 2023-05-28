@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
-import { addApartment, getAllFacilities, selectFacilities, selectIsLoading } from './apartmentsSlice'
+import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSlice'
 import Select from '../../../UI/Select'
 
 const AddNewApartment = () => {
@@ -32,8 +32,6 @@ const AddNewApartment = () => {
   const singleBedsChangeHandler = e => setSingleBeds(e.target.value)
   const doubleBedsChangeHandler = e => setDoubleBeds(e.target.value)
 
-  const isLoading = useSelector(selectIsLoading)
-
   const formSubmitHandler = async e => {
     e.preventDefault()
 
@@ -62,18 +60,72 @@ const AddNewApartment = () => {
   }, [])
 
   return (
-    <div className=' mx-2 p-2 flex flex-col gap-7'>
+    <div className=' mx-2 px-6 py-12 flex flex-col gap-7'>
       <h1 className='text-3xl font-semibold text-[#f4eff0]'>Add New Apartment</h1>
       <form onSubmit={formSubmitHandler} className='grid grid-cols-2 gap-4'>
-        <input value={title} onChange={titleChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Title' />
-        <input value={city} onChange={cityChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='City' />
-        <input value={price} onChange={priceChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Price' />
-        <input value={distanceFromTheSea} onChange={distanceFromTheSeaChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Distance From The Sea' />
-        <input value={description} onChange={descriptionChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Description' />
-        <input value={address} onChange={addressChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Address' />
-        <input value={rooms} onChange={roomsChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Rooms' />
-        <input value={singleBeds} onChange={singleBedsChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Single Beds' />
-        <input value={doubleBeds} onChange={doubleBedsChangeHandler} type="text" className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' placeholder='Double Beds' />
+        <input 
+          value={title} 
+          onChange={titleChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Title' 
+        />
+        <input 
+          value={city} 
+          onChange={cityChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='City' 
+        />
+        <input 
+          value={price} 
+          onChange={priceChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Price' 
+        />
+        <input 
+          value={distanceFromTheSea} 
+          onChange={distanceFromTheSeaChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Distance From The Sea' 
+        />
+        <input 
+          value={description} 
+          onChange={descriptionChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Description' 
+        />
+        <input 
+          value={address} 
+          onChange={addressChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Address' 
+        />
+        <input 
+          value={rooms} 
+          onChange={roomsChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Rooms' 
+        />
+        <input 
+          value={singleBeds} 
+          onChange={singleBedsChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Single Beds' 
+        />
+        <input 
+          value={doubleBeds} 
+          onChange={doubleBedsChangeHandler} 
+          type="text" 
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          placeholder='Double Beds' 
+        />
         <Select
           multiple
           name={'Facilities'}

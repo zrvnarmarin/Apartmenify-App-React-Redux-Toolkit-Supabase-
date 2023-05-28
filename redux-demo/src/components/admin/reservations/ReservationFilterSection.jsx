@@ -12,8 +12,6 @@ const ReservationFilterSection = () => {
   const reservationFilterQuery = useSelector(selectReservationFilterQuery)
   const reservationFilterQueryChangeHandler = e => dispatch(setReservationFilterQuery(e.target.value))
 
-  // TO DO: ovdje staviti date pickere za filtriranje datuma kasnije
-
   return (
     <div className='p-2 flex flex-wrap justify-between items-center'>
       <div className='flex flex-wrap gap-6 items-center'>
@@ -23,7 +21,7 @@ const ReservationFilterSection = () => {
             value={reservationFilter}
             onChange={reservationFilterChangeHandler}
             id='filter'
-            className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
           >
             {reservationFilterOptions.map(option =>
               <option key={option.id}>{option.value}</option>
@@ -32,20 +30,20 @@ const ReservationFilterSection = () => {
         </div>
 
         { reservationFilter === 'apartment title' || reservationFilter === 'user' 
-            ? 
+          ? 
             <div>
-                <input
-                    value={reservationFilterQuery}
-                    onChange={reservationFilterQueryChangeHandler}
-                    type="text"
-                    placeholder='Enter filter value...'
-                    className='border-[1px] border-black p-1'
-                />
+              <input
+                value={reservationFilterQuery}
+                onChange={reservationFilterQueryChangeHandler}
+                type="text"
+                placeholder='Enter filter value...'
+                className='border-[1px] border-black p-1'
+              />
             </div> 
-            : <></>
+          : 
+            <></>
         }
       </div>
-
     </div>
   )
 }
