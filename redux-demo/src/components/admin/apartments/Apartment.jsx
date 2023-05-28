@@ -81,7 +81,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           </button>
         </div>
         { isOpenMoreDetailsSection &&
-          <div className='col-span-full'>
+          <div className='col-span-full mt-8'>
             <div className='flex items-center justify-between p-2'>
               <p className='text-[#f5eced] text-lg font-semibold'>Description:</p>
               <p>{description}</p>
@@ -107,7 +107,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
               <div className="flex flex-row gap-8">
                 {facilities.map((facility, i) =>
                   <div key={i} className='flex items-center justify-between gap-2'>
-                    <p className="bg-[#252525] hover:bg-gradient-to-r from-[#e8132f] to-[#fd3b54] duration-200 p-2 rounded-md font-medium">
+                    <p className="bg-[#252525] hover:bg-gradient-to-r from-[#e8132f] to-[#fd3b54] p-2 rounded-md font-medium">
                       {facility}
                     </p>
                   </div>
