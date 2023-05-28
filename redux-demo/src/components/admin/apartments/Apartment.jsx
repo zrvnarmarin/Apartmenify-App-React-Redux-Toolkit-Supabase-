@@ -33,41 +33,76 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
   
   return (
     <>
-      <div className='grid grid-cols-7 items-center p-2 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
-        <span className='pl-2 text-[#f5eced] text-lg font-semibold'>{tableIndex}</span>
-        <div className='pl-2'>{title}</div>
-        
-        <div className={`pl-2 flex gap-2 items-center relative`}>
-          <img 
-            src={ 
-              availability === 'free' 
-              ? FreeApartmentIcon 
-              : availability === 'reserved' 
-              ? ReservedApartmentIcon 
-              : OccupiedApartmentIcon
-            } 
-            alt="apartment_availability_icon" 
-            width={30}
-            height={30}
-            className={`inline-block`}
-            onMouseEnter={showAvailabilityToolTip}
-            onMouseLeave={hideAvailabilityToolTip}
-          />
-          { isAvailabilityToolTipShown 
-            ?
-              <span 
-                className='absolute bottom-5 left-10 bg-gradient-to-r from-[#e8132f] to-[#fd3b54] capitalize py-1 px-2 rounded z-10'
-              >
-                {availability}
-              </span>
-            : 
-              <></>
-          }
+      <div className='grid grid-cols-7 items-center gap-4 md:gap-0 p-2 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
+
+        <div className='pl-2 text-[#f5eced] text-xl font-semibold col-span-full md:col-span-1'>
+          <span className='inline-block md:hidden'>#</span>
+          <span>{tableIndex}</span>
         </div>
-        <div className='pl-2'>{city}</div>
-        <div className='pl-2'>{rooms}</div>
-        <div className='pl-2'>{price} e</div>
-        <div className='justify-self-center'>
+
+        <div className='pl-2 col-span-full md:col-span-1'>
+          <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
+            <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Title</span>
+            <span className='text-lg font-semibold'>{title}</span>
+          </div>
+        </div>
+        
+        <div className='pl-2 flex col-span-full items-start md:col-span-1 relative justify-start md:justify-start'>
+          <div className='flex flex-col items-start md:items-start justify-self-start gap-2 text-center md:text-start'>
+            <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Availability</span>
+            <div className='flex items-center gap-2'>
+              <img 
+                src={ 
+                  availability === 'free' 
+                  ? FreeApartmentIcon 
+                  : availability === 'reserved' 
+                  ? ReservedApartmentIcon 
+                  : OccupiedApartmentIcon
+                } 
+                alt="apartment_availability_icon" 
+                width={30}
+                height={30}
+                className={`inline-block`}
+                onMouseEnter={showAvailabilityToolTip}
+                onMouseLeave={hideAvailabilityToolTip}
+              />
+              { isAvailabilityToolTipShown 
+                ?
+                  <span 
+                    className='absolute hidden md:block bottom-5 left-10 bg-gradient-to-r from-[#e8132f] to-[#fd3b54] capitalize py-1 px-2 rounded z-10'
+                  >
+                    {availability}
+                  </span>
+                : 
+                  <></>
+              }
+              <span className='capitalize md:hidden text-lg font-semibold'>{availability}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className='pl-2 col-span-full md:col-span-1'>
+          <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
+            <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>City</span>
+            <span className='text-lg font-semibold'>{city}</span>
+          </div>
+        </div>
+        
+        <div className='pl-2 col-span-full md:col-span-1'>
+          <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
+            <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Rooms</span>
+            <span className='text-lg font-semibold'>{rooms}</span>
+          </div>
+        </div>
+
+        <div className='pl-2 col-span-full md:col-span-1'>
+          <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
+            <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Price</span>
+            <span className='text-lg font-semibold'>{price}e</span>
+          </div>
+        </div>
+
+        <div className='col-span-full md:col-span-1 justify-self-center'>
           <button
             onClick={toggleMoreDetailsSection}
             className="p-2 bg-[#252525] rounded-full"
@@ -80,8 +115,9 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
             />
           </button>
         </div>
+
         { isOpenMoreDetailsSection &&
-          <div className='col-span-full mt-8'>
+          <div className='col-span-full mt-8 bg-[#171717] rounded-md p-2 border-[1px] border-slate-500'>
             <div className='flex items-center justify-between p-2'>
               <p className='text-[#f5eced] text-lg font-semibold'>Description:</p>
               <p>{description}</p>
@@ -104,7 +140,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
             </div>
             <div className='flex items-center justify-between pb-4'>
               <p className='text-[#f5eced] text-lg font-semibold pl-2'>Facilities:</p>
-              <div className="flex flex-row gap-8">
+              <div className="flex flex-row flex-wrap gap-2 md:gap-8 p-4 md:p-0">
                 {facilities.map((facility, i) =>
                   <div key={i} className='flex items-center justify-between gap-2'>
                     <p className="bg-[#252525] hover:bg-gradient-to-r from-[#e8132f] to-[#fd3b54] p-2 rounded-md font-medium">
