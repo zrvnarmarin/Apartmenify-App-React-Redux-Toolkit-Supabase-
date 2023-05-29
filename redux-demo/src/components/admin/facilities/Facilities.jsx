@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from '../apartments/apartmentsSlice';
 import ApartmentTable from '../apartments/ApartmentTable';
+import { mappedFacilities } from '../../../data/facilities/mappedFacilitiesWithIcons';
 
 const Facilities = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,18 @@ const Facilities = () => {
     resetNewFacility()
   }
 
+  const facilityAndOccurances = Object.entries(countOfApartmentsByFacility).map(facility => {
+    let test = mappedFacilities.find(mappedFacility => mappedFacility.value === facility[0]) 
+
+    if (test) {
+      return { value: test.value, iconSrc: test.icon, occurences: facility[1] }
+    }
+  })
+  console.log(facilityAndOccurances)
+  
+
+  
+
   return (
     <div className='flex flex-col gap-4 px-6 py-12'>
 
@@ -51,23 +64,32 @@ const Facilities = () => {
       </div>
 
       <div className='flex flex-row flex-wrap gap-4'>
-      {Object.entries(countOfApartmentsByFacility).map(([facility, count], i) =>
-        <span 
-          key={i} 
-          className={`${isActive === i + 1 ? 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]' : 'bg-[#121212]'} px-6 py-2 rounded-md font-medium text-[#f5eced]`}
-        >
-          <Link 
-            to={`/adminDashboard/facilities`} 
-            onClick={() => {
-              setIsActive(i + 1)
-              existingFacilityClickHandler(facility)
-            }}
+        {facilityAndOccurances.map((facility, i) => 
+          <span 
+            key={facility.value} 
+            className={`${isActive === i + 1 ? 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]' : 'bg-[#121212]'} rounded-md font-medium text-[#f5eced]`}
           >
-            <span>{facility}</span>
-            <span className='rounded-full ml-2 px-3 py-1 bg-[#1f1f1f]'>{count}</span>
-          </Link>
-        </span>
-      )}
+            <Link 
+              to={`/adminDashboard/facilities`} 
+              onClick={() => {
+                setIsActive(i + 1)
+                existingFacilityClickHandler(facility)
+              }}
+              className='flex items-center gap-4 p-2'
+            >
+              <img 
+                src={facility.iconSrc} 
+                alt="facility_icon" 
+                className='bg-white p-1 rounded-full inline-block' 
+                width={40}
+                height={40}
+
+              />
+              <span>{facility.value}</span>
+              <span className='rounded-full ml-2 px-3 py-1 bg-[#1f1f1f]'>{facility.occurences}</span>
+            </Link>
+          </span>
+        )}
       </div>
 
       <div className='flex flex-col gap-3'>

@@ -20,7 +20,7 @@ const Reservations = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 px-2 py-6'>
 
       <div className='flex flex-row flex-wrap items-center justify-between'>
         <p className='text-3xl font-semibold text-[#f4eff0] pl-4'>Reservations</p>

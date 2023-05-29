@@ -12,7 +12,7 @@ const Users = () => {
   }, [])
 
   return (
-    <div className='pt-1'>
+    <div className='px-2 py-8'>
       <h1 className='text-3xl font-semibold text-[#f4eff0] mx-4 mt-4'>Registered Users</h1>
       <div className='flex flex-col flex-wrap gap-4'>
 
