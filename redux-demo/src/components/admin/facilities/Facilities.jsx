@@ -31,17 +31,13 @@ const Facilities = () => {
     resetNewFacility()
   }
 
-  const facilityAndOccurances = Object.entries(countOfApartmentsByFacility).map(facility => {
-    let test = mappedFacilities.find(mappedFacility => mappedFacility.value === facility[0]) 
+  const facilityObjects = Object.entries(countOfApartmentsByFacility).map(facility => {
+    let mappedFacility = mappedFacilities.find(mappedFacility => mappedFacility.value === facility[0]) 
 
-    if (test) {
-      return { value: test.value, iconSrc: test.icon, occurences: facility[1] }
+    if (mappedFacility) {
+      return { value: mappedFacility.value, iconSrc: mappedFacility.icon, occurences: facility[1] }
     }
   })
-  console.log(facilityAndOccurances)
-  
-
-  
 
   return (
     <div className='flex flex-col gap-4 px-6 py-12'>
@@ -64,7 +60,7 @@ const Facilities = () => {
       </div>
 
       <div className='flex flex-row flex-wrap gap-4'>
-        {facilityAndOccurances.map((facility, i) => 
+        {facilityObjects.map((facility, i) => 
           <span 
             key={facility.value} 
             className={`${isActive === i + 1 ? 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]' : 'bg-[#121212]'} rounded-md font-medium text-[#f5eced]`}
@@ -73,7 +69,7 @@ const Facilities = () => {
               to={`/adminDashboard/facilities`} 
               onClick={() => {
                 setIsActive(i + 1)
-                existingFacilityClickHandler(facility)
+                existingFacilityClickHandler(facility.value)
               }}
               className='flex items-center gap-4 p-2'
             >
