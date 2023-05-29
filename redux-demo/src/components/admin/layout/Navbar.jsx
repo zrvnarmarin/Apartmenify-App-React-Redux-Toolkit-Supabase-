@@ -13,11 +13,11 @@ const Navbar = () => {
   const toggleSideMenu = () => setIsOpenedSideMenu(prev => !prev)
 
   return (
-    <nav className='bg-[#121212] text-[#f5eced] ss: text-xl sm:text-xl md:text-xl lg:2-xl py-3 px-6'>
+    <nav className='bg-[#121212] text-[#f5eced] ss:text-xl sm:text-xl md:text-xl lg:2-xl py-3 px-6'>
       <ul className='flex flex-row justify-between items-center'>
 
         <li className='flex flex-row items-center'>
-          <NavLink to="apartments" className=' md:block'>
+          <NavLink to="apartments" className='md:block'>
             <img src={LogoImage} alt="logo_image" height={45} width={45} />
           </NavLink>
         </li>

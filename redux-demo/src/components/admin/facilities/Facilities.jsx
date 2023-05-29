@@ -40,26 +40,23 @@ const Facilities = () => {
   })
 
   return (
-    <div className='flex flex-col gap-4 px-6 py-12'>
+    <div className='flex flex-col gap-6 px-6 py-12'>
+      <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Facilities</h1>
 
-      <div className='flex flex-row flex-wrap justify-between items-center'>
-        <h1 className='text-3xl mb-2 font-semibold text-[#f4eff0]'>Facilities</h1>
+      <form onSubmit={formSubmitHandler} className='flex flex-col ss:flex-row gap-4'>
+        <input
+          type="text"
+          placeholder="Add new facility.."
+          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
+          value={newFacility}
+          onChange={newFacilityChangeHandler}
+        />
+        <button className="px-6 py-2 my-4 ss:my-0 rounded-md text-lg font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
+          Add New Facility
+        </button>
+      </form>
 
-        <form onSubmit={formSubmitHandler} className='flex flex-row gap-2'>
-          <input
-            type="text"
-            placeholder="Add new facility.."
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
-            value={newFacility}
-            onChange={newFacilityChangeHandler}
-          />
-          <button className="px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
-            Add New Facility
-          </button>
-        </form>
-      </div>
-
-      <div className='flex flex-row flex-wrap gap-4'>
+      <div className='flex flex-row flex-wrap gap-4 justify-center xs:justify-start'>
         {facilityObjects.map((facility, i) => 
           <span 
             key={facility.value} 
