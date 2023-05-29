@@ -1,8 +1,7 @@
 export const activeRouteStyles = ({ isActive, isPending }) => {
     return {
-      textDecoration: isActive ? 'underline' : '',
-      textDecorationThickness: isActive ? '1px' : '',
-      textUnderlineOffset: isActive ? '6px' : '',
-      textDecorationColor: isActive ? '#f0223d' : '',
+      backgroundColor: isActive ? '#f0223d' : '',
+      padding: isActive ? '4px 8px  4px 8px' : '',
+      borderRadius: isActive ? '6px' : ''
     }
 }
