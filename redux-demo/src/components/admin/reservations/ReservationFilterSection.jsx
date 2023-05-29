@@ -27,22 +27,22 @@ const ReservationFilterSection = () => {
               <option key={option.id}>{option.value}</option>
             )}
           </select>
+          { reservationFilter === 'apartment title' || reservationFilter === 'user' 
+            ? 
+              <div>
+                <input
+                  value={reservationFilterQuery}
+                  onChange={reservationFilterQueryChangeHandler}
+                  type="text"
+                  placeholder='Enter filter value...'
+                  className='bg-[#252525] text-[#9e9a9b] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
+                />
+              </div> 
+            : 
+              <></>
+          }
         </div>
 
-        { reservationFilter === 'apartment title' || reservationFilter === 'user' 
-          ? 
-            <div>
-              <input
-                value={reservationFilterQuery}
-                onChange={reservationFilterQueryChangeHandler}
-                type="text"
-                placeholder='Enter filter value...'
-                className='border-[1px] border-black p-1'
-              />
-            </div> 
-          : 
-            <></>
-        }
       </div>
     </div>
   )
