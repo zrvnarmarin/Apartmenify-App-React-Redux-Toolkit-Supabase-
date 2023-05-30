@@ -4,7 +4,7 @@ import LanguageSelect from './LanguageSelect'
 import UserSettings from './UserSettings';
 import { activeRouteStyles } from '../../styles/activeRouteStyles';
 import PlaceholderImage from '../../assets/placeholder.webp'
-import SideMenu from '../admin/layout/SideMenu';
+import SideMenu from '../user/layout/SideMenu';
 import HamburgerMenuButton from '../../assets/hamburgerMenu.png'
 import LogoImage from '../../assets/logo.webp'
 
@@ -20,7 +20,6 @@ const Navbar = () => {
   return (
     <nav className='bg-[#121212] text-[#f5eced] ss:text-xl sm:text-xl md:text-xl lg:2-xl py-3 px-6'>
       <ul className='flex flex-row justify-between items-center'>
-
         <li className='flex flex-row items-center'>
           <NavLink to="apartments" className=' md:block'>
             <img src={LogoImage} alt="logo_image" height={45} width={45} />
@@ -75,7 +74,6 @@ const Navbar = () => {
             />
           </button>
         </li>
-
       </ul>
 
       { isOpenedSideMenu 
