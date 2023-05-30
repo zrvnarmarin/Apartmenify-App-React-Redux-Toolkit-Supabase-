@@ -5,30 +5,38 @@ import { selectApartment, getApartment } from '../admin/apartments/apartmentsSli
 import LocationPin from '../../assets/locationPin.png'
 import Placeholder from '../../assets/placeholder.webp'
 import ReserveApartment from './ReserveApartment';
+import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
 
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
 
-  // TO DO: radi na ovaj hacky nacin, ali kako dohvatiti onda apartmentTitle - to 
   const { state: { apartmentId, apartmentTitle } } = useLocation()
   const apartment = useSelector(selectApartment)
-  const { title, address, city, facilities } = apartment
-  // const apartmentId =  useLocation().pathname.substring(useLocation().pathname.lastIndexOf('/') + 1)
-  // console.log(apartmentId)
 
   useEffect(() => {
     dispatch(getApartment(apartmentId))
   }, [dispatch])  
+
+  const facilityObjects = apartment.facilities?.map(facility => {
+    let mappedFacility = mappedFacilities.find(mappedFacility => mappedFacility.value === facility) 
+
+    if (mappedFacility) {
+      return { 
+        value: mappedFacility.value, 
+        iconSrc: mappedFacility.icon 
+      }
+    }
+  })
 
   return (
     <div className='border-[1px] border-black px-10'>
 
       <div className='flex flex-row flex-wrap gap-4 justify-between'>
         <div className='flex flex-col gap-1'>
-          <h1 className='first-letter:uppercase text-4xl'>{title}</h1>
+          <h1 className='first-letter:uppercase text-4xl'>{apartment.title}</h1>
           <div className='flex items-center gap-2'>
             <img src={LocationPin} alt="location_pin" className='inline-block' width={25} height={25} />
-            <span>{address}, {city}</span>
+            <span>{apartment.address}, {apartment.city}</span>
           </div>
           <div>
             <button className='w-font-semibold text-md text-blue-600 hover:underline'>Show Map</button>
@@ -58,10 +66,10 @@ const ApartmentDetails = () => {
       </div>
 
       <div className='flex flex-wrap flex-row gap-4'>
-        { facilities?.map(facility => 
-          <div key={facility} className='flex gap-2 items-center border-[1px] border-black py-4 px-6'>
-            <img src={Placeholder} width={25} height={25} />
-            <span>{facility}</span>
+        { facilityObjects?.map(facility => 
+          <div key={facility.value} className='flex gap-2 items-center border-[1px] border-black py-4 px-6'>
+            <img src={facility.iconSrc} width={25} height={25} />
+            <span>{facility.value}</span>
           </div>  
         )}
       </div>
