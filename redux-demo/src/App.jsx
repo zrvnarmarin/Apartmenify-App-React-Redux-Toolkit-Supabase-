@@ -1,10 +1,4 @@
-// import PostsList from './features/posts/PostsList'
-// import AddNewPostForm from './features/posts/AddNewPostForm'
-// import Counter from './features/counter/Counter'
-// import CartShop from './features/cart/CartShop'
-{/* <Route path='/cart' element={<CartShop /> } /> */} //ovo uvedi u outer da bi prikazao cart shop
-
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 // General components
 import LoginPage from './components/LoginPage';
@@ -22,11 +16,10 @@ import Stats from './components/admin/stats/Stats.jsx'
 // User components
 import UserDashboard from './components/user/UserDashboard'
 import SearcApartments from './components/user/SearchApartments';
-import Contact from './components/user/Contact';
 import ApartmentDetails from './components/user/ApartmentDetails';
 import ManageAccount from './components/user/userSettings/ManageAccount';
-import UserReservations from './components/user/userSettings/UserReservations';
-import Saved from './components/user/userSettings/Saved';
+import UserReservations from './components/user/reservations/UserReservations';
+import Wishlists from './components/user/wishlists/Wishlists';
 
 // Toast messages component
 import { ToastContainer } from 'react-toastify'
@@ -35,12 +28,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <div>
-      {/* <Counter />
-      <div style={{ padding: '5px', border: '1px solid black'}}>
-        <PostsList />
-        <AddNewPostForm />
-      </div> */}
-
+      <ToastContainer />
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/success' element={<Success />} />
@@ -59,15 +47,11 @@ function App() {
         <Route path='/userDashboard' element={<UserDashboard />} >
           <Route path='apartments' element={<SearcApartments />} />
           <Route path='apartments/:apartment' element={<ApartmentDetails />} />
-          <Route path='contact' element={<Contact />} />
           <Route path='manageAccount' element={<ManageAccount />} />
-          <Route path='userReservations' element={<UserReservations />} />
-          <Route path='saved' element={<Saved />} />
+          <Route path='reservations' element={<UserReservations />} />
+          <Route path='wishlists' element={<Wishlists />} />
         </Route>
       </Routes>
-
-      <ToastContainer />
-
     </div>
   )
 }

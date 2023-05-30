@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
-import FilterSection from './FilterSection';
+import BookingStatusFilter from './BookingStatusFilter.jsx';
 import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
@@ -101,7 +101,7 @@ const UserReservations = () => {
       </h1>
       <h1>CURRENT: {currentDate.toString()}</h1>
       <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId} RESERVATION ID: {res.id}</p> )}</div>
-      <FilterSection />
+      <BookingStatusFilter />
       <UserReservationTableHeader />
       <div className='flex flex-col gap-2'>
         { 

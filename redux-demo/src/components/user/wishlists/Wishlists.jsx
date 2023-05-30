@@ -4,7 +4,7 @@ import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWish
 } from '../../auth/usersSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { selectUser, getAllWishlists } from './../../auth/usersSlice';
+import { selectUser, getAllWishlists } from '../../auth/usersSlice';
 
 const Saved = () => {
   const [isSavedApartmentsListShown, setIsSavedApartmentsListShown] = useState(false)
