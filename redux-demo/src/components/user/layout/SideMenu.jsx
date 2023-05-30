@@ -20,6 +20,7 @@ const SideMenu = ({ closeSideMenu }) => {
             </li>
             <li className='flex flex-col items-center justify-center mb-16'>
                 <Link 
+                    onClick={closeSideMenu}
                     to="apartments" 
                     className='text-5xl hover:font-bold'
                 >
@@ -28,24 +29,28 @@ const SideMenu = ({ closeSideMenu }) => {
             </li>
             <li className='tracking-wider flex flex-col items-center justify-center gap-16 text-3xl font-bold'>
                 <Link 
+                    onClick={closeSideMenu}
                     to="apartments" 
                     className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
                 >
                     Apartments
                 </Link>
                 <Link 
+                    onClick={closeSideMenu}
                     to="reservations" 
                     className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
                 >
                     Reservations
                 </Link>
                 <Link 
+                    onClick={closeSideMenu}
                     to="wishlists" 
                     className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
                 >
                     Wishlists
                 </Link>
                 <Link 
+                    onClick={closeSideMenu}
                     to="manageAccount" 
                     className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
                 >
