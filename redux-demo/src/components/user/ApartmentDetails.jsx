@@ -75,8 +75,7 @@ const ApartmentDetails = () => {
       </div>
 
       <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nisi nulla laboriosam maxime eum excepturi dicta similique repellendus ipsum provident, aliquid blanditiis recusandae. Voluptates, dolor eligendi debitis consectetur odit porro.
-        At fugiat ducimus, voluptates qui blanditiis aperiam, corporis beatae modi eum alias in veritatis error officia odit cum tempore ex voluptate exercitationem voluptas explicabo labore nemo laborum similique. Facilis, neque?
+        {apartment.description}
       </div>
 
       <ReserveApartment 
