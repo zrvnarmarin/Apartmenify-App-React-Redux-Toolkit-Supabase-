@@ -55,14 +55,24 @@ const Wishlists = () => {
       {apartmentCountInEachWishlist.map(([apartment, apartmentWishlistCount]) => 
         <Link 
           to={`${apartment}`}
-          apartment={apartment} 
+          key={apartment} 
           className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'
         >
-          <span className='text-lg font-semibold'>{apartment}</span>
-          <span className=''>{apartmentWishlistCount} properties saved</span>
+          <div className='text-lg font-semibold'>{apartment}</div>
+          <div>{apartmentWishlistCount} properties saved</div>
           <div className='justify-self-end flex flwx-row items-center gap-2'>
-            <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Update</button>
-            <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Delete</button>
+            <button 
+              onClick={() => console.log('hej')} 
+              className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+            >
+              Update
+            </button>
+            <button 
+              onClick={() => console.log('hej')} 
+              className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+            >
+              Delete
+            </button>
           </div>
         </Link>
       )}
