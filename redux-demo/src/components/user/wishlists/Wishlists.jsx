@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, 
-  getAllSavedApartments, getUser, selectAllSavedApartments, numberOfSavedApartmentsInEachWishlist 
-} from '../../auth/usersSlice'
+import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getUser, 
+  numberOfSavedApartmentsInEachWishlist } from '../../auth/usersSlice'
 import { selectUser, getAllWishlists } from '../../auth/usersSlice';
 
 const Wishlists = () => {
@@ -17,7 +16,6 @@ const Wishlists = () => {
   // console.log(wishlist)
 
   const apartmentCountInEachWishlist = Object.entries(useSelector(numberOfSavedApartmentsInEachWishlist)) 
-  // console.log(apartmentCountInEachWishlist)
 
   const submitFormHandler = (e) => {
     e.preventDefault()
@@ -54,21 +52,20 @@ const Wishlists = () => {
         </form>
       </div>
 
-        {apartmentCountInEachWishlist.map(([key, value]) => 
-          <Link 
-            to={`${key}`}
-            key={key} 
-            className='flex flex-row items-center justify-between rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'
-          >
-            <span>{key}:</span>
-            <span className=''>{value} properties saved</span>
-            <div>
-              <button className=''>Update</button>
-              <button className=''>Delete</button>
-            </div>
-          </Link>
-        )}
-
+      {apartmentCountInEachWishlist.map(([apartment, apartmentWishlistCount]) => 
+        <Link 
+          to={`${apartment}`}
+          apartment={apartment} 
+          className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'
+        >
+          <span className='text-lg font-semibold'>{apartment}</span>
+          <span className=''>{apartmentWishlistCount} properties saved</span>
+          <div className='justify-self-end flex flwx-row items-center gap-2'>
+            <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Update</button>
+            <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Delete</button>
+          </div>
+        </Link>
+      )}
 
     </div>
   )
