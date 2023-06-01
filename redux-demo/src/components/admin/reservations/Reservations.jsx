@@ -30,22 +30,23 @@ const Reservations = () => {
       <ReservationStatusFilterSection />
 
       <ReservationTableHeader />
-        {allReservations.map((reservation, index) => 
-          <Reservation
-            key={reservation.id}
-            index={index + 1}
-            id={reservation.id}
-            apartmentId={reservation.apartmentId}
-            userId={reservation.userId}
-            name={reservation.name}
-            surname={reservation.surname}
-            userEmail={reservation.userEmail}
-            startDate={reservation.startDate}
-            endDate={reservation.endDate}
-            apartmentTitle={reservation.apartmentTitle}
-            status={reservation.status}
-          />  
-        )}
+      
+      {allReservations.map((reservation, index) => 
+        <Reservation
+          key={reservation.id}
+          index={index + 1}
+          id={reservation.id}
+          apartmentId={reservation.apartmentId}
+          userId={reservation.userId}
+          name={reservation.name}
+          surname={reservation.surname}
+          userEmail={reservation.userEmail}
+          startDate={reservation.startDate}
+          endDate={reservation.endDate}
+          apartmentTitle={reservation.apartmentTitle}
+          status={reservation.status}
+        />  
+      )}
 
     </div>
   )

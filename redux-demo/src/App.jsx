@@ -20,6 +20,7 @@ import ApartmentDetails from './components/user/ApartmentDetails';
 import ManageAccount from './components/user/userSettings/ManageAccount';
 import UserReservations from './components/user/reservations/UserReservations';
 import Wishlists from './components/user/wishlists/Wishlists';
+import Wishlist from './components/user/wishlists/Wishlist';
 
 // Toast messages component
 import { ToastContainer } from 'react-toastify'
@@ -50,6 +51,7 @@ function App() {
           <Route path='manageAccount' element={<ManageAccount />} />
           <Route path='reservations' element={<UserReservations />} />
           <Route path='wishlists' element={<Wishlists />} />
+          <Route path='wishlists/:wishlist' element={<Wishlist />} />
         </Route>
       </Routes>
     </div>
