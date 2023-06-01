@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import LanguageSelect from './LanguageSelect'
-import UserSettings from './UserSettings';
-import { activeRouteStyles } from '../../styles/activeRouteStyles';
-import PlaceholderImage from '../../assets/placeholder.webp'
-import SideMenu from '../user/layout/SideMenu';
-import HamburgerMenuButton from '../../assets/hamburgerMenu.png'
-import LogoImage from '../../assets/logo.webp'
+import UserSettings from '../UserSettings';
+import { activeRouteStyles } from '../../../styles/activeRouteStyles';
+import PlaceholderImage from '../../../assets/placeholder.webp'
+import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
+import LogoImage from '../../../assets/logo.webp'
+import SideMenu from './SideMenu';
 
 const Navbar = () => {
   const [isUserSettingsShown, setIsUserSettingsShown] = useState(false)

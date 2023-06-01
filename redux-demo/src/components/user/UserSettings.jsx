@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logout from './userSettings/Logout'
-import LanguageSelect from './LanguageSelect'
+import LanguageSelect from '../user/userSettings/LanguageSelect'
 
 const UserSettings = () => {
   return (
