@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom'
 import Logout from './userSettings/Logout'
 import LanguageSelect from '../user/userSettings/LanguageSelect'
 
-const UserSettings = () => {
+const UserSettings = ({ user }) => {
   return (
-    <ul className='flex flex-col gap-2 text-black p-4 rounded-lg border-[1px] border-black absolute bg-white '>
+    <ul className='absolute top-16 right-1 flex flex-col gap-2 text-black p-4 rounded drop-shadow-2xl bg-white '>
       <li>
         <LanguageSelect />
       </li>
       <li>
         <Link to={`/userDashboard/manageAccount`}>Manage Account</Link>
       </li>
-      <li>
+      <li className='self-end'>
         <Logout />
       </li>
     </ul>

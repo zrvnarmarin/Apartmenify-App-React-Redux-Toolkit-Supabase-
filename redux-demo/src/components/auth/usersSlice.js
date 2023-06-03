@@ -142,6 +142,10 @@ const usersSlice = createSlice({
             state.status = 'successed'
             state.isLoading = false
         })
+        .addCase(getAllWishlists.pending, (state, action) => {
+            state.status = 'successed'
+            state.isLoading = true
+        })
         .addCase(getAllWishlistsByUserId.fulfilled, (state, action) => {
             state.wishlists = action.payload
             state.status = 'successed'
@@ -166,6 +170,7 @@ const usersSlice = createSlice({
 // State exports
 export const selectAllUsers = (state) => state.users.users
 export const selectUser = (state) => state.users.user
+export const selectIsLoading = (state) => state.users.isLoading
 export const selectDateOfBirth = (state) => state.users.dateOfBirth
 export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist

@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import UserSettings from '../UserSettings';
 import { activeRouteStyles } from '../../../styles/activeRouteStyles';
 import PlaceholderImage from '../../../assets/placeholder.webp'
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import LogoImage from '../../../assets/logo.webp'
 import SideMenu from './SideMenu';
+import { selectUser } from '../../auth/usersSlice';
 
 const Navbar = () => {
   const [isUserSettingsShown, setIsUserSettingsShown] = useState(false)
   const toggleUserSettings = () => setIsUserSettingsShown(prev => !prev)
 
   const [isOpenedSideMenu, setIsOpenedSideMenu] = useState(false)
-  
   const closeSideMenu = () => setIsOpenedSideMenu(false)
   const toggleSideMenu = () => setIsOpenedSideMenu(prev => !prev)
+
+  const user = useSelector(selectUser)
 
   return (
     <nav className='bg-[#121212] text-[#f5eced] ss:text-xl sm:text-xl md:text-xl lg:2-xl py-3 px-6'>
@@ -51,16 +54,18 @@ const Navbar = () => {
         <li className='sm:flex hidden'>
           <NavLink 
             onClick={toggleUserSettings} 
-            className='flex items-center justify-center gap-2 bg-blue-50 border-[1px] border-black p-2 rounded-lg'
+            className='flex items-center justify-center gap-3 p-2 rounded-lg'
           >
             <img
-              src={PlaceholderImage}
-              className='w-12 h-12 rounded-full border-2 border-black'
+              src={user?.user_metadata?.avatar_url}
+              className='w-12 h-12 rounded-full border-2 border-white'
             />
-            <span className='font-semibold'>John</span>
+            <span className='font-semibold'>{user?.user_metadata?.full_name}</span>
           </NavLink>
 
-          { isUserSettingsShown && <UserSettings />}
+          <div className='relative bg-red-500'>
+            { isUserSettingsShown && <UserSettings />}
+          </div>
         </li>
 
         <li className='block sm:hidden'>

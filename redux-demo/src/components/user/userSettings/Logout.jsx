@@ -16,12 +16,14 @@ const Logout = () => {
   }
 
   return (
-    <button
-      onClick={logoutUser} 
-      className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
-    >
-      Logout
-    </button>
+    <div className='w-full'>
+      <button
+        onClick={logoutUser} 
+        className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+      >
+        Logout
+      </button>
+    </div>
   )
 }
 
