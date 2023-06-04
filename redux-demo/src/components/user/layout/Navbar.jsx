@@ -8,6 +8,7 @@ import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import LogoImage from '../../../assets/logo.webp'
 import SideMenu from './SideMenu';
 import { selectUser } from '../../auth/usersSlice';
+import LanguageSelect from './../userSettings/LanguageSelect';
 
 const Navbar = () => {
   const [isUserSettingsShown, setIsUserSettingsShown] = useState(false)
