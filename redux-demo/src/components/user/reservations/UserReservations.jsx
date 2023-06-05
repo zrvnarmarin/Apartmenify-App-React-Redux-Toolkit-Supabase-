@@ -95,18 +95,15 @@ const UserReservations = () => {
   
   
   return (
-    <div className='flex flex-col gap-2'>
-      <h1 className='text-2xl'>
-        Reservations
-      </h1>
+    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F] text-[#f4eff0]'>
+      <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Reservations</h1>
       <h1>CURRENT: {currentDate.toString()}</h1>
-      <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId} RESERVATION ID: {res.id}</p> )}</div>
       <BookingStatusFilter />
-      <UserReservationTableHeader />
+      { userReservations.length !== 0 ? <UserReservationTableHeader /> : <></>}
       <div className='flex flex-col gap-2'>
         { 
           userReservations.length === 0 
-          ? <h1>No reservations</h1> 
+          ? <h1>No Reservations Available</h1> 
           : userReservations.map((userReservation, i) =>
             <div key={userReservation.id} className='grid grid-cols-5 border-[1px] border-black p-2 items-center'>
               <p>{i} {userReservation.status}</p>
@@ -115,7 +112,7 @@ const UserReservations = () => {
               <p>{userReservation.endDate}</p> 
               <button 
                 onClick={openModalWindow}
-                className={`p-2 border-[1px] border-black bg-blue-100`}
+                className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
               >
                 { 
                   userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
@@ -158,6 +155,7 @@ const UserReservations = () => {
             </div>  
           )}
       </div>
+      <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId} RESERVATION ID: {res.id}</p> )}</div>
     </div>
   )
 }

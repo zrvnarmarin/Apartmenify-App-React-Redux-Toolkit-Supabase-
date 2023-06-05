@@ -18,7 +18,7 @@ const FilterSection = () => {
             setReservationFilter(option.value)
             setIsActive(option.id)
           }} 
-          className={`${isActive === option.id ? 'bg-blue-300' : 'bg-blue-100'} p-2 border-[1px] border-black`}
+          className={`${isActive === option.id ? 'bg-gradient-to-r from-[#3ed81f] to-[#0ec53c]' : 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'} z-10 px-6 py-2 rounded-md font-medium text-[#f5eced]`}
         >
           {option.value} reservations
         </button>    
