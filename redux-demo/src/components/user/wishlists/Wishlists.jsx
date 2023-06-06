@@ -52,17 +52,23 @@ const Wishlists = () => {
         </form>
       </div>
 
-      {apartmentCountInEachWishlist.map(([apartment, apartmentWishlistCount]) => 
-        <div key={apartment} className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
+      {apartmentCountInEachWishlist.map(([wishlist, apartmentWishlistCount]) => 
+        <div key={wishlist} className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
+          
           <Link 
-          to={`${apartment}`}
-          key={apartment} 
-          className='flex flex-col'
-          // className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'
-        >
-          <div className='text-lg font-semibold'>{apartment}</div>
-          <div>{apartmentWishlistCount} properties saved</div>
-        </Link>
+            to={`${wishlist}`}
+            key={wishlist} 
+            className='flex flex-col'
+          >
+            <div className='text-lg font-semibold'>{wishlist}</div>
+          </Link>
+          <Link 
+            to={`${wishlist}`}
+            key={wishlist} 
+            className='flex flex-col'
+            >
+            <div>{apartmentWishlistCount} properties saved</div>
+          </Link>
         <div className='justify-self-end flex flwx-row items-center gap-2'>
           <button 
             onClick={() => console.log('hej')} 
