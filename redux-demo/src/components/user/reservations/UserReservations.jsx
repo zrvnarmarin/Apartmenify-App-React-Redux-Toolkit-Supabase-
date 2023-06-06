@@ -105,7 +105,7 @@ const UserReservations = () => {
           userReservations.length === 0 
           ? <h1>No Reservations Available</h1> 
           : userReservations.map((userReservation, i) =>
-            <div key={userReservation.id} className='grid grid-cols-5 border-[1px] border-black p-2 items-center'>
+            <div key={userReservation.id} className='grid grid-cols-[repeat(auto-fit,minmax(200px, 1fr))] sm:grid-cols-5 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal p-2 items-center'>
               <p>{i} {userReservation.status}</p>
               <p>{userReservation.apartmentTitle}</p>
               <p>{userReservation.startDate}</p>

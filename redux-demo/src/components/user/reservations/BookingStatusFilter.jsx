@@ -10,7 +10,7 @@ const FilterSection = () => {
   const [isActive, setIsActive] = useState(1)
 
   return (
-    <div className='flex flex-row flex-wrap items-center justify-start gap-4 p-2 border-black border-[1px]'>
+    <div className='flex flex-row flex-wrap items-center justify-start gap-4'>
       {bookingStatusFilterOptions.map(option => 
         <button
           key={option.id}
