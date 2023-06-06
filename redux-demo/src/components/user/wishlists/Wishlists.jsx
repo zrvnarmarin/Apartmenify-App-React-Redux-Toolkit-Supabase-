@@ -34,6 +34,8 @@ const Wishlists = () => {
     dispatch(getAllWishlists(userId))
   }, [dispatch])
 
+  console.log(allWishlists)
+
   return (
     <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
       <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6'>
@@ -52,12 +54,12 @@ const Wishlists = () => {
         </form>
       </div>
 
-      {apartmentCountInEachWishlist.map(([wishlist, apartmentWishlistCount]) => 
+      {apartmentCountInEachWishlist.map(([wishlist, apartmentWishlistCount], i) => 
         <div key={wishlist} className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
           
           <Link 
             to={`${wishlist}`}
-            key={wishlist} 
+            key={i} 
             className='flex flex-col'
           >
             <div className='text-lg font-semibold'>{wishlist}</div>

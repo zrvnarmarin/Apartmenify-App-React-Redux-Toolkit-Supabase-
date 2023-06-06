@@ -52,6 +52,29 @@ export const addWishlist = createAsyncThunk('users/addWishlist', async newWishli
     return newWishlist
 })
 
+export const updateWishlist = createAsyncThunk('users/updateWishlist', async updatedWishlist => {
+    try {
+        const { data, error } = await supabase
+        .from('wishlists')
+        .update({ name: updatedWishlist.name })
+        .eq('userId', updatedWishlist.userId)
+    } catch (error) {
+        return error.message
+    }
+})
+
+export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wishlistToDelete => {
+    try {
+        const { data, error } = await supabase
+            .from('wishlists')
+            .delete()
+            .eq('id', wishlistToDelete.id)
+            .eq('userId', wishlistToDelete.userId)
+    } catch (error) {
+        return error.message
+    }
+})
+
 export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartments', async ()  => {
   let { data: { user: { id: userId } } } = await supabase.auth.getUser()
 
