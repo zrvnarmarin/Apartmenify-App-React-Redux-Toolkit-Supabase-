@@ -70,6 +70,9 @@ export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wis
             .delete()
             .eq('id', wishlistToDelete.id)
             .eq('userId', wishlistToDelete.userId)
+            // console.log(wishlistToDelete)
+            console.log(data)
+            return wishlistToDelete 
     } catch (error) {
         return error.message
     }
@@ -160,6 +163,13 @@ const usersSlice = createSlice({
             state.status = 'successed'
             state.isLoading = false
         })
+        .addCase(deleteWishlist.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.wishlists = state.wishlists.filter(wishlist => 
+                wishlist.id !== action.payload.wishlistId)
+            state.status = 'successed'
+            state.isLoading = false
+        })
         .addCase(getAllWishlists.fulfilled, (state, action) => {
             state.wishlists = action.payload
             state.status = 'successed'
@@ -219,7 +229,7 @@ export const numberOfSavedApartmentsInEachWishlist = createSelector(
           
             // Add the count to the result object, keyed by wishlist id
             result[wishlist.name] = numApartmentsForWishlist;
-          console.log(result, wishlist.id, wishlist.userId)
+        //   console.log(result, wishlist.id, wishlist.userId)
             return result;
         }, {});
 
