@@ -17,8 +17,8 @@ const Navbar = () => {
       <ul className='flex flex-row justify-between items-center'>
 
         <li className='flex flex-row items-center'>
-          <NavLink to="apartments" className=' md:block'>
-            <img src={LogoImage} alt="logo_image" height={45} width={45} />
+          <NavLink to="apartments" className=' md:block italic'>
+            Apartmenify
           </NavLink>
         </li>
 

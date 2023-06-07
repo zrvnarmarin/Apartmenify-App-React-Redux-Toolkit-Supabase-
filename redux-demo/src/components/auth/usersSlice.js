@@ -219,7 +219,7 @@ export const numberOfSavedApartmentsInEachWishlist = createSelector(
           
             // Add the count to the result object, keyed by wishlist id
             result[wishlist.name] = numApartmentsForWishlist;
-          
+          console.log(result, wishlist.id, wishlist.userId)
             return result;
         }, {});
 

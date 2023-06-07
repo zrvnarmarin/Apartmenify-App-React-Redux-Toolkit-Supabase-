@@ -52,7 +52,7 @@ const Navbar = () => {
           </div>
         </li>
 
-        <li className='sm:flex hidden'>
+        <li className='sm:flex hidden z-10'>
           <NavLink 
             onClick={toggleUserSettings} 
             className='flex items-center justify-center gap-3 p-2 rounded-lg'
@@ -64,7 +64,7 @@ const Navbar = () => {
             <span className='font-semibold'>{user?.user_metadata?.full_name}</span>
           </NavLink>
 
-          <div className='relative bg-red-500'>
+          <div className='relative bg-red-500 z-10'>
             { isUserSettingsShown && <UserSettings />}
           </div>
         </li>

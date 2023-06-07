@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getUser, 
-  numberOfSavedApartmentsInEachWishlist } from '../../auth/usersSlice'
+  numberOfSavedApartmentsInEachWishlist, 
+  deleteWishlist} from '../../auth/usersSlice'
 import { selectUser, getAllWishlists } from '../../auth/usersSlice';
 
 const Wishlists = () => {
@@ -34,7 +35,10 @@ const Wishlists = () => {
     dispatch(getAllWishlists(userId))
   }, [dispatch])
 
-  console.log(allWishlists)
+  const deleteSelectedWishlist = (wishlistId, userId) => dispatch(deleteWishlist({
+    wishlistId: wishlistId,
+    userId: userId
+  }))
 
   return (
     <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
@@ -54,22 +58,22 @@ const Wishlists = () => {
         </form>
       </div>
 
-      {apartmentCountInEachWishlist.map(([wishlist, apartmentWishlistCount], i) => 
-        <div key={wishlist} className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
+      {allWishlists.map((wishlist, i) => 
+        <div key={i} className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
           
           <Link 
-            to={`${wishlist}`}
+            to={`${wishlist.name}`}
             key={i} 
             className='flex flex-col'
           >
-            <div className='text-lg font-semibold'>{wishlist}</div>
+            <div className='text-lg font-semibold'>{wishlist.name}</div>
           </Link>
           <Link 
-            to={`${wishlist}`}
-            key={wishlist} 
+            to={`${wishlist.name}`}
+            key={wishlist.id} 
             className='flex flex-col'
             >
-            <div>{apartmentWishlistCount} properties saved</div>
+            <div>Dummy number properties saved</div>
           </Link>
         <div className='justify-self-end flex flwx-row items-center gap-2'>
           <button 
@@ -79,7 +83,10 @@ const Wishlists = () => {
             Update
           </button>
           <button 
-            onClick={() => console.log('hej')} 
+            onClick={() => {
+              deleteSelectedWishlist(wishlist.id, wishlist.userId)
+              // console.log(wishlist.id, wishlist.name)
+            }} 
             className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
           >
             Delete
