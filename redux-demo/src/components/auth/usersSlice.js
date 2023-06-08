@@ -70,8 +70,7 @@ export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wis
             .delete()
             .eq('id', wishlistToDelete.id)
             .eq('userId', wishlistToDelete.userId)
-            // console.log(wishlistToDelete)
-            console.log(data)
+            console.log(wishlistToDelete)
             return wishlistToDelete 
     } catch (error) {
         return error.message
