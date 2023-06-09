@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectApartment, getApartment } from '../admin/apartments/apartmentsSlice'
-import LocationPin from '../../assets/locationPin.png'
+import LocationPin from '../../assets/locationPin.webp'
 import Placeholder from '../../assets/placeholder.webp'
 import ReserveApartment from './ReserveApartment';
 import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
@@ -10,12 +10,8 @@ import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcon
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
 
-  const { state: { apartmentId, apartmentTitle } } = useLocation()
   const apartment = useSelector(selectApartment)
-
-  useEffect(() => {
-    dispatch(getApartment(apartmentId))
-  }, [dispatch])  
+  const { state: { apartmentId, apartmentTitle } } = useLocation()
 
   const facilityObjects = apartment.facilities?.map(facility => {
     let mappedFacility = mappedFacilities.find(mappedFacility => mappedFacility.value === facility) 
@@ -28,21 +24,28 @@ const ApartmentDetails = () => {
     }
   })
 
+  useEffect(() => {
+    dispatch(getApartment(apartmentId))
+  }, [dispatch])  
+
   return (
     <div className='border-[1px] border-black px-6 py-12'>
 
+      {/* Location*/}
       <div className='flex flex-row flex-wrap gap-4 justify-between'>
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col gap-2'>
           <h1 className='first-letter:uppercase text-4xl'>{apartment.title}</h1>
           <div className='flex items-center gap-2'>
             <img src={LocationPin} alt="location_pin" className='inline-block' width={25} height={25} />
-            <span>{apartment.address}, {apartment.city}</span>
+            <span className='text-lg first-letter:uppercase'>{apartment.address}, </span>
+            <span className='text-lg first-letter:uppercase'>{apartment.city}</span>
           </div>
           <div>
             <button className='w-font-semibold text-md text-blue-600 hover:underline'>Show Map</button>
           </div>
         </div>
 
+        {/* Rating */}
         <div className='flex gap-4'>
           <div className='flex justify-center items-center gap-4'>
             <p className='flex flex-col'>
