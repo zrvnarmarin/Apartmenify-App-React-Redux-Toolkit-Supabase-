@@ -57,7 +57,8 @@ const ApartmentDetails = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-3 py-4 gap-4'>
+      {/* Images gallery grid */}
+      {/* <div className='grid grid-cols-3 py-4 gap-4'>
         <div className='col-span-1 flex flex-col gap-4'>
           <img src={Placeholder} className='w-full h-full' width={260} height={260} alt="" />
           <img src={Placeholder} className='w-full h-full' width={260} height={260} alt="" />
@@ -66,8 +67,39 @@ const ApartmentDetails = () => {
         <div className='col-span-2'>
           <img src={Placeholder} className='h-full object-cover' alt="" />
         </div>
-      </div>
+      </div> */}
 
+      
+<div class="grid gap-4">
+    <div className='grid grid-cols-2'>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+        </div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt="" />
+    </div>
+    <div class="grid grid-cols-5 gap-4">
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
+        </div>
+    </div>
+</div>
+
+
+
+      {/* Facilities */}
       <div className='flex flex-wrap flex-row gap-4'>
         { facilityObjects?.map(facility => 
           <div key={facility.value} className='flex gap-2 items-center border-[1px] border-black py-4 px-6'>
