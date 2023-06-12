@@ -131,7 +131,6 @@ const initialState = {
     wishlist: '',
     savedApartments: [],
     savedApartment: {},
-    isApartmentSaved: false
 }
 
 const usersSlice = createSlice({
@@ -207,7 +206,6 @@ export const selectDateOfBirth = (state) => state.users.dateOfBirth
 export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist
 export const selectAllSavedApartments = (state) => state.users.savedApartments
-export const selectIsApartmentSaved = (state) => state.users.isApartmentSaved
 
 // Reducers exports
 export const { setWishlist, resetWishlist } = usersSlice.actions
