@@ -59,6 +59,7 @@ Technologies user in this application are:
     d) Supabase - Backened-as-a-service platform which contains all of the app`s data, based of PostgreSQL
     e) Redux Toolkit - my primary state management tool which I use on daily basis, which simplifies builing and managing data, and currently the only one state
                        management system that I use actively.
+    f) React Tables - for managing all the tables
                        
 
 This application is currently still in progress! 
