@@ -58,7 +58,7 @@ const ApartmentDetails = () => {
       </div>
 
       {/* Images gallery grid */}
-      {/* <div className='grid grid-cols-3 py-4 gap-4'>
+      <div className='grid grid-cols-3 py-4 gap-4'>
         <div className='col-span-1 flex flex-col gap-4'>
           <img src={Placeholder} className='w-full h-full' width={260} height={260} alt="" />
           <img src={Placeholder} className='w-full h-full' width={260} height={260} alt="" />
@@ -67,7 +67,7 @@ const ApartmentDetails = () => {
         <div className='col-span-2'>
           <img src={Placeholder} className='h-full object-cover' alt="" />
         </div>
-      </div> */}
+      </div>
 
       
 <div class="grid gap-4">
