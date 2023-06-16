@@ -3,9 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import UserSettings from '../UserSettings';
 import { activeRouteStyles } from '../../../styles/activeRouteStyles';
-import PlaceholderImage from '../../../assets/placeholder.webp'
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
-import LogoImage from '../../../assets/logo.webp'
 import SideMenu from './SideMenu';
 import { selectUser } from '../../auth/usersSlice';
 import LanguageSelect from './../userSettings/LanguageSelect';
@@ -25,7 +23,7 @@ const Navbar = () => {
       <ul className='flex flex-row justify-between items-center'>
         <li className='flex flex-row items-center'>
           <NavLink to="apartments" className=' md:block'>
-            <img src={LogoImage} alt="logo_image" height={45} width={45} />
+            <p className='italic'>Apartmenify</p>
           </NavLink>
         </li>
 

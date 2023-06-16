@@ -5,11 +5,16 @@ import { selectIsModalOpen, openModal } from '../../../UI/modalSlice'
 import { modalTexts } from '../../../data/modal/modalTexts'
 import { deleteReservation } from './reservationsSlice'
 import Modal from '../../../UI/Modal'
+import { toast } from 'react-toastify';
 
 const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, apartmentId, userId, userEmail, status }) => {
 
   const dispatch = useDispatch()
-  const deleteSelectedReservation = () => dispatch(deleteReservation(id))
+
+  const deleteSelectedReservation = () => {
+    dispatch(deleteReservation(id))
+    toast.success(`Reservation # ${id} is deleted permanently!`)
+  }
 
   const isModalOpen = useSelector(selectIsModalOpen)
   const openModalWindow = () => dispatch(openModal())
