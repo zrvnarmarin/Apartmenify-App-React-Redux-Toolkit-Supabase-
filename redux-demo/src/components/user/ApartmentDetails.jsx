@@ -29,15 +29,17 @@ const ApartmentDetails = () => {
   }, [dispatch])  
 
   return (
-    <div className='border-[1px] border-black px-6 py-12'>
+    <div className='border-[1px] border-black xs:px-2 xs:py-4 md:px-6 md:py-12'>
 
-      {/* Location*/}
-      <div className='flex flex-row flex-wrap gap-4 justify-between'>
-        <div className='flex flex-col gap-2'>
-          <h1 className='first-letter:uppercase text-4xl'>{apartment.title}</h1>
-          <div className='flex items-center gap-2'>
-            <img src={LocationPin} alt="location_pin" className='inline-block' width={25} height={25} />
-            <span className='text-lg first-letter:uppercase'>{apartment.address}, </span>
+      {/*Name and Location*/}
+      <div className='flex flex-row flex-wrap gap-4 justify-between bg-green-200'>
+        <div className='flex flex-col gap-2 text-center xs:text-start bg-red-400 w-full xs:w-auto'>
+          <h1 className='first-letter:uppercase text-4xl'>{apartment.title} dfgvsdf dfgvs dfgv dg</h1>
+          <div className='flex items-center gap-2 justify-center xs:justify-start bg-blue-300'>
+            <div>
+              <img src={LocationPin} alt="location_pin" className='inline-block' width={25} height={25} />
+              <span className='text-lg first-letter:uppercase'>{apartment.address}, </span>
+            </div>
             <span className='text-lg first-letter:uppercase'>{apartment.city}</span>
           </div>
           <div>
@@ -46,8 +48,8 @@ const ApartmentDetails = () => {
         </div>
 
         {/* Rating */}
-        <div className='flex gap-4'>
-          <div className='flex justify-center items-center gap-4'>
+        <div className='flex gap-4 bg-yellow-300 w-full xs:w-auto'>
+          <div className='flex justify-between items-center gap-4 w-full'>
             <p className='flex flex-col'>
               <span className='font-semibold'>Excellent</span>
               <span className='text-gray-500'>114 reviews</span>
@@ -70,29 +72,29 @@ const ApartmentDetails = () => {
       </div>
 
       
-<div class="grid gap-4">
+<div className="grid gap-4">
     <div className='grid grid-cols-2'>
         <div>
-          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
-          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+          <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+          <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
         </div>
-        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt="" />
+        <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt="" />
     </div>
-    <div class="grid grid-cols-5 gap-4">
+    <div className="grid grid-cols-5 gap-4">
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
         </div>
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
         </div>
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
         </div>
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
         </div>
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
         </div>
     </div>
 </div>
