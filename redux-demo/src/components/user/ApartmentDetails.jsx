@@ -59,47 +59,25 @@ const ApartmentDetails = () => {
         </div>
       </div>
 
-      {/* Images gallery grid */}
-      <div className='grid grid-cols-3 py-4 gap-4'>
-        <div className='col-span-1 flex flex-col gap-4'>
-          <img src={Placeholder} className='w-full h-full' width={260} height={260} alt="" />
-          <img src={Placeholder} className='w-full h-full' width={260} height={260} alt="" />
+      {/* Imges grid */}
+      <div className='grid grid-cols-6 py-4'>
+        <div className='flex gap-2 col-start-1 col-end-4 p-1 bg-red-400'>
+          <img src={Placeholder} alt="" className='' />
+        </div>
+        <div className='flex gap-2 col-start-4 col-end-7 p-1 bg-red-400'>
+          <img src={Placeholder} alt="" className='' />
         </div>
 
-        <div className='col-span-2'>
-          <img src={Placeholder} className='h-full object-cover' alt="" />
+        <div className='flex gap-2 col-start-1 col-end-3 p-1 bg-red-400'>
+          <img src={Placeholder} alt="" className='' />
+        </div>
+        <div className='flex gap-2 col-start-3 col-end-5 p-1 bg-red-400'>
+          <img src={Placeholder} alt="" className='' />
+        </div>
+        <div className='flex gap-2 col-start-5 col-end-7 p-1 bg-red-400'>
+          <img src={Placeholder} alt="" className='' />
         </div>
       </div>
-
-      
-<div className="grid gap-4">
-    <div className='grid grid-cols-2'>
-        <div>
-          <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
-          <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
-        </div>
-        <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt="" />
-    </div>
-    <div className="grid grid-cols-5 gap-4">
-        <div>
-            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
-        </div>
-        <div>
-            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
-        </div>
-        <div>
-            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
-        </div>
-        <div>
-            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
-        </div>
-        <div>
-            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
-        </div>
-    </div>
-</div>
-
-
 
       {/* Facilities */}
       <div className='flex flex-wrap flex-row gap-4'>
@@ -111,7 +89,7 @@ const ApartmentDetails = () => {
         )}
       </div>
 
-      <div>
+      <div className='py-4'>
         {apartment.description}
       </div>
 
