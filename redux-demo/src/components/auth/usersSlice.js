@@ -53,11 +53,15 @@ export const addWishlist = createAsyncThunk('users/addWishlist', async newWishli
 })
 
 export const updateWishlist = createAsyncThunk('users/updateWishlist', async updatedWishlist => {
+    console.log(updatedWishlist)
     try {
         const { data, error } = await supabase
         .from('wishlists')
         .update({ name: updatedWishlist.name })
         .eq('userId', updatedWishlist.userId)
+        .eq('id', updatedWishlist.wishlistId)
+
+        return data
     } catch (error) {
         return error.message
     }
@@ -70,7 +74,6 @@ export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wis
             .delete()
             .eq('id', wishlistToDelete.id)
             .eq('userId', wishlistToDelete.userId)
-            console.log(wishlistToDelete)
             return wishlistToDelete 
     } catch (error) {
         return error.message

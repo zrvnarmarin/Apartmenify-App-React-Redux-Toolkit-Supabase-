@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getUser, 
   numberOfSavedApartmentsInEachWishlist, 
   deleteWishlist} from '../../auth/usersSlice'
-import { selectUser, getAllWishlists } from '../../auth/usersSlice';
+import { selectUser, getAllWishlists, updateWishlist } from '../../auth/usersSlice';
 
 const Wishlists = () => {
   const { id: userId } = useSelector(selectUser)
@@ -14,7 +14,6 @@ const Wishlists = () => {
 
   const dispatch = useDispatch()
   const setNewWishlist = e => dispatch(setWishlist(e.target.value))
-  // console.log(wishlist)
 
   const apartmentCountInEachWishlist = Object.entries(useSelector(numberOfSavedApartmentsInEachWishlist)) 
 
@@ -39,6 +38,13 @@ const Wishlists = () => {
     wishlistId: wishlistId,
     userId: userId
   }))
+
+  const updateSelectedWishlist = (wishlistId, userId) => {
+    dispatch(updateWishlist({
+      wishlistId: wishlistId,
+      userId: userId
+    }))
+  }
 
   return (
     <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
@@ -66,7 +72,10 @@ const Wishlists = () => {
             key={i} 
             className='flex flex-col'
           >
-            <div className='text-lg font-semibold'>{wishlist.name}</div>
+            <div className='text-lg font-semibold'>
+              {wishlist.name}
+              
+            </div>
           </Link>
           <Link 
             to={`${wishlist.name}`}
@@ -77,7 +86,10 @@ const Wishlists = () => {
           </Link>
         <div className='justify-self-end flex flwx-row items-center gap-2'>
           <button 
-            onClick={() => console.log('hej')} 
+            onClick={() => {
+              updateSelectedWishlist(wishlist.id, wishlist.userId)
+              console.log('wishlist updated!')
+            }} 
             className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
           >
             Update
