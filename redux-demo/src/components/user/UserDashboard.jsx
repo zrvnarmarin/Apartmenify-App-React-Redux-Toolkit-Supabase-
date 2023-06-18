@@ -12,7 +12,7 @@ const UserDashboard = () => {
   }, [dispatch])
 
   return (
-    <div className='p-2 border-black border-[1px]'>
+    <div className=' border-black border-[1px]'>
       <Navbar />
       <Outlet />
     </div>

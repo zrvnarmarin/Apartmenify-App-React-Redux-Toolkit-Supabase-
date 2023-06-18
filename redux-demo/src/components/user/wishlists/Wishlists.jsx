@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWish
   numberOfSavedApartmentsInEachWishlist, 
   deleteWishlist} from '../../auth/usersSlice'
 import { selectUser, getAllWishlists, updateWishlist } from '../../auth/usersSlice';
+// import WishlistItem from './WishlistItem';
 
 const Wishlists = () => {
   const { id: userId } = useSelector(selectUser)
@@ -46,6 +47,8 @@ const Wishlists = () => {
     }))
   }
 
+  
+
   return (
     <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
       <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6'>
@@ -65,46 +68,86 @@ const Wishlists = () => {
       </div>
 
       {allWishlists.map((wishlist, i) => 
-        <div key={i} className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
-          
-          <Link 
-            to={`${wishlist.name}`}
-            key={i} 
-            className='flex flex-col'
-          >
-            <div className='text-lg font-semibold'>
-              {wishlist.name}
-              
-            </div>
-          </Link>
-          <Link 
-            to={`${wishlist.name}`}
-            key={wishlist.id} 
-            className='flex flex-col'
-            >
-            <div>Dummy number properties saved</div>
-          </Link>
-        <div className='justify-self-end flex flwx-row items-center gap-2'>
-          <button 
-            onClick={() => {
-              updateSelectedWishlist(wishlist.id, wishlist.userId)
-              console.log('wishlist updated!')
-            }} 
-            className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
-          >
-            Update
-          </button>
-          <button 
-            onClick={() => {
-              deleteSelectedWishlist(wishlist.id, wishlist.userId)
-              // console.log(wishlist.id, wishlist.name)
-            }} 
-            className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
-          >
-            Delete
-          </button>
-        </div>
-        </div>
+      <WishlistItem 
+      index={wishlist} 
+      wishlist={wishlist.name} 
+      />
+        // <div key={i}>
+        //   <div>
+        //     {
+        //       !isUpdateButtonPressed 
+        //       ?
+        //       <span>{wishlist.name}</span>
+        //       : 
+        //       <input 
+        //           className='text-black'
+        //           placeholder='Enter new wishlist..' 
+        //           type='text' 
+        //           value={updatedWishlist} 
+        //           onChange={(e) => console.log('hej')}
+        //         />
+        //     }
+        //     <button onClick={() => {
+        //       toggleWishlistUpdateState()
+        //       console.log(wishlist.name)
+        //     }}>Press me</button>
+        //   </div>
+        // </div>
+        // <div 
+        //   key={i} 
+        //   className='grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 p-2 gap-4 items-center rounded-md
+        //    bg-[#121212] text-[#f5f0f1] text-md font-normal'
+        // >
+        //   <Link 
+        //     to={`${wishlist.name}`}
+        //     key={i} 
+        //     className='flex flex-col'
+        //   >
+        //     {
+        //       isUpdateButtonPressed 
+        //       ? 
+        //         <input 
+        //           className='text-black'
+        //           placeholder='Enter new wishlist..' 
+        //           type='text' 
+        //           value={updatedWishlist} 
+        //           onChange={(e) => dispatch(setWishlist(e.target.value))}
+        //         />
+        //       :
+        //         <div className='text-lg font-semibold'>
+        //           {wishlist.name}
+        //         </div>
+        //     }
+        //   </Link>
+        //   <Link 
+        //     to={`${wishlist.name}`}
+        //     key={wishlist.id} 
+        //     className='flex flex-col'
+        //     >
+        //     <div>Dummy number properties saved</div>
+        //   </Link>
+        // <div className='justify-self-end flex flwx-row items-center gap-2'>
+        //   <button 
+        //     onClick={() => {
+        //       // updateSelectedWishlist(wishlist.id, wishlist.userId)
+        //       // console.log('wishlist updated!')
+        //       toggleWishlistUpdateState()
+        //     }} 
+        //     className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+        //   >
+        //     Update
+        //   </button>
+        //   <button 
+        //     onClick={() => {
+        //       deleteSelectedWishlist(wishlist.id, wishlist.userId)
+        //       // console.log(wishlist.id, wishlist.name)
+        //     }} 
+        //     className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+        //   >
+        //     Delete
+        //   </button>
+        // </div>
+        // </div>
       )}
 
     </div>
@@ -112,3 +155,32 @@ const Wishlists = () => {
 }
 
 export default Wishlists
+
+export const WishlistItem = ({ index, wishlist }) => {
+
+  const [isUpdateButtonPressed, setIsUpdateButtonPressed] = useState(false)
+  const permitWishlistUpdate = () => setIsUpdateButtonPressed(true)
+  const cancelWishlistUpdate = () => setIsUpdateButtonPressed(false)
+  const toggleWishlistUpdateState = () => setIsUpdateButtonPressed(prev => !prev)
+
+  const [currentWishlist, setCurrentWishlist] = useState(wishlist)
+
+  return (
+    <div key={index}>
+      <div>
+        {!isUpdateButtonPressed ? (
+          <span>{wishlist}</span>
+        ) : (
+          <input
+            className='text-black'
+            placeholder='Enter new wishlist..'
+            type='text'
+            value={currentWishlist}
+            onChange={(e) => setCurrentWishlist(e.target.value)}
+          />
+        )}
+        <button onClick={toggleWishlistUpdateState}>Press me</button>
+      </div>
+    </div>
+  );
+}
