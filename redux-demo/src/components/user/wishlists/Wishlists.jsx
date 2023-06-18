@@ -188,8 +188,11 @@ export const WishlistItem = ({ index, wishlist }) => {
             />
       }
       <button 
-        className='p-4 text-xl text-white font-bold bg-red-400' 
-        onClick={toggleWishlistUpdateState}
+        className='p-4 text-xl text-white font-bold bg-blue-400' 
+        onClick={() => {
+          toggleWishlistUpdateState()
+          console.log(updatedWishlist)
+        }}
       >
         { isUpdateButtonPressed ? 'Save' : 'Update'}
       </button>
