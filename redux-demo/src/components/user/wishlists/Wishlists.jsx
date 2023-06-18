@@ -157,30 +157,56 @@ const Wishlists = () => {
 export default Wishlists
 
 export const WishlistItem = ({ index, wishlist }) => {
-
   const [isUpdateButtonPressed, setIsUpdateButtonPressed] = useState(false)
-  const permitWishlistUpdate = () => setIsUpdateButtonPressed(true)
-  const cancelWishlistUpdate = () => setIsUpdateButtonPressed(false)
   const toggleWishlistUpdateState = () => setIsUpdateButtonPressed(prev => !prev)
+  const cancelWishlistUpdate = () => setIsUpdateButtonPressed(false)
 
-  const [currentWishlist, setCurrentWishlist] = useState(wishlist)
+  const [updatedWishlist, setUpdatedWishlist] = useState(wishlist)
+
+  useEffect(() => {
+    if (!isUpdateButtonPressed) {
+      setUpdatedWishlist(wishlist)
+    }
+  }, [isUpdateButtonPressed, wishlist])
 
   return (
     <div key={index}>
-      <div>
-        {!isUpdateButtonPressed ? (
-          <span>{wishlist}</span>
-        ) : (
-          <input
-            className='text-black'
-            placeholder='Enter new wishlist..'
-            type='text'
-            value={currentWishlist}
-            onChange={(e) => setCurrentWishlist(e.target.value)}
-          />
-        )}
-        <button onClick={toggleWishlistUpdateState}>Press me</button>
-      </div>
+      {
+        !isUpdateButtonPressed 
+          ? 
+            <span>{wishlist}</span>
+          : 
+            <input
+              className='text-black'
+              placeholder='Enter new wishlist..'
+              type='text'
+              value={updatedWishlist}
+              onChange={(e) => {
+                setUpdatedWishlist(e.target.value)
+                console.log(updatedWishlist)
+              }}
+            />
+      }
+      <button 
+        className='p-4 text-xl text-white font-bold bg-red-400' 
+        onClick={toggleWishlistUpdateState}
+      >
+        { isUpdateButtonPressed ? 'Save' : 'Update'}
+      </button>
+      {
+        !isUpdateButtonPressed 
+          ? 
+            <></> 
+          : 
+            <button 
+              className='p-4 text-xl text-white font-bold bg-red-400' 
+              onClick={cancelWishlistUpdate} 
+            >
+              Cancel
+            </button>
+      }
+      <div>Updated Wishlist: {updatedWishlist}</div>
     </div>
   );
 }
+
