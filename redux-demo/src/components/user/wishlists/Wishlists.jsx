@@ -69,8 +69,9 @@ const Wishlists = () => {
 
       {allWishlists.map((wishlist, i) => 
       <WishlistItem 
-      index={wishlist} 
+      index={wishlist.id} 
       wishlist={wishlist.name} 
+      wholeWishlist={wishlist}
       />
         // <div key={i}>
         //   <div>
@@ -156,57 +157,67 @@ const Wishlists = () => {
 
 export default Wishlists
 
-export const WishlistItem = ({ index, wishlist }) => {
+export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
   const [isUpdateButtonPressed, setIsUpdateButtonPressed] = useState(false)
   const toggleWishlistUpdateState = () => setIsUpdateButtonPressed(prev => !prev)
   const cancelWishlistUpdate = () => setIsUpdateButtonPressed(false)
 
   const [updatedWishlist, setUpdatedWishlist] = useState(wishlist)
 
+  const dispatch = useDispatch()
+  const updateSelectedWishlist = (wishlistToUpdate) => {
+
+  }
+
   useEffect(() => {
-    if (!isUpdateButtonPressed) {
+    if (!isUpdateButtonPressed) 
       setUpdatedWishlist(wishlist)
-    }
   }, [isUpdateButtonPressed, wishlist])
 
   return (
     <div key={index}>
-      {
-        !isUpdateButtonPressed 
-          ? 
-            <span>{wishlist}</span>
-          : 
-            <input
-              className='text-black'
-              placeholder='Enter new wishlist..'
-              type='text'
-              value={updatedWishlist}
-              onChange={(e) => {
-                setUpdatedWishlist(e.target.value)
-                console.log(updatedWishlist)
-              }}
-            />
+      { !isUpdateButtonPressed 
+        ? 
+          <span>{wishlist}</span>
+        : 
+          <input
+            className='text-black'
+            placeholder='Enter new wishlist..'
+            type='text'
+            value={updatedWishlist}
+            onChange={e => setUpdatedWishlist(e.target.value)}
+          />
       }
       <button 
         className='p-4 text-xl text-white font-bold bg-blue-400' 
         onClick={() => {
           toggleWishlistUpdateState()
           console.log(updatedWishlist)
+          
+          if (isUpdateButtonPressed) {
+            console.log('updating the', updatedWishlist)
+            console.log(index)
+
+            dispatch(updateWishlist({
+              name: updatedWishlist,
+              userId: wholeWishlist.userId,
+              wishlistId: index
+            }))
+          }
         }}
       >
         { isUpdateButtonPressed ? 'Save' : 'Update'}
       </button>
-      {
-        !isUpdateButtonPressed 
-          ? 
-            <></> 
-          : 
-            <button 
-              className='p-4 text-xl text-white font-bold bg-red-400' 
-              onClick={cancelWishlistUpdate} 
-            >
-              Cancel
-            </button>
+      { !isUpdateButtonPressed 
+        ? 
+          <></> 
+        : 
+          <button 
+            className='p-4 text-xl text-white font-bold bg-red-400' 
+            onClick={cancelWishlistUpdate} 
+          >
+            Cancel
+          </button>
       }
       <div>Updated Wishlist: {updatedWishlist}</div>
     </div>
