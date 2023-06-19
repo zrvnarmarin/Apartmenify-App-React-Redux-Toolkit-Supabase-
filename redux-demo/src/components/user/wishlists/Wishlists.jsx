@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getUser, 
   numberOfSavedApartmentsInEachWishlist, 
-  deleteWishlist} from '../../auth/usersSlice'
-import { selectUser, getAllWishlists, updateWishlist } from '../../auth/usersSlice';
+  deleteWishlist,
+  getWishlist} from '../../auth/usersSlice'
+import { selectUser, getAllWishlists, updateWishlist, selectIsLoading } from '../../auth/usersSlice';
 // import WishlistItem from './WishlistItem';
+import LoadingSpinner from './../../../UI/Loading Spinner/LoadingSpinner';
 
 const Wishlists = () => {
   const { id: userId } = useSelector(selectUser)
@@ -46,8 +48,6 @@ const Wishlists = () => {
       userId: userId
     }))
   }
-
-  
 
   return (
     <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
@@ -162,6 +162,8 @@ export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
   const toggleWishlistUpdateState = () => setIsUpdateButtonPressed(prev => !prev)
   const cancelWishlistUpdate = () => setIsUpdateButtonPressed(false)
 
+  const loading = useSelector(selectIsLoading)
+
   const [updatedWishlist, setUpdatedWishlist] = useState(wishlist)
 
   const dispatch = useDispatch()
@@ -195,14 +197,17 @@ export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
           console.log(updatedWishlist)
           
           if (isUpdateButtonPressed) {
-            console.log('updating the', updatedWishlist)
-            console.log(index)
+            // console.log('updating the', updatedWishlist)
+            // console.log(index)
 
             dispatch(updateWishlist({
               name: updatedWishlist,
               userId: wholeWishlist.userId,
               wishlistId: index
             }))
+
+            // dispatch(getWishlist(index))
+            dispatch(getAllWishlists(wholeWishlist.userId))
           }
         }}
       >
@@ -219,6 +224,7 @@ export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
             Cancel
           </button>
       }
+      { loading ? <LoadingSpinner /> : <></> }
       <div>Updated Wishlist: {updatedWishlist}</div>
     </div>
   );
