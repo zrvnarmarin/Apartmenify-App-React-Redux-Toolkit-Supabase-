@@ -80,12 +80,14 @@ export const updateWishlist = createAsyncThunk('users/updateWishlist', async upd
 })
 
 export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wishlistToDelete => {
+    console.log(wishlistToDelete)
     try {
         const { data, error } = await supabase
             .from('wishlists')
             .delete()
             .eq('id', wishlistToDelete.id)
             .eq('userId', wishlistToDelete.userId)
+            .eq('name', wishlistToDelete.name)
             return wishlistToDelete 
     } catch (error) {
         return error.message
@@ -186,11 +188,7 @@ const usersSlice = createSlice({
             state.isLoading = false
         })
         .addCase(deleteWishlist.fulfilled, (state, action) => {
-            console.log(action.payload)
-            state.wishlists = state.wishlists.filter(wishlist => 
-                wishlist.id !== action.payload.wishlistId)
-            state.status = 'successed'
-            state.isLoading = false
+            state.wishlists = state.wishlists.filter(wishlist => wishlist.id !== action.payload.id)
         })
         .addCase(getAllWishlists.fulfilled, (state, action) => {
             state.wishlists = action.payload

@@ -10,6 +10,7 @@ import ArrowImage from '../../../assets/ArrowDown.webp'
 import FreeApartmentIcon from '../../../assets/apartment_availability_icons/free.webp'
 import OccupiedApartmentIcon from '../../../assets/apartment_availability_icons/occupied.webp'
 import ReservedApartmentIcon from '../../../assets/apartment_availability_icons/reserved.webp'
+import { getAllWishlists } from './../../auth/usersSlice';
 
 const Apartment = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
@@ -20,6 +21,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
   const deleteSelectedApartment = () => {
     dispatch(deleteApartment(id))
     toast.success('Apartment deleted!')
+    dispatch(getAllWishlists())
   }
 
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWishlist, getUser, numberOfSavedApartmentsInEachWishlist } 
@@ -28,13 +28,15 @@ const Wishlists = () => {
     toast.success(`Wishlist ${wishlist} has been added to database!`)
   }
 
+  // console.log(allWishlists)
+
   useEffect(() => {
     dispatch(getUser())
     dispatch(getAllWishlists(userId))
   }, [dispatch])
 
   return (
-    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
+    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]' key={wishlist}>
       <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6'>
         <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Wishlists</h1>
         <form onSubmit={submitFormHandler} className='flex flex-col ss:flex-row gap-4 w-full ss:w-fit'>
