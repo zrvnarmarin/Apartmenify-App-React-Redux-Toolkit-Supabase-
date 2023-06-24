@@ -1,31 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { getAllWishlists, updateWishlist } from '../../auth/usersSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { getAllWishlists, updateWishlist, selectIsLoading } from '../../auth/usersSlice'
+import LoadingSpinner from '../../../UI/Loading Spinner/LoadingSpinner'
 
-export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
+export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
+  const dispatch = useDispatch()
+
   const [isUpdateButtonPressed, setIsUpdateButtonPressed] = useState(false)
   const toggleWishlistUpdateState = () => setIsUpdateButtonPressed(prev => !prev)
   const cancelWishlistUpdate = () => setIsUpdateButtonPressed(false)
 
+  const [updatedWishlist, setUpdatedWishlist] = useState(wishlistName)
+
   const loading = useSelector(selectIsLoading)
 
-  const [updatedWishlist, setUpdatedWishlist] = useState(wishlist)
+  const updateSelectedWishlist = () => {
+    toggleWishlistUpdateState()
+      
+    if (isUpdateButtonPressed) {
+      dispatch(updateWishlist({
+        name: updatedWishlist,
+        userId: wishlistUserId,
+        wishlistId: wishlistId
+      }))
 
-  const dispatch = useDispatch()
-  const updateSelectedWishlist = (wishlistToUpdate) => {
+      dispatch(getAllWishlists(wishlistUserId))
+
+      toast.success(`Wishlist updated!`)
+    }
+  }
+
+  const deleteSelectedWishlist = () => {
 
   }
 
   useEffect(() => {
-    if (!isUpdateButtonPressed) 
-      setUpdatedWishlist(wishlist)
-  }, [isUpdateButtonPressed, wishlist])
+    if (!isUpdateButtonPressed) { 
+      setUpdatedWishlist(wishlistName) 
+    }
+  }, [isUpdateButtonPressed, wishlistName])
 
   return (
-    <div key={index}>
+    <div key={wishlistId}>
       { !isUpdateButtonPressed 
-        ? 
-          <span>{wishlist}</span>
+        ? <span>{wishlistName}</span>
         : 
           <input
             className='text-black'
@@ -35,29 +54,14 @@ export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
             onChange={e => setUpdatedWishlist(e.target.value)}
           />
       }
+
       <button 
         className='p-4 text-xl text-white font-bold bg-blue-400' 
-        onClick={() => {
-          toggleWishlistUpdateState()
-          console.log(updatedWishlist)
-          
-          if (isUpdateButtonPressed) {
-            // console.log('updating the', updatedWishlist)
-            // console.log(index)
-
-            dispatch(updateWishlist({
-              name: updatedWishlist,
-              userId: wholeWishlist.userId,
-              wishlistId: index
-            }))
-
-            // dispatch(getWishlist(index))
-            dispatch(getAllWishlists(wholeWishlist.userId))
-          }
-        }}
+        onClick={() => updateSelectedWishlist()}
       >
         { isUpdateButtonPressed ? 'Save' : 'Update'}
       </button>
+      
       { !isUpdateButtonPressed 
         ? 
           <></> 
@@ -74,6 +78,5 @@ export const WishlistItem = ({ index, wishlist, wholeWishlist }) => {
     </div>
   );
 }
-
 
 export default WishlistItem
