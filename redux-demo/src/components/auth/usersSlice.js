@@ -189,6 +189,10 @@ const usersSlice = createSlice({
         })
         .addCase(deleteWishlist.fulfilled, (state, action) => {
             state.wishlists = state.wishlists.filter(wishlist => wishlist.id !== action.payload.id)
+            state.isLoading = false
+        })
+        .addCase(deleteWishlist.pending, (state, action) => {
+            state.isLoading = true
         })
         .addCase(getAllWishlists.fulfilled, (state, action) => {
             state.wishlists = action.payload

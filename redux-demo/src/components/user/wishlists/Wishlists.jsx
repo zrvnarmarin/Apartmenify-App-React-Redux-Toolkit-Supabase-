@@ -36,7 +36,7 @@ const Wishlists = () => {
   }, [dispatch])
 
   return (
-    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]' key={wishlist}>
+    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
       <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6'>
         <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Wishlists</h1>
         <form onSubmit={submitFormHandler} className='flex flex-col ss:flex-row gap-4 w-full ss:w-fit'>
@@ -53,13 +53,14 @@ const Wishlists = () => {
         </form>
       </div>
 
-      {allWishlists.map(wishlist => 
-        <WishlistItem 
-          key={wishlist.id}
-          wishlistId={wishlist.id} 
-          wishlistName={wishlist.name} 
-          wishlistUserId={wishlist.userId}
-        />
+      {allWishlists.map((wishlist, i) => 
+        <div key={i}>
+          <WishlistItem 
+            wishlistId={wishlist.id} 
+            wishlistName={wishlist.name} 
+            wishlistUserId={wishlist.userId}
+          />
+        </div>
       )}
 
     </div>

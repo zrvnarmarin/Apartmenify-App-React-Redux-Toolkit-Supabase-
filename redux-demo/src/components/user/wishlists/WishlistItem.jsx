@@ -21,8 +21,6 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
   const isModalOpen = useSelector(selectIsModalOpen)
   const openModalWindow = () => dispatch(openModal())
 
-  // console.log(wishlistId, wishlistName)
-
   const updateSelectedWishlist = () => {
     toggleWishlistUpdateState()
       
@@ -53,9 +51,10 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
   }, [isUpdateButtonPressed, wishlistName])
 
   return (
-    <div className='bg-red-800 p-4'>
+    <div className='bg-[#121212] text-white p-4 flex flex-row items-center justify-between'>
+
       { !isUpdateButtonPressed 
-        ? <span>{wishlistName}</span>
+        ? <span className='text-xl font-bold'>{wishlistName}</span>
         : 
           <input
             className='text-black'
@@ -66,6 +65,11 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
           />
       }
 
+      { loading ? <LoadingSpinner /> : <></>}
+
+      <div>Count of apartments saved</div>
+
+      {/* Buttons update and delete */}
       <div className='flex gap-4'>
         <button 
           className='p-4 text-xl text-white font-bold bg-blue-400' 
@@ -81,27 +85,28 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
           onClick={() => {
             dispatch(deleteWishlist({ id: wishlistId, userId: wishlistUserId, name: wishlistName }))
             console.log(wishlistId, wishlistName)
+            toast.success('Wishlist has been deleted!')
           }}
         >
           Delete
         </button>
         : <></>
         }
+
+        { !isUpdateButtonPressed 
+          ? 
+            <></> 
+          : 
+            <button 
+              className='p-4 text-xl text-white font-bold bg-red-400' 
+              onClick={cancelWishlistUpdate} 
+            >
+              Cancel
+            </button>
+        }
       </div>
 
-      { !isUpdateButtonPressed 
-        ? 
-          <></> 
-        : 
-          <button 
-            className='p-4 text-xl text-white font-bold bg-red-400' 
-            onClick={cancelWishlistUpdate} 
-          >
-            Cancel
-          </button>
-      }
-
-      { loading ? <LoadingSpinner /> : <></> }
+      {/* Modal for delete confirmation */}
       { 
         isModalOpen && 
         <Modal 
@@ -109,7 +114,7 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
           confirmAction={deleteSelectedWishlist} 
         />
       }
-      <div>Updated Wishlist: {updatedWishlist}</div>
+      
     </div>
   );
 }

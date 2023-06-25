@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { selectFacilities, getAllFacilities, updateApartment } from './apartmentsSlice'
 import Select from '../../../UI/Select'
 
 const UpdateApartment = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const location = useLocation()
     const apartmentData = location.state
 
@@ -38,6 +39,8 @@ const UpdateApartment = () => {
         console.log(updatedApartmentObject)
 
         dispatch(updateApartment(updatedApartmentObject))
+
+        navigate('/adminDashboard/apartments')
     }
 
     useEffect(() => {
