@@ -209,7 +209,7 @@ export const getLikedApartments = createSelector(
     [selectAllWishlists],
     (allWishlists) => {
         const allLikedApartments = [...new Set(allWishlists.map(wishlist => wishlist.apartmentsId).flat())]
-        // setLikedApartments([...new Set(wishlists.map(wishlist => wishlist.apartmentsId).flat())])
+        
         return allLikedApartments
     }
 )

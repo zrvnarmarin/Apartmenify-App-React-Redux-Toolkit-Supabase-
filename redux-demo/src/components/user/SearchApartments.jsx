@@ -18,9 +18,7 @@ const SearcApartments = () => {
     dispatch(getAllWishlists())
   }, []) 
 
-  const isApartmentLiked = (apartmentId) => {
-    return likedApartments.includes(apartmentId)
-  }
+  const isApartmentLiked = (apartmentId) => { return likedApartments.includes(apartmentId) }
 
   if (isLoading) return <LoadingSpinner />
   
