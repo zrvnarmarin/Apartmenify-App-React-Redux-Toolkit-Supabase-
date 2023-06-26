@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
@@ -11,20 +11,31 @@ const SearcApartments = () => {
   const isLoading = useSelector(selectIsLoading)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
-
   const wishlists = useSelector(selectAllWishlists)
-  const savedApartments = useSelector(selectAllSavedApartments)
 
+ const [likedApartments, setLikedApartments] = useState([]);
+  
   useEffect(() => {
     dispatch(getAllApartments())
     dispatch(getAllWishlists())
-  }, [])
+
+    const apartmentsIds = wishlists.map(wishlist => wishlist.apartmentsId).flat()
+    const set = [...new Set(apartmentsIds)]
+    console.log(set)
+    setLikedApartments(set)
+    console.log(likedApartments)
+
+
+  }, []) 
+
+  const isApartmentLiked = (apartmentId) => {
+    return likedApartments.includes(apartmentId)
+  }
 
   if (isLoading) return <LoadingSpinner />
   
   return (
     <div>
-      {/* SAVED APARTMENTS: {JSON.stringify(savedApartments)} */}
       <FilterSortSection />
       <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2 font-poppins'>
         { filteredAndSortedApartments.map(apartment =>
@@ -38,6 +49,7 @@ const SearcApartments = () => {
             price={apartment.price}
             singleBeds={apartment.singleBeds}
             doubleBeds={apartment.doubleBeds}
+            isApartmentLiked={isApartmentLiked}
           />
         )}
       </ul>

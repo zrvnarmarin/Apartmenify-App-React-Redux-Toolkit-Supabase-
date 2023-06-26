@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 
-const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds }) => {
+const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
+    const test = () => {
+        console.log(isApartmentLiked(apartmentId))
+    }
 
     return (
         <li className='flex flex-col items-start sm:grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 gap-4 border-[1px] border-black'>
@@ -17,7 +21,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                 <p>{title}</p>
                 <div>
                     {[1, 2, 3, 4, 5].map(number => 
-                            <img key={number} src={StarPlaceholder} width={30} height={30} alt="rating_star" className='inline-block' />
+                        <img key={number} src={StarPlaceholder} width={30} height={30} alt="rating_star" className='inline-block' />
                     )}
                 </div>
                 <a href="" className='underline underline-offset-2 underline-blue-400'>{city}</a>
@@ -49,6 +53,10 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                     </Link>
                 </button>
             </div>
+            #{apartmentId}
+            <button onClick={() => {
+                test()
+            }}>Display liked status</button>
 
         </li>
     )
