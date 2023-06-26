@@ -4,7 +4,7 @@ import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
 import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../admin/apartments/apartmentsSlice';
 import FilterSortSection from '../admin/apartments/filterSort/FilterSortSection.jsx';
-import { selectUser, getAllWishlists, selectAllWishlists, getAllSavedApartments, selectAllSavedApartments, getUser } from '../auth/usersSlice';
+import { selectUser, getAllWishlists, selectAllWishlists, selectAllSavedApartments, getUser } from '../auth/usersSlice';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
@@ -17,7 +17,6 @@ const SearcApartments = () => {
 
   useEffect(() => {
     dispatch(getAllApartments())
-    dispatch(getAllSavedApartments())
     dispatch(getAllWishlists())
   }, [])
 

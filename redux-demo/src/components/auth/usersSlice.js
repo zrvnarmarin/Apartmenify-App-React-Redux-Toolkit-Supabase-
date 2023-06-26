@@ -94,49 +94,6 @@ export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wis
     }
 })
 
-export const getAllSavedApartments = createAsyncThunk('users/getAllSavedApartments', async ()  => {
-  let { data: { user: { id: userId } } } = await supabase.auth.getUser()
-
-  let { data: savedApartments, error } = await supabase
-  .from('savedApartments')
-  .select("*")
-  .eq('userId', userId)
-
-    // console.log('saved apartments', savedApartments)
-
-    return savedApartments
-})
-
-export const addSavedApartment = createAsyncThunk('users/addSavedApartment', async savedApartment  => {
-  let { data: { user: { id: userId } } } = await supabase.auth.getUser()
-
-    const { data, error } = await supabase
-    .from('savedApartments')
-    .insert([
-        {
-            apartmentId: savedApartment.apartmentId,
-            wishlistId: savedApartment.wishlistId,
-            userId: userId
-        }
-    ])
-    .single()
-
-    return savedApartment
-})
-
-export const deleteSavedApartment = createAsyncThunk('users/deleteSavedApartment', async savedApartment => {
-  let { data: { user: { id: userId } } } = await supabase.auth.getUser()
-
-    const { data, error } = await supabase
-    .from('savedApartments')
-    .delete()
-    .eq('wishlistId', savedApartment.wishlistId)
-    .eq('apartmentId', savedApartment.apartmentId)
-    .eq('userId', userId)
-
-    return savedApartment
-})
-
 const initialState = {
     users: [],
     user: {},
@@ -207,21 +164,9 @@ const usersSlice = createSlice({
             state.wishlists = action.payload
             state.status = 'successed'
             state.isLoading = false
-        })
-        .addCase(getAllSavedApartments.fulfilled, (state, action) => {
-            state.savedApartments = action.payload
-          })
-        .addCase(addSavedApartment.fulfilled, (state, action) => {
-            state.savedApartments.push(action.payload)
-            state.isLoading = false
-        })
-        .addCase(deleteSavedApartment.fulfilled, (state, action) => {
-            const propsToCompare = ['apartmentId', 'wishlistId', 'userId']
-            state.savedApartments = state.savedApartments.filter(apartment => {
-              return propsToCompare.some(prop => apartment[prop] !== action.payload[prop])
-            })
         }
-    )} 
+        
+    )}
 })
 
 // State exports
