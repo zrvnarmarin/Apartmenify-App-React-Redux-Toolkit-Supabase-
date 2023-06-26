@@ -1,6 +1,6 @@
 import AirConditioningIcon from '../../assets/facilities_icons/air-conditioning.png'
 import BBQIcon from '../../assets/facilities_icons/bbq.png'
-import CarRentalServiceIcon from '../../assets/facilities_icons/car-rental.png'
+import CarRentalServiceIcon from '../../assets/facilities_icons/car-rental-service.png'
 import CoffeMachineIcon from '../../assets/facilities_icons/coffe-machine.png'
 import FreeParkingIcon from '../../assets/facilities_icons/free-parking.png'
 import HairDryerIcon from '../../assets/facilities_icons/hair-dryer.png'
@@ -22,6 +22,6 @@ export const mappedFacilities = [
     { value: 'Smoke-Free' , icon: NoSmokingIcon },
     { value: 'Sauna' , icon: SaunaIcon },
     { value: 'BBQ' , icon: BBQIcon },
-    { value: 'Car rental Service' , icon: CarRentalServiceIcon },
+    { value: 'Car Rental Service' , icon: CarRentalServiceIcon },
     { value: 'Flat-Screen TV', icon: TVIcon}
 ];

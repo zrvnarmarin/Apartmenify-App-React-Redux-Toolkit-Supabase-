@@ -6,6 +6,7 @@ import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSl
 import Select from '../../../UI/Select'
 import supabase from '../../../supabaseClient';
 import { v4 } from 'uuid';
+import { storage } from '../../../supabaseClient';
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
@@ -57,36 +58,13 @@ const AddNewApartment = () => {
     navigate('/adminDashboard/apartments')
   }
 
-
-  const [user, setUser] = useState({})
-
-  const getUser = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    setUser(user)
-    console.log(user)
-  }
-
   useEffect(() => {
     dispatch(getAllFacilities())
-    getUser()
   }, [])
-
-  const uploadImage = async (e) => {
-    let file = e.target.files[0]
-    console.log(file)
-
-    const { data, error } = await supabase
-      .storage
-      .from('images')
-      .upload('apartmentImages/images' + "/" + v4(), file)
-  }
-
-
 
   return (
     <div className=' mx-2 px-6 py-12 flex flex-col gap-7'>
       <h1 className='text-3xl font-semibold text-[#f4eff0]'>Add New Apartment</h1>
-      <input type="file" onChange={(e) => uploadImage(e)} />
       <form onSubmit={formSubmitHandler} className='grid grid-cols-2 gap-4'>
         <input 
           value={title} 
