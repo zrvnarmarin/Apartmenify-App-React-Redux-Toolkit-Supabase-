@@ -94,6 +94,20 @@ export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wis
     }
 })
 
+export const getAllApartmentsIdFromWishlist = createAsyncThunk('users/getAllApartmentsFromWishlist', async (wishlistProps) => {
+    const { data, error } = await supabase
+        .from('wishlists')
+        .select('apartmentsId')
+        .eq('userId', wishlistProps.userId)
+        .eq('name', wishlistProps.name)
+    
+    const currentApartmentsId = data.map(wishlist => wishlist.apartmentsId).flat()
+
+    console.log(currentApartmentsId)
+
+    return currentApartmentsId
+})
+
 const initialState = {
     users: [],
     user: {},
@@ -209,7 +223,7 @@ export const getLikedApartments = createSelector(
     [selectAllWishlists],
     (allWishlists) => {
         const allLikedApartments = [...new Set(allWishlists.map(wishlist => wishlist.apartmentsId).flat())]
-        
+
         return allLikedApartments
     }
 )

@@ -1,37 +1,39 @@
-import React, { useEffect, useState, useSyncExternalStore } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
-import { getAllWishlists, selectAllWishlists, selectUser } from '../auth/usersSlice'
+import { getAllWishlists, selectAllWishlists, selectUser, getAllApartmentsIdFromWishlist } from '../auth/usersSlice'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
-
     const dispatch = useDispatch()
     const user = useSelector(selectUser)
     const wishlists = useSelector(selectAllWishlists)
 
-    const updateWishlist = async () => {
-        const { data, error } = await supabase
-            .from('wishlists')
-            .update({ apartmentsId: [1, 45, 67]})
-            .eq('userId', user.id)
-            .eq('name', 'North America')
-            return data
+    const test = () => {
+        dispatch(getAllApartmentsIdFromWishlist({
+            userId: user.id,
+            name: 'North America'
+        }))
     }
 
-    const getAllApartmentsIdFromWishlist = async () => {
-        const { data, error } = await supabase
-            .from('wishlists')
-            .select('apartmentsId')
-            .eq('userId', user.id)
-            .eq('name', 'North America')
-        
-        const currentApartmentsId = data.map(wishlist => console.log(wishlist.apartmentsId))
+    const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
 
-        console.log(currentApartmentsId)
-        return data
-    }
+    // const updateWishlist = async () => {
+    //     const currentIds = await getAllApartmentsIdFromWishlist().then((res) => {
+    //         return res
+    //     }).then((res) => {
+    //         console.log(res)
+    //     })
+
+    //     const { data, error } = await supabase
+    //         .from('wishlists')
+    //         .update({ apartmentsId: currentIds })
+    //         .eq('userId', user.id)
+    //         .eq('name', 'North America')
+    //         return data
+
+    // }
 
     return (
         <li className='flex flex-col items-start sm:grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 gap-4 border-[1px] border-black'>
@@ -78,14 +80,37 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                     </Link>
                 </button>
             </div>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between gap-10'>
                 <p>#{apartmentId}</p>
                 <p>{isApartmentLiked(apartmentId) ? 'Liked' : 'Not liked'}</p>
                 <button onClick={() => {
+                    setIsLikeButtonPressed(prev => !prev)
+                    console.log(isLikeButtonPressed)
+                    test()
                     // updateWishlist()
-                    getAllApartmentsIdFromWishlist()
+                    // getAllApartmentsIdFromWishlist()
                 }}>Update Wishlist</button>
             </div>
+
+            { isLikeButtonPressed 
+                ? <div>
+                {wishlists.map(wishlist => 
+                    <div key={wishlist.id}>
+                        <label htmlFor="wishlistName">{wishlist.name}</label>
+                        <input 
+                            type='checkbox' 
+                            id='wishlistName' 
+                            value={wishlist.name} 
+                            key={wishlist.id} 
+                            onChange={() => {
+                                console.log(wishlist.name)
+                            }}
+                        />
+                    </div>    
+                )}
+                </div>
+                : <></>
+            }
         </li>
     )
 }
