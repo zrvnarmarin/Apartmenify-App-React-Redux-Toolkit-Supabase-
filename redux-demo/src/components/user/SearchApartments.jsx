@@ -4,28 +4,18 @@ import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
 import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../admin/apartments/apartmentsSlice';
 import FilterSortSection from '../admin/apartments/filterSort/FilterSortSection.jsx';
-import { selectUser, getAllWishlists, selectAllWishlists, selectAllSavedApartments, getUser } from '../auth/usersSlice';
+import { selectUser, getAllWishlists, selectAllWishlists, getUser, getLikedApartments } from '../auth/usersSlice';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
-  const wishlists = useSelector(selectAllWishlists)
-
- const [likedApartments, setLikedApartments] = useState([]);
+  const likedApartments = useSelector(getLikedApartments)
   
   useEffect(() => {
     dispatch(getAllApartments())
     dispatch(getAllWishlists())
-
-    const apartmentsIds = wishlists.map(wishlist => wishlist.apartmentsId).flat()
-    const set = [...new Set(apartmentsIds)]
-    console.log(set)
-    setLikedApartments(set)
-    console.log(likedApartments)
-
-
   }, []) 
 
   const isApartmentLiked = (apartmentId) => {
@@ -37,6 +27,10 @@ const SearcApartments = () => {
   return (
     <div>
       <FilterSortSection />
+      <p>Liked Apartments:</p>
+      {likedApartments.map(id => 
+        <div key={id}># {id}</div>  
+      )}
       <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2 font-poppins'>
         { filteredAndSortedApartments.map(apartment =>
           <Apartment

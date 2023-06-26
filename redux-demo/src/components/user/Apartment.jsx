@@ -8,6 +8,10 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
         console.log(isApartmentLiked(apartmentId))
     }
 
+    useEffect(() => {
+        test()
+    }, [])
+
     return (
         <li className='flex flex-col items-start sm:grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 gap-4 border-[1px] border-black'>
             <div className='w-full h-full'>
@@ -53,11 +57,10 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                     </Link>
                 </button>
             </div>
-            #{apartmentId}
-            <button onClick={() => {
-                test()
-            }}>Display liked status</button>
-
+            <div className='flex items-center justify-between'>
+                <p>#{apartmentId}</p>
+                <p>{isApartmentLiked(apartmentId) ? 'Liked' : 'Not liked'}</p>
+            </div>
         </li>
     )
 }
