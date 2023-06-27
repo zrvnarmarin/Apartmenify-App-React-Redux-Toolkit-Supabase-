@@ -94,7 +94,7 @@ export const deleteWishlist = createAsyncThunk('users/deleteWishlist', async wis
     }
 })
 
-export const getAllApartmentsIdFromWishlist = createAsyncThunk('users/getAllApartmentsFromWishlist', async (wishlistProps) => {
+export const getAllApartmentIdsFromWishlist = createAsyncThunk('users/getAllApartmentIdsFromWishlist', async (wishlistProps) => {
     const { data, error } = await supabase
         .from('wishlists')
         .select('apartmentsId')
@@ -103,9 +103,17 @@ export const getAllApartmentsIdFromWishlist = createAsyncThunk('users/getAllApar
     
     const currentApartmentsId = data.map(wishlist => wishlist.apartmentsId).flat()
 
-    console.log(currentApartmentsId)
+    // console.log(currentApartmentsId)
 
     return currentApartmentsId
+})
+
+export const updateWishlistApartmentIds = createAsyncThunk('users/updateWishlistApartmentIds', async () => {
+    const { data, error } = await supabase
+        .from('wishlists')
+        // .update({ apartmentsId: [...likedApartments, apartmentId] })
+        .eq('userId', user.id)
+        .eq('name', 'North America')
 })
 
 const initialState = {
@@ -119,6 +127,7 @@ const initialState = {
     wishlist: '',
     savedApartments: [],
     savedApartment: {},
+    wishlistApartmentsId: []
 }
 
 const usersSlice = createSlice({
@@ -178,8 +187,11 @@ const usersSlice = createSlice({
             state.wishlists = action.payload
             state.status = 'successed'
             state.isLoading = false
+        })
+        .addCase(getAllApartmentIdsFromWishlist.fulfilled, (state, action) => {
+            state.wishlistApartmentsId = action.payload
+            console.log(state.wishlistApartmentsId)
         }
-        
     )}
 })
 
@@ -191,6 +203,7 @@ export const selectDateOfBirth = (state) => state.users.dateOfBirth
 export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist
 export const selectAllSavedApartments = (state) => state.users.savedApartments
+export const selectWishlistApartmentsId = (state) => state.users.wishlistApartmentsId
 
 // Reducers exports
 export const { setWishlist, resetWishlist } = usersSlice.actions

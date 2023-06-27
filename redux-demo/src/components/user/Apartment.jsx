@@ -3,21 +3,18 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
-import { getAllWishlists, selectAllWishlists, selectUser, getAllApartmentsIdFromWishlist } from '../auth/usersSlice'
+import { selectAllWishlists, selectUser, getAllApartmentIdsFromWishlist, selectWishlistApartmentsId } from '../auth/usersSlice'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
     const user = useSelector(selectUser)
     const wishlists = useSelector(selectAllWishlists)
 
-    const test = () => {
-        dispatch(getAllApartmentsIdFromWishlist({
-            userId: user.id,
-            name: 'North America'
-        }))
-    }
-
     const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
+
+    // svi trenutno lajkani apartmani u selektanoj wishlisti:
+    const likedApartments = useSelector(selectWishlistApartmentsId)
+    console.log(likedApartments)
 
     // const updateWishlist = async () => {
     //     const currentIds = await getAllApartmentsIdFromWishlist().then((res) => {
@@ -83,34 +80,54 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
             <div className='flex items-center justify-between gap-10'>
                 <p>#{apartmentId}</p>
                 <p>{isApartmentLiked(apartmentId) ? 'Liked' : 'Not liked'}</p>
+            </div>
+
+            <div className='flex flex-row gap-10'>
                 <button onClick={() => {
                     setIsLikeButtonPressed(prev => !prev)
                     console.log(isLikeButtonPressed)
-                    test()
+                    // test()
                     // updateWishlist()
                     // getAllApartmentsIdFromWishlist()
-                }}>Update Wishlist</button>
-            </div>
+                }}>Show wishlists</button>
+                
+                { isLikeButtonPressed 
+                    ? <div>
+                    {wishlists.map(wishlist => 
+                        <div key={wishlist.id}>
+                            <label htmlFor="wishlistName">{wishlist.name}</label>
+                            <input 
+                                type='checkbox' 
+                                id='wishlistName' 
+                                value={wishlist.name} 
+                                key={wishlist.id} 
+                                onChange={async (e) => {
+                                    console.log(wishlist.name)
 
-            { isLikeButtonPressed 
-                ? <div>
-                {wishlists.map(wishlist => 
-                    <div key={wishlist.id}>
-                        <label htmlFor="wishlistName">{wishlist.name}</label>
-                        <input 
-                            type='checkbox' 
-                            id='wishlistName' 
-                            value={wishlist.name} 
-                            key={wishlist.id} 
-                            onChange={() => {
-                                console.log(wishlist.name)
-                            }}
-                        />
-                    </div>    
-                )}
-                </div>
-                : <></>
-            }
+                                    dispatch(getAllApartmentIdsFromWishlist({
+                                        userId: user.id,
+                                        name: wishlist.name
+                                    }))
+
+                                    const { data, error } = await supabase
+                                        .from('wishlists')
+                                        .update({ apartmentsId: [...likedApartments, apartmentId] })
+                                        .eq('userId', user.id)
+                                        .eq('name', 'North America')
+                                        
+
+                                    // console.log(likedApartments)
+
+                                    // console.log(e.target.checked)
+
+                                }}
+                            />
+                        </div>    
+                    )}
+                    </div>
+                    : <></>
+                }
+            </div>
         </li>
     )
 }
