@@ -115,17 +115,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                 onChange={async (e) => {
                                     // console.log(wishlist.name)
 
-                                    // dispatch(getAllApartmentIdsFromWishlist({
-                                    //     userId: user.id,
-                                    //     name: wishlist.name
-                                    // }))
-
-                                    // const { data, error } = await supabase
-                                    //     .from('wishlists')
-                                    //     .update({ apartmentsId: [...likedApartments, apartmentId] })
-                                    //     .eq('userId', user.id)
-                                    //     .eq('name', 'North America')
-
+                                    //Find all current apartments ids in selected wishlist
                                     const currentApartmentsId = wishlistNamesAndApartmentIds.find(w => w.name === wishlist.name).apartmentsId
                                     console.log(currentApartmentsId)
 
