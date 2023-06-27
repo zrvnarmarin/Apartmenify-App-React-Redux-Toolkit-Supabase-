@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
-import { selectAllWishlists, selectUser, getAllApartmentIdsFromWishlist, selectWishlistApartmentsId } from '../auth/usersSlice'
+import { selectAllWishlists, selectUser, getAllApartmentIdsFromWishlist, getWishlistNameAndApartmentIds } from '../auth/usersSlice'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
@@ -12,9 +12,19 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
 
     const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
 
+    useEffect(() => {
+        // [ { Europe: [1,2,3] }, { Asia: [5,6,7] } ]
+        if (isLikeButtonPressed) {
+            dispatch(getWishlistNameAndApartmentIds(user.id))
+        }
+    }, [isLikeButtonPressed])
+
+
+
+
     // svi trenutno lajkani apartmani u selektanoj wishlisti:
-    const likedApartments = useSelector(selectWishlistApartmentsId)
-    console.log(likedApartments)
+    // const likedApartments = useSelector(selectWishlistApartmentsId)
+    // console.log(likedApartments)
 
     // const updateWishlist = async () => {
     //     const currentIds = await getAllApartmentsIdFromWishlist().then((res) => {
@@ -85,7 +95,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
             <div className='flex flex-row gap-10'>
                 <button onClick={() => {
                     setIsLikeButtonPressed(prev => !prev)
-                    console.log(isLikeButtonPressed)
+                    // console.log(isLikeButtonPressed)
                     // test()
                     // updateWishlist()
                     // getAllApartmentsIdFromWishlist()

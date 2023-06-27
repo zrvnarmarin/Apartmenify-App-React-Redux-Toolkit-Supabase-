@@ -4,27 +4,31 @@ import Apartment from './Apartment'
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
 import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../admin/apartments/apartmentsSlice';
 import FilterSortSection from '../admin/apartments/filterSort/FilterSortSection.jsx';
-import { selectUser, getAllWishlists, selectAllWishlists, getUser, getLikedApartments } from '../auth/usersSlice';
+import { selectUser, getAllWishlists, getLikedApartments, getWishlistNameAndApartmentIds } from '../auth/usersSlice';
+import supabase from '../../supabaseClient';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
+  const user = useSelector(selectUser)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
   const likedApartments = useSelector(getLikedApartments)
+  const isApartmentLiked = (apartmentId) => { return likedApartments.includes(apartmentId) }
   
   useEffect(() => {
     dispatch(getAllApartments())
     dispatch(getAllWishlists())
   }, []) 
 
-  const isApartmentLiked = (apartmentId) => { return likedApartments.includes(apartmentId) }
-
   if (isLoading) return <LoadingSpinner />
   
   return (
     <div>
       <FilterSortSection />
+      <button onClick={() => {
+        getAllLikedApartments()
+      }}>Fetch All liked apartments</button>
       <p>Liked Apartments:</p>
       {likedApartments.map(id => 
         <div key={id}># {id}</div>  
