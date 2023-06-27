@@ -10,7 +10,6 @@ import supabase from '../../supabaseClient';
 const SearcApartments = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
-  const user = useSelector(selectUser)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
   const likedApartments = useSelector(getLikedApartments)
@@ -26,9 +25,6 @@ const SearcApartments = () => {
   return (
     <div>
       <FilterSortSection />
-      <button onClick={() => {
-        getAllLikedApartments()
-      }}>Fetch All liked apartments</button>
       <p>Liked Apartments:</p>
       {likedApartments.map(id => 
         <div key={id}># {id}</div>  

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
-import { selectAllWishlists, selectUser, getAllApartmentIdsFromWishlist, getWishlistNameAndApartmentIds } from '../auth/usersSlice'
+import { selectAllWishlists, selectUser, getAllApartmentIdsFromWishlist, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
@@ -11,6 +11,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
     const wishlists = useSelector(selectAllWishlists)
 
     const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
+    const loading = useSelector(selectIsLoading)
 
     useEffect(() => {
         // [ { Europe: [1,2,3] }, { Asia: [5,6,7] } ]
@@ -19,7 +20,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
         }
     }, [isLikeButtonPressed])
 
-
+    const wishlistNamesAndApartmentIds = useSelector(selectWishlistNamesAndIds)
 
 
     // svi trenutno lajkani apartmani u selektanoj wishlisti:
@@ -99,37 +100,40 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                     // test()
                     // updateWishlist()
                     // getAllApartmentsIdFromWishlist()
-                }}>Show wishlists</button>
+                }}>{ isLikeButtonPressed ? 'Hide Wishlists' : 'Show Wishlists '}</button>
                 
-                { isLikeButtonPressed 
+                { isLikeButtonPressed
                     ? <div>
-                    {wishlists.map(wishlist => 
-                        <div key={wishlist.id}>
+                    {wishlistNamesAndApartmentIds.map((wishlist, i) => 
+                        <div key={i}>
                             <label htmlFor="wishlistName">{wishlist.name}</label>
                             <input 
                                 type='checkbox' 
                                 id='wishlistName' 
                                 value={wishlist.name} 
-                                key={wishlist.id} 
+                                key={i} 
                                 onChange={async (e) => {
-                                    console.log(wishlist.name)
+                                    // console.log(wishlist.name)
 
-                                    dispatch(getAllApartmentIdsFromWishlist({
-                                        userId: user.id,
-                                        name: wishlist.name
-                                    }))
+                                    // dispatch(getAllApartmentIdsFromWishlist({
+                                    //     userId: user.id,
+                                    //     name: wishlist.name
+                                    // }))
+
+                                    // const { data, error } = await supabase
+                                    //     .from('wishlists')
+                                    //     .update({ apartmentsId: [...likedApartments, apartmentId] })
+                                    //     .eq('userId', user.id)
+                                    //     .eq('name', 'North America')
+
+                                    const currentApartmentsId = wishlistNamesAndApartmentIds.find(w => w.name === wishlist.name).apartmentsId
+                                    console.log(currentApartmentsId)
 
                                     const { data, error } = await supabase
                                         .from('wishlists')
-                                        .update({ apartmentsId: [...likedApartments, apartmentId] })
+                                        .update({ apartmentsId: [...currentApartmentsId, apartmentId] })
                                         .eq('userId', user.id)
-                                        .eq('name', 'North America')
-                                        
-
-                                    // console.log(likedApartments)
-
-                                    // console.log(e.target.checked)
-
+                                        .eq('name', wishlist.name)
                                 }}
                             />
                         </div>    

@@ -121,7 +121,8 @@ export const getWishlistNameAndApartmentIds = createAsyncThunk('users/getWishlis
       .from('wishlists')
       .select('name, apartmentsId')
       .eq('userId', userId)
-      console.log(data)
+
+    return data
 }) 
 
 const initialState = {
@@ -135,7 +136,8 @@ const initialState = {
     wishlist: '',
     savedApartments: [],
     savedApartment: {},
-    wishlistApartmentsId: []
+    wishlistApartmentsId: [],
+    wishlistNamesAndIds: []
 }
 
 const usersSlice = createSlice({
@@ -199,6 +201,14 @@ const usersSlice = createSlice({
         .addCase(getAllApartmentIdsFromWishlist.fulfilled, (state, action) => {
             state.wishlistApartmentsId = action.payload
             console.log(state.wishlistApartmentsId)
+        })
+        .addCase(getWishlistNameAndApartmentIds.fulfilled, (state, action) => {
+            console.log('add case: ', action.payload)
+            state.wishlistNamesAndIds = action.payload
+            state.isLoading = false
+        })
+        .addCase(getWishlistNameAndApartmentIds.pending, (state, action) => {
+            state.isLoading = true
         }
     )}
 })
@@ -212,6 +222,7 @@ export const selectAllWishlists = (state) => state.users.wishlists
 export const selectWishlist = (state) => state.users.wishlist
 export const selectAllSavedApartments = (state) => state.users.savedApartments
 export const selectWishlistApartmentsId = (state) => state.users.wishlistApartmentsId
+export const selectWishlistNamesAndIds = (state) => state.users.wishlistNamesAndIds
 
 // Reducers exports
 export const { setWishlist, resetWishlist } = usersSlice.actions
