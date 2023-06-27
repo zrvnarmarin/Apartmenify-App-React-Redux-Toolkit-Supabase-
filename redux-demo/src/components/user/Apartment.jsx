@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
-import { selectAllWishlists, selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
+import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
+import Rating from './ratings/Rating'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
@@ -32,9 +33,13 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
             <div className='flex flex-col gap-2 bg-slate-100 w-full h-full text-xl font-normal text-gray-900 capitalize'>
                 <p>{title}</p>
                 <div>
-                    {[1, 2, 3, 4, 5].map(number => 
-                        <img key={number} src={StarPlaceholder} width={30} height={30} alt="rating_star" className='inline-block' />
-                    )}
+                    {/* {[1, 2, 3, 4, 5].map(number => 
+                        <div key={number} className='flex flex-row'>
+                            <img src={StarPlaceholder} width={30} height={30} alt="rating_star" className='inline-block' />
+                            <Rating />
+                        </div>
+                    )} */}
+                    <Rating />
                 </div>
                 <a href="" className='underline underline-offset-2 underline-blue-400'>{city}</a>
                 <p>{singleBeds} single beds, {doubleBeds} double beds</p>
