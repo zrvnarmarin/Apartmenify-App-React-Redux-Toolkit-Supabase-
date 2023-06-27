@@ -3,45 +3,22 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
-import { selectAllWishlists, selectUser, getAllApartmentIdsFromWishlist, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
+import { selectAllWishlists, selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
     const user = useSelector(selectUser)
-    const wishlists = useSelector(selectAllWishlists)
 
     const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
     const loading = useSelector(selectIsLoading)
 
+    const wishlistNamesAndApartmentIds = useSelector(selectWishlistNamesAndIds)
+
     useEffect(() => {
-        // [ { Europe: [1,2,3] }, { Asia: [5,6,7] } ]
         if (isLikeButtonPressed) {
             dispatch(getWishlistNameAndApartmentIds(user.id))
         }
     }, [isLikeButtonPressed])
-
-    const wishlistNamesAndApartmentIds = useSelector(selectWishlistNamesAndIds)
-
-
-    // svi trenutno lajkani apartmani u selektanoj wishlisti:
-    // const likedApartments = useSelector(selectWishlistApartmentsId)
-    // console.log(likedApartments)
-
-    // const updateWishlist = async () => {
-    //     const currentIds = await getAllApartmentsIdFromWishlist().then((res) => {
-    //         return res
-    //     }).then((res) => {
-    //         console.log(res)
-    //     })
-
-    //     const { data, error } = await supabase
-    //         .from('wishlists')
-    //         .update({ apartmentsId: currentIds })
-    //         .eq('userId', user.id)
-    //         .eq('name', 'North America')
-    //         return data
-
-    // }
 
     return (
         <li className='flex flex-col items-start sm:grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 gap-4 border-[1px] border-black'>
@@ -113,7 +90,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                 value={wishlist.name} 
                                 key={i} 
                                 onChange={async (e) => {
-                                    // console.log(wishlist.name)
+                                    console.log(wishlist.name)
 
                                     //Find all current apartments ids in selected wishlist
                                     const currentApartmentsId = wishlistNamesAndApartmentIds.find(w => w.name === wishlist.name).apartmentsId
@@ -132,7 +109,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                     else if (!e.target.checked) {
                                         const test = [...currentApartmentsId]
                                         test.length - 1
-                                        
+
                                         const { data, error } = await supabase
                                             .from('wishlists')
                                             .update({ apartmentsId: test })
