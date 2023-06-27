@@ -119,11 +119,28 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                     const currentApartmentsId = wishlistNamesAndApartmentIds.find(w => w.name === wishlist.name).apartmentsId
                                     console.log(currentApartmentsId)
 
-                                    const { data, error } = await supabase
-                                        .from('wishlists')
-                                        .update({ apartmentsId: [...currentApartmentsId, apartmentId] })
-                                        .eq('userId', user.id)
-                                        .eq('name', wishlist.name)
+                                    
+                                    if (e.target.checked) {
+                                        const { data, error } = await supabase
+                                            .from('wishlists')
+                                            .update({ apartmentsId: [...currentApartmentsId, apartmentId] })
+                                            .eq('userId', user.id)
+                                            .eq('name', wishlist.name)
+                                            
+                                        console.log(currentApartmentsId)
+                                    } 
+                                    else if (!e.target.checked) {
+                                        const test = [...currentApartmentsId]
+                                        test.length - 1
+                                        
+                                        const { data, error } = await supabase
+                                            .from('wishlists')
+                                            .update({ apartmentsId: test })
+                                            .eq('userId', user.id)
+                                            .eq('name', wishlist.name)
+
+                                            console.log(currentApartmentsId)
+                                    }
                                 }}
                             />
                         </div>    
