@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import StarPlaceholder from '../../assets/starPlaceholder.png'
 import supabase from '../../supabaseClient'
 import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
-import Rating from './ratings/Rating'
+import StarRating from './ratings/StarRating'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
@@ -39,7 +39,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                             <Rating />
                         </div>
                     )} */}
-                    <Rating />
+                    <StarRating />
                 </div>
                 <a href="" className='underline underline-offset-2 underline-blue-400'>{city}</a>
                 <p>{singleBeds} single beds, {doubleBeds} double beds</p>
