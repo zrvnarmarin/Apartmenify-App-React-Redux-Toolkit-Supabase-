@@ -6,11 +6,15 @@ import { activeRouteStyles } from '../../../styles/activeRouteStyles';
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import SideMenu from './SideMenu';
 import { selectUser } from '../../auth/usersSlice';
-import LanguageSelect from './../userSettings/LanguageSelect';
+import NotificationBellIcon from '../../../assets/notification_icons/notification_bell_icon.png'
+import NotificationTab from './NotificationTab';
 
 const Navbar = () => {
   const [isUserSettingsShown, setIsUserSettingsShown] = useState(false)
   const toggleUserSettings = () => setIsUserSettingsShown(prev => !prev)
+
+  const [isNotificationTabShown, setIsNotificationTabShown] = useState(false)
+  const toggleNotificationTab = () => setIsNotificationTabShown(prev => !prev)
 
   const [isOpenedSideMenu, setIsOpenedSideMenu] = useState(false)
   const closeSideMenu = () => setIsOpenedSideMenu(false)
@@ -50,7 +54,19 @@ const Navbar = () => {
           </div>
         </li>
 
-        <li className='sm:flex hidden z-10'>
+        <li className='sm:flex items-center gap-8 hidden z-10'>
+          <div className='relative'>
+            <button onClick={toggleNotificationTab}>
+              <span className='absolute bottom-6 left-3 text-sm rounded-full px-3 py-1 bg-red-500'>1</span>
+              <img 
+              src={NotificationBellIcon} 
+              alt="notification_bell_icon" 
+              width={30}
+              height={30}
+              />
+            </button>
+            { isNotificationTabShown && <NotificationTab />}
+          </div>
           <NavLink 
             onClick={toggleUserSettings} 
             className='flex items-center justify-center gap-3 p-2 rounded-lg'

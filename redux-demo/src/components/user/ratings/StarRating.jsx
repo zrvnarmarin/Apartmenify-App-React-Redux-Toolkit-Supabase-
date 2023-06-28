@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import RatingStarFilled from '../../../assets/rating_icons/rating_star_filled_icon.png'
 import RatingStarEmpty from '../../../assets/rating_icons/rating_star_empty_icon.png'
 
-const array = [
+const ratingArray = [
     { id: 1, value: 1, isHovered: false },
     { id: 2, value: 2, isHovered: false },
     { id: 3, value: 3, isHovered: false },
@@ -11,7 +11,7 @@ const array = [
 ]
 
 const StarRating = () => {
-    const [ratingNumbers, setRatingNumbers] = useState(array)
+    const [ratingNumbers, setRatingNumbers] = useState(ratingArray)
 
     return (
         <div className='flex flex-row items-center gap-4'>
@@ -23,28 +23,21 @@ const StarRating = () => {
                         width={30} 
                         height={30} 
                         onMouseEnter={() => {
-                            console.log(ratingNumber.value)
-        
                             setRatingNumbers(prev => {
                                 if (prev === undefined) return
-        
-                                let filledStars = prev.map(star => {
+
+                                return prev.map(star => {
                                     star.value <= ratingNumber.value ? star.isHovered = true : star.isHovered = false
                                     return star
                                 })
-        
-                                console.log(filledStars)
-                                return filledStars
                             })
                         }} 
                         onMouseLeave={() => {
-
                             setRatingNumbers(prev => {
-                                // console.log(prev)
-                                return prev
+                                if (prev === undefined) return
+                                
+                                return prev.map(star => ({...star, isHovered: false}))
                             })
-        
-        
                         }}
                     />
                 </span>
