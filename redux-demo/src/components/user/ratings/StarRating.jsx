@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import RatingStarFilled from '../../../assets/rating_icons/rating_star_filled_icon.png'
 import RatingStarEmpty from '../../../assets/rating_icons/rating_star_empty_icon.png'
 
-const ratingArray = [
+const ratingOptions = [
     { id: 1, value: 1, isHovered: false },
     { id: 2, value: 2, isHovered: false },
     { id: 3, value: 3, isHovered: false },
@@ -11,23 +11,26 @@ const ratingArray = [
 ]
 
 const StarRating = () => {
-    const [ratingNumbers, setRatingNumbers] = useState(ratingArray)
+    const [ratingStars, setRatingNumbers] = useState(ratingOptions)
 
     return (
-        <div className='flex flex-row items-center gap-4'>
-            {ratingNumbers.map(ratingNumber =>
-                <span className='bg-red-200' key={ratingNumber.id}>
+        <div className='flex flex-row items-center justify-between gap-4'>
+            {ratingStars.map(ratingStar =>
+                <button 
+                    key={ratingStar.id}
+                    onClick={() => {
+                        console.log(ratingStar.value)
+                    }}
+                >
                     <img 
                         alt="rating_star" 
-                        src={ ratingNumber.isHovered ? RatingStarFilled : RatingStarEmpty } 
-                        width={30} 
-                        height={30} 
+                        src={ ratingStar.isHovered ? RatingStarFilled : RatingStarEmpty } 
                         onMouseEnter={() => {
                             setRatingNumbers(prev => {
                                 if (prev === undefined) return
 
                                 return prev.map(star => {
-                                    star.value <= ratingNumber.value ? star.isHovered = true : star.isHovered = false
+                                    star.value <= ratingStar.value ? star.isHovered = true : star.isHovered = false
                                     return star
                                 })
                             })
@@ -35,12 +38,12 @@ const StarRating = () => {
                         onMouseLeave={() => {
                             setRatingNumbers(prev => {
                                 if (prev === undefined) return
-                                
+
                                 return prev.map(star => ({...star, isHovered: false}))
                             })
                         }}
                     />
-                </span>
+                </button>
             )}
         </div>
     )

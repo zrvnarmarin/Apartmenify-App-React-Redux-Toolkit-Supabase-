@@ -8,6 +8,7 @@ import SideMenu from './SideMenu';
 import { selectUser } from '../../auth/usersSlice';
 import NotificationBellIcon from '../../../assets/notification_icons/notification_bell_icon.png'
 import NotificationTab from './NotificationTab';
+import ReviewModal from '../../../UI/ReviewModal.jsx'
 
 const Navbar = () => {
   const [isUserSettingsShown, setIsUserSettingsShown] = useState(false)
@@ -67,6 +68,7 @@ const Navbar = () => {
             </button>
             { isNotificationTabShown && <NotificationTab />}
           </div>
+
           <NavLink 
             onClick={toggleUserSettings} 
             className='flex items-center justify-center gap-3 p-2 rounded-lg'

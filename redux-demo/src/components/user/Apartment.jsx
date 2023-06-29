@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import supabase from '../../supabaseClient'
 import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
-import StarRating from './ratings/StarRating'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
+
     const user = useSelector(selectUser)
-
-    const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
-    const loading = useSelector(selectIsLoading)
-
     const wishlistNamesAndApartmentIds = useSelector(selectWishlistNamesAndIds)
+    
+    const [isLikeButtonPressed, setIsLikeButtonPressed] = useState(false)
 
     useEffect(() => {
         if (isLikeButtonPressed) {
@@ -31,7 +29,6 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
 
             <div className='flex flex-col gap-2 bg-slate-100 w-full h-full text-xl font-normal text-gray-900 capitalize'>
                 <p>{title}</p>
-                <StarRating />
                 <a href="" className='underline underline-offset-2 underline-blue-400'>{city}</a>
                 <p>{singleBeds} single beds, {doubleBeds} double beds</p>
                 <p className='text-green-700 uppercase'>Free <span className='lowercase'>Cancelation</span></p>
