@@ -203,7 +203,7 @@ const usersSlice = createSlice({
             console.log(state.wishlistApartmentsId)
         })
         .addCase(getWishlistNameAndApartmentIds.fulfilled, (state, action) => {
-            console.log('add case: ', action.payload)
+            // console.log('add case: ', action.payload)
             state.wishlistNamesAndIds = action.payload
             state.isLoading = false
         })

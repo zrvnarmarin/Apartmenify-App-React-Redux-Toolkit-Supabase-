@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import supabase from '../../supabaseClient'
-import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds, selectIsLoading } from '../auth/usersSlice'
+import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds } from '../auth/usersSlice'
 
 const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
@@ -64,30 +64,31 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
             </div>
 
             <div className='flex flex-row gap-10'>
-                <button onClick={() => {
-                    setIsLikeButtonPressed(prev => !prev)
-                    // console.log(isLikeButtonPressed)
-                    // test()
-                    // updateWishlist()
-                    // getAllApartmentsIdFromWishlist()
-                }}>{ isLikeButtonPressed ? 'Hide Wishlists' : 'Show Wishlists '}</button>
+                <button 
+                    onClick={() => {
+                        setIsLikeButtonPressed(prev => !prev)
+                    }}
+                >
+                    { isLikeButtonPressed ? 'Hide Wishlists' : 'Show Wishlists '}
+                </button>
                 
                 { isLikeButtonPressed
                     ? <div>
                     {wishlistNamesAndApartmentIds.map((wishlist, i) => 
                         <div key={i}>
+                            <div>{Object.values(wishlist)}</div>
                             <label htmlFor="wishlistName">{wishlist.name}</label>
                             <input 
+                                checked={wishlist.apartmentsId.includes(apartmentId)}
                                 type='checkbox' 
                                 id='wishlistName' 
                                 value={wishlist.name} 
-                                key={i} 
                                 onChange={async (e) => {
                                     console.log(wishlist.name)
 
                                     //Find all current apartments ids in selected wishlist
                                     const currentApartmentsId = wishlistNamesAndApartmentIds.find(w => w.name === wishlist.name).apartmentsId
-                                    console.log(currentApartmentsId)
+                                    // console.log(currentApartmentsId)
 
                                     
                                     if (e.target.checked) {
@@ -97,7 +98,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                             .eq('userId', user.id)
                                             .eq('name', wishlist.name)
                                             
-                                        console.log(currentApartmentsId)
+                                        // console.log(currentApartmentsId)
                                     } 
                                     else if (!e.target.checked) {
                                         const test = [...currentApartmentsId]
@@ -109,10 +110,10 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                             .eq('userId', user.id)
                                             .eq('name', wishlist.name)
 
-                                            console.log(currentApartmentsId)
+                                        // console.log(currentApartmentsId)
                                     }
                                 }}
-                            />
+                            /> <hr />
                         </div>    
                     )}
                     </div>
