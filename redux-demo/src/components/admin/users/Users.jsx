@@ -18,15 +18,18 @@ const Users = () => {
 
         <UserTableHeader />
         
-        <div className='flex flex-col gap-4 mx-4 text-[#f5f0f1]'>
-        {users.map((user, i) => 
-          <div key={user.id} className='grid grid-cols-4 p-3 gap-4 bg-[#121212] rounded-md'>
-            <p className='pl-2 text-[#f5eced] text-lg font-semibold'>{i}</p>
-            <p>USER ID</p>
-            <p>{user.email}</p>
-            <p>{user.role}</p>
-          </div>  
-        )}
+        <div className='flex flex-col mx-4 text-[#f5f0f1] '>
+          {users.map((user, i) => 
+            <div key={user.id}>
+              <div  className='grid grid-cols-4 p-3 gap-4 bg-[#182028]'>
+                <p className='pl-2 text-[#f5eced] text-lg font-semibold'>{i}</p>
+                <p>USER ID</p>
+                <p>{user.email}</p>
+                <p>{user.role}</p>
+              </div>  
+              <hr className='border-slate-800' />
+            </div>
+          )}
         </div>
       </div>
     </div>

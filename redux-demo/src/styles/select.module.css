@@ -19,7 +19,7 @@
   }
   
   ::-webkit-scrollbar-button {
-    scrollbar-color: red;
+    scrollbar-color: #0C768A;
   }
   
   .value {
@@ -106,20 +106,19 @@
   } */
   
   .option.highlighted {
-    background-image: linear-gradient(to right, #e8132f, #fd3b54);
+    background-color: #0C768A;
     color: white
   }
   
   .option-badge {
     display: flex;
     align-items: center;
-    border-radius: .25em;
     padding: .15em .25em;
     gap: .25em;
     cursor: pointer;
     background: none;
     outline: none;
-    background-image: linear-gradient(to right, #e8132f, #fd3b54);
+    background-color: #0C768A;
     color: white;
   }
   

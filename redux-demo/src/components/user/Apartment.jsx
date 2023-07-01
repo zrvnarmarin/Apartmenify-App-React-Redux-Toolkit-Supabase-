@@ -16,7 +16,15 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
         if (isLikeButtonPressed) {
             dispatch(getWishlistNameAndApartmentIds(user.id))
         }
+        setState(wishlistNamesAndApartmentIds)
     }, [isLikeButtonPressed])
+
+    const [state, setState] = useState(wishlistNamesAndApartmentIds)
+    useEffect(() => {
+        console.log(state)
+      
+    }, [state])
+    
 
     return (
         <li className='flex flex-col items-start sm:grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-3 gap-4 border-[1px] border-black'>
@@ -76,7 +84,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                     ? <div>
                     {wishlistNamesAndApartmentIds.map((wishlist, i) => 
                         <div key={i}>
-                            <div>{Object.values(wishlist)}</div>
+                            <span>{Object.values(wishlist)}</span>
                             <label htmlFor="wishlistName">{wishlist.name}</label>
                             <input 
                                 checked={wishlist.apartmentsId.includes(apartmentId)}
@@ -88,7 +96,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
 
                                     //Find all current apartments ids in selected wishlist
                                     const currentApartmentsId = wishlistNamesAndApartmentIds.find(w => w.name === wishlist.name).apartmentsId
-                                    // console.log(currentApartmentsId)
+                                    console.log(currentApartmentsId)
 
                                     
                                     if (e.target.checked) {
@@ -98,7 +106,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                             .eq('userId', user.id)
                                             .eq('name', wishlist.name)
                                             
-                                        // console.log(currentApartmentsId)
+                                        console.log(currentApartmentsId)
                                     } 
                                     else if (!e.target.checked) {
                                         const test = [...currentApartmentsId]
@@ -110,10 +118,10 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                                             .eq('userId', user.id)
                                             .eq('name', wishlist.name)
 
-                                        // console.log(currentApartmentsId)
+                                        console.log(currentApartmentsId)
                                     }
                                 }}
-                            /> <hr />
+                            />
                         </div>    
                     )}
                     </div>

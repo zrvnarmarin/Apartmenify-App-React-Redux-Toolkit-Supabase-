@@ -1,7 +1,7 @@
 export const activeRouteStyles = ({ isActive, isPending }) => {
     return {
-      backgroundColor: isActive ? '#F87171' : '',
+      backgroundColor: isActive ? '#0C768A' : '',
       padding: isActive ? '4px 8px  4px 8px' : '',
-      borderRadius: isActive ? '6px' : ''
+      borderRadius: isActive ? '1px' : ''
     }
 }

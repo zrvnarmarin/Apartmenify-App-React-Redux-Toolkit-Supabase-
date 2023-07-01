@@ -7,16 +7,14 @@ import Modal from '../../../UI/Modal'
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice'
 import { modalTexts } from '../../../data/modal/modalTexts'
 import ArrowImage from '../../../assets/ArrowDown.webp'
-import FreeApartmentIcon from '../../../assets/apartment_availability_icons/free.webp'
-import OccupiedApartmentIcon from '../../../assets/apartment_availability_icons/occupied.webp'
-import ReservedApartmentIcon from '../../../assets/apartment_availability_icons/reserved.webp'
 import { getAllWishlists } from './../../auth/usersSlice';
+import DeleteIcon from '../../../assets/action_icons/delete_icon.png'
+import UpdateIcon from '../../../assets/action_icons/update_icon.png'
+
 
 const Apartment = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
-
-  const [isAvailabilityToolTipShown, setSsAvailabilityToolTipShown] = useState(false)
 
   const deleteSelectedApartment = () => {
     dispatch(deleteApartment(id))
@@ -30,12 +28,9 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
   const isModalOpen = useSelector(selectIsModalOpen)
   const openModalWindow = () => dispatch(openModal())
 
-  const showAvailabilityToolTip = () => setSsAvailabilityToolTipShown(true)
-  const hideAvailabilityToolTip = () => setSsAvailabilityToolTipShown(false)
-  
   return (
-    <>
-      <div className='grid grid-cols-7 items-center gap-4 md:gap-0 p-2 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal'>
+    <div>
+      <div className='grid grid-cols-7 items-center md:gap-0 p-2 bg-[#182028] text-[#f5f0f1] text-md font-normal'>
 
         <div className='pl-2 text-[#f5eced] text-xl font-semibold col-span-full md:col-span-1'>
           <span className='inline-block md:hidden'>#</span>
@@ -53,31 +48,21 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           <div className='flex flex-col items-start md:items-start justify-self-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Availability</span>
             <div className='flex items-center gap-2'>
-              <img 
-                src={ 
-                  availability === 'free' 
-                  ? FreeApartmentIcon 
-                  : availability === 'reserved' 
-                  ? ReservedApartmentIcon 
-                  : OccupiedApartmentIcon
-                } 
-                alt="apartment_availability_icon" 
-                width={30}
-                height={30}
-                className={`inline-block`}
-                onMouseEnter={showAvailabilityToolTip}
-                onMouseLeave={hideAvailabilityToolTip}
-              />
-              { isAvailabilityToolTipShown 
-                ?
-                  <span 
-                    className='absolute hidden md:block bottom-5 left-10 bg-gradient-to-r from-[#e8132f] to-[#fd3b54] capitalize py-1 px-2 rounded z-10'
-                  >
-                    {availability}
-                  </span>
-                : 
-                  <></>
+            <div
+              className={
+                `${
+                  availability === 'free'
+                  ? 'bg-[#1E3E39] text-[#31C786]'
+                  : availability === 'reserved'
+                  ? 'bg-[#403C2D] text-[#F4BA38]'
+                  : 'bg-[#3F2B2E] text-[#E25E49]'
+                } rounded-md px-1 shadow-md`
               }
+            >
+
+                <span className='text-xs font-semibold'>{ availability === 'free' ? 'Free' : availability === 'reserved' ? 'Reserved' : 'Occupied' }</span>
+              </div>
+                   
               <span className='capitalize md:hidden text-lg font-semibold'>{availability}</span>
             </div>
           </div>
@@ -90,6 +75,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           </div>
         </div>
         
+        {/* Number of rooms section */}
         <div className='pl-2 col-span-full md:col-span-1'>
           <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Rooms</span>
@@ -97,6 +83,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           </div>
         </div>
 
+        {/* Price section */}
         <div className='pl-2 col-span-full md:col-span-1'>
           <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Price</span>
@@ -104,10 +91,48 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           </div>
         </div>
 
-        <div className='col-span-full md:col-span-1 justify-self-center'>
+        {/* Action buttons section */}
+        <div className='col-span-full md:col-span-1 flex gap-4 items-center justify-start'>
+            <button  className="p-2 bg-[#38C786] rounded-full">
+              <Link 
+                to={`${id}`} 
+                state={{
+                  id: id,
+                  title: title,
+                  city: city,
+                  rooms: rooms,
+                  price: price,
+                  description: description,
+                  address: address,
+                  singleBeds: singleBeds,
+                  doubleBeds: doubleBeds,
+                  distanceFromTheSea,
+                  facilities: facilities, 
+                  availability: availability
+                }}
+              >
+                <img 
+                  src={UpdateIcon} 
+                  width={20}
+                  height={20} 
+                  alt="delete_icon_button" 
+                />
+              </Link>
+            </button>
+            <button
+              onClick={openModalWindow}
+              className="p-2 bg-[#ED5E49] rounded-full"
+            >
+              <img 
+                src={DeleteIcon} 
+                width={20}
+                height={20} 
+                alt="delete_icon_button" 
+              />
+            </button>
           <button
             onClick={toggleMoreDetailsSection}
-            className="p-2 bg-[#252525] rounded-full"
+            className="p-2 bg-[#0E1217] rounded-full"
           >
             <img
               src={ArrowImage} 
@@ -118,8 +143,9 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           </button>
         </div>
 
+        {/* More about section */}
         { isOpenMoreDetailsSection &&
-          <div className='col-span-full mt-8 bg-[#171717] rounded-md p-2 border-[1px] border-slate-500'>
+          <div className='col-span-full mt-8 bg-[#0E1217] p-2 border-[1px] border-slate-500'>
             <div className='flex items-center justify-between p-2'>
               <p className='text-[#f5eced] text-lg font-semibold'>Description:</p>
               <p>{description}</p>
@@ -145,39 +171,11 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
               <div className="flex flex-row flex-wrap gap-2 md:gap-8 p-4 md:p-0">
                 {facilities.map((facility, i) =>
                   <div key={i} className='flex items-center justify-between gap-2'>
-                    <p className="bg-[#252525] hover:bg-gradient-to-r from-[#e8132f] to-[#fd3b54] p-2 rounded-md font-medium">
+                    <p className="bg-[#F4BA40] p-2 rounded-md font-medium">
                       {facility}
                     </p>
                   </div>
                 )}
-              </div>
-            </div>
-            <div className='flex items-center justify-end pt-4 border-t-[1px]'>
-              <div className='flex flex-row gap-2'>
-              <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>
-                <Link 
-                  to={`${id}`} 
-                  state={{
-                    id: id,
-                    title: title,
-                    city: city,
-                    rooms: rooms,
-                    price: price,
-                    description: description,
-                    address: address,
-                    singleBeds: singleBeds,
-                    doubleBeds: doubleBeds,
-                    distanceFromTheSea,
-                    facilities: facilities, 
-                    availability: availability
-                  }}
-                >
-                  Update
-                </Link>
-              </button>
-                <button
-                  onClick={openModalWindow}
-                  className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>Delete</button>
               </div>
             </div>
           </div>
@@ -191,7 +189,8 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           confirmAction={deleteSelectedApartment} 
         />
       }
-    </>
+      <hr className='border-slate-800' />
+    </div>
   )
 }
 

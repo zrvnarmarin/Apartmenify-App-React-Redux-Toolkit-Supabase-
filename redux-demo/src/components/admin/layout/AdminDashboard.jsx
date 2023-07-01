@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   }, [dispatch])
 
   return (
-    <div className='bg-[#1f1f1f] h-screen'>
+    <div className='bg-[#0E1217] h-screen font-sans'>
       <Navbar />
       <Outlet context={{ apartments: apartments }} />
     </div>

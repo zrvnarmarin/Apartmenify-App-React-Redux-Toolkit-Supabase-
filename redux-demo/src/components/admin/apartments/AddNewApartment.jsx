@@ -137,7 +137,7 @@ const AddNewApartment = () => {
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
         <button 
-          className='col-start-2 col-end-3 px-6 py-2 rounded-md font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+          className='col-start-2 col-end-3 px-6 py-2 rounded-md font-medium bg-[#0C768A] text-[#f5eced]'
         >
           Submit
         </button>

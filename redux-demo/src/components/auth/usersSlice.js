@@ -136,7 +136,7 @@ const initialState = {
     wishlist: '',
     savedApartments: [],
     savedApartment: {},
-    wishlistApartmentsId: [],
+    // wishlistApartmentsId: [],
     wishlistNamesAndIds: []
 }
 
