@@ -19,7 +19,7 @@ const ReservationStatusFilterSection = () => {
             setIsActive(option.id)
           }} 
           className={`${isActive === option.id ? 'bg-gradient-to-r from-[#e8132f] to-[#fd3b54]' : 'bg-[#121212]' } 
-            w-full  text-[#f5eced] px-6 py-2 my-4 ss:my-0 text-lg font-medium drop
+            w-full text-[#f5eced] px-6 py-2 my-4 ss:my-0 text-lg font-medium drop
             ${option.value === 'Confirmed'  ? 'bg-[#38C786]' : option.value === 'In Progress' ? 'bg-[#F4BA40]' : option.value === 'Finished' ? 'bg-[#4E9DEF]' : 'bg-[#ED5E49]'}
           `}
         >
