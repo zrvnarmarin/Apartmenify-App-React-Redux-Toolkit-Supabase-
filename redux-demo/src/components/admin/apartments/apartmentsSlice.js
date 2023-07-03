@@ -282,13 +282,13 @@ export const selectSortedApartments = createSelector(
           }
         });
       } else if (sort === 'Distance From The Sea') {
-        sortedApartments.sort((a, b) => {
+          sortedApartments.sort((a, b) => {
             if (sortOrder === 'Ascending') {
               return a.distanceFromTheSea - b.distanceFromTheSea;
             } else {
               return b.distanceFromTheSea - a.distanceFromTheSea;
             }
-          });
+        });
       }
   
       return sortedApartments;
