@@ -13,37 +13,32 @@ const ReservationFilterSection = () => {
   const reservationFilterQueryChangeHandler = e => dispatch(setReservationFilterQuery(e.target.value))
 
   return (
-    <div className='p-2 flex flex-wrap justify-between items-center'>
-      <div className='flex flex-wrap gap-6 items-center'>
-        <div className='p-2 bg-[#121212] rounded-md flex flex-wrap justify-between items-center gap-4'>
-          <label className='text-[#9e9a9b] text-lg font-semibold' htmlFor="filter">Filter by: </label>
-          <select
-            value={reservationFilter}
-            onChange={reservationFilterChangeHandler}
-            id='filter'
-            className='bg-[#252525] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
-          >
-            {reservationFilterOptions.map(option =>
-              <option key={option.id}>{option.value}</option>
-            )}
-          </select>
-          { reservationFilter === 'apartment title' || reservationFilter === 'user' 
-            ? 
-              <div>
-                <input
-                  value={reservationFilterQuery}
-                  onChange={reservationFilterQueryChangeHandler}
-                  type="text"
-                  placeholder='Enter filter value...'
-                  className='bg-[#252525] text-[#9e9a9b] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
-                />
-              </div> 
-            : 
-              <></>
-          }
-        </div>
-
-      </div>
+    <div className='p-2 flex flex-wrap justify-between items-center text-[#F4EFF0]'>
+      <label className='text-lg font-semibold' htmlFor="filter">Filter by: </label>
+      <select
+        value={reservationFilter}
+        onChange={reservationFilterChangeHandler}
+        id='filter'
+        className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 outline-none border-[1px] border-slate-600'
+      >
+        {reservationFilterOptions.map(option =>
+          <option key={option.id}>{option.value}</option>
+        )}
+      </select>
+      { reservationFilter === 'apartment title' || reservationFilter === 'user' 
+        ? 
+          <div>
+            <input
+              value={reservationFilterQuery}
+              onChange={reservationFilterQueryChangeHandler}
+              type="text"
+              placeholder='Enter filter value...'
+              className='bg-[#252525] text-[#9e9a9b] rounded-md px-6 py-2 outline-none border-[1px] border-slate-600'
+            />
+          </div> 
+        : 
+          <></>
+      }
     </div>
   )
 }

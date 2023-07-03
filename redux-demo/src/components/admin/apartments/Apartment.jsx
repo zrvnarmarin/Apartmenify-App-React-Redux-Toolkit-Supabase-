@@ -11,7 +11,6 @@ import { getAllWishlists } from './../../auth/usersSlice';
 import DeleteIcon from '../../../assets/action_icons/delete_icon.png'
 import UpdateIcon from '../../../assets/action_icons/update_icon.png'
 
-
 const Apartment = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
   const dispatch = useDispatch()
@@ -59,9 +58,8 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
                 } rounded-md px-1 shadow-md`
               }
             >
-
-                <span className='text-xs font-semibold'>{ availability === 'free' ? 'Free' : availability === 'reserved' ? 'Reserved' : 'Occupied' }</span>
-              </div>
+              <span className='text-xs font-semibold'>{ availability === 'free' ? 'Free' : availability === 'reserved' ? 'Reserved' : 'Occupied' }</span>
+            </div>
                    
               <span className='capitalize md:hidden text-lg font-semibold'>{availability}</span>
             </div>
@@ -93,7 +91,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
 
         {/* Action buttons section */}
         <div className='col-span-full md:col-span-1 flex gap-4 items-center justify-start'>
-            <button  className="p-2 bg-[#38C786] rounded-full">
+            <button className="p-2 bg-[#38C786] rounded-full">
               <Link 
                 to={`${id}`} 
                 state={{

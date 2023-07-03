@@ -6,5 +6,5 @@ export const reservationsTableHeaderData = [
     { id: '5', value: 'Reserved by'}, 
     { id: '6', value: 'Start Date'}, 
     { id: '7', value: 'End Date'},
-    { id: '8', value: ''}
+    { id: '8', value: 'Action'}
 ]

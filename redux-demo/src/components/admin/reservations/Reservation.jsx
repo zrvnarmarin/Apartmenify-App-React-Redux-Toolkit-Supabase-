@@ -6,6 +6,8 @@ import { modalTexts } from '../../../data/modal/modalTexts'
 import { deleteReservation } from './reservationsSlice'
 import Modal from '../../../UI/Modal'
 import { toast } from 'react-toastify';
+import DeleteIcon from '../../../assets/action_icons/delete_icon.png'
+import UpdateIcon from '../../../assets/action_icons/update_icon.png'
 
 const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, apartmentId, userId, userEmail, status }) => {
 
@@ -20,7 +22,8 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
   const openModalWindow = () => dispatch(openModal())
 
   return (
-    <div className='grid grid-cols-8 p-2 gap-4 items-center rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal mx-4'>
+    <div>
+      <div className='grid grid-cols-8 items-center md:gap-0 p-2 bg-[#182028] text-[#f5f0f1] text-md font-normal'>
       <p>{index}</p>
       <p>#{id}</p>
       <p>{status}</p>
@@ -29,26 +32,36 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
       <p>{new Date(startDate).toLocaleDateString()}</p>
       <p>{new Date(endDate).toLocaleDateString()}</p>
       <div className='flex flex-row gap-2'>
-          <button 
-            onClick={openModalWindow} 
-            className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
-          >
-            Delete
-          </button>
-          { status === 'confirmed' || status === 'inProgress'
-            ? 
-              <button className='px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'>
-                <Link 
-                  to={`${id}`} 
-                  state={{ index: index, id: id, userId: userId, userEmail: userEmail, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentId: apartmentId, apartmentTitle: apartmentTitle, status: status }}
-                >
-                  Update
-                </Link>
-              </button>
-            : 
-              <></>
-          }
-        </div>
+        <button 
+          onClick={openModalWindow} 
+          className="p-2 bg-[#ED5E49] rounded-full"
+        >
+          <img 
+            src={DeleteIcon} 
+            width={20}
+            height={20} 
+            alt="delete_icon_button" 
+          />
+        </button>
+        { status === 'confirmed' || status === 'inProgress'
+          ? 
+            <button className="p-2 bg-[#38C786] rounded-full">
+              <Link 
+                to={`${id}`} 
+                state={{ index: index, id: id, userId: userId, userEmail: userEmail, name: name, surname: surname, startDate: startDate, endDate: endDate, apartmentId: apartmentId, apartmentTitle: apartmentTitle, status: status }}
+              >
+                <img 
+                  src={UpdateIcon} 
+                  width={20}
+                  height={20} 
+                  alt="delete_icon_button" 
+                />
+              </Link>
+            </button>
+          : 
+            <></>
+        }
+      </div>
 
       { 
         isModalOpen && 
@@ -57,6 +70,8 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
           confirmAction={deleteSelectedReservation} 
         />
       }
+    </div>
+    <hr className='border-slate-800' />
 
     </div>
   )
