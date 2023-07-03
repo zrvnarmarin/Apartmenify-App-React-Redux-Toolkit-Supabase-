@@ -3,7 +3,7 @@ import Apartment from '../Apartment'
 
 const ApartmentsGrid = ({ apartments }) => {
   return (
-    <ul className='flex flex-col gap-4'>
+    <ul className='flex flex-col gap-12'>
         { apartments.map(apartment =>
           <Apartment
             id={apartment.id}

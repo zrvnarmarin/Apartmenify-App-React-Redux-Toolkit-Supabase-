@@ -13,6 +13,8 @@ const SearcApartments = () => {
   const isLoading = useSelector(selectIsLoading)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
+
+  // OVO je memoized selector!
   // const likedApartments = useSelector(getLikedApartments)
   // const isApartmentLiked = (apartmentId) => { return likedApartments.includes(apartmentId) }
   
