@@ -4,7 +4,7 @@ import Logout from '../../user/userSettings/Logout.jsx'
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import LogoImage from '../../../assets/logo.webp'
 import SideMenu from './SideMenu.jsx'
-import { activeRouteStyles } from '../../../styles/activeRouteStyles.js'
+import { activeRouteStylesAdmin } from '../../../styles/activeRouteStyles.js'
 
 const Navbar = () => {
   const [isOpenedSideMenu, setIsOpenedSideMenu] = useState(false)
@@ -26,31 +26,31 @@ const Navbar = () => {
           <div className='flex flex-row items-center gap-8 sm:gap-12'>
             <NavLink 
               to="apartments"
-              style={activeRouteStyles} 
+              style={activeRouteStylesAdmin} 
             >
               Apartments
             </NavLink>
             <NavLink 
               to="facilities"
-              style={activeRouteStyles} 
+              style={activeRouteStylesAdmin} 
             >
               Facilities
             </NavLink>
             <NavLink 
               to="reservations"
-              style={activeRouteStyles} 
+              style={activeRouteStylesAdmin} 
             >
               Reservations
             </NavLink>
             <NavLink 
               to="stats"
-              style={activeRouteStyles} 
+              style={activeRouteStylesAdmin} 
             >
               Stats
             </NavLink>
             <NavLink 
               to="users"
-              style={activeRouteStyles} 
+              style={activeRouteStylesAdmin} 
             >
               Users
             </NavLink>

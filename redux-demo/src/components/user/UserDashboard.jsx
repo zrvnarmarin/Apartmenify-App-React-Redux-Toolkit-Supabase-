@@ -5,17 +5,19 @@ import Navbar from './layout/Navbar';
 import { getUser } from '../auth/usersSlice';
 import ReviewModal from '../../UI/ReviewModal.jsx'
 import { selectIsModalOpen } from '../../UI/modalSlice';
+import { getAllApartments } from '../admin/apartments/apartmentsSlice';
 
 const UserDashboard = () => {
   const dispatch = useDispatch()
   const isReviewModalOpen = useSelector(selectIsModalOpen)
 
   useEffect(() => {
+    dispatch(getAllApartments())
     dispatch(getUser())
   }, [dispatch])
 
   return (
-    <div className=' border-black border-[1px]'>
+    <div className='h-screen font-sans'>
       <Navbar />
       <Outlet />
       { isReviewModalOpen && <ReviewModal /> }

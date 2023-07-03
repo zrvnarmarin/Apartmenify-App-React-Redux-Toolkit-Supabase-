@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import UserSettings from '../UserSettings';
-import { activeRouteStyles } from '../../../styles/activeRouteStyles';
+import { activeRouteStylesUser } from '../../../styles/activeRouteStyles';
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import SideMenu from './SideMenu';
 import { selectUser } from '../../auth/usersSlice';
 import NotificationBellIcon from '../../../assets/notification_icons/notification_bell_icon.png'
 import NotificationTab from './NotificationTab';
-import ReviewModal from '../../../UI/ReviewModal.jsx'
 
 const Navbar = () => {
   const [isUserSettingsShown, setIsUserSettingsShown] = useState(false)
@@ -24,7 +23,7 @@ const Navbar = () => {
   const user = useSelector(selectUser)
 
   return (
-    <nav className='bg-[#182028] text-[#f5eced] ss:text-xl sm:text-xl md:text-xl lg:2-xl py-3 px-6'>
+    <nav className='bg-white text-black ss:text-xl sm:text-xl md:text-xl lg:2-xl py-3 px-6 border-b-slate-200 border-b-[1px]'>
       <ul className='flex flex-row justify-between items-center'>
         <li className='flex flex-row items-center'>
           <NavLink to="apartments" className=' md:block'>
@@ -36,19 +35,19 @@ const Navbar = () => {
           <div className='flex flex-row items-center gap-8 sm:gap-12'>
             <NavLink
               to="apartments"
-              style={activeRouteStyles}
+              style={activeRouteStylesUser}
             >
               Apartments
             </NavLink>
             <NavLink
               to="reservations"
-              style={activeRouteStyles}
+              style={activeRouteStylesUser}
             >
               Reservations
             </NavLink>
             <NavLink
               to="wishlists"
-              style={activeRouteStyles}
+              style={activeRouteStylesUser}
             >
               Wishlists
             </NavLink>

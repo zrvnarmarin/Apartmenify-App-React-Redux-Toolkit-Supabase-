@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Apartment from './Apartment'
+import RouteContainer from '../admin/layout/RouteContainer';
 import LoadingSpinner from '../../UI/Loading Spinner/LoadingSpinner';
-import { getAllApartments, selectIsLoading, selectFilteredAndSortedApartments } from '../admin/apartments/apartmentsSlice';
-import FilterSortSection from '../admin/apartments/filterSort/FilterSortSection.jsx';
-import { selectUser, getAllWishlists, getLikedApartments, getWishlistNameAndApartmentIds } from '../auth/usersSlice';
-import supabase from '../../supabaseClient';
+import { selectIsLoading, selectFilteredAndSortedApartments } from '../admin/apartments/apartmentsSlice';
+import FilterSortSection from './apartments/FilterSortSection.jsx';
+import { getAllWishlists, getLikedApartments } from '../auth/usersSlice';
+import ApartmentsGrid from './apartments/ApartmentsGrid';
 
 const SearcApartments = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
 
   const filteredAndSortedApartments = useSelector(selectFilteredAndSortedApartments)
-  const likedApartments = useSelector(getLikedApartments)
-  const isApartmentLiked = (apartmentId) => { return likedApartments.includes(apartmentId) }
+  // const likedApartments = useSelector(getLikedApartments)
+  // const isApartmentLiked = (apartmentId) => { return likedApartments.includes(apartmentId) }
   
   useEffect(() => {
-    dispatch(getAllApartments())
     dispatch(getAllWishlists())
   }, []) 
 
   if (isLoading) return <LoadingSpinner />
   
   return (
-    <div>
+    <RouteContainer>
       <FilterSortSection />
-      <p>Liked Apartments:</p>
+      {/* <p>Liked Apartments:</p>
       {likedApartments.map(id => 
         <div key={id}># {id}</div>  
-      )}
-      <ul className='flex flex-col gap-4 p-2 border-black border-[1px] mt-2 font-poppins'>
+      )} */}
+      {/* <ul className='flex flex-col gap-4'>
         { filteredAndSortedApartments.map(apartment =>
           <Apartment
             id={apartment.id}
@@ -41,11 +41,12 @@ const SearcApartments = () => {
             price={apartment.price}
             singleBeds={apartment.singleBeds}
             doubleBeds={apartment.doubleBeds}
-            isApartmentLiked={isApartmentLiked}
+            // isApartmentLiked={isApartmentLiked}
           />
         )}
-      </ul>
-    </div>
+      </ul> */}
+      <ApartmentsGrid apartments={filteredAndSortedApartments} />
+    </RouteContainer>
   )
 }
 
