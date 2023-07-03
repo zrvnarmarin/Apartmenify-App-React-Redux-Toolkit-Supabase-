@@ -97,7 +97,6 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
           confirmAction={deleteSelectedReservation} 
         />
       }
-
       <hr className='border-slate-800' />
     </div>
   )

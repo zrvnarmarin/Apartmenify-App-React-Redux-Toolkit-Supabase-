@@ -6,7 +6,7 @@ import { activeRouteStylesUser } from '../../../styles/activeRouteStyles';
 import HamburgerMenuButton from '../../../assets/hamburgerMenu.png'
 import SideMenu from './SideMenu';
 import { selectUser } from '../../auth/usersSlice';
-import NotificationBellIcon from '../../../assets/notification_icons/notification_bell_icon.png'
+import NotificationBellIconBlack from '../../../assets/notification_icons/notification_bell_icon_black.png'
 import NotificationTab from './NotificationTab';
 
 const Navbar = () => {
@@ -31,7 +31,7 @@ const Navbar = () => {
           </NavLink>
         </li>
 
-        <li className='sm:flex hidden'>
+        <li className='md:flex hidden'>
           <div className='flex flex-row items-center gap-8 sm:gap-12'>
             <NavLink
               to="apartments"
@@ -54,12 +54,12 @@ const Navbar = () => {
           </div>
         </li>
 
-        <li className='sm:flex items-center gap-8 hidden z-10'>
+        <li className='md:flex items-center gap-8 hidden z-10'>
           <div className='relative'>
             <button onClick={toggleNotificationTab}>
               <span className='absolute bottom-6 left-3 text-sm rounded-full px-3 py-1 bg-red-500'>1</span>
               <img 
-              src={NotificationBellIcon} 
+              src={NotificationBellIconBlack} 
               alt="notification_bell_icon" 
               width={30}
               height={30}
@@ -70,7 +70,7 @@ const Navbar = () => {
 
           <NavLink 
             onClick={toggleUserSettings} 
-            className='flex items-center justify-center gap-3 p-2 rounded-lg'
+            className='flex items-center justify-center gap-3 p-2 rounded-full border-[1px] border-slate-300'
           >
             <img
               src={user?.user_metadata?.avatar_url}
@@ -84,7 +84,7 @@ const Navbar = () => {
           </div>
         </li>
 
-        <li className='block sm:hidden'>
+        <li className='md:hidden flex items-center'>
           <button aria-label='hamburger_menu' onClick={toggleSideMenu}>
             <img 
               src={HamburgerMenuButton} 
