@@ -31,19 +31,19 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
     <div>
       <div className='grid grid-cols-7 items-center md:gap-0 p-2 bg-[#182028] text-[#f5f0f1] text-md font-normal'>
 
-        <div className='pl-2 text-[#f5eced] text-xl font-semibold col-span-full md:col-span-1'>
+        <div className=' text-[#f5eced] text-xl font-semibold col-span-full md:col-span-1'>
           <span className='inline-block md:hidden'>#</span>
           <span>{tableIndex}</span>
         </div>
 
-        <div className='pl-2 col-span-full md:col-span-1'>
+        <div className=' col-span-full md:col-span-1'>
           <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Title</span>
             <span className='text-lg font-semibold'>{title}</span>
           </div>
         </div>
         
-        <div className='pl-2 flex col-span-full items-start md:col-span-1 relative justify-start md:justify-start'>
+        <div className=' flex col-span-full items-start md:col-span-1 relative justify-start md:justify-start'>
           <div className='flex flex-col items-start md:items-start justify-self-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Availability</span>
             <div className='flex items-center gap-2'>
@@ -66,7 +66,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
           </div>
         </div>
         
-        <div className='pl-2 col-span-full md:col-span-1'>
+        <div className=' col-span-full md:col-span-1'>
           <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>City</span>
             <span className='text-lg font-semibold'>{city}</span>
@@ -74,7 +74,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
         </div>
         
         {/* Number of rooms section */}
-        <div className='pl-2 col-span-full md:col-span-1'>
+        <div className=' col-span-full md:col-span-1'>
           <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Rooms</span>
             <span className='text-lg font-semibold'>{rooms}</span>
@@ -82,7 +82,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
         </div>
 
         {/* Price section */}
-        <div className='pl-2 col-span-full md:col-span-1'>
+        <div className=' col-span-full md:col-span-1'>
           <div className='flex flex-col items-start md:items-start gap-2 text-center md:text-start'>
             <span className='md:hidden text-[#f5eced] text-2xl font-semibold'>Price</span>
             <span className='text-lg font-semibold'>{price}e</span>
@@ -165,7 +165,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
               <p>{distanceFromTheSea} km</p>
             </div>
             <div className='flex items-center justify-between pb-4'>
-              <p className='text-[#f5eced] text-lg font-semibold pl-2'>Facilities:</p>
+              <p className='text-[#f5eced] text-lg font-semibold '>Facilities:</p>
               <div className="flex flex-row flex-wrap gap-2 md:gap-8 p-4 md:p-0">
                 {facilities.map((facility, i) =>
                   <div key={i} className='flex items-center justify-between gap-2'>

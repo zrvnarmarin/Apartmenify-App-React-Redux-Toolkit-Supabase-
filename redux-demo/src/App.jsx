@@ -9,6 +9,7 @@ import Facilities from './components/admin/facilities/Facilities.jsx';
 import Reservations from './components/admin/reservations/Reservations.jsx';
 import Users from './components/admin/users/Users';
 import AddNewApartment from './components/admin/apartments/AddNewApartment';
+import AddNewFacility from './components/admin/facilities/AddNewFacility';
 import Success from './components/auth/Success.jsx'
 import UpdateApartment from './components/admin/apartments/UpdateApartment';
 import UpdateReservation from './components/admin/reservations/UpdateReservation';
@@ -40,6 +41,7 @@ function App() {
           <Route path='facilities' element={<Facilities />} />
           <Route path='users' element={<Users />} />
           <Route path='addNewApartment' element={<AddNewApartment />} />
+          <Route path='addNewFacility' element={<AddNewFacility />} />
           <Route path='reservations' element={<Reservations />} />
           <Route path='reservations/:reservation' element={<UpdateReservation />} />
           <Route path='stats' element={<Stats />} />

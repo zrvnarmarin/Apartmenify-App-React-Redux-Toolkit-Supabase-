@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { addFacility, selectCountOfApartmentsByFacility, selectApartmentsByFacility } from '../apartments/apartmentsSlice';
 import ApartmentTable from '../apartments/ApartmentTable';
 import { mappedFacilities } from '../../../data/facilities/mappedFacilitiesWithIcons';
+import RouteContainer from '../layout/RouteContainer';
+import AddNewFacility from './AddNewFacility';
 
 const Facilities = () => {
   const dispatch = useDispatch()
@@ -40,11 +42,10 @@ const Facilities = () => {
   })
 
   return (
-    <div className='flex flex-col gap-6 px-6 py-12'>
-
+    <RouteContainer>
       <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6'>
         <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Facilities</h1>
-        <form onSubmit={formSubmitHandler} className='flex flex-col ss:flex-row gap-4 w-full ss:w-fit'>
+        {/* <form onSubmit={formSubmitHandler} className='flex flex-col ss:flex-row gap-4 w-full ss:w-fit'>
           <input
             type="text"
             placeholder="Add new facility.."
@@ -55,7 +56,11 @@ const Facilities = () => {
           <button className="px-6 py-2 my-4 ss:my-0 rounded-md text-lg font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
             Add New Facility
           </button>
-        </form>
+        </form> */}
+        <button 
+        className="px-6 py-2 my-4 ss:my-0 text-lg font-medium bg-[#0C768A] text-[#f5eced] drop-shadow-lg">
+        <Link to="/adminDashboard/addNewFacility">Add New Facility</Link>
+      </button>
       </div>
 
       <div className='flex flex-row flex-wrap gap-4 justify-center xs:justify-start'>
@@ -87,11 +92,8 @@ const Facilities = () => {
         )}
       </div>
 
-      <div className='flex flex-col gap-3'>
-        <ApartmentTable apartments={apartmentsByFacility} />
-      </div>
-
-    </div>
+      <ApartmentTable apartments={apartmentsByFacility} />
+    </RouteContainer>
   )
 }
 
