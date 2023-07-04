@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserEmail, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
+import { getReservationsByUserId, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import BookingStatusFilter from './BookingStatusFilter.jsx';
 import Modal from '../../../UI/Modal';
@@ -15,10 +15,10 @@ import { format } from 'date-fns';
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservationsByBookingStatus)
   const testReservations = useSelector(selectTestReservations)
-  const { email } = useSelector(selectUser)
+  const { id } = useSelector(selectUser)
   const bookingStatusFilter = useSelector(selectBookingStatusFilter)
+  console.log()
 
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const cancelSelectedReservation = reservationId => dispatch(cancelReservation(reservationId))
@@ -28,7 +28,7 @@ const UserReservations = () => {
   const openModalWindow = () => dispatch(openModal())
 
   useEffect(() => {
-    dispatch(getReservationsByUserEmail(email))
+    dispatch(getReservationsByUserId(id))
   }, [dispatch])
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

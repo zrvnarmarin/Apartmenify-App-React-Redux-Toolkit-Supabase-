@@ -8,15 +8,17 @@ const NotificationTab = () => {
   const openReviewModal = () => dispatch(openModal())
   
   return (
-    <div className='absolute drop-shadow-2xl rounded w-96 h-90 flex flex-col p-1 top-10 right-2 gap-2 bg-white z-50'>
+    <div className='absolute drop-shadow-2xl rounded-lg w-96 h-90 flex flex-col p-4 top-9 right-2 gap-2 border-[1px] border-slate-300 shadow-2xl bg-white z-50 text-base'>
       {[1,2,3].map(n => 
-        <div key={n} className='flex flex-col gap-2 bg-green-200 z-10'>
-          <div className='bg-red-400 border-[1px] border-black p-4 gap-2 relative w-full flex flex-row items-center z-10'>
+        <div key={n} className='flex flex-col gap-2 z-10'>
+          <div className='p-4 gap-4 relative w-full flex flex-row items-center z-10'>
             <img src={ImagePlaceholder} alt="placeholder" className='w-12 h-12 rounded-full border-[1px] border-black z-10' />
-            <div>How was your staying in the <span>Neki Smjestaj</span>?</div>
+            <div>
+              <div>How was your staying in the <span className='font-medium'>Neki Smjestaj</span>? dfkjbh djklf fvdfohuioh dfgv</div>
+              <button onClick={openReviewModal} className='underline text-[#FF385C] decoration-[#FF385C]'>Rate your experience</button>
+            </div>
+        </div>  <hr />
           </div>  
-          <button onClick={openReviewModal} className='bg-blue-400 border-[1px] border-black'>Rate your experience</button>
-        </div>  
       )}
     </div>
   )

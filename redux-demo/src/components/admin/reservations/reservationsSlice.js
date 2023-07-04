@@ -73,11 +73,11 @@ export const getReservationsByApartmentId = createAsyncThunk('reservations/getRe
     }
 })
 
-export const getReservationsByUserEmail = createAsyncThunk('reservations/getReservationByUsername', async userEmail => {
+export const getReservationsByUserId = createAsyncThunk('reservations/getReservationByUsername', async userId => {
     const { data, error } = await supabase
     .from('reservations')
     .select()
-    .eq('userEmail', userEmail)
+    .eq('userId', userId)
 
     // console.log(data)
 
@@ -263,11 +263,11 @@ const reservationsSlice = createSlice({
         .addCase(cancelReservation.pending, (state, action) => {
             state.isLoading = true
         })
-        .addCase(getReservationsByUserEmail.fulfilled, (state, action) => {
+        .addCase(getReservationsByUserId.fulfilled, (state, action) => {
             state.reservations = action.payload
             state.isLoading = false
         })
-        .addCase(getReservationsByUserEmail.pending, (state, action) => {
+        .addCase(getReservationsByUserId.pending, (state, action) => {
             state.isLoading = true
         })
         .addCase(updateReservation.fulfilled, (state, action) => {

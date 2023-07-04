@@ -16,7 +16,7 @@ const Logout = () => {
   }
 
   return (
-    <button onClick={logoutUser} className='text-xl text-slate-700 hover:text-slate-500 font-semibold'> Logout </button>
+    <button onClick={logoutUser} className='text-md text-slate-700 hover:text-slate-500 font-medium'> Logout </button>
   )
 }
 

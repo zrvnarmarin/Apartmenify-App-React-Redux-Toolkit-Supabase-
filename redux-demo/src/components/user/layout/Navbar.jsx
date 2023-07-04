@@ -57,7 +57,7 @@ const Navbar = () => {
         <li className='md:flex items-center gap-8 hidden z-10'>
           <div className='relative'>
             <button onClick={toggleNotificationTab}>
-              <span className='absolute bottom-6 left-3 text-sm rounded-full px-3 py-1 bg-red-500'>1</span>
+              <span className='absolute bottom-6 left-3 text-sm text-white rounded-full px-3 py-1 bg-red-500'>1</span>
               <img 
               src={NotificationBellIconBlack} 
               alt="notification_bell_icon" 
