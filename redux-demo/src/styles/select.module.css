@@ -6,14 +6,14 @@
     align-items: center;
     gap: .5em;
     padding: 3px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border-radius: 6px;
+    padding-left: 24px;
+    padding-right: 24px;
     outline: none;
-    background-color: #121212;
+    background-color: #1F262F;
     color: #949cab;
+    border: 1px solid rgb(71, 85, 105, 1);
   }
-  
+
   .container:focus {
     border-color: hsl(200, 100%, 50%);
   }
@@ -71,11 +71,10 @@
     display: none;
     max-height: 15em;
     overflow-y: auto;
-    border-radius: .25em;
     width: 100%;
     left: 0;
     top: calc(100% + .25em);
-    background-color: #121212;
+    background-color: #1F262F;
     z-index: 100;
   }
   
@@ -120,17 +119,6 @@
     outline: none;
     background-color: #0C768A;
     color: white;
-  }
-  
-  .option-badge:hover,
-  .option-badge:focus {
-    background-color: hsl(0, 100%, 90%);
-    border-color: hsl(0, 100%, 50%);
-  }
-  
-  .option-badge:hover > .remove-btn,
-  .option-badge:focus > .remove-btn{
-    color: hsl(0, 100%, 50%);
   }
   
   .option-badge > .remove-btn {

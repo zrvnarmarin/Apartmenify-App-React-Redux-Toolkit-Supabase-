@@ -70,63 +70,63 @@ const AddNewApartment = () => {
           value={title} 
           onChange={titleChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Title' 
         />
         <input 
           value={city} 
           onChange={cityChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='City' 
         />
         <input 
           value={price} 
           onChange={priceChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Price' 
         />
         <input 
           value={distanceFromTheSea} 
           onChange={distanceFromTheSeaChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Distance From The Sea' 
         />
         <input 
           value={description} 
           onChange={descriptionChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Description' 
         />
         <input 
           value={address} 
           onChange={addressChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Address' 
         />
         <input 
           value={rooms} 
           onChange={roomsChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Rooms' 
         />
         <input 
           value={singleBeds} 
           onChange={singleBedsChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Single Beds' 
         />
         <input 
           value={doubleBeds} 
           onChange={doubleBedsChangeHandler} 
           type="text" 
-          className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none' 
+          className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
           placeholder='Double Beds' 
         />
         <Select
@@ -137,7 +137,7 @@ const AddNewApartment = () => {
           onChange={selectedFacilities => setSelectedFacilities(selectedFacilities)}
         />
         <button 
-          className='col-start-2 col-end-3 px-6 py-2 rounded-md font-medium bg-[#0C768A] text-[#f5eced]'
+          className='col-start-1 col-end-3 px-6 py-2 font-semibold bg-[#0C768A] text-[#f5eced]'
         >
           Submit
         </button>

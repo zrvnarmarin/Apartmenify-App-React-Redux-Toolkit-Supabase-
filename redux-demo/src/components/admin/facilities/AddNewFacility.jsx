@@ -27,7 +27,7 @@ const AddNewFacility = () => {
         <input
           type="text"
           placeholder="Add new facility.."
-          className='col-start-1 col-end-2 bg-[#1F262F] text-[#f5f0f1] px-6 py-2'
+          className='col-start-1 col-end-2 bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600'
           value={newFacility}
           onChange={newFacilityChangeHandler}
         />
@@ -36,7 +36,7 @@ const AddNewFacility = () => {
             type="file" 
             id='facility_pic'
             name='facility_pic'
-            className='col-start-2 col-end-3 bg-[#1F262F] w-full'
+            className='col-start-1 col-end-2 bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600'
           />
         </div>
         <button className="col-start-1 col-end-3 px-6 py-2 my-4 ss:my-0 text-lg font-medium bg-[#0C768A] text-[#f5eced]">

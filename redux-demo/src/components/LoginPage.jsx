@@ -10,16 +10,16 @@ const LoginPage = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    // supabase.auth.onAuthStateChange(async (event, session) => {
-    //   if (event !== 'SIGNED_OUT') { navigate('/adminDashboard/apartments') } 
-    //   else { navigate('/') }
-    // })
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event !== 'SIGNED_OUT') { navigate('/adminDashboard/apartments') } 
+      else { navigate('/') }
+    })
 
-    // supabase.auth.getUser().then(value => {
-    //   if (value.data.user.email === '76marin76@gmail.com') {
-    //     console.log('marin is here')
-    //   } else { console.log('its not admin')}
-    // })
+    supabase.auth.getUser().then(value => {
+      if (value.data.user.email === '76marin76@gmail.com') {
+        console.log('marin is here')
+      } else { console.log('its not admin')}
+    })
 
   }, [])
 
