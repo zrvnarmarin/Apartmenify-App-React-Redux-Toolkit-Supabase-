@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { getReservationsByUserId, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, getReservationsByApartmentId, selectTestReservations, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import { getReservationsByUserId, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import BookingStatusFilter from './BookingStatusFilter.jsx';
 import Modal from '../../../UI/Modal';
@@ -9,12 +10,10 @@ import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { toast } from 'react-toastify';
 import { getApartment } from '../../admin/apartments/apartmentsSlice';
-import UserReservationTableHeader from './UserReservationTableHeader';
-import { format } from 'date-fns';
+import RouteContainer from '../../admin/layout/RouteContainer';
 
 const UserReservations = () => {
   const userReservations = useSelector(filteredReservationsByBookingStatus)
-  const testReservations = useSelector(selectTestReservations)
   const { id } = useSelector(selectUser)
   const bookingStatusFilter = useSelector(selectBookingStatusFilter)
   console.log()
@@ -95,24 +94,33 @@ const UserReservations = () => {
   
   
   return (
-    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F] text-[#f4eff0]'>
-      <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Reservations</h1>
-      <h1>CURRENT: {currentDate.toString()}</h1>
+    <RouteContainer>
+      <h1 className='text-3xl font-semibold text-slate-700 text-center ss:text-left'>Reservations</h1>
+      {/* <h1>CURRENT: {currentDate.toString()}</h1> */}
       <BookingStatusFilter />
-      { userReservations.length !== 0 ? <UserReservationTableHeader /> : <></>}
-      <div className='flex flex-col gap-2'>
+      { userReservations.length === 0 && <h1 className='text-2xl font-semibold text-slate-800 text-start'>No Reservations Available</h1> }
+
+      <div className='flex flex-col gap-4'>
         { 
-          userReservations.length === 0 
-          ? <h1>No Reservations Available</h1> 
-          : userReservations.map((userReservation, i) =>
-            <div key={userReservation.id} className='grid grid-cols-[repeat(auto-fit,minmax(200px, 1fr))] sm:grid-cols-5 rounded-md bg-[#121212] text-[#f5f0f1] text-md font-normal p-2 items-center'>
-              <p>{i} {userReservation.status}</p>
-              <p>{userReservation.apartmentTitle}</p>
-              <p>{userReservation.startDate}</p>
-              <p>{userReservation.endDate}</p> 
+          userReservations.map((userReservation, i) =>
+            <div 
+              key={userReservation.id} 
+              className='grid grid-cols-[repeat(auto-fit,minmax(200px, 1fr))] sm:grid-cols-4 hover:bg-slate-100 rounded-md
+              text-slate-800 text-md font-normal py-2 px-4 md:py-8 md:px-16 shadow-lg border-[1px] border-slate-200 items-center gap-4'
+            >
+              {/* <p>{i} {userReservation.status}</p> */}
+              <p className='text-slate-800 font-semibold text-2xl text-center sm:text-start'>{userReservation.apartmentTitle}</p>
+              <p className='flex flex-col gap-2 items-center justify-center'>
+                <span className='text-slate-800 font-semibold text-md'>Start Date:</span>
+                <span className='text-center'>{userReservation.startDate}</span>
+              </p>
+              <p className='flex flex-col gap-2 items-center justify-center'>
+                <span className='text-slate-800 font-semibold text-md'>End Date:</span>
+                <span className='text-center'>{userReservation.endDate}</span>
+              </p>
               <button 
                 onClick={openModalWindow}
-                className='z-10 px-6 py-2 rounded-md font-medium text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54]'
+                className={`bg-[#FF385C] z-10 drop-shadow-xl w-full text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2x`}
               >
                 { 
                   userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
@@ -127,6 +135,7 @@ const UserReservations = () => {
                   : ''
                 } 
               </button>
+
               { 
                 isModalOpen && 
                 <Modal 
@@ -153,10 +162,12 @@ const UserReservations = () => {
                 />
               }
             </div>  
-          )}
+        )}
       </div>
-      <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId} RESERVATION ID: {res.id}</p> )}</div>
-    </div>
+
+      {/* Test kod end dates za rezervacije */}
+      {/* <div className='flex flex-col gap-2'>RESERVATION END DATES: {userReservations.map((res, i) => <p className='border-black border-[1px] bg-red-300' key={i}>{new Date(res.endDate).toString()} APARTMENT ID: {res.apartmentId} RESERVATION ID: {res.id}</p> )}</div> */}
+    </RouteContainer>
   )
 }
 

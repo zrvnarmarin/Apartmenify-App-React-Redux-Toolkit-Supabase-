@@ -70,7 +70,7 @@ const Navbar = () => {
 
           <NavLink 
             onClick={toggleUserSettings} 
-            className='shadow-xl flex items-center justify-center gap-3 p-2 rounded-full border-[1px] border-slate-300'
+            className='shadow-xl flex items-center justify-center gap-3 p-2 rounded-full border-[1px] border-slate-300 hover:bg-slate-100'
           >
             <img
               src={user?.user_metadata?.avatar_url}

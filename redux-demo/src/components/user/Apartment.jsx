@@ -26,7 +26,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
     }, [state])
     
     return (
-        <li className='flex flex-col items-start sm:grid grid-cols-[repeat(auto-fit,minmax(200px ,1fr))] sm:grid-cols-2 gap-1'>
+        <li className='sm:grid  gap-1 flex flex-col'>
             {/* Image section */}
             <div className='w-full h-full'>
                 <img
