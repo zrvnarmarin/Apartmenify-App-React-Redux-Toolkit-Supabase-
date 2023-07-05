@@ -8,6 +8,6 @@ export const activeRouteStylesAdmin = ({ isActive, isPending }) => {
 
 export const activeRouteStylesUser = ({ isActive, isPending }) => {
   return {
-    borderBottom: isActive ? '2px solid black' : ''
+    borderBottom: isActive ? '2px solid #FF385C' : ''
   }
 }

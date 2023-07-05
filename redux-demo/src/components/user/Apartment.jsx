@@ -66,7 +66,7 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
                             <p className='text-lg normal-case'>1,565 reviews</p>
                         </div>
                     </div> */}
-                    <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold'>
+                    <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>
                         <Link
                             to={`/userDashboard/apartments/${apartmentId}`}
                             state={{ apartmentId: apartmentId, apartmentTitle: title }}

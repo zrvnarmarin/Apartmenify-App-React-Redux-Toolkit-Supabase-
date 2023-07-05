@@ -20,7 +20,7 @@ const FilterApartment = () => {
           value={filter}
           onChange={filterChangeHandler}
           id='filter'
-          className='rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
+          className='shadow-xl rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
         >
           {filterOptions.map(option =>
             <option key={option}>{option}</option>

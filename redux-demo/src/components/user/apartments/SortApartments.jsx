@@ -20,7 +20,7 @@ const SortApartments = () => {
             value={sort}
             onChange={sortChangeHandler}
             id='sort'
-            className='rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
+            className='shadow-lg rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
           >
             {sortOptions.map(option =>
               <option key={option}>{option}</option>
@@ -34,7 +34,7 @@ const SortApartments = () => {
             value={sortOrder}
             onChange={sortOrderChangeHandler}
             id='sort'
-            className='rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
+            className='shadow-lg rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
           >
             {sortOrderOptions.map(option =>
               <option key={option}>{option}</option>

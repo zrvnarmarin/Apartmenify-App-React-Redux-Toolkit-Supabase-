@@ -2,17 +2,18 @@ export const supabaseAuthStyles = {
     style: {
       button: { 
         flex: 1,
-        backgroundImage: "linear-gradient(to right, #e8132f, #fd3b54)",
+        backgroundColor: "#0C768A",
         paddingLeft: "24px",
         paddingRight: "24px",
         paddingTop: "8px",
         paddingBottom: "8px",
         border: "none",
-        borderRadius: "0.375rem",
+        borderRadius: "6px",
         fontWeight: "500",
         color: "rgb(245 236 237 / 1)",
         marginTop: '5px',
-        marginBottom: "5px"
+        marginBottom: "5px",
+        fontWeight: "600"
       },
       anchor: {
         color: "#f4eff0"

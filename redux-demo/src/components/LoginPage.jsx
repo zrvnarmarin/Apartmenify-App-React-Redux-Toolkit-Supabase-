@@ -10,27 +10,27 @@ const LoginPage = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event !== 'SIGNED_OUT') { navigate('/adminDashboard/apartments') } 
-      else { navigate('/') }
-    })
+    // supabase.auth.onAuthStateChange(async (event, session) => {
+    //   if (event !== 'SIGNED_OUT') { navigate('/adminDashboard/apartments') } 
+    //   else { navigate('/') }
+    // })
 
-    supabase.auth.getUser().then(value => {
-      if (value.data.user.email === '76marin76@gmail.com') {
-        console.log('marin is here')
-      } else { console.log('its not admin')}
-    })
+    // supabase.auth.getUser().then(value => {
+    //   if (value.data.user.email === '76marin76@gmail.com') {
+    //     console.log('marin is here')
+    //   } else { console.log('its not admin')}
+    // })
 
   }, [])
 
   return (
-    <div className='bg-[#0f0f0f] p-4 w-[100vw] h-[100vh]'>
-      <h1 className='text-6xl font-semibold text-center text-[#f4eff0] mt-32'>Apartmenify</h1>
-      <div className='mt-32 bg-[#0f0f0f]  items-center justify-center'>
+    <div className='bg-[#0E1217] h-screen p-4 flex-1 font-sans flex flex-col items-center'>
+      <h1 className='text-5xl sm:text-6xl font-semibold text-center text-[#f4eff0] mt-32'>Apartmenify</h1>
+      <div className='mt-32 px-4 items-center justify-center w-full max-w-xl'>
         <Auth
           supabaseClient={supabase}
           appearance={supabaseAuthStyles}
-          providers={['google', 'linkedin', 'facebook']}
+          providers={['google', 'facebook']}
         />
       </div>
     </div>
