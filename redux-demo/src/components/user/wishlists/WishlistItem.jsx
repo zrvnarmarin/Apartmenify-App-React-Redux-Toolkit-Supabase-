@@ -4,10 +4,10 @@ import { toast } from 'react-toastify'
 import { getAllWishlists, updateWishlist, deleteWishlist, selectIsLoading } from '../../auth/usersSlice'
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice'
 import LoadingSpinner from '../../../UI/Loading Spinner/LoadingSpinner'
-import Modal from '../../../UI/Modal.jsx'
 import { modalTexts } from '../../../data/modal/modalTexts'
 import DeleteIcon from '../../../assets/action_icons/delete_icon.png'
 import UpdateIcon from '../../../assets/action_icons/update_icon.png'
+import ConfirmModal from '../../../UI/Modal/ConfirmModal.jsx'
 
 export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
   const dispatch = useDispatch()
@@ -118,7 +118,7 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
       {/* Modal for delete confirmation */}
       { 
         isModalOpen && 
-        <Modal 
+        <ConfirmModal 
           modalText={modalTexts.deleteWishlist} 
           confirmAction={deleteSelectedWishlist} 
         />

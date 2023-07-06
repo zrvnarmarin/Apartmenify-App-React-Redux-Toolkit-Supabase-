@@ -1,11 +1,12 @@
 import React from 'react'
 import ImagePlaceholder from '../../../assets/placeholder.webp'
-import { openModal } from '../../../UI/modalSlice'
-import { useDispatch } from 'react-redux'
+import { openModal, selectIsModalOpen } from '../../../UI/modalSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import ReviewModal from '../../../UI/Modal/ReviewModal.jsx'
 
 const NotificationTab = () => {
   const dispatch = useDispatch()
-  const openReviewModal = () => dispatch(openModal())
+  const openReviewModal = () => dispatch(openModal('review'))
   
   return (
     <div className='absolute drop-shadow-2xl rounded-lg w-96 h-90 flex flex-col p-4 top-9 right-2 gap-2 border-[1px] border-slate-300 shadow-2xl bg-white z-50 text-base'>

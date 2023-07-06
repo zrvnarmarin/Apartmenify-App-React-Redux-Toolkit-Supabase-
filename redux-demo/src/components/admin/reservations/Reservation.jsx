@@ -2,19 +2,20 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import { selectIsModalOpen, openModal } from '../../../UI/modalSlice'
+import { selectIsModalOpen, openModal, selectModalType } from '../../../UI/modalSlice'
 import { modalTexts } from '../../../data/modal/modalTexts'
 import { deleteReservation } from './reservationsSlice'
-import Modal from '../../../UI/Modal'
 import DeleteIcon from '../../../assets/action_icons/delete_icon.png'
 import UpdateIcon from '../../../assets/action_icons/update_icon.png'
+import ConfirmModal from '../../../UI/Modal/ConfirmModal.jsx';
 
 const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTitle, apartmentId, userId, userEmail, status }) => {
 
   const dispatch = useDispatch()
 
   const isModalOpen = useSelector(selectIsModalOpen)
-  const openModalWindow = () => dispatch(openModal())
+  const openModalWindow = () => dispatch(openModal('confirm'))
+  const modalType = useSelector(selectModalType)
 
   let user = `${name} ${surname}`
 
@@ -91,10 +92,11 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
       </div>
     
       { 
-        isModalOpen && 
-        <Modal 
+        isModalOpen && modalType === 'confirm' && 
+        <ConfirmModal 
           modalText={modalTexts.deleteReservation} 
-          confirmAction={deleteSelectedReservation} 
+          confirmAction={deleteSelectedReservation}
+          isAdmin={true} 
         />
       }
       <hr className='border-slate-800' />

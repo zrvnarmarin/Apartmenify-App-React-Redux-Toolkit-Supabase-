@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { closeModal } from './modalSlice'
-import StarRating from '../components/user/ratings/StarRating'
+import { closeModal } from '../modalSlice'
+import StarRating from '../../components/user/ratings/StarRating'
 
-const Modal = () => {
+const ReviewModal = () => {
   const dispatch = useDispatch()
 
   const closeModalWindow = () => dispatch(closeModal())
@@ -43,4 +43,4 @@ const Modal = () => {
   )
 }
 
-export default Modal
+export default ReviewModal

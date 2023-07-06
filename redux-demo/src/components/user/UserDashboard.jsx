@@ -3,13 +3,14 @@ import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './layout/Navbar';
 import { getUser } from '../auth/usersSlice';
-// import ReviewModal from '../../UI/ReviewModal.jsx'
-import { selectIsModalOpen } from '../../UI/modalSlice';
+import ReviewModal from '../../UI/Modal/ReviewModal.jsx'
+import { selectIsModalOpen, selectModalType } from '../../UI/modalSlice';
 import { getAllApartments } from '../admin/apartments/apartmentsSlice';
 
 const UserDashboard = () => {
   const dispatch = useDispatch()
   const isReviewModalOpen = useSelector(selectIsModalOpen)
+  const modalType = useSelector(selectModalType)
 
   useEffect(() => {
     dispatch(getAllApartments())
@@ -20,7 +21,7 @@ const UserDashboard = () => {
     <div className='h-screen font-sans'>
       <Navbar />
       <Outlet />
-      {/* { isReviewModalOpen && <ReviewModal /> } */}
+      { isReviewModalOpen && modalType === 'review' && <ReviewModal /> }
     </div>
   )
 }

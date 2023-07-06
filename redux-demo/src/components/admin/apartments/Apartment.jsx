@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { deleteApartment } from './apartmentsSlice'
-import Modal from '../../../UI/Modal'
-import { openModal, selectIsModalOpen } from '../../../UI/modalSlice'
+import { openModal, selectIsModalOpen, selectModalType } from '../../../UI/modalSlice'
 import { modalTexts } from '../../../data/modal/modalTexts'
 import ArrowImage from '../../../assets/ArrowDown.webp'
 import { getAllWishlists } from './../../auth/usersSlice';
 import DeleteIcon from '../../../assets/action_icons/delete_icon.png'
 import UpdateIcon from '../../../assets/action_icons/update_icon.png'
+import ConfirmModal from '../../../UI/Modal/ConfirmModal.jsx';
 
 const Apartment = ({ id, tableIndex, title, city, rooms, price, description, address, doubleBeds, singleBeds, distanceFromTheSea, facilities, availability }) => {
   
@@ -25,7 +25,8 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
   const toggleMoreDetailsSection = () => setIsOpenMoreDetailsSection(prev => !prev)
 
   const isModalOpen = useSelector(selectIsModalOpen)
-  const openModalWindow = () => dispatch(openModal())
+  const openModalWindow = () => dispatch(openModal('confirm'))
+  const modalType = useSelector(selectModalType)
 
   return (
     <div>
@@ -181,10 +182,11 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
       </div>
 
       { 
-        isModalOpen && 
-        <Modal 
+        isModalOpen && modalType === 'confirm' && 
+        <ConfirmModal 
           modalText={modalTexts.deleteApartment} 
           confirmAction={deleteSelectedApartment} 
+          isAdmin={true}
         />
       }
       <hr className='border-slate-800' />

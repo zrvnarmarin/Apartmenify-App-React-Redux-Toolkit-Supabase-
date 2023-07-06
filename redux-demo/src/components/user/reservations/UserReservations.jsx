@@ -6,8 +6,8 @@ import { format } from 'date-fns';
 import { getReservationsByUserId, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
 import BookingStatusFilter from './BookingStatusFilter.jsx';
-import Modal from '../../../UI/Modal';
-import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
+import ConfirmModal from '../../../UI/Modal/ConfirmModal.jsx';
+import { openModal, selectIsModalOpen, selectModalType } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
 import { getApartment } from '../../admin/apartments/apartmentsSlice';
 import RouteContainer from '../../admin/layout/RouteContainer';
@@ -24,7 +24,8 @@ const UserReservations = () => {
   const removeSelectedReservation = reservationId => dispatch(deleteReservation(reservationId))
 
   const isModalOpen = useSelector(selectIsModalOpen)
-  const openModalWindow = () => dispatch(openModal())
+  const openModalWindow = () => dispatch(openModal('confirm'))
+  const modalType = useSelector(selectModalType)
 
   useEffect(() => {
     dispatch(getReservationsByUserId(id))
@@ -137,8 +138,8 @@ const UserReservations = () => {
               </button>
 
               { 
-                isModalOpen && 
-                <Modal 
+                isModalOpen && modalType === 'confirm' && 
+                <ConfirmModal 
                   modalText={
                     userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
                     ? modalTexts.cancelCurrentReservation 
@@ -159,6 +160,7 @@ const UserReservations = () => {
                       dispatch(getApartment(userReservation.apartmentId))
                     }
                   }} 
+                  isAdmin={false}
                 />
               }
             </div>  

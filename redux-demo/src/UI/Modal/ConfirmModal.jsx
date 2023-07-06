@@ -1,8 +1,10 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { closeModal } from './modalSlice'
+import { closeModal } from '../modalSlice'
+import ModalBackdrop from './ModalBackdrop.jsx'
+import ModalContainer from './ModalContainer'
 
-const Modal = ({ modalText, confirmAction }) => {
+const ConfirmModal = ({ modalText, confirmAction, isAdmin }) => {
   const dispatch = useDispatch()
 
   const closeModalWindow = () => dispatch(closeModal())
@@ -13,28 +15,26 @@ const Modal = ({ modalText, confirmAction }) => {
   }
 
   return (
-    <div className='fixed top-0 left-0 w-full h-full bg-black/20 z-10 flex items-center justify-center'>
-      <div className='bg-[#182028] text-[#f5eced] text-xl font-semibold w-96 max-w-[400px] rounded-md text-center p-4'>
+    <ModalBackdrop>
+      <ModalContainer isAdmin={isAdmin}>
         <h4>{modalText}</h4>
         <div className='flex items-center justify-around mt-8'>
           <button 
             onClick={closeModalWindowAndExecuteConfirmAction} 
-            className='px-6 py-2 rounded-md font-medium bg-[#0C768A]'
+            className={`${ isAdmin ? 'bg-[#0C768A] text-[#f5eced]' : 'bg-[#FF385C] text-[#f5eced]' } px-6 py-2 rounded-md font-medium `}
           >
             <span>Confirm</span>
           </button>
           <button 
             onClick={closeModalWindow} 
-            className='px-6 py-2 rounded-md font-medium bg-[#0C768A]'
+            className={`${ isAdmin ? 'bg-[#0C768A] text-[#f5eced]' : 'bg-[#FF385C] text-[#f5eced]' } px-6 py-2 rounded-md font-medium `}
           >
             Cancel
           </button>
         </div>
-      </div>
-    </div>
+      </ModalContainer>
+    </ModalBackdrop>
   )
 }
 
-export default Modal
-
-// ovo je custom modal
+export default ConfirmModal
