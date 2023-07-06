@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { getReservationsByUserId, filteredReservationsByBookingStatus, cancelReservation, deleteReservation, updateReservationStatus, selectBookingStatusFilter } from '../../admin/reservations/reservationsSlice';
 import { selectUser } from '../../auth/usersSlice';
@@ -8,7 +9,6 @@ import BookingStatusFilter from './BookingStatusFilter.jsx';
 import Modal from '../../../UI/Modal';
 import { openModal, selectIsModalOpen } from '../../../UI/modalSlice';
 import { modalTexts } from '../../../data/modal/modalTexts';
-import { toast } from 'react-toastify';
 import { getApartment } from '../../admin/apartments/apartmentsSlice';
 import RouteContainer from '../../admin/layout/RouteContainer';
 
@@ -109,14 +109,14 @@ const UserReservations = () => {
               text-slate-800 text-md font-normal py-2 px-4 md:py-8 md:px-16 shadow-lg border-[1px] border-slate-200 items-center gap-4'
             >
               {/* <p>{i} {userReservation.status}</p> */}
-              <p className='text-slate-800 font-semibold text-2xl text-center sm:text-start'>{userReservation.apartmentTitle}</p>
+              <p className='font-semibold text-2xl text-center sm:text-start'>{userReservation.apartmentTitle}</p>
               <p className='flex flex-col gap-2 items-center justify-center'>
-                <span className='text-slate-800 font-semibold text-md'>Start Date:</span>
-                <span className='text-center'>{userReservation.startDate}</span>
+                <span className='font-semibold text-lg'>Start Date:</span>
+                <span className='text-center text-lg'>{userReservation.startDate}</span>
               </p>
               <p className='flex flex-col gap-2 items-center justify-center'>
-                <span className='text-slate-800 font-semibold text-md'>End Date:</span>
-                <span className='text-center'>{userReservation.endDate}</span>
+                <span className='font-semibold text-lg'>End Date:</span>
+                <span className='text-center text-lg'>{userReservation.endDate}</span>
               </p>
               <button 
                 onClick={openModalWindow}

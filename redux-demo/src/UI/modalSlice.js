@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    isModalOpen: false
+    isModalOpen: false,
+    isAdmin: false
 }
 
 const modalSlice = createSlice({
@@ -13,15 +14,19 @@ const modalSlice = createSlice({
         },
         closeModal: (state, action) => {
             state.isModalOpen = false
+        },
+        setIsAdmin: (state, action) => {
+            state.isAdmin = action.payload
         }
     }
 })
 
 // State exports
 export const selectIsModalOpen = (state) => state.modal.isModalOpen
+export const selectIsAdmin = (state) => state.modal.isAdmin
 
 // Reducer exports
-export const { openModal, closeModal } = modalSlice.actions
+export const { openModal, closeModal, setIsAdmin } = modalSlice.actions
 
 // Slice export
 export default modalSlice.reducer

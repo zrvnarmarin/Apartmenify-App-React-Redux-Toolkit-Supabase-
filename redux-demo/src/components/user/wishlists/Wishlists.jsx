@@ -5,6 +5,8 @@ import { addWishlist, selectAllWishlists, setWishlist, selectWishlist, resetWish
   from '../../auth/usersSlice'
 import { selectUser, getAllWishlists } from '../../auth/usersSlice';
 import WishlistItem from './WishlistItem';
+import RouteContainer from './../../admin/layout/RouteContainer';
+import { Route } from 'react-router-dom';
 
 const Wishlists = () => {
   const { id: userId } = useSelector(selectUser)
@@ -36,25 +38,25 @@ const Wishlists = () => {
   }, [dispatch])
 
   return (
-    <div className='flex flex-col gap-6 px-6 py-12 bg-[#1F1F1F]'>
-      <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6'>
-        <h1 className='text-3xl font-semibold text-[#f4eff0] text-center ss:text-left'>Wishlists</h1>
+    <RouteContainer>
+      <div className='flex flex-col ss:flex-row flex-wrap justify-between items-center gap-6 text-slate-800'>
+        <h1 className='text-3xl font-semibold text-center ss:text-left'>Wishlists</h1>
         <form onSubmit={submitFormHandler} className='flex flex-col ss:flex-row gap-4 w-full ss:w-fit'>
           <input
             type="text"
             placeholder="Add new wishlist.."
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none focus:border-[1px] border-slate-500'
+            className='shadow-xl rounded-full bg-white text-slate-800 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
             value={wishlist}
             onChange={setNewWishlist}
           />
-          <button className="px-6 py-2 my-4 ss:my-0 rounded-md text-lg font-medium bg-blue-100 text-[#f5eced] bg-gradient-to-r from-[#e8132f] to-[#fd3b54] drop-shadow-lg">
+          <button className='bg-[#FF385C] text-white rounded-full px-10 py-3 text-lg font-semibold shadow-2xl'>
             Add New Wishlist
           </button>
         </form>
       </div>
 
       {allWishlists.map((wishlist, i) => 
-        <div key={i}>
+        <div key={i} className='py-2'>
           <WishlistItem 
             wishlistId={wishlist.id} 
             wishlistName={wishlist.name} 
@@ -63,7 +65,7 @@ const Wishlists = () => {
         </div>
       )}
 
-    </div>
+    </RouteContainer>
   )
 }
 
