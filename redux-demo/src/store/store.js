@@ -4,6 +4,7 @@ import usersReducer from '../components/auth/usersSlice'
 // import modalReducer from '../features/modal/modalSlice'
 // import usersReducer from '../components/auth/usersSlice'
 import reservationsReducer from '../components/admin/reservations/reservationsSlice'
+import ratingsReducer from '../components/user/ratings/ratingsSlice'
 import modalReducer from '../UI/modalSlice'
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
         apartments: apartmentsReducer,
         modal: modalReducer,
         users: usersReducer,
-        reservations: reservationsReducer
+        reservations: reservationsReducer,
+        ratings: ratingsReducer
     }
 })

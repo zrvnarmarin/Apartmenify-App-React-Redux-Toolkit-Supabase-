@@ -26,3 +26,18 @@ export function compareObjects(obj1, obj2, props) {
   }
   return true;
 }
+
+export function generateRatingGrade (rating) {
+  switch (rating) {
+    case 1: 
+      return 'Very poor'   
+    case 2: 
+      return 'Poor'   
+    case 3: 
+      return 'Good'   
+    case 4: 
+      return 'Very good'   
+    case 5: 
+      return 'Excellent'   
+  }
+}

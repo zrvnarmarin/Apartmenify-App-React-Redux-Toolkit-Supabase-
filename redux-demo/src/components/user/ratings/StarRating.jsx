@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import RatingStarFilled from '../../../assets/rating_icons/rating_star_filled_icon.png'
 import RatingStarEmpty from '../../../assets/rating_icons/rating_star_empty_icon.png'
+import { useDispatch } from 'react-redux'
+import { setRating } from './ratingsSlice'
 
 const ratingOptions = [
     { id: 1, value: 1, isHovered: false },
@@ -13,14 +15,19 @@ const ratingOptions = [
 const StarRating = () => {
     const [ratingStars, setRatingNumbers] = useState(ratingOptions)
 
+    const dispatch = useDispatch()
+    const setApartmentRating = (ratingValue) => dispatch(setRating(ratingValue))
+
     return (
-        <div className='flex flex-row items-center justify-between gap-4'>
+        <div className='flex flex-row items-center justify-between '>
             {ratingStars.map(ratingStar =>
                 <button 
                     key={ratingStar.id}
                     onClick={() => {
                         console.log(ratingStar.value)
+                        setApartmentRating(ratingStar.value)
                     }}
+                    className='p-2'
                 >
                     <img 
                         alt="rating_star" 

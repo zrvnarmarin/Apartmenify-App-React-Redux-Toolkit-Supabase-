@@ -17,22 +17,28 @@ const ratingsSlice = createSlice({
         setRating: (state, action) => {
             state.rating = action.payload
         },
+        resetRating: (state, action) => {
+            state.rating = 0
+        },
         setComment: (state, action) => {
             state.comment = action.payload
+        },
+        resetComment: (state, action) => {
+            state.comment = ''
         }
     }
 })
 
 // States
-export const selectRatings = (state) = state.ratings.ratings
-export const selectRating = (state) = state.ratings.rating
-export const selectComments = (state) = state.ratings.comments
-export const selectComment = (state) = state.ratings.comment
-export const selectIsLoading = (state) = state.ratings.isLoading
-export const selectError = (state) = state.ratings.error
+export const selectRatings = (state) => state.ratings.ratings
+export const selectRating = (state) => state.ratings.rating
+export const selectComments = (state) => state.ratings.comments
+export const selectComment = (state) => state.ratings.comment
+export const selectIsLoading = (state) => state.ratings.isLoading
+export const selectError = (state) => state.ratings.error
 
 // Reducers
-export const { setRating, setComment} = ratingsSlice.actions
+export const { setRating, resetRating, setComment, resetComment } = ratingsSlice.actions
 
 // Slice
 export default ratingsSlice.reducer

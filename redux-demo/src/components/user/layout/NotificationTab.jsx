@@ -7,6 +7,7 @@ import ReviewModal from '../../../UI/Modal/ReviewModal.jsx'
 const NotificationTab = () => {
   const dispatch = useDispatch()
   const openReviewModal = () => dispatch(openModal('review'))
+  const isOpenModal = useSelector(selectIsModalOpen)
   
   return (
     <div className='absolute drop-shadow-2xl rounded-lg w-96 h-90 flex flex-col p-4 top-9 right-2 gap-2 border-[1px] border-slate-300 shadow-2xl bg-white z-50 text-base'>
@@ -16,7 +17,7 @@ const NotificationTab = () => {
             <img src={ImagePlaceholder} alt="placeholder" className='w-12 h-12 rounded-full border-[1px] border-black z-10' />
             <div>
               <div>How was your staying in the <span className='font-medium'>Neki Smjestaj</span>? dfkjbh djklf fvdfohuioh dfgv</div>
-              <button onClick={openReviewModal} className='underline text-[#FF385C] decoration-[#FF385C]'>Rate your experience</button>
+              <button onClick={openReviewModal} className='underline text-[#FF385C] decoration-[#FF385C]'>Tell us your experience</button>
             </div>
         </div>  <hr />
           </div>  
