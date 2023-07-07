@@ -25,8 +25,8 @@ const LoginPage = () => {
 
   return (
     <div className='bg-[#0E1217] h-screen p-4 flex-1 font-sans flex flex-col items-center'>
-      <h1 className='text-5xl sm:text-6xl font-semibold text-center text-[#f4eff0] mt-32'>Apartmenify</h1>
-      <div className='mt-32 px-4 items-center justify-center w-full max-w-xl'>
+      <h1 className='text-5xl sm:text-6xl font-semibold text-center text-[#ffffff] mt-32'>Apartmenify</h1>
+      <div className='mt-32 px-4 items-center justify-center w-full max-w-xl border-[1px] bg-[#182028] border-slate-700 rounded-md'>
         <Auth
           supabaseClient={supabase}
           appearance={supabaseAuthStyles}

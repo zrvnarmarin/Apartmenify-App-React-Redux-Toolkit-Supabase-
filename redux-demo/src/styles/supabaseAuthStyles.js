@@ -19,7 +19,7 @@ export const supabaseAuthStyles = {
         color: "#f4eff0"
       },
       label: {
-        color: "#9e9a9b",
+        color: "#F5ECED",
         fontSize: "1.125rem",
         lineHeight: "1.75rem",
         fontWeight: "600"
@@ -32,7 +32,7 @@ export const supabaseAuthStyles = {
         paddingRight: "1.5rem",
         paddingTop: "0.5rem",
         paddingBottom: "0.5rem",
-        border: "none",
+        border: "1px solid #334155",
         outline: "none"
       }
     }
