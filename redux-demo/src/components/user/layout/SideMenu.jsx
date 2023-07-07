@@ -5,7 +5,7 @@ import XButton from '../../../assets/X.svg'
 
 const SideMenu = ({ closeSideMenu }) => {
   return (
-    <div className='font-poppins w-full h-[100%] bg-[#1f1f1f] fixed left-0 top-0 overflow-y-auto px-8 py-16 z-10'>
+    <div className='font-poppins w-full h-[100%] bg-white fixed left-0 top-0 overflow-y-auto px-8 py-16 z-10'>
         <ul className='flex flex-col gap-16'>
             <li className='flex justify-end'>
                 <button aria-label='close_sidemenu' onClick={() => closeSideMenu()}>
@@ -22,7 +22,7 @@ const SideMenu = ({ closeSideMenu }) => {
                 <Link 
                     onClick={closeSideMenu}
                     to="apartments" 
-                    className='text-5xl hover:font-bold'
+                    className='text-[#FF385C] text-4xl sm:text-5xl italic font-bold'
                 >
                     Apartmenify
                 </Link>
@@ -31,28 +31,28 @@ const SideMenu = ({ closeSideMenu }) => {
                 <Link 
                     onClick={closeSideMenu}
                     to="apartments" 
-                    className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
+                    className='hover:underline hover:decoration-[#FF385C] text-slate-900 decoration-2 underline-offset-[6px] duration-300'
                 >
                     Apartments
                 </Link>
                 <Link 
                     onClick={closeSideMenu}
                     to="reservations" 
-                    className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
+                    className='hover:underline hover:decoration-[#FF385C] text-slate-900 decoration-2 underline-offset-[6px] duration-300'
                 >
                     Reservations
                 </Link>
                 <Link 
                     onClick={closeSideMenu}
                     to="wishlists" 
-                    className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
+                    className='hover:underline hover:decoration-[#FF385C] text-slate-900 decoration-2 underline-offset-[6px] duration-300'
                 >
                     Wishlists
                 </Link>
                 <Link 
                     onClick={closeSideMenu}
                     to="manageAccount" 
-                    className='hover:underline hover:decoration-[#f0223d] decoration-2 underline-offset-[6px] duration-300'
+                    className='hover:underline hover:decoration-[#FF385C] text-center text-slate-900 decoration-2 underline-offset-[6px] duration-300'
                 >
                     Manage Account
                 </Link>
