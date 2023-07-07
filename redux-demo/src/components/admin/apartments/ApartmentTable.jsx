@@ -5,7 +5,7 @@ import ApartmentTableHeader from './ApartmentTableHeader.jsx'
 const ApartmentTable = ({ apartments }) => {
 
   return (
-    <>
+    <div>
       <ApartmentTableHeader />
 
       {apartments.map((apartment, tableIndex) =>
@@ -27,7 +27,7 @@ const ApartmentTable = ({ apartments }) => {
           availability={apartment.availability}
         />
       )}
-    </>
+    </div>
   )
 }
 

@@ -4,7 +4,7 @@ import Reservation from './Reservation'
 
 const ReservationTable = ({ reservations }) => {
   return (
-    <>
+    <div>
       <ReservationTableHeader />
       {reservations.map((reservation, index) => 
         <Reservation
@@ -22,7 +22,7 @@ const ReservationTable = ({ reservations }) => {
           status={reservation.status}
         />  
       )}
-    </>
+    </div>
   )
 }
 
