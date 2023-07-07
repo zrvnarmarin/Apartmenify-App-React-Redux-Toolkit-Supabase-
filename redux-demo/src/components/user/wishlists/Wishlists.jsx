@@ -55,15 +55,17 @@ const Wishlists = () => {
         </form>
       </div>
 
-      {allWishlists.map((wishlist, i) => 
-        <div key={i} className='py-2'>
-          <WishlistItem 
-            wishlistId={wishlist.id} 
-            wishlistName={wishlist.name} 
-            wishlistUserId={wishlist.userId}
-          />
-        </div>
-      )}
+      <main className='flex flex-col gap-4'>
+        {allWishlists.map((wishlist, i) => 
+          <div key={i}>
+            <WishlistItem 
+              wishlistId={wishlist.id} 
+              wishlistName={wishlist.name} 
+              wishlistUserId={wishlist.userId}
+            />
+          </div>
+        )}
+      </main>
 
     </RouteContainer>
   )

@@ -27,7 +27,7 @@ const Navbar = () => {
       <ul className='flex flex-row justify-between items-center'>
         <li className='flex flex-row items-center'>
           <NavLink to="apartments" className=' md:block'>
-            <p className='italic'>Apartmenify</p>
+            <p className=' text-[#FF385C] font-black italic'>Apartmenify</p>
           </NavLink>
         </li>
 
