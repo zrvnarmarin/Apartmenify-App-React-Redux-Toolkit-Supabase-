@@ -1,18 +1,55 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectApartment, getApartment } from '../admin/apartments/apartmentsSlice'
 import LocationPin from '../../assets/locationPin.png'
-import Placeholder from '../../assets/placeholder.webp'
 import ReserveApartment from './ReserveApartment';
 import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
 import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
-import Imageslider from '../../UI/Image Carousel/Imageslider';
+
+const slides = [
+  {
+    url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
+    title: 'nesto'
+  },
+  {
+    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfEtre7ussO6z2K3YzLHHWEtKA9wMtyosTNTYSuIrv-X5jZBJnYsnPagUHbJ9p3h_UpkE&usqp=CAU', 
+    title: 'nesto'
+  },
+  {
+    url: 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*', 
+    title: 'nesto'
+  },
+  {
+    url: 'https://escales.ponant.com/wp-content/uploads/2020/12/plage.jpg', 
+    title: 'nesto'
+  },
+  {
+    url: 'https://www.usnews.com/object/image/00000178-65b2-d6c2-a1fa-e5f2c4c30000/19.+Anse+Source+d%27Argent.jpg?update-time=1616614326561&size=responsiveFlow640', 
+    title: 'nesto'
+  }
+]
 
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
+  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const goToPreviousSlide = () => {
+    const isFirstLside = currentImageIndex === 0
+    const newIndex = isFirstLside ? slides.length - 1 : currentImageIndex - 1
+
+    setCurrentImageIndex(newIndex)
+  }
+
+  const gotToNextSlide = () => {
+    const isLastSlide = currentImageIndex === slides.length - 1
+    const newIndex = isLastSlide ? 0 : currentImageIndex + 1
+
+    setCurrentImageIndex(newIndex)
+  }
 
   const apartment = useSelector(selectApartment)
   const { state: { apartmentId, apartmentTitle } } = useLocation()
@@ -31,35 +68,6 @@ const ApartmentDetails = () => {
   useEffect(() => {
     dispatch(getApartment(apartmentId))
   }, [dispatch])  
-
-  const slides = [
-    {
-      url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
-      title: 'nesto'
-    },
-    {
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfEtre7ussO6z2K3YzLHHWEtKA9wMtyosTNTYSuIrv-X5jZBJnYsnPagUHbJ9p3h_UpkE&usqp=CAU', 
-      title: 'nesto'
-    },
-    {
-      url: 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*', 
-      title: 'nesto'
-    },
-    {
-      url: 'https://escales.ponant.com/wp-content/uploads/2020/12/plage.jpg', 
-      title: 'nesto'
-    },
-    {
-      url: 'https://www.usnews.com/object/image/00000178-65b2-d6c2-a1fa-e5f2c4c30000/19.+Anse+Source+d%27Argent.jpg?update-time=1616614326561&size=responsiveFlow640', 
-      title: 'nesto'
-    }
-  ]
-
-  const containerStyles = {
-    width: '500px',
-    height: '280px',
-    margin: '0 auto'
-  }
 
   return (
     <RouteContainer>
@@ -96,28 +104,20 @@ const ApartmentDetails = () => {
         </div>
       </div>
 
-      {/* Imges grid
-      <div className='grid grid-cols-6 py-4'>
-        <div className='flex gap-2 col-start-1 col-end-4 p-1 bg-red-400'>
-          <img src={Placeholder} alt="" className='' />
-        </div>
-        <div className='flex gap-2 col-start-4 col-end-7 p-1 bg-red-400'>
-          <img src={Placeholder} alt="" className='' />
-        </div>
-
-        <div className='flex gap-2 col-start-1 col-end-3 p-1 bg-red-400'>
-          <img src={Placeholder} alt="" className='' />
-        </div>
-        <div className='flex gap-2 col-start-3 col-end-5 p-1 bg-red-400'>
-          <img src={Placeholder} alt="" className='' />
-        </div>
-        <div className='flex gap-2 col-start-5 col-end-7 p-1 bg-red-400'>
-          <img src={Placeholder} alt="" className='' />
-        </div>
-      </div> */}
-
-      <div style={containerStyles}>
-        <Imageslider slides={slides} />
+      {/* Image gallery */}
+      <div className='relative flex justify-center items-center p-1 bg-red-400'>
+        {slides.map((slide, slideIndex) =>
+          <img 
+            key={slideIndex}
+            className='w-full rounded-md' 
+            src={slides[currentImageIndex].url} 
+            alt="img" 
+            width={500} 
+            height={500} 
+          />
+        )}
+        <button className='font-bold text-lg absolute top-1/2 left-0' onClick={goToPreviousSlide}>L</button>
+        <button className='font-bold text-lg absolute top-1/2 right-0' onClick={gotToNextSlide}>R</button>
       </div>
 
       {/* Facilities */}
