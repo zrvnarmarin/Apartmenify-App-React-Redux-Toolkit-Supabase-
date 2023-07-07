@@ -38,19 +38,19 @@ const ApartmentDetails = () => {
       title: 'nesto'
     },
     {
-      url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfEtre7ussO6z2K3YzLHHWEtKA9wMtyosTNTYSuIrv-X5jZBJnYsnPagUHbJ9p3h_UpkE&usqp=CAU', 
       title: 'nesto'
     },
     {
-      url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
+      url: 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*', 
       title: 'nesto'
     },
     {
-      url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
+      url: 'https://escales.ponant.com/wp-content/uploads/2020/12/plage.jpg', 
       title: 'nesto'
     },
     {
-      url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
+      url: 'https://www.usnews.com/object/image/00000178-65b2-d6c2-a1fa-e5f2c4c30000/19.+Anse+Source+d%27Argent.jpg?update-time=1616614326561&size=responsiveFlow640', 
       title: 'nesto'
     }
   ]
