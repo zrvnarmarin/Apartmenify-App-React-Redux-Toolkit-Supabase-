@@ -36,7 +36,7 @@ const FilterApartment = () => {
               onChange={filterQueryChangeHandler}
               type="text"
               placeholder='Enter filter value...'
-              className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 outline-none border-[1px] border-slate-600'
+              className='shadow-xl rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
             />
           </div>
         : 

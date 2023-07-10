@@ -8,6 +8,9 @@ import ReserveApartment from './ReserveApartment';
 import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
 import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
+import DotIconGray from '../../assets/dot_icon_gray.png'
+import DotIconPink from '../../assets/dot_icon_pink.png'
+import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
 
 const slides = [
   {
@@ -105,32 +108,20 @@ const ApartmentDetails = () => {
       </div>
 
       {/* Image gallery */}
-      <div className='relative flex justify-center items-center p-1 bg-red-400'>
-        {slides.map((slide, slideIndex) =>
-          <img 
-            key={slideIndex}
-            className='w-full rounded-md' 
-            src={slides[currentImageIndex].url} 
-            alt="img" 
-            width={500} 
-            height={500} 
-          />
-        )}
-        <button className='font-bold text-lg absolute top-1/2 left-0' onClick={goToPreviousSlide}>L</button>
-        <button className='font-bold text-lg absolute top-1/2 right-0' onClick={gotToNextSlide}>R</button>
-      </div>
+      <ImageCarousel slides={slides} />
 
       {/* Facilities */}
       <div className='flex flex-wrap flex-row gap-1 sm:gap-3'>
         { facilityObjects?.map(facility => 
-          <div key={facility.value} className='flex items-center border-[1px] border-black py-2 px-3 md:py-3 md:px-5'>
+          <div key={facility.value} className='flex items-center gap-3 border-[1px] border-black py-2 px-3 md:py-3 md:px-5'>
             <img src={facility.iconSrc} width={25} height={25} />
             <span>{facility.value}</span>
           </div>  
         )}
       </div>
 
-      <div className='py-4'>
+      {/* Description */}
+      <div>
         {apartment.description}
       </div>
 

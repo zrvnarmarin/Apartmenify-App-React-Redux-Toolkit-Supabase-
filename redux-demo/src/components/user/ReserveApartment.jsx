@@ -107,23 +107,23 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     return (
         <>
             <h1 className='text-2xl'>Reserve Apartment</h1>
-            <form onSubmit={submitFormHandler} className='flex flex-col gap-4 mt-2 py-4'>
+            <form onSubmit={submitFormHandler} className='flex flex-col gap-4 '>
                 <input
                     value={name}
                     onChange={nameChangeHandler}
                     type="text"
                     placeholder='Name'
-                    className='p-2 border-[1px] border-black'
+                    className='shadow-xl rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
                 />
                 <input
                     value={surname}
                     onChange={surnameChangeHandler}
                     type="text"
                     placeholder='Surname'
-                    className='p-2 border-[1px] border-black'
+                    className='shadow-xl rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
                 />
                 <DatePicker
-                    className="border-[1px] border-black p-2"
+                    className='shadow-xl rounded-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
                     placeholderText="Date"
                     selectsRange={true}
                     startDate={startDate}

@@ -5,7 +5,7 @@ import supabase from '../../supabaseClient'
 import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds } from '../auth/usersSlice'
 import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
 
-const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
+const ApartmentCard = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
 
     const user = useSelector(selectUser)
@@ -144,4 +144,4 @@ const Apartment = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds
     )
 }
 
-export default Apartment
+export default ApartmentCard
