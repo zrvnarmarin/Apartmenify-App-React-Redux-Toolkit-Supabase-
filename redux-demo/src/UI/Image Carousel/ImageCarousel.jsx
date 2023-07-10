@@ -37,16 +37,24 @@ const ImageCarousel = ({ slides }) => {
 
         {/* Previous and next button */}
         <button 
-            className='font-bold text-lg absolute top-1/2 left-0' 
+            className='hidden ss:block font-bold text-lg absolute top-1/2 left-0' 
             onClick={goToPreviousSlide}
         >
-            <img src={LeftArrowIcon} alt="left_arrow_icon" />
+            <img 
+                src={LeftArrowIcon} 
+                alt="left_arrow_icon" 
+                className={`h-10 w-10 sm:h-12 sm:w-12`}
+            />
         </button>
         <button 
-            className='font-bold text-lg absolute top-1/2 right-0' 
+            className='hidden ss:block font-bold text-lg absolute top-1/2 right-0' 
             onClick={gotToNextSlide}
         >
-            <img src={RightArrowIcon} alt="right_arrow_icon" />
+            <img 
+                src={RightArrowIcon} 
+                alt="right_arrow_icon" 
+                className={`h-10 w-10 sm:h-12 sm:w-12`}
+            />
         </button>
 
         {/* Indexed dots */}
