@@ -105,8 +105,7 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
     };
 
     return (
-        <>
-            <h1 className='text-2xl'>Reserve Apartment</h1>
+        <div>
             <form onSubmit={submitFormHandler} className='flex flex-col gap-4 '>
                 <input
                     value={name}
@@ -140,12 +139,9 @@ const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
                     excludeDateIntervals={reservedDateIntervals}
                     renderDayContents={renderDayContents}
                 />
-                <button className='border-[1px] border-black p-2 bg-blue-100'>Reserve Apartment</button>
-                {/* <button type='button' onClick={() => {
-                    console.log(reservedDateIntervals)
-                }}>Display reservation intervals</button> */}
+                <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve Apartment</button>
             </form>
-        </>
+        </div>
     )
 }
 

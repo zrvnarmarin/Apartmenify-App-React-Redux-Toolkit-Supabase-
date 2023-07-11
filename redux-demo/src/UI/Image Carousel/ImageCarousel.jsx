@@ -23,60 +23,60 @@ const ImageCarousel = ({ slides }) => {
 
   return (
     <div className='relative flex flex-col justify-center items-center gap-2'>
-        {/* Slides */}
-        {slides.map((slide, slideIndex) =>
+      {/* Slides */}
+      {slides.map((slide, slideIndex) =>
+        <img 
+          key={slideIndex}
+          className={`w-full rounded-md ${slideIndex !== currentImageIndex ? 'hidden' : 'block'}`}
+          src={slides[currentImageIndex].url} 
+          alt="img" 
+          width={500} 
+          height={500} 
+        />
+      )}
+
+      {/* Previous and next button */}
+      <button 
+          className='hidden ss:block font-bold text-lg absolute top-1/2 left-0' 
+          onClick={goToPreviousSlide}
+      >
           <img 
-            key={slideIndex}
-            className={`w-full rounded-md ${slideIndex !== currentImageIndex ? 'hidden' : 'block'}`}
-            src={slides[currentImageIndex].url} 
-            alt="img" 
-            width={500} 
-            height={500} 
+              src={LeftArrowIcon} 
+              alt="left_arrow_icon" 
+              className={`h-10 w-10 sm:h-12 sm:w-12`}
           />
+      </button>
+      <button 
+          className='hidden ss:block font-bold text-lg absolute top-1/2 right-0' 
+          onClick={gotToNextSlide}
+      >
+          <img 
+              src={RightArrowIcon} 
+              alt="right_arrow_icon" 
+              className={`h-10 w-10 sm:h-12 sm:w-12`}
+          />
+      </button>
+
+      {/* Indexed dots */}
+      <div className='flex flex-row gap-2 items-center relative'>
+        {slides.map((slide, slideIndex) => 
+          <button 
+          key={slideIndex} 
+          onClick={() => {
+            setCurrentImageIndex(slideIndex)
+          }
+          }>
+            <img 
+              src={currentImageIndex === slideIndex ? DotIconPink : DotIconGray} 
+              alt="dot_icon" 
+              width={20} 
+              height={20} 
+              className={`${currentImageIndex === slideIndex ? 'scale-125' : 'scale-100'}`}
+            />
+          </button>
         )}
-
-        {/* Previous and next button */}
-        <button 
-            className='hidden ss:block font-bold text-lg absolute top-1/2 left-0' 
-            onClick={goToPreviousSlide}
-        >
-            <img 
-                src={LeftArrowIcon} 
-                alt="left_arrow_icon" 
-                className={`h-10 w-10 sm:h-12 sm:w-12`}
-            />
-        </button>
-        <button 
-            className='hidden ss:block font-bold text-lg absolute top-1/2 right-0' 
-            onClick={gotToNextSlide}
-        >
-            <img 
-                src={RightArrowIcon} 
-                alt="right_arrow_icon" 
-                className={`h-10 w-10 sm:h-12 sm:w-12`}
-            />
-        </button>
-
-        {/* Indexed dots */}
-        <div className='flex flex-row gap-2 items-center relative'>
-          {slides.map((slide, slideIndex) => 
-            <button 
-            key={slideIndex} 
-            onClick={() => {
-              setCurrentImageIndex(slideIndex)
-            }
-            }>
-              <img 
-                src={currentImageIndex === slideIndex ? DotIconPink : DotIconGray} 
-                alt="dot_icon" 
-                width={20} 
-                height={20} 
-                className={`${currentImageIndex === slideIndex ? 'scale-125' : 'scale-100'}`}
-              />
-            </button>
-          )}
-        </div>
       </div>
+    </div>
   )
 }
 

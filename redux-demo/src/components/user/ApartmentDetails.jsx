@@ -8,30 +8,33 @@ import ReserveApartment from './ReserveApartment';
 import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
 import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
-import DotIconGray from '../../assets/dot_icon_gray.png'
-import DotIconPink from '../../assets/dot_icon_pink.png'
 import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
 
 const slides = [
   {
     url: 'https://www.myglobalviewpoint.com/wp-content/uploads/2019/03/Neuschwanstein-Castle-Most-Beautiful-Castles-in-the-World.jpg', 
-    title: 'nesto'
+    title: 'fgb',
+    main: true
   },
   {
     url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfEtre7ussO6z2K3YzLHHWEtKA9wMtyosTNTYSuIrv-X5jZBJnYsnPagUHbJ9p3h_UpkE&usqp=CAU', 
-    title: 'nesto'
+    title: 'gnbdfg',
+    main: false
   },
   {
     url: 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*', 
-    title: 'nesto'
+    title: 'dghmnfgh',
+    main: false
   },
   {
     url: 'https://escales.ponant.com/wp-content/uploads/2020/12/plage.jpg', 
-    title: 'nesto'
+    title: 'xdfhmfj',
+    main: false
   },
   {
     url: 'https://www.usnews.com/object/image/00000178-65b2-d6c2-a1fa-e5f2c4c30000/19.+Anse+Source+d%27Argent.jpg?update-time=1616614326561&size=responsiveFlow640', 
-    title: 'nesto'
+    title: 'j',
+    main: false
   }
 ]
 
@@ -108,7 +111,25 @@ const ApartmentDetails = () => {
       </div>
 
       {/* Image gallery */}
-      <ImageCarousel slides={slides} />
+      <div className='block md:hidden'>
+        <ImageCarousel slides={slides} />
+      </div>
+
+      <div className='grid grid-cols-4 grid-rows-2 gap-2 rounded bg-red-200 relative'>
+        {slides.map((slide, slideIndex) =>
+          <div 
+            key={slide.title} 
+            className={`${slide.main === true ? 'col-span-2 row-span-full' : 'col-span-1 row-span-1'} `}
+          >
+            <img 
+              src={slide.url} 
+              alt='apartment_image' 
+              className={`${slide.main === true ? 'rounded-tl-md rounded-bl-md' : 'border-tl-none'} w-full object-cover h-full`}
+            />
+          </div>
+        )}
+        <button className='absolute bottom-4 right-4 border-[1px] border-slate-800 bg-white text-slate-800 rounded-lg px-4 py-2 text-sm font-normal shadow-2xl'>Show All Images</button>
+      </div>
 
       {/* Facilities */}
       <div className='flex flex-wrap flex-row gap-1 sm:gap-3'>
