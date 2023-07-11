@@ -13,6 +13,7 @@ const modalSlice = createSlice({
         openModal: (state, action) => {
             state.isModalOpen = true
             state.modalType = action.payload
+            console.log(action.payload, state.isModalOpen)
         },
         closeModal: (state, action) => {
             state.isModalOpen = false

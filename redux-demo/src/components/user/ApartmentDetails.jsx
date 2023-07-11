@@ -9,6 +9,8 @@ import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcon
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
 import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
 import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
+import ImageGalleryModal from '../../UI/Modal/ImageGalleryModal';
+import { openModal, selectModalType } from '../../UI/modalSlice';
 
 const slides = [
   {
@@ -40,6 +42,9 @@ const slides = [
 
 const ApartmentDetails = () => {
   const dispatch = useDispatch()
+
+  const modalType = useSelector(selectModalType)
+  const openImageGalleryModal = () => dispatch(openModal('image gallery'))
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -128,7 +133,15 @@ const ApartmentDetails = () => {
             />
           </div>
         )}
-        <button className='absolute bottom-4 right-4 border-[1px] border-slate-800 bg-white text-slate-800 rounded-lg px-4 py-2 text-sm font-normal shadow-2xl'>Show All Images</button>
+        <button 
+        onClick={() => {
+          openImageGalleryModal()
+          console.log(modalType)
+        }}
+          className='absolute bottom-4 right-4 border-[1px] border-slate-800 bg-white text-slate-800 rounded-lg px-4 py-2 text-sm font-normal shadow-2xl'
+        >
+          Show All Images
+        </button>
       </div>
 
       {/* Facilities */}
@@ -146,11 +159,14 @@ const ApartmentDetails = () => {
         {apartment.description}
       </div>
 
+      {/* Reserve apartment section */}
       <ReserveApartment 
         apartmentId={apartmentId} 
         apartmentTitle={apartmentTitle} 
       />
 
+      {/* Image gallery modal */}
+      { modalType === 'image gallery' && <ImageGalleryModal /> }
     </RouteContainer>
   )
 }
