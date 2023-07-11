@@ -4,7 +4,7 @@ import DotIconPink from '../../assets/dot_icon_pink.png'
 import LeftArrowIcon from '../../assets/left_arrow_icon.png'
 import RightArrowIcon from '../../assets/right_arrow_icon.png'
 
-const ImageCarousel = ({ slides }) => {
+const ImageCarousel = ({ slides, showIndexedDots, showImageIndices }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
     const goToPreviousSlide = () => {
@@ -58,24 +58,33 @@ const ImageCarousel = ({ slides }) => {
       </button>
 
       {/* Indexed dots */}
-      <div className='flex flex-row gap-2 items-center relative'>
-        {slides.map((slide, slideIndex) => 
-          <button 
-          key={slideIndex} 
-          onClick={() => {
-            setCurrentImageIndex(slideIndex)
-          }
-          }>
-            <img 
-              src={currentImageIndex === slideIndex ? DotIconPink : DotIconGray} 
-              alt="dot_icon" 
-              width={20} 
-              height={20} 
-              className={`${currentImageIndex === slideIndex ? 'scale-125' : 'scale-100'}`}
-            />
-          </button>
-        )}
-      </div>
+      { showIndexedDots &&
+        <div className='flex flex-row gap-2 items-center relative'>
+          {slides.map((slide, slideIndex) => 
+            <button 
+            key={slideIndex} 
+            onClick={() => {
+              setCurrentImageIndex(slideIndex)
+            }
+            }>
+              <img 
+                src={currentImageIndex === slideIndex ? DotIconPink : DotIconGray} 
+                alt="dot_icon" 
+                width={20} 
+                height={20} 
+                className={`${currentImageIndex === slideIndex ? 'scale-125' : 'scale-100'}`}
+              />
+            </button>
+          )}
+        </div>
+      }
+
+      {/* ¸Image indices */}
+      { showImageIndices && 
+        <div>
+          {currentImageIndex + 1} / {slides.length}
+        </div>
+      }
     </div>
   )
 }

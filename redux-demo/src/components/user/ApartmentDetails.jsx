@@ -9,6 +9,7 @@ import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcon
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
 import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
 import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
+import ImageGrid from '../../UI/Image Grid/ImageGrid';
 import ImageGalleryModal from '../../UI/Modal/ImageGalleryModal';
 import { openModal, selectModalType } from '../../UI/modalSlice';
 
@@ -46,21 +47,6 @@ const ApartmentDetails = () => {
   const modalType = useSelector(selectModalType)
   const openImageGalleryModal = () => dispatch(openModal('image gallery'))
   
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-  const goToPreviousSlide = () => {
-    const isFirstLside = currentImageIndex === 0
-    const newIndex = isFirstLside ? slides.length - 1 : currentImageIndex - 1
-
-    setCurrentImageIndex(newIndex)
-  }
-
-  const gotToNextSlide = () => {
-    const isLastSlide = currentImageIndex === slides.length - 1
-    const newIndex = isLastSlide ? 0 : currentImageIndex + 1
-
-    setCurrentImageIndex(newIndex)
-  }
 
   const apartment = useSelector(selectApartment)
   const { state: { apartmentId, apartmentTitle } } = useLocation()
@@ -115,33 +101,18 @@ const ApartmentDetails = () => {
         </div>
       </div>
 
-      {/* Image gallery */}
+      {/* Image carousel */}
       <div className='block md:hidden'>
-        <ImageCarousel slides={slides} />
+        <ImageCarousel
+          slides={slides} 
+          showIndexedDots={true} 
+          showImageIndices={false} 
+        />
       </div>
 
-      <div className='grid grid-cols-4 grid-rows-2 gap-2 rounded bg-red-200 relative'>
-        {slides.map((slide, slideIndex) =>
-          <div 
-            key={slide.title} 
-            className={`${slide.main === true ? 'col-span-2 row-span-full' : 'col-span-1 row-span-1'} `}
-          >
-            <img 
-              src={slide.url} 
-              alt='apartment_image' 
-              className={`${slide.main === true ? 'rounded-tl-md rounded-bl-md' : 'border-tl-none'} w-full object-cover h-full`}
-            />
-          </div>
-        )}
-        <button 
-        onClick={() => {
-          openImageGalleryModal()
-          console.log(modalType)
-        }}
-          className='absolute bottom-4 right-4 border-[1px] border-slate-800 bg-white text-slate-800 rounded-lg px-4 py-2 text-sm font-normal shadow-2xl'
-        >
-          Show All Images
-        </button>
+      {/* Image grid */}
+      <div className='hidden md:block'>
+        <ImageGrid slides={slides} />
       </div>
 
       {/* Facilities */}
@@ -166,7 +137,7 @@ const ApartmentDetails = () => {
       />
 
       {/* Image gallery modal */}
-      { modalType === 'image gallery' && <ImageGalleryModal /> }
+      { modalType === 'image gallery' && <ImageGalleryModal slides={slides} /> }
     </RouteContainer>
   )
 }
