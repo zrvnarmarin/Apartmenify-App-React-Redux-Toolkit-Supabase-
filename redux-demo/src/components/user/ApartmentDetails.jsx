@@ -4,14 +4,13 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectApartment, getApartment } from '../admin/apartments/apartmentsSlice'
 import LocationPin from '../../assets/locationPin.png'
-import ReserveApartment from './ReserveApartment';
+import ReserveApartment from './apartments/reserveApartment/ReserveApartment';
 import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
 import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
 import ImageGrid from '../../UI/Image Grid/ImageGrid';
 import ImageGalleryModal from '../../UI/Modal/ImageGalleryModal';
 import { openModal, selectModalType } from '../../UI/modalSlice';
-import RatingStarFilledIcon from '../../assets/rating_icons/rating_star_filled_icon.png'
 import ReviewsContainer from './reviews/ReviewsContainer';
 
 const slides = [
@@ -155,8 +154,6 @@ const ApartmentDetails = () => {
         </div>
       </div>
 
-      <hr />
-
       {/* Description */}
       <div className='font-medium text-lg sm:text-xl'>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor nemo odit temporibus animi a accusantium quod quas vel ducimus, eveniet, accusamus sed, explicabo eligendi sit fugit repudiandae assumenda nobis esse?
@@ -165,18 +162,9 @@ const ApartmentDetails = () => {
       <hr />
 
       {/* Reviews and reserve apartment sections */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
         {/* Reviews */}
-        <div>
-          <div className='flex items-center gap-3 text-slate-800 text-xl sm:text-3xl'>
-            <img src={RatingStarFilledIcon} alt="rating_star_icon" width={25} height={25} />
-            <span className='font-semibold'>9.3</span>
-            <span>&#x2022;</span>
-            <span className='font-semibold'>114 reviews</span>
-          </div>
-
-          <ReviewsContainer />
-        </div>
+        <ReviewsContainer />
 
         {/* Reserve apartment section */}
         <ReserveApartment 
