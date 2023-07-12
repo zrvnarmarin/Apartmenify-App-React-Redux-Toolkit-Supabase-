@@ -60,7 +60,7 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
         ? <p className='font-semibold text-2xl text-center sm:text-start'>{wishlistName}</p>
         : 
           <input
-            className='text-black'
+            className='shadow-xl rounded-full bg-white text-slate-800 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
             placeholder='Enter new wishlist..'
             type='text'
             value={updatedWishlist}
@@ -90,15 +90,15 @@ export const WishlistItem = ({ wishlistId, wishlistName, wishlistUserId }) => {
         {
           !isUpdateButtonPressed ? 
           <button 
-          className='p-4 text-xl text-white font-bold rounded-full bg-[#FF385C] shadow-2xl' 
-          onClick={() => {
-            dispatch(deleteWishlist({ id: wishlistId, userId: wishlistUserId, name: wishlistName }))
-            console.log(wishlistId, wishlistName)
-            toast.success('Wishlist has been deleted!')
-          }}
-        >
-          <img src={DeleteIcon} width={30} height={30} alt="delete_wishlist_item" />
-        </button>
+            className='p-4 text-xl text-white font-bold rounded-full bg-[#FF385C] shadow-2xl' 
+            onClick={() => {
+              dispatch(deleteWishlist({ id: wishlistId, userId: wishlistUserId, name: wishlistName }))
+              console.log(wishlistId, wishlistName)
+              toast.success('Wishlist has been deleted!')
+            }}
+          >
+            <img src={DeleteIcon} width={30} height={30} alt="delete_wishlist_item" />
+          </button>
         : <></>
         }
 

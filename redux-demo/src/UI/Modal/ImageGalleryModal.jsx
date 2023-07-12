@@ -13,7 +13,7 @@ const ImageGalleryModal = ({ slides }) => {
   return (
     <ModalBackdrop>
         <ModalContainer isAdmin={false}>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-3'>
                 <button 
                     className='w-full' 
                     onClick={closeModalWindow}

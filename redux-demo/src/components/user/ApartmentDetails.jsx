@@ -7,11 +7,12 @@ import LocationPin from '../../assets/locationPin.png'
 import ReserveApartment from './ReserveApartment';
 import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
 import RouteContainer from '../admin/layout/RouteContainer.jsx'
-import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
 import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
 import ImageGrid from '../../UI/Image Grid/ImageGrid';
 import ImageGalleryModal from '../../UI/Modal/ImageGalleryModal';
 import { openModal, selectModalType } from '../../UI/modalSlice';
+import RatingStarFilledIcon from '../../assets/rating_icons/rating_star_filled_icon.png'
+import ReviewsContainer from './reviews/ReviewsContainer';
 
 const slides = [
   {
@@ -45,11 +46,10 @@ const ApartmentDetails = () => {
   const dispatch = useDispatch()
 
   const modalType = useSelector(selectModalType)
-  const openImageGalleryModal = () => dispatch(openModal('image gallery'))
-  
 
   const apartment = useSelector(selectApartment)
   const { state: { apartmentId, apartmentTitle } } = useLocation()
+  console.log(apartment)
 
   const facilityObjects = apartment.facilities?.map(facility => {
     let mappedFacility = mappedFacilities.find(mappedFacility => mappedFacility.value === facility) 
@@ -70,12 +70,18 @@ const ApartmentDetails = () => {
     <RouteContainer>
 
       {/*Name and Location*/}
-      <div className='flex flex-row flex-wrap gap-4 justify-between'>
+      <div className='flex flex-row flex-wrap gap-8 justify-between'>
         <div className='flex flex-col gap-2 xs:text-start xs:w-auto'>
-          <h1 className='first-letter:uppercase text-2xl md:text-4xl text-start font-semibold'>{apartment.title}</h1>
+          <h1 className='first-letter:uppercase text-2xl sm:text-3xl md:text-4xl text-start font-semibold text-slate-800'>{apartment.title}</h1>
           <Link className='w-fit flex items-center gap-2 justify-start xs:justify-start text-gray-500 text-base'>
-            <img src={LocationPin} alt="location_pin" className='inline-block' width={25} height={25} />
-            <span className='text-lg first-letter:uppercase'>{apartment.address}, </span>
+            <img 
+              src={LocationPin} 
+              alt="location_pin" 
+              className='inline-block' 
+              width={25} 
+              height={25} 
+            />
+            <span className='text-lg first-letter:uppercase'>{apartment.address},</span>
             <span className='text-lg first-letter:uppercase'>{apartment.city}</span>
           </Link>
           <Link 
@@ -90,12 +96,11 @@ const ApartmentDetails = () => {
         <div className='flex gap-4 w-full xs:w-auto border-[1px] border-[#FF385C] xs:border-none p-1 rounded-md'>
           <div className='flex justify-between items-center gap-4 w-full'>
             <p className='flex flex-col'>
-              <span className='font-semibold ss:text-2xl'>Excellent</span>
+              <span className='font-semibold ss:text-2xl text-slate-800'>Excellent</span>
               <span className='text-gray-500'>114 reviews</span>
             </p>
-            <div className='p-4 rounded-md flex flex-row gap-2 items-center'>
-              <span className='text-base ss:text-2xl text-slate-800'>9.3</span>
-              <img src={RatingStarFilled} alt="rating_star_icon" width={15} height={15} className='pb-1' />
+            <div className='p-4 rounded-md flex flex-row gap-2 items-center bg-[#FF385C]'>
+              <span className='font-light ss:text-2xl text-white'>9.3</span>
             </div>
           </div>
         </div>
@@ -116,25 +121,70 @@ const ApartmentDetails = () => {
       </div>
 
       {/* Facilities */}
-      <div className='flex flex-wrap flex-row gap-1 sm:gap-3'>
+      <div className='flex flex-wrap flex-row gap-1 sm:gap-3 text-slate-800'>
         { facilityObjects?.map(facility => 
-          <div key={facility.value} className='flex items-center gap-3 border-[1px] border-black py-2 px-3 md:py-3 md:px-5'>
-            <img src={facility.iconSrc} width={25} height={25} />
+          <div key={facility.value} className='flex items-center gap-3 border-[1px] border-slate-800 rounded-md py-1 px-3 md:py-2 md:px-5'>
+            <img 
+              src={facility.iconSrc} 
+              width={25} 
+              height={25} 
+              alt='facility_icon' 
+            />
             <span>{facility.value}</span>
           </div>  
         )}
       </div>
 
-      {/* Description */}
-      <div>
-        {apartment.description}
+      {/* Rooms, beds info and distance from the sea */}
+      <div className='flex flex-col xs:flex-row items-start justify-between gap-4'>
+        <div>
+          <p className='font-semibold text-xl sm:text-3xl text-slate-800'>
+            {apartment.rooms} bedrooms
+          </p>
+          <p className='text-slate-800'>
+            {apartment.doubleBeds} double beds &#x2022; {apartment.singleBeds} single beds
+          </p>
+        </div>
+
+        <div>
+          <p className='flex items-center gap-1 font-semibold text-xl sm:text-3xl text-slate-800'>
+            <span>{apartment.distanceFromTheSea}</span>
+            <span>m</span>
+          </p>
+          <p className='text-slate-800'>from the the nearest beach</p>
+        </div>
       </div>
 
-      {/* Reserve apartment section */}
-      <ReserveApartment 
-        apartmentId={apartmentId} 
-        apartmentTitle={apartmentTitle} 
-      />
+      <hr />
+
+      {/* Description */}
+      <div className='font-medium text-lg sm:text-xl'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor nemo odit temporibus animi a accusantium quod quas vel ducimus, eveniet, accusamus sed, explicabo eligendi sit fugit repudiandae assumenda nobis esse?
+      </div>
+
+      <hr />
+
+      {/* Reviews and reserve apartment sections */}
+      <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+        {/* Reviews */}
+        <div>
+          <div className='flex items-center gap-3 text-slate-800 text-xl sm:text-3xl'>
+            <img src={RatingStarFilledIcon} alt="rating_star_icon" width={25} height={25} />
+            <span className='font-semibold'>9.3</span>
+            <span>&#x2022;</span>
+            <span className='font-semibold'>114 reviews</span>
+          </div>
+
+          <ReviewsContainer />
+        </div>
+
+        {/* Reserve apartment section */}
+        <ReserveApartment 
+          apartmentId={apartmentId} 
+          apartmentTitle={apartmentTitle} 
+          apartmentPrice={apartment.price}
+        />
+      </div>
 
       {/* Image gallery modal */}
       { modalType === 'image gallery' && <ImageGalleryModal slides={slides} /> }

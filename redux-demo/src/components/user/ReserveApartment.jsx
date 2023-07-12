@@ -14,7 +14,7 @@ import {
 }
 from '../admin/reservations/reservationsSlice';
 
-const ReserveApartment = ({ apartmentId, apartmentTitle }) => {
+const ReserveApartment = ({ apartmentId, apartmentTitle, apartmentPrice }) => {
     const allReservations = useSelector(selectAllReservations)
     const name = useSelector(selectName)
     const surname = useSelector(selectSurname)
