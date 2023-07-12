@@ -13,9 +13,8 @@ import {
     setUserEmail, setDateRange as setRangeDate
 }
 from '../../../admin/reservations/reservationsSlice';
-import RatingStarFilledIcon from '../../../../assets/rating_icons/rating_star_filled_icon.png'
 
-const ReserveApartment = ({ apartmentId, apartmentTitle, apartmentPrice }) => {
+const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) => {
     const allReservations = useSelector(selectAllReservations)
     const name = useSelector(selectName)
     const surname = useSelector(selectSurname)
@@ -106,78 +105,42 @@ const ReserveApartment = ({ apartmentId, apartmentTitle, apartmentPrice }) => {
     };
 
     return (
-        <div className='flex flex-col gap-8 sticky top-8 h-fit'>
-            <div className='flex items-center justify-between'>
-                <p className='text-slate-800 text-xl sm:text-3xl font-semibold flex flex-row items-center gap-1'>
-                    <span>€</span>
-                    <span>{apartmentPrice}</span>
-                    <span className='text-lg font-normal text-gray-500'>night</span>
-                </p>
-                <div className='flex items-center gap-2 text-md font-normal text-gray-500'>
-                    <img src={RatingStarFilledIcon} alt="rating_star_icon" width={15} height={15} />
-                    <span className='font-semibold'>9.3</span>
-                    <span>&#x2022;</span>
-                    <span className='underline font-base'>114 reviews</span>
-                </div>
-            </div>
-
-            <form onSubmit={submitFormHandler} className='flex flex-col gap-4 '>
-                <input
-                    value={name}
-                    onChange={nameChangeHandler}
-                    type="text"
-                    placeholder='Name'
-                    className='shadow-xl rounded-md bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
-                />
-                <input
-                    value={surname}
-                    onChange={surnameChangeHandler}
-                    type="text"
-                    placeholder='Surname'
-                    className='shadow-xl rounded-md bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
-                />
-                <DatePicker
-                    className='shadow-xl rounded-md w-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
-                    placeholderText="Date"
-                    selectsRange={true}
-                    startDate={startDate}
-                    endDate={endDate}
-                    onChange={selectedDate => {
-                        setDateRange(selectedDate)
-                        // console.log(selectedDate, 'selected date')
-                        dispatch(setRangeDate(JSON.stringify(selectedDate)))
-                    }}
-                    isClearable={true}
-                    dateFormat='dd.MM.yyyy'
-                    minDate={new Date()}
-                    clearButtonTitle='Clear Dates'
-                    excludeDateIntervals={reservedDateIntervals}
-                    renderDayContents={renderDayContents}
-                />
-                <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve</button>
-            </form>
-
-            <div className='flex flex-col gap-2'>
-                <div className='flex flex-row gap-1 justify-between'>
-                    <p className='underline'>€ {apartmentPrice} x [sumOfDays]</p>
-                    <p>€ 999</p>
-                </div>
-                <div className='flex flex-row gap-1 justify-between'>
-                    <p className='underline'>Apartmenify fee</p>
-                    <p>€ 78</p>
-                </div>
-                <div className='flex flex-row gap-1 justify-between pb-3'>
-                    <p className='underline'>Cleaning fee</p>
-                    <p>€ 78</p>
-                </div>
-                <hr />
-                <div className='flex flex-row gap-1 justify-between font-semibold text-xl'>
-                    <p>Total</p>
-                    <p>€ 1299</p>
-                </div>
-            </div>
-        </div>
+        <form onSubmit={submitFormHandler} className='flex flex-col gap-4 '>
+            <input
+                value={name}
+                onChange={nameChangeHandler}
+                type="text"
+                placeholder='Name'
+                className='shadow-xl rounded-md bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
+            />
+            <input
+                value={surname}
+                onChange={surnameChangeHandler}
+                type="text"
+                placeholder='Surname'
+                className='shadow-xl rounded-md bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
+            />
+            <DatePicker
+                className='shadow-xl rounded-md w-full bg-white text-slate-600 text-lg font-semibold px-10 py-3 outline-none border-[1px] border-slate-300'
+                placeholderText="Date"
+                selectsRange={true}
+                startDate={startDate}
+                endDate={endDate}
+                onChange={selectedDate => {
+                    setDateRange(selectedDate)
+                    // console.log(selectedDate, 'selected date')
+                    dispatch(setRangeDate(JSON.stringify(selectedDate)))
+                }}
+                isClearable={true}
+                dateFormat='dd.MM.yyyy'
+                minDate={new Date()}
+                clearButtonTitle='Clear Dates'
+                excludeDateIntervals={reservedDateIntervals}
+                renderDayContents={renderDayContents}
+            />
+            <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve</button>
+        </form>
     )
 }
 
-export default ReserveApartment
+export default ReserveApartmentForm

@@ -1,6 +1,6 @@
 import React from 'react'
 import Review from './review/Review'
-import RatingStarFilledIcon from '../../../assets/rating_icons/rating_star_filled_icon.png'
+import ReviewsContainerHeader from './ReviewsContainerHeader'
 
 const reviews = [
   { id: 1, createdAt: 'April 2023', reviewer: 'Marin Zrvnar', rating: 5, comment: 'It was all good and magnificent.' },
@@ -14,13 +14,7 @@ const reviews = [
 const ReviewContainer = () => {
   return (
     <section className='col-span-1 md:col-span-2 flex flex-col gap-6'>
-      <div className='flex items-center gap-3 text-slate-800 text-xl sm:text-3xl'>
-        <img src={RatingStarFilledIcon} alt="rating_star_icon" width={25} height={25} />
-        <span className='font-semibold'>9.3</span>
-        <span>&#x2022;</span>
-        <span className='font-semibold'>114 reviews</span>
-      </div>
-
+      <ReviewsContainerHeader />
       {reviews.map(review => 
         <Review 
           key={review.id} 
