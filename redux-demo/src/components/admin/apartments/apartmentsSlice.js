@@ -65,8 +65,6 @@ export const deleteApartment = createAsyncThunk('apartments/deleteApartment', as
 })
 
 export const updateApartment = createAsyncThunk('apartments/updateApartment', async updatedApartment => {
-  console.log('heej', updatedApartment)
-
   const { data, error } = await supabase
   .from('apartments')
   .update({ 
@@ -84,7 +82,7 @@ export const updateApartment = createAsyncThunk('apartments/updateApartment', as
   })
   .eq('id', updatedApartment.id)
 
-  return data
+  return updatedApartment
 })
 
 export const getAllFacilities = createAsyncThunk('apartments/getAllFacilities', async () => {
@@ -188,12 +186,8 @@ const apartmentsSlice = createSlice({
       state.isLoading = true
     })
     .addCase(getApartment.fulfilled, (state, action) => {
-      // console.log(action.payload)
       state.apartment = action.payload
     })
-    // .addCase(getApartment.pending, (state, action) => {
-    //     state.status = 'loading'
-    // })
     .addCase(addApartment.fulfilled, (state, action) => {
       // console.log(action.payload)
       state.apartments.push(action.payload)
@@ -212,6 +206,10 @@ const apartmentsSlice = createSlice({
     })
     .addCase(updateApartmentAvailability.fulfilled, (state, action) => {
       // console.log(state.apartments)
+    })
+    .addCase(updateApartment.fulfilled, (state, action) => {
+      const updatedApartment = action.payload
+      state.apartments = state.apartments.map(apartment => apartment.id === updatedApartment.id ? updatedApartment : apartment)
     })
   }
 })

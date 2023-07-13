@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { selectFacilities, getAllFacilities, updateApartment } from './apartmentsSlice'
 import Select from '../../../UI/Select'
+import { toast } from 'react-toastify';
 
 const UpdateApartment = () => {
     const dispatch = useDispatch()
@@ -10,33 +11,31 @@ const UpdateApartment = () => {
     const location = useLocation()
     const apartmentData = location.state
 
-    const [updatedApartment, setUpdatedApartment] = useState(apartmentData)
+    const [apartmentToUpdate, setApartmentToUpdate] = useState(apartmentData)
     const facilities = useSelector(selectFacilities)
     const [selectedFacilities, setSelectedFacilities] = useState(apartmentData.facilities.map(facility => {
         return { value: facility, label: facility}
     }))
 
-    console.log(updatedApartment)
-    
     const submitFormHandler = e => {
         e.preventDefault()
 
         const updatedApartmentObject = {
-            id: updatedApartment.id,
-            title: updatedApartment.title,
-            description: updatedApartment.description,
-            rooms: updatedApartment.rooms,
-            address: updatedApartment.address,
-            city: updatedApartment.city,
-            distanceFromTheSea: updatedApartment.distanceFromTheSea,
-            price: updatedApartment.price,
-            singleBeds: updatedApartment.singleBeds,
-            doubleBeds: updatedApartment.doubleBeds,
-            availability: updatedApartment.availability,
+            id: apartmentToUpdate.id,
+            title: apartmentToUpdate.title,
+            description: apartmentToUpdate.description,
+            rooms: apartmentToUpdate.rooms,
+            address: apartmentToUpdate.address,
+            city: apartmentToUpdate.city,
+            distanceFromTheSea: apartmentToUpdate.distanceFromTheSea,
+            price: apartmentToUpdate.price,
+            singleBeds: apartmentToUpdate.singleBeds,
+            doubleBeds: apartmentToUpdate.doubleBeds,
+            availability: apartmentToUpdate.availability,
             facilities: selectedFacilities.map(facility => facility.value)
         }
         
-        console.log(updatedApartmentObject)
+        // console.log(updatedApartmentObject, 'UPDATED OBJECT')
 
         dispatch(updateApartment(updatedApartmentObject))
 
@@ -52,64 +51,64 @@ const UpdateApartment = () => {
       <h1 className='text-3xl font-semibold text-[#f4eff0]'>Update Apartment</h1>
       <form onSubmit={submitFormHandler} className='grid grid-cols-2 gap-4'>
         <input 
-            value={updatedApartment.title} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, title: e.target.value }})} 
+            value={apartmentToUpdate.title} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, title: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Title' 
         />
         <input 
-            value={updatedApartment.city} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, city: e.target.value }})} 
+            value={apartmentToUpdate.city} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, city: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='City' 
         />
         <input 
-            value={updatedApartment.price} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, price: e.target.value }})} 
+            value={apartmentToUpdate.price} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, price: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Price' 
         />
         <input 
-            value={updatedApartment.distanceFromTheSea} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, distanceFromTheSea: e.target.value }})} 
+            value={apartmentToUpdate.distanceFromTheSea} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, distanceFromTheSea: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Distance From The Sea' 
         />
         <input 
-            value={updatedApartment.description} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, description: e.target.value }})} 
+            value={apartmentToUpdate.description} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, description: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Description' 
         />
         <input 
-            value={updatedApartment.address} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, address: e.target.value }})} 
+            value={apartmentToUpdate.address} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, address: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Address' 
         />
         <input 
-            value={updatedApartment.rooms} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, rooms: e.target.value }})} 
+            value={apartmentToUpdate.rooms} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, rooms: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Rooms' 
         />
         <input 
-            value={updatedApartment.singleBeds} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, singleBeds: e.target.value }})} 
+            value={apartmentToUpdate.singleBeds} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, singleBeds: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Single Beds' 
         />
         <input 
-            value={updatedApartment.doubleBeds} 
-            onChange={e => setUpdatedApartment(prev => { return { ...prev, doubleBeds: e.target.value }})} 
+            value={apartmentToUpdate.doubleBeds} 
+            onChange={e => setApartmentToUpdate(prev => { return { ...prev, doubleBeds: e.target.value }})} 
             type="text" 
             className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Double Beds' 
