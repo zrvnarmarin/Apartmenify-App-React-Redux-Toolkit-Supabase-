@@ -17,7 +17,7 @@ import Stats from './components/admin/stats/Stats.jsx'
 // User components
 import UserDashboard from './components/user/UserDashboard'
 import SearcApartments from './components/user/SearchApartments';
-import ApartmentDetails from './components/user/ApartmentDetails';
+import ApartmentDetails from './components/user/apartments/ApartmentDetails.jsx';
 import ManageAccount from './components/user/userSettings/ManageAccount';
 import UserReservations from './components/user/reservations/UserReservations';
 import Wishlists from './components/user/wishlists/Wishlists';

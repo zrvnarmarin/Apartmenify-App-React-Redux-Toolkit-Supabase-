@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectApartment, getApartment } from '../admin/apartments/apartmentsSlice'
-import LocationPin from '../../assets/locationPin.png'
-import ReserveApartment from './apartments/reserveApartment/ReserveApartmentForm';
-import { mappedFacilities } from '../../data/facilities/mappedFacilitiesWithIcons';
-import RouteContainer from '../admin/layout/RouteContainer.jsx'
-import ImageCarousel from '../../UI/Image Carousel/ImageCarousel';
-import ImageGrid from '../../UI/Image Grid/ImageGrid';
-import ImageGalleryModal from '../../UI/Modal/ImageGalleryModal';
-import { openModal, selectModalType } from '../../UI/modalSlice';
-import ReviewsContainer from './reviews/ReviewsContainer';
-import ReserveApartmentContainer from './apartments/reserveApartment/ReserveApartmentContainer';
+import { selectApartment, getApartment } from '../../admin/apartments/apartmentsSlice'
+import LocationPin from '../../../assets/locationPin.png'
+import { mappedFacilities } from '../../../data/facilities/mappedFacilitiesWithIcons';
+import RouteContainer from '../../admin/layout/RouteContainer.jsx'
+import ImageCarousel from '../../../UI/Image Carousel/ImageCarousel';
+import ImageGrid from '../../../UI/Image Grid/ImageGrid';
+import ImageGalleryModal from '../../../UI/Modal/ImageGalleryModal';
+import { openModal, selectModalType } from '../../../UI/modalSlice';
+import ReviewsContainer from '../reviews/ReviewsContainer';
+import ReserveApartmentContainer from './reserveApartment/ReserveApartmentContainer';
 
 const slides = [
   {
@@ -49,7 +48,6 @@ const ApartmentDetails = () => {
 
   const apartment = useSelector(selectApartment)
   const { state: { apartmentId, apartmentTitle } } = useLocation()
-  console.log(apartment)
 
   const facilityObjects = apartment.facilities?.map(facility => {
     let mappedFacility = mappedFacilities.find(mappedFacility => mappedFacility.value === facility) 
@@ -173,6 +171,9 @@ const ApartmentDetails = () => {
           apartmentPrice={apartment.price}
         />
       </div>
+
+      {/* Apartment location section */}
+      
 
       {/* Image gallery modal */}
       { modalType === 'image gallery' && <ImageGalleryModal slides={slides} /> }

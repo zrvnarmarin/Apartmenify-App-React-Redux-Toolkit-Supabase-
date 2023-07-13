@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import supabase from '../../supabaseClient'
-import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds } from '../auth/usersSlice'
-import RatingStarFilled from '../../assets/rating_icons/rating_star_filled_icon.png'
+import supabase from '../../../supabaseClient'
+import { selectUser, getWishlistNameAndApartmentIds, selectWishlistNamesAndIds } from '../../auth/usersSlice'
+import RatingStarFilled from '../../../assets/rating_icons/rating_star_filled_icon.png'
 
 const ApartmentCard = ({ id: apartmentId, title, city, price, singleBeds, doubleBeds, isApartmentLiked }) => {
     const dispatch = useDispatch()
@@ -59,14 +59,7 @@ const ApartmentCard = ({ id: apartmentId, title, city, price, singleBeds, double
                         </p>
                         <p className='text-sm'>Includes taxes and charges</p>
                     </div>
-                    {/* <div className='flex flex-row gap-2'>
-                        <p className='self-center text-4xl rounded-xl bg-red-200 p-2'>8.9</p>
-                        <div className='self-center '>
-                            <p className='text-2xl'>Exceptional</p>
-                            <p className='text-lg normal-case'>1,565 reviews</p>
-                        </div>
-                    </div> */}
-                    <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>
+                    <button className='bg-[#FF385C] hover:bg-[#fa3c5f] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>
                         <Link
                             to={`/userDashboard/apartments/${apartmentId}`}
                             state={{ apartmentId: apartmentId, apartmentTitle: title }}

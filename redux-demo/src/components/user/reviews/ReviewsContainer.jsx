@@ -24,7 +24,7 @@ const ReviewContainer = () => {
         />  
       )}
 
-      <button className='w-fit border-[1px] border-[#FF385C] text-[#FF385C] rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Show all 114 reviews</button>
+      <button className='w-fit border-[1px] border-[#FF385C] text-[#FF385C] hover:bg-[#FF385C] hover:text-white duration-300 rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Show All 114 Reviews</button>
     </section>
   )
 }

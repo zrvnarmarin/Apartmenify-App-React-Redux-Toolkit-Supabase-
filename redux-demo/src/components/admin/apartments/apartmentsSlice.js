@@ -1,58 +1,55 @@
 import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
 import supabase from '../../../supabaseClient';
 
-//Supabase 
+// Apartments:
 export const getAllApartments = createAsyncThunk('apartments/getAllApartments', async () => {
-    try {
+  try {
     const { data, error } = await supabase
     .from('apartments')
     .select()
 
     return data
-    } catch (error) {
-        return error.message
-    }
+  } catch (error) { return error.message }
 })
 
 export const getApartment = createAsyncThunk('apartments/getApartment', async id => {
-    try {
-        const { data, error } = await supabase
-        .from('apartments')
-        .select()
-        .eq('id', id)
+  try {
+    const { data, error } = await supabase
+    .from('apartments')
+    .select()
+    .eq('id', id)
 
-        return data[0]
-    } 
-    catch (error) { return error.message }
+    return data[0]
+  } 
+  catch (error) { return error.message }
 })
 
 export const addApartment = createAsyncThunk('apartments/addApartment', async newApartment => {
-    try {
-      const { data, error } = await supabase
-        .from('apartments')
-        .insert([
-          { 
-            title: newApartment.title, 
-            description: newApartment.description, 
-            rooms: newApartment.rooms, 
-            facilities: newApartment.facilities,
-            city: newApartment.city,
-            address: newApartment.address,
-            singleBeds: newApartment.singleBeds,
-            doubleBeds: newApartment.doubleBeds,
-            distanceFromTheSea: newApartment.distanceFromTheSea,
-            price: newApartment.price,
-            availability: newApartment.availability
-          }
-        ])
-        .single()
+  try {
+    const { data, error } = await supabase
+      .from('apartments')
+      .insert([
+        { 
+          title: newApartment.title, 
+          description: newApartment.description, 
+          rooms: newApartment.rooms, 
+          facilities: newApartment.facilities,
+          city: newApartment.city,
+          address: newApartment.address,
+          singleBeds: newApartment.singleBeds,
+          doubleBeds: newApartment.doubleBeds,
+          distanceFromTheSea: newApartment.distanceFromTheSea,
+          price: newApartment.price,
+          availability: newApartment.availability
+        }
+      ])
+      .single()
 
-        return newApartment
-    } 
-    catch (error) { 
-        console.log(error.message)
-        return error.message 
-    }
+    return newApartment
+  } 
+  catch (error) { 
+    return error.message 
+  }
 })
 
 export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async id => {
@@ -163,61 +160,60 @@ const initialState = {
 }
 
 const apartmentsSlice = createSlice({
-    name: 'apartments',
-    initialState,
-    reducers: {
-      setFilter: (state, action) => {
-        state.filter = action.payload
-      },
-      setFilterQuery: (state, action) => {
-        state.filterQuery = action.payload
-      },
-      setSort: (state, action) => {
-        state.sort = action.payload
-      },
-      setSortOrder: (state, action) => {
-        state.sortOrder = action.payload
-      }
+  name: 'apartments',
+  initialState,
+  reducers: {
+    setFilter: (state, action) => {
+      state.filter = action.payload
     },
-    extraReducers(builder) {
-      builder
-      // SUPABASE: 
-      .addCase(getAllApartments.fulfilled, (state, action) => {
-        state.apartments = action.payload;
-        state.status = 'successed';
-        state.isLoading = false
-      })
-      .addCase(getAllApartments.pending, (state, action) => {
-        // state.status = 'successed';
-        state.isLoading = true
-      })
-      .addCase(getApartment.fulfilled, (state, action) => {
-        // console.log(action.payload)
-        state.apartment = action.payload
-      })
-      // .addCase(getApartment.pending, (state, action) => {
-      //     state.status = 'loading'
-      // })
-      .addCase(addApartment.fulfilled, (state, action) => {
-        // console.log(action.payload)
-        state.apartments.push(action.payload)
-        state.status = 'idle'
-        state.error = null
-      })
-      .addCase(deleteApartment.fulfilled, (state, action) => {
-        state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
-      })
-      .addCase(getAllFacilities.fulfilled, (state, action) => {
-        state.facilities = action.payload
-      })
-      .addCase(addFacility.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.facility = action.payload
-      })
-      .addCase(updateApartmentAvailability.fulfilled, (state, action) => {
-        // console.log(state.apartments)
-      })
+    setFilterQuery: (state, action) => {
+      state.filterQuery = action.payload
+    },
+    setSort: (state, action) => {
+      state.sort = action.payload
+    },
+    setSortOrder: (state, action) => {
+      state.sortOrder = action.payload
     }
+  },
+  extraReducers(builder) {
+    builder
+    .addCase(getAllApartments.fulfilled, (state, action) => {
+      state.apartments = action.payload;
+      state.status = 'successed';
+      state.isLoading = false
+    })
+    .addCase(getAllApartments.pending, (state, action) => {
+      // state.status = 'successed';
+      state.isLoading = true
+    })
+    .addCase(getApartment.fulfilled, (state, action) => {
+      // console.log(action.payload)
+      state.apartment = action.payload
+    })
+    // .addCase(getApartment.pending, (state, action) => {
+    //     state.status = 'loading'
+    // })
+    .addCase(addApartment.fulfilled, (state, action) => {
+      // console.log(action.payload)
+      state.apartments.push(action.payload)
+      state.status = 'idle'
+      state.error = null
+    })
+    .addCase(deleteApartment.fulfilled, (state, action) => {
+      state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+    })
+    .addCase(getAllFacilities.fulfilled, (state, action) => {
+      state.facilities = action.payload
+    })
+    .addCase(addFacility.fulfilled, (state, action) => {
+      console.log(action.payload)
+      state.facility = action.payload
+    })
+    .addCase(updateApartmentAvailability.fulfilled, (state, action) => {
+      // console.log(state.apartments)
+    })
+  }
 })
 
 // State exports 

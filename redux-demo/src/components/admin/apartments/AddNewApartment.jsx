@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import { addApartment, getAllFacilities, selectFacilities } from './apartmentsSlice'
 import Select from '../../../UI/Select'
-import supabase from '../../../supabaseClient';
-import { v4 } from 'uuid';
-import { storage } from '../../../supabaseClient';
 
 const AddNewApartment = () => {
   const navigate = useNavigate() 
@@ -54,7 +51,6 @@ const AddNewApartment = () => {
     }))
 
     toast.success(`Apartment ${title} has been added to database!`)
-
     navigate('/adminDashboard/apartments')
   }
 

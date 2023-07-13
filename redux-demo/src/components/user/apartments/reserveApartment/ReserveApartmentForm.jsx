@@ -138,7 +138,7 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
                 excludeDateIntervals={reservedDateIntervals}
                 renderDayContents={renderDayContents}
             />
-            <button className='bg-[#FF385C] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve</button>
+            <button className='bg-[#FF385C] hover:bg-[#fd4e6e] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve</button>
         </form>
     )
 }

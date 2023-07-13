@@ -1,5 +1,5 @@
 import React from 'react'
-import ApartmentCard from './../ApartmentCard';
+import ApartmentCard from './ApartmentCard.jsx';
 
 const ApartmentsGrid = ({ apartments }) => {
   return (

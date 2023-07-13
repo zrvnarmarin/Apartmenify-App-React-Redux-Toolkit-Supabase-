@@ -55,63 +55,63 @@ const UpdateApartment = () => {
             value={updatedApartment.title} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, title: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Title' 
         />
         <input 
             value={updatedApartment.city} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, city: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='City' 
         />
         <input 
             value={updatedApartment.price} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, price: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Price' 
         />
         <input 
             value={updatedApartment.distanceFromTheSea} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, distanceFromTheSea: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Distance From The Sea' 
         />
         <input 
             value={updatedApartment.description} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, description: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Description' 
         />
         <input 
             value={updatedApartment.address} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, address: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Address' 
         />
         <input 
             value={updatedApartment.rooms} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, rooms: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Rooms' 
         />
         <input 
             value={updatedApartment.singleBeds} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, singleBeds: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Single Beds' 
         />
         <input 
             value={updatedApartment.doubleBeds} 
             onChange={e => setUpdatedApartment(prev => { return { ...prev, doubleBeds: e.target.value }})} 
             type="text" 
-            className='bg-[#121212] text-[#f5f0f1] rounded-md px-6 py-2 outline-none'
+            className='bg-[#1F262F] text-[#f5f0f1] px-6 py-2 border-[1px] border-slate-600' 
             placeholder='Double Beds' 
         />
         <Select

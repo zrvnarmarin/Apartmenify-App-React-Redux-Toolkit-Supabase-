@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Navbar from './Navbar.jsx';
-import { selectAllApartments, getAllApartments } from '../apartments/apartmentsSlice.js';
+import { getAllApartments } from '../apartments/apartmentsSlice.js';
 
 const AdminDashboard = () => {
   const dispatch = useDispatch()
