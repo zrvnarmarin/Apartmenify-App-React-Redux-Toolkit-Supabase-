@@ -38,7 +38,7 @@ const UpdateApartment = () => {
         // console.log(updatedApartmentObject, 'UPDATED OBJECT')
 
         dispatch(updateApartment(updatedApartmentObject))
-
+        toast.success(`Apartment with ID ${apartmentToUpdate.id} updated!`)
         navigate('/adminDashboard/apartments')
     }
 

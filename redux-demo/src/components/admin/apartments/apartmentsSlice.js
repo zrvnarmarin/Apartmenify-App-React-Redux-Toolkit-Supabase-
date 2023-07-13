@@ -248,6 +248,9 @@ export const selectFilteredApartments = createSelector(
     else if (filter === 'City') {
       return apartment.city.toLowerCase().includes(filterQuery.toLowerCase());
     } 
+    else if (filter === 'Number Of Rooms') {
+      return apartment.rooms.toString().toLowerCase().includes(filterQuery.toLowerCase())
+    }
     else {
       return apartments;
     }
