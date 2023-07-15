@@ -21,6 +21,7 @@ const Reservation = ({ index, id, name, surname, startDate, endDate, apartmentTi
 
   const deleteSelectedReservation = () => {
     dispatch(deleteReservation(id))
+    console.log(id)
     toast.success(`Reservation # ${id} is deleted permanently!`)
   }
 

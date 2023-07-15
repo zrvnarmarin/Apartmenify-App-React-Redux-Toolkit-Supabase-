@@ -12,8 +12,6 @@ const FilterApartment = () => {
   const filterChangeHandler = e => dispatch(setFilter(e.target.value))
   const filterQueryChangeHandler = e => dispatch(setFilterQuery(e.target.value))
 
-  console.log(filter, filterQuery)
-
   return (
     <div className='flex flex-wrap gap-6 items-center'>
       <div className='flex flex-row gap-4 items-center'>

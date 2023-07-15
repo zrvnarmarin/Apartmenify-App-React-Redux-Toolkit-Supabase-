@@ -17,8 +17,9 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
 
   const deleteSelectedApartment = () => {
     dispatch(deleteApartment(id))
-    toast.success('Apartment deleted!')
-    dispatch(getAllWishlists())
+    toast.success(`Apartment with ID ${id} deleted!`)
+    // dispatch(getAllWishlists())
+    console.log(id)
   }
 
   const [isOpenMoreDetailsSection, setIsOpenMoreDetailsSection] = useState(false)
@@ -34,7 +35,7 @@ const Apartment = ({ id, tableIndex, title, city, rooms, price, description, add
 
         <div className=' text-[#f5eced] text-xl font-semibold col-span-full md:col-span-1'>
           <span className='inline-block md:hidden'>#</span>
-          <span>{tableIndex}</span>
+          <span>{tableIndex}  {id}</span>
         </div>
 
         <div className=' col-span-full md:col-span-1'>

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit"
 import supabase from "../../../supabaseClient";
 
 export const addReservation = createAsyncThunk('reservations/addReservation', async newReservation => {
+    // console.log(newReservation.startDate, newReservation.endDate)
     try {
         const { data, error } = await supabase
             .from('reservations')
@@ -65,7 +66,6 @@ export const getReservationsByApartmentId = createAsyncThunk('reservations/getRe
         // console.log(`All reservations on apartment with ID of ${apartmentId}: `, data)
 
         // TO DO: extract start and end dates for each reservation and disable those dates on date picker
-
         return data
 
     } catch (error) {
@@ -79,8 +79,6 @@ export const getReservationsByUserId = createAsyncThunk('reservations/getReserva
     .select()
     .eq('userId', userId)
 
-    // console.log(data)
-
     return data
 })
 
@@ -91,7 +89,8 @@ export const deleteReservation = createAsyncThunk('reservations/deleteReservatio
         .delete()
         .eq('id', reservationId)
 
-    return reservationId
+        console.log(reservationId)
+        return reservationId
 
     } catch (error) {
         return error.message
@@ -161,6 +160,7 @@ const initialState = {
 
     // User 
     bookingStatusFilter: 'current',
+    allCurrentApartmentReservations: [],
     
     // Admin 
     reservationFilter: 'all',
@@ -242,10 +242,10 @@ const reservationsSlice = createSlice({
             state.reservation = action.payload
         })
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
-            // state.reservations = action.payload
+            state.allCurrentApartmentReservations = action.payload
             state.isLoading = false
 
-            console.log(action.payload)
+            console.log(action.payload, 'all reservations from all users on this apartment')
 
             // console.log(action.payload)
         })
@@ -288,6 +288,7 @@ export const selectBookingStatusFilter = (state) => state.reservations.bookingSt
 export const selectReservationStatusFilter = (state) => state.reservations.reservationStatusFilter
 export const selectReservationFilter = (state) => state.reservations.reservationFilter
 export const selectReservationFilterQuery = (state) => state.reservations.reservationFilterQuery
+export const selectAllCurrentApartmentReservations = (state) => state.reservations.allCurrentApartmentReservations
 
 // Reducers
 export const { 
@@ -342,6 +343,24 @@ export const filteredReservations = createSelector(
         return false;
       })
 );
+
+export const allCurrentApartmentReservationsStartAndEndDates = createSelector(
+    [selectAllCurrentApartmentReservations],
+    (allCurrentApartmentReservations) => {
+        const intervals = allCurrentApartmentReservations.map(reservation => ({
+            start: new Date(reservation.startDate.slice(0, 10)),
+            end: new Date(reservation.endDate.slice(0, 10))
+        }));
+
+        // Add an interval for the day before the start date of each reservation
+        const beforeIntervals = allCurrentApartmentReservations.map(reservation => ({
+            start: new Date(reservation.startDate.slice(0, 10)).setDate(new Date(reservation.startDate.slice(0, 10)).getDate() - 1),
+            end: new Date(reservation.startDate.slice(0, 10))
+        }));
+
+        return [...intervals, ...beforeIntervals];
+    }
+)
 
 // Slice
 export default reservationsSlice.reducer

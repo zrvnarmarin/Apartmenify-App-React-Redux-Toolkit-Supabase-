@@ -5,17 +5,18 @@ import supabase from '../../../../supabaseClient';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { getDatesBetweenIntervals } from '../../../../utils/utilityFunctions';
 import { updateApartmentAvailability } from '../../../admin/apartments/apartmentsSlice';
 import {
-    addReservation, getReservationsByApartmentId, selectAllReservations, setName, setSurname,
+    addReservation, getReservationsByApartmentId, setName, setSurname,
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId,
-    setUserEmail, setDateRange as setRangeDate
+    setUserEmail, setDateRange as setRangeDate, allCurrentApartmentReservationsStartAndEndDates
 }
 from '../../../admin/reservations/reservationsSlice';
 
+const APARTMENIFY_FEE = 34
+const CLEANING_FEE = 45
+
 const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) => {
-    const allReservations = useSelector(selectAllReservations)
     const name = useSelector(selectName)
     const surname = useSelector(selectSurname)
     const userId = useSelector(selectUserId)
@@ -45,7 +46,6 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
         dispatch(updateApartmentAvailability({ apartmentId: apartmentId, availability: 'reserved' }))
 
         resetForm()
-
         toast.success('Reservation successful!')
     }
 
@@ -62,47 +62,13 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
             dispatch(setUserEmail(value.data.user.email))
         })
 
-        // Get all reservations on mount
+        // Get all current reservations of current selected apartment from user
         dispatch(getReservationsByApartmentId(apartmentId))
     }, [])
 
-    const getReservedDateIntervals = () => {
-        const intervals = allReservations.map(reservation => ({
-            start: new Date(reservation.startDate.slice(0, 10)),
-            end: new Date(reservation.endDate.slice(0, 10))
-        }));
 
-        // Add an interval for the day before the start date of each reservation
-        const beforeIntervals = allReservations.map(reservation => ({
-            start: new Date(reservation.startDate.slice(0, 10)).setDate(new Date(reservation.startDate.slice(0, 10)).getDate() - 1),
-            end: new Date(reservation.startDate.slice(0, 10))
-        }));
-
-        return [...intervals, ...beforeIntervals];
-    };
-
-    const reservedDateIntervals = getReservedDateIntervals()
-
-    const getStartAndEndDatesOfEachReservation = () => {
-        const startAndEndReservedDates = allReservations.map(reservation => ({
-            start: new Date(reservation.startDate.slice(0, 10)),
-            end: new Date(reservation.endDate.slice(0, 10))
-        }));
-
-        return startAndEndReservedDates
-    }
-
-    const startAndEndDatesOfEachReservation = getStartAndEndDatesOfEachReservation();
-
-    const renderDayContents = (dayOfMonth, date) => {
-        // console.log(date) // format: Sun Feb 26 2023 00:00:00 GMT+0100 (Central European Standard Time)
-
-        const allReservedDates = startAndEndDatesOfEachReservation
-        .map(dates => getDatesBetweenIntervals(dates.start, dates.end))
-        .flat(1)
-
-        return <div>{dayOfMonth}</div>
-    };
+    const allCurrentApartmentReservationsStartAndEndDatesIntervals = useSelector(allCurrentApartmentReservationsStartAndEndDates)
+    console.log(allCurrentApartmentReservationsStartAndEndDatesIntervals, 'reserved intervals')
 
     return (
         <form onSubmit={submitFormHandler} className='flex flex-col gap-4 '>
@@ -128,15 +94,14 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
                 endDate={endDate}
                 onChange={selectedDate => {
                     setDateRange(selectedDate)
-                    // console.log(selectedDate, 'selected date')
                     dispatch(setRangeDate(JSON.stringify(selectedDate)))
                 }}
                 isClearable={true}
                 dateFormat='dd.MM.yyyy'
                 minDate={new Date()}
                 clearButtonTitle='Clear Dates'
-                excludeDateIntervals={reservedDateIntervals}
-                renderDayContents={renderDayContents}
+                excludeDateIntervals={allCurrentApartmentReservationsStartAndEndDatesIntervals}
+                // highlightDates={allReservedDates}
             />
             <button className='bg-[#FF385C] hover:bg-[#fd4e6e] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve</button>
         </form>

@@ -51,6 +51,7 @@ const AddNewApartment = () => {
     }))
 
     toast.success(`Apartment ${title} has been added to database!`)
+
     navigate('/adminDashboard/apartments')
   }
 

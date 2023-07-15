@@ -10,7 +10,7 @@ const ApartmentTable = ({ apartments }) => {
 
       {apartments.map((apartment, tableIndex) =>
         <Apartment
-          key={apartment.id}
+          key={tableIndex}
           id={apartment.id}
           tableIndex={tableIndex + 1} 
           title={apartment.title}

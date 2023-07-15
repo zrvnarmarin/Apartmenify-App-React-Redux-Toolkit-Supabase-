@@ -53,15 +53,16 @@ export const addApartment = createAsyncThunk('apartments/addApartment', async ne
 })
 
 export const deleteApartment = createAsyncThunk('apartments/deleteApartment', async id => {
-    try {
-        const { data, error } = await supabase
-        .from('apartments')
-        .delete()
-        .eq('id', id)
+  try {
+    // const { data, error } = await supabase
+    // .from('apartments')
+    // .delete()
+    // .eq('id', id)
 
-        return id
-    } 
-    catch (error) { return error.message }
+    console.log(id)
+    return id
+  } 
+  catch (error) { return error.message }
 })
 
 export const updateApartment = createAsyncThunk('apartments/updateApartment', async updatedApartment => {
@@ -195,7 +196,8 @@ const apartmentsSlice = createSlice({
       state.error = null
     })
     .addCase(deleteApartment.fulfilled, (state, action) => {
-      state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+      // state.apartments = state.apartments.filter(apartment => apartment.id !== action.payload)
+      console.log(action.payload)
     })
     .addCase(getAllFacilities.fulfilled, (state, action) => {
       state.facilities = action.payload
