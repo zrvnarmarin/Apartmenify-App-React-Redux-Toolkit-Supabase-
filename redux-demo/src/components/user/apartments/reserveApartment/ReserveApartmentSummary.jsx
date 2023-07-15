@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { desiredStayNightsNumber } from '../../../admin/reservations/reservationsSlice';
+import { APARTMENIFY_PERCENTAGE_FEE } from '../../../../constants';
 
 const ReserveApartmentSummary = ({ apartmentPrice }) => {
   const numberOfDesiredStayNights = useSelector(desiredStayNightsNumber);
   const totalPriceWithAllNights = apartmentPrice * numberOfDesiredStayNights;
+  const apartmenifyFee = totalPriceWithAllNights * APARTMENIFY_PERCENTAGE_FEE
 
   if (totalPriceWithAllNights === 0) return 
 
@@ -16,7 +18,7 @@ const ReserveApartmentSummary = ({ apartmentPrice }) => {
       </div>
       <div className='flex flex-row gap-1 justify-between'>
         <p className='underline'>Apartmenify fee</p>
-        <p>€ [78]</p>
+        <p>€ {apartmenifyFee}</p>
       </div>
       <div className='flex flex-row gap-1 justify-between pb-3'>
         <p className='underline'>Cleaning fee</p>

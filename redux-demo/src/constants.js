@@ -1,0 +1,1 @@
+export const APARTMENIFY_PERCENTAGE_FEE = 0.13
