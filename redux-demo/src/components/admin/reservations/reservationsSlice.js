@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import supabase from "../../../supabaseClient";
+import { formatDate } from "../../../utils/utilityFunctions";
 
 export const addReservation = createAsyncThunk('reservations/addReservation', async newReservation => {
     // console.log(newReservation.startDate, newReservation.endDate)
@@ -161,6 +162,7 @@ const initialState = {
     // User 
     bookingStatusFilter: 'current',
     allCurrentApartmentReservations: [],
+    totalPriceOfStay: 0,
     
     // Admin 
     reservationFilter: 'all',
@@ -206,7 +208,7 @@ const reservationsSlice = createSlice({
             const parsedDateRange = JSON.parse(action.payload)
             const formatedDates = parsedDateRange.map(dates => new Date(dates).toLocaleDateString())
 
-            console.log(formatedDates, 'parsed date range')
+            // console.log(formatedDates, 'parsed date range')
 
             state.dateRange = parsedDateRange
             state.startDate = formatedDates[0]
@@ -245,7 +247,7 @@ const reservationsSlice = createSlice({
             state.allCurrentApartmentReservations = action.payload
             state.isLoading = false
 
-            console.log(action.payload, 'all reservations from all users on this apartment')
+            // console.log(action.payload, 'all reservations from all users on this apartment')
 
             // console.log(action.payload)
         })
@@ -283,7 +285,6 @@ export const selectUserEmail = (state) => state.reservations.userEmail
 export const selectStartDate = (state) => state.reservations.startDate
 export const selectEndDate = (state) => state.reservations.endDate
 export const selectDateRange = (state) => state.reservations.dateRange
-export const selectCurrentDate = (state) => state.reservations.currentDate
 export const selectBookingStatusFilter = (state) => state.reservations.bookingStatusFilter
 export const selectReservationStatusFilter = (state) => state.reservations.reservationStatusFilter
 export const selectReservationFilter = (state) => state.reservations.reservationFilter
@@ -361,6 +362,34 @@ export const allCurrentApartmentReservationsStartAndEndDates = createSelector(
         return [...intervals, ...beforeIntervals];
     }
 )
+
+export const desiredStayNightsNumber = createSelector(
+    [selectStartDate, selectEndDate],
+    (startDate, endDate) => {
+      if (startDate && endDate) {
+        const dates = [];
+    
+        // Convert the start and end date states to date objects
+        const startDateObj = new Date(startDate);
+        const endDateObj = new Date(endDate);
+        
+        // Clone the start date
+        const currentDate = new Date(startDateObj);
+        
+        // Loop until the current date is less than the end date
+        while (currentDate < endDateObj) {
+          dates.push(formatDate(currentDate));
+          
+          // Increment the current date by 1 day
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+        
+        return dates.length;
+      }
+  
+      return 0;
+    }
+  );
 
 // Slice
 export default reservationsSlice.reducer

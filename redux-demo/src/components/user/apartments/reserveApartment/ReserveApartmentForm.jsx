@@ -9,7 +9,7 @@ import { updateApartmentAvailability } from '../../../admin/apartments/apartment
 import {
     addReservation, getReservationsByApartmentId, setName, setSurname,
     resetName, resetSurname, selectName, selectSurname, selectUserId, selectUserEmail, setUserId,
-    setUserEmail, setDateRange as setRangeDate, allCurrentApartmentReservationsStartAndEndDates
+    setUserEmail, setDateRange as setRangeDate, allCurrentApartmentReservationsStartAndEndDates,
 }
 from '../../../admin/reservations/reservationsSlice';
 
@@ -23,6 +23,7 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
     const userEmail = useSelector(selectUserEmail)
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
+    const allCurrentApartmentReservationsStartAndEndDatesIntervals = useSelector(allCurrentApartmentReservationsStartAndEndDates)
 
     const dispatch = useDispatch()
     const nameChangeHandler = e => dispatch(setName(e.target.value))
@@ -65,10 +66,6 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
         // Get all current reservations of current selected apartment from user
         dispatch(getReservationsByApartmentId(apartmentId))
     }, [])
-
-
-    const allCurrentApartmentReservationsStartAndEndDatesIntervals = useSelector(allCurrentApartmentReservationsStartAndEndDates)
-    console.log(allCurrentApartmentReservationsStartAndEndDatesIntervals, 'reserved intervals')
 
     return (
         <form onSubmit={submitFormHandler} className='flex flex-col gap-4 '>
