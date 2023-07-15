@@ -7,6 +7,7 @@ const ReserveApartmentSummary = ({ apartmentPrice }) => {
   const numberOfDesiredStayNights = useSelector(desiredStayNightsNumber);
   const totalPriceWithAllNights = apartmentPrice * numberOfDesiredStayNights;
   const apartmenifyFee = totalPriceWithAllNights * APARTMENIFY_PERCENTAGE_FEE
+  const totalReservationSum = totalPriceWithAllNights + apartmenifyFee
 
   if (totalPriceWithAllNights === 0) return 
 
@@ -20,14 +21,10 @@ const ReserveApartmentSummary = ({ apartmentPrice }) => {
         <p className='underline'>Apartmenify fee</p>
         <p>€ {apartmenifyFee}</p>
       </div>
-      <div className='flex flex-row gap-1 justify-between pb-3'>
-        <p className='underline'>Cleaning fee</p>
-        <p>€ [78]</p>
-      </div>
       <hr />
       <div className='flex flex-row gap-1 justify-between font-semibold text-xl'>
         <p>Total</p>
-        <p>€ [1299]</p>
+        <p>€ {totalReservationSum}</p>
       </div>
     </div>
   );
