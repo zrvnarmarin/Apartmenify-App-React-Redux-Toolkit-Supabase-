@@ -32,6 +32,7 @@ const ApartmentCard = ({ id: apartmentId, title, city, price, singleBeds, double
                 <img
                     src="https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1"
                     className='flex-1 w-full h-full object-cover rounded-xl'
+                    alt='apartment_main_image'
                 />
             </div>
 

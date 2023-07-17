@@ -162,7 +162,6 @@ const initialState = {
     // User 
     bookingStatusFilter: 'current',
     allCurrentApartmentReservations: [],
-    totalPriceOfStay: 0,
     
     // Admin 
     reservationFilter: 'all',
@@ -246,10 +245,6 @@ const reservationsSlice = createSlice({
         .addCase(getReservationsByApartmentId.fulfilled, (state, action) => {
             state.allCurrentApartmentReservations = action.payload
             state.isLoading = false
-
-            // console.log(action.payload, 'all reservations from all users on this apartment')
-
-            // console.log(action.payload)
         })
         .addCase(deleteReservation.fulfilled, (state, action) => {
             state.reservations = state.reservations.filter(reservation => reservation.id !== action.payload)

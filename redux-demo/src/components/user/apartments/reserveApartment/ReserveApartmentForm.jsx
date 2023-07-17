@@ -13,9 +13,6 @@ import {
 }
 from '../../../admin/reservations/reservationsSlice';
 
-const APARTMENIFY_FEE = 34
-const CLEANING_FEE = 45
-
 const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) => {
     const name = useSelector(selectName)
     const surname = useSelector(selectSurname)
@@ -98,7 +95,6 @@ const ReserveApartmentForm = ({ apartmentId, apartmentTitle, apartmentPrice }) =
                 minDate={new Date()}
                 clearButtonTitle='Clear Dates'
                 excludeDateIntervals={allCurrentApartmentReservationsStartAndEndDatesIntervals}
-                // highlightDates={allReservedDates}
             />
             <button className='bg-[#FF385C] hover:bg-[#fd4e6e] text-white rounded-lg px-4 py-2 text-lg font-semibold shadow-2xl'>Reserve</button>
         </form>

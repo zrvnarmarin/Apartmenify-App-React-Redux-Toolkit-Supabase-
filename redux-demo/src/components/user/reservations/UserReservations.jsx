@@ -13,12 +13,11 @@ import { getApartment } from '../../admin/apartments/apartmentsSlice';
 import RouteContainer from '../../admin/layout/RouteContainer';
 
 const UserReservations = () => {
-  const userReservations = useSelector(filteredReservationsByBookingStatus)
-  const { id } = useSelector(selectUser)
-  const bookingStatusFilter = useSelector(selectBookingStatusFilter)
-  console.log()
-
   const dispatch = useDispatch()
+
+  const userReservations = useSelector(filteredReservationsByBookingStatus)
+  const bookingStatusFilter = useSelector(selectBookingStatusFilter)
+  const { id } = useSelector(selectUser)
 
   const cancelSelectedReservation = reservationId => dispatch(cancelReservation(reservationId))
   const removeSelectedReservation = reservationId => dispatch(deleteReservation(reservationId))
@@ -31,7 +30,6 @@ const UserReservations = () => {
     dispatch(getReservationsByUserId(id))
   }, [dispatch])
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -97,7 +95,7 @@ const UserReservations = () => {
   return (
     <RouteContainer>
       <h1 className='text-3xl font-semibold text-slate-700 text-center ss:text-left'>Reservations</h1>
-      {/* <h1>CURRENT: {currentDate.toString()}</h1> */}
+      <h1>CURRENT: {currentDate.toString()}</h1>
       <BookingStatusFilter />
       { userReservations.length === 0 && <h1 className='text-2xl font-semibold text-slate-800 text-start'>No Reservations Available</h1> }
 
@@ -110,7 +108,7 @@ const UserReservations = () => {
               text-slate-800 text-md font-normal py-2 px-4 md:py-8 md:px-16 shadow-lg border-[1px] border-slate-200 items-center gap-4'
             >
               {/* <p>{i} {userReservation.status}</p> */}
-              <p className='font-semibold text-2xl text-center sm:text-start'>{userReservation.apartmentTitle}</p>
+              <p className='font-semibold text-2xl text-center sm:text-start'>{userReservation.apartmentTitle}, {userReservation.status}</p>
               <p className='flex flex-col gap-2 items-center justify-center'>
                 <span className='font-semibold text-lg'>Start Date:</span>
                 <span className='text-center text-lg'>{userReservation.startDate}</span>
@@ -140,6 +138,7 @@ const UserReservations = () => {
               { 
                 isModalOpen && modalType === 'confirm' && 
                 <ConfirmModal 
+                  isAdmin={false}
                   modalText={
                     userReservation.status === 'confirmed' || userReservation.status === 'inProgress' 
                     ? modalTexts.cancelCurrentReservation 
@@ -160,7 +159,6 @@ const UserReservations = () => {
                       dispatch(getApartment(userReservation.apartmentId))
                     }
                   }} 
-                  isAdmin={false}
                 />
               }
             </div>  

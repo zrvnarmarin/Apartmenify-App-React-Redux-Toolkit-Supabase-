@@ -5,8 +5,9 @@ import { APARTMENIFY_PERCENTAGE_FEE } from '../../../../constants';
 
 const ReserveApartmentSummary = ({ apartmentPrice }) => {
   const numberOfDesiredStayNights = useSelector(desiredStayNightsNumber);
+  
   const totalPriceWithAllNights = apartmentPrice * numberOfDesiredStayNights;
-  const apartmenifyFee = totalPriceWithAllNights * APARTMENIFY_PERCENTAGE_FEE
+  const apartmenifyFee = (totalPriceWithAllNights * APARTMENIFY_PERCENTAGE_FEE).toFixed(2)
   const totalReservationSum = totalPriceWithAllNights + apartmenifyFee
 
   if (totalPriceWithAllNights === 0) return 
