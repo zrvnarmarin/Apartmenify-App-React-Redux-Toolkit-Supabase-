@@ -7,9 +7,9 @@ const ModalContainer = ({ children, isAdmin }) => {
       `${ 
         isAdmin 
         ? 'bg-[#182028] text-[#f5eced] border-[1px] border-slate-600' 
-        : 'bg-slate-50 border-[1px] border-slate-300'
+        : ''
       } 
-        text-xl font-semibold w-96 max-w-[400px] rounded-md text-center p-4 flex flex-col
+        text-xl font-semibold max-w-4xl rounded-md text-center flex flex-col
       `}>
       {children}
     </div>

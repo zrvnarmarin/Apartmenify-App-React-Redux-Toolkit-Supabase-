@@ -23,7 +23,7 @@ import UserReservations from './components/user/reservations/UserReservations';
 import Wishlists from './components/user/wishlists/Wishlists';
 import Wishlist from './components/user/wishlists/Wishlist';
 
-// Toast messages component
+// Toast messages files
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
